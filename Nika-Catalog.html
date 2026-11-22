@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://nikamoiseeva.ru/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Ника Моисеева">
+<meta property="og:title" content="Ника Моисеева — Музыка от души">
+<meta property="og:description" content="Авторские песни, музыкальные стримы и репертуар Ники Моисеевой. Выберите любимую песню и закажите её на эфире!">
+<meta property="og:url" content="https://nikamoiseeva.ru/">
+<meta property="og:image" content="https://nikamoiseeva.ru/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ника Моисеева в студии звукозаписи — Музыка от души">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ника Моисеева — Музыка от души">
+<meta name="twitter:description" content="Авторские песни, музыкальные стримы и репертуар Ники Моисеевой">
+<meta name="twitter:image" content="https://nikamoiseeva.ru/og-preview.jpg">
+<meta name="theme-color" content="#15080a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ника Моисеева">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<script>
+if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready).then(reg=>{if(reg.active)reg.active.postMessage({type:'CACHE_PAGE',url:location.href})}).catch(()=>{})})}
+</script>
+<script>
+// On a real reload start at the top, without changing normal anchor navigation
+// or restoring pages from the back/forward cache.
+(()=>{
+  const nav=performance.getEntriesByType?performance.getEntriesByType('navigation')[0]:null;
+  const reload=nav?nav.type==='reload':!!(performance.navigation&&performance.navigation.type===1);
+  if(!reload)return;
+  try{if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.hash)history.replaceState(history.state,'',location.pathname+location.search)}catch{}
+  document.documentElement.classList.add('reload-top');
+  let cancelled=false;
+  const cancel=()=>{cancelled=true;document.documentElement.classList.remove('reload-top')};
+  for(const event of ['touchstart','pointerdown','wheel','keydown'])window.addEventListener(event,cancel,{once:true,passive:true});
+  const top=()=>{if(!cancelled){const active=document.activeElement;if(active&&active!==document.body&&typeof active.blur==='function')active.blur();window.scrollTo(0,0)}};
+  window.addEventListener('load',top,{once:true});
+  window.addEventListener('pageshow',event=>{if(event.persisted){cancel();return}top();requestAnimationFrame(()=>{top();requestAnimationFrame(()=>{top();cancel();try{if('scrollRestoration' in history)history.scrollRestoration='auto'}catch{}})})},{once:true});
+})();
+</script>
+<meta name="description" content="Репертуар Ники Моисеевой. Найдите и закажите любимую песню на стриме.">
+<title>Ника Моисеева | Песни на заказ</title>
+<style>
+:root{color-scheme:dark;--bg:#131014;--panel:#201920;--line:#3b2b38;--text:#fff6f4;--muted:#bcaab4;--pink:#f2879d;--gold:#efd29c}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button,a,input,select{ -webkit-tap-highlight-color:transparent}button,a{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--pink);outline-offset:4px}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}.top{border-bottom:1px solid var(--line);background:#191419}.nav{display:flex;align-items:center;justify-content:space-between;min-height:78px;gap:20px}.brand{display:flex;gap:10px;align-items:center;font-size:20px;letter-spacing:-.6px}.brand b{font-weight:450;color:var(--pink)}.berry{font-size:35px}.brand small{display:block;font-size:10px;letter-spacing:2px;color:var(--muted)}nav{display:flex;gap:26px;color:var(--muted);font-size:15px}nav a:hover{color:var(--pink)}.hero{position:relative;display:grid;grid-template-columns:1.25fr .9fr;align-items:center;min-height:390px;gap:30px;overflow:hidden;margin-top:28px;border-radius:26px;padding:54px;background:radial-gradient(ellipse at 95% 30%,#683044 0,transparent 55%),linear-gradient(120deg,#3a1b2b,#251820 70%);border:1px solid #5b354a}.eyebrow{font-weight:750;font-size:12px;letter-spacing:2.6px;color:var(--gold)}.dot{display:inline-block;background:var(--pink);width:8px;height:8px;border-radius:50%;margin-right:7px;box-shadow:0 0 12px var(--pink)}h1,h2,p{margin:0}h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(44px,6vw,78px);line-height:.99;letter-spacing:-3px;margin:20px 0 23px}h1 em{color:var(--gold);font-weight:400}p{color:var(--muted);font-size:17px;max-width:530px}.primary,.outline{border:1px solid #754453;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;font-weight:650;background:none;color:var(--text);min-height:44px}.primary{margin-top:28px;background:#f59bb0;color:#31121e;border-color:#f59bb0}.primary:hover{background:#ffd2db}.outline:hover{background:#422634;border-color:var(--pink)}.art{position:relative;min-height:280px;display:grid;place-items:center}.disc{width:245px;aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle,#20141e 0px,#20141e 4px,#493043 5px,#221820 6px,#221820 9px);border:2px solid #b6807b;display:grid;place-items:center;box-shadow:12px 16px 55px #100910a0;transform:rotate(-16deg)}.groove{width:91px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffd99a,#b16b54);display:grid;place-items:center;border:4px solid #f1ca9a;color:#51292e}.groove span{font-family:Georgia,serif;font-size:56px}.orbit{position:absolute;width:290px;height:158px;border:1px solid #cd9c7990;border-radius:50%;transform:rotate(-27deg)}.orbit.two{width:320px;height:205px;transform:rotate(28deg);border-color:#f7c1a143}.spark{position:absolute;color:var(--gold);font-size:31px}.s1{top:10%;right:12%}.s2{bottom:10%;left:10%;font-size:46px}.s3{top:25%;left:3%;font-size:15px}.note{position:absolute;right:4%;bottom:12%;font-family:Georgia,serif;color:var(--pink);font-size:46px;transform:rotate(-15deg)}.artlabel{position:absolute;bottom:0;right:0;color:#f9dbbb;font-size:12px;letter-spacing:3px}.artlabel span{color:var(--pink)}.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:15px;margin:19px 0 58px;background:var(--panel)}.stats div{padding:19px 25px;display:flex;align-items:center;gap:14px}.stats div+div{border-left:1px solid var(--line)}.stats strong{font-size:27px;color:var(--gold);font-weight:600}.stats span{color:var(--muted);font-size:14px}.catalog{scroll-margin-top:20px}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:23px}h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,44px);letter-spacing:-1.2px;line-height:1.13;margin-top:9px}.controls{display:flex;gap:12px}.search{flex:1;display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 14px;min-width:0}.search span{font-size:28px;color:var(--pink);line-height:1}.search input,.message input{width:100%;min-width:0;border:0;background:transparent;color:var(--text);padding:15px 0;outline:none}.search input::-webkit-search-cancel-button{display:none}.search:focus-within{border-color:var(--pink)}.search button{background:none;border:0;color:var(--muted);font-size:25px}select{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px 18px;color:var(--text);max-width:45%}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 26px}.filters button{border:1px solid var(--line);border-radius:999px;padding:8px 15px;background:transparent;color:var(--muted);font-size:14px}.filters button:hover,.filters .active{color:#ffe7ed;background:#432736;border-color:#b76f88}.results{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;padding:0 6px 11px;gap:10px}.songlist{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}.song{display:grid;grid-template-columns:42px minmax(0,1.2fr) minmax(0,.9fr) auto;align-items:center;gap:16px;padding:12px 18px;min-height:69px}.song+.song{border-top:1px solid var(--line)}.song:hover{background:#2b2029}.song .icon{border-radius:8px;background:#382634;color:var(--pink);display:grid;place-items:center;font-size:23px;width:39px;height:39px}.song .title{font-weight:600;overflow-wrap:anywhere}.artist{font-size:15px;color:var(--muted);overflow-wrap:anywhere}.badge{font-size:11px;border-radius:5px;color:var(--gold);border:1px solid #775d40;padding:1px 5px;display:inline-block;margin-left:6px}.orderbtn{background:#48283a;border:1px solid #744253;color:#ffd1dd;border-radius:8px;padding:8px 14px;font-weight:650;font-size:14px}.orderbtn:hover{background:#f59bb0;color:#31121e}.pages{display:flex;gap:8px;justify-content:center;margin:20px 0 46px;align-items:center;flex-wrap:wrap}.pages button{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:8px;min-width:40px;padding:9px}.pages button:disabled{opacity:.35;cursor:default}.pages .current{background:var(--pink);color:#321520;border-color:var(--pink)}.empty{padding:45px;text-align:center;color:var(--muted)}.support{display:flex;justify-content:space-between;align-items:center;gap:25px;padding:35px;background:#281b25;border:1px solid var(--line);border-radius:16px;margin:30px 0}.support h2{font-size:32px}.support p{margin-top:12px}footer{display:flex;justify-content:space-between;gap:15px;padding:24px 0 38px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}footer a{text-decoration:underline}dialog{border:1px solid #845267;border-radius:22px;background:#281b25;color:var(--text);width:min(540px,calc(100% - 26px));padding:32px;box-shadow:0 20px 100px #0008}dialog::backdrop{background:#100b10b9;backdrop-filter:blur(5px)}.close{position:absolute;right:15px;top:10px;background:transparent;border:0;color:var(--muted);font-size:30px}.modalicon{background:#4d2a3b;border-radius:14px;color:var(--gold);font-size:28px;width:52px;height:52px;display:grid;place-items:center;margin-bottom:20px}.message{margin-top:22px}.message label{font-size:14px;color:var(--muted)}.message>div{display:flex;gap:8px;align-items:center;background:#20171e;border:1px solid var(--line);padding:0 8px 0 12px;border-radius:10px;margin-top:7px}.message .outline{padding:6px 10px;font-size:13px;min-height:35px}.help{font-size:14px;margin:14px 0 20px}.pay{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:750;padding:13px 16px;border-radius:10px;margin-top:10px;color:#fff}.da{background:#d76a24}.dp{background:#337b64}.pay:hover{filter:brightness(1.18)}.pay span{font-size:13px;font-weight:550}#notice{font-size:14px;color:var(--gold);min-height:20px;margin-top:12px}@media(max-width:740px){.wrap{width:calc(100% - 24px)}.nav{min-height:65px}.brand{font-size:17px}.brand small{letter-spacing:1px;font-size:9px}.berry{font-size:28px}nav{gap:12px;font-size:13px}nav a:first-child{display:none}.hero{grid-template-columns:1fr;padding:30px;gap:18px;min-height:0}.hero h1{font-size:54px}.art{min-height:220px}.disc{width:180px}.groove{width:70px}.orbit{width:215px;height:110px}.orbit.two{width:245px;height:140px}.stats{margin-bottom:42px}.stats div{padding:12px 9px;display:block;text-align:center}.stats strong{display:block;font-size:25px}.stats span{font-size:12px}.sectionhead{align-items:start;flex-direction:column}.song{grid-template-columns:34px minmax(0,1fr) auto;gap:3px 10px;padding:12px 10px}.song .icon{grid-row:span 2;width:32px;height:32px;font-size:19px}.song .title{grid-column:2}.song .artist{grid-column:2;font-size:13px}.song .orderbtn{grid-column:3;grid-row:1/span 2;padding:8px 10px}.results span:last-child{display:none}.support{align-items:start;flex-direction:column;padding:24px}footer{flex-direction:column}.badge{margin:0 3px}.filters button{font-size:12px}.controls{gap:7px}.search{padding:0 9px}.search input{font-size:14px}select{max-width:40%;font-size:13px;padding:8px}.hero p{font-size:16px}dialog{padding:23px}}
+
+.pay.ds{background:#6543aa}
+.top .nav{align-items:flex-start;padding:20px 0;gap:24px}.top .brand{flex-shrink:0;padding-top:3px}.top .links{display:grid;gap:10px;width:min(100%,770px);color:var(--text)}.linkrow{display:grid;grid-template-columns:190px 1fr;align-items:center;gap:10px}.linklabel{color:var(--gold);font-size:14px;font-weight:650}.linkitems{display:flex;gap:7px;flex-wrap:wrap}.linkitems a{display:inline-flex;align-items:center;justify-content:center;padding:6px 12px;border-radius:8px;border:1px solid #674053;background:#2c2029;color:var(--text);font-size:14px;white-space:nowrap;transition:background .15s,border-color .15s}.linkitems a:hover{background:#482a3b;border-color:var(--pink);color:var(--text)}@media(max-width:840px){.top .nav{display:flex;flex-direction:column;gap:17px}.top .links{width:100%}}@media(max-width:520px){.linkrow{grid-template-columns:1fr;gap:5px}.linklabel{font-size:13px}.linkitems a{font-size:13px;padding:6px 10px}}
+/* Theme picker and coordinated palettes */
+.brandarea{display:flex;flex-direction:column;gap:14px;flex-shrink:0}.theme-picker{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}.theme-picker select{max-width:none;min-width:145px;padding:8px 10px;font-size:13px;cursor:pointer}.theme-picker select:focus-visible{outline:2px solid var(--pink)}
+:root[data-theme="berry"]{color-scheme:dark;--bg:#190c16;--panel:#2b1424;--line:#57304c;--text:#fff4fa;--muted:#e0b7cc;--pink:#ff77b0;--gold:#ffcae1;--accent-ink:#3b102c;--hero-start:#541a3b;--hero-end:#301529;--hero-glow:#9d3563}
+:root[data-theme="emerald"]{color-scheme:dark;--bg:#0c1917;--panel:#142723;--line:#31574e;--text:#effff7;--muted:#b2cec5;--pink:#74dfab;--gold:#f4d59a;--accent-ink:#12352b;--hero-start:#144f3e;--hero-end:#18332e;--hero-glow:#387c61}
+:root[data-theme="sapphire"]{color-scheme:dark;--bg:#101522;--panel:#19243b;--line:#3c527a;--text:#f1f5ff;--muted:#bacbe6;--pink:#8bbaff;--gold:#d4c3ff;--accent-ink:#142647;--hero-start:#25396a;--hero-end:#1d294e;--hero-glow:#5861b5}
+:root[data-theme="light"]{color-scheme:light;--bg:#fff8f8;--panel:#fff;--line:#eacbd5;--text:#482538;--muted:#775467;--pink:#a33063;--gold:#8a531b;--accent-ink:#fff;--hero-start:#fce3eb;--hero-end:#fff0e4;--hero-glow:#f9c4d5}
+:root[data-theme="noir"]{color-scheme:dark;--bg:#0c0c0e;--panel:#1b1b20;--line:#45434b;--text:#fff9ed;--muted:#ccc5b8;--pink:#e6c176;--gold:#f4dbaa;--accent-ink:#201609;--hero-start:#3a3222;--hero-end:#18171a;--hero-glow:#80602c}
+:root[data-theme="lavender"]{color-scheme:light;--bg:#f7f4ff;--panel:#fff;--line:#dcd3ee;--text:#38264d;--muted:#67557e;--pink:#7349ad;--gold:#70458c;--accent-ink:#fff;--hero-start:#e8ddff;--hero-end:#f7efff;--hero-glow:#ceafea}
+:root[data-theme="ocean"]{color-scheme:dark;--bg:#081a24;--panel:#102b39;--line:#2e5363;--text:#edfbff;--muted:#b3d2df;--pink:#65dce8;--gold:#9feac6;--accent-ink:#082c33;--hero-start:#15586b;--hero-end:#103141;--hero-glow:#168e9e}
+:root[data-theme="sunset"]{color-scheme:dark;--bg:#22110c;--panel:#331e16;--line:#694330;--text:#fff4e8;--muted:#e0bda6;--pink:#ffab72;--gold:#ffe0a1;--accent-ink:#361a0d;--hero-start:#773a24;--hero-end:#40241b;--hero-glow:#b55f39}
+:root[data-theme="chocolate"]{color-scheme:dark;--bg:#150b08;--panel:#291712;--line:#65402b;--text:#fff4e8;--muted:#d6b8a3;--pink:#e0a35d;--gold:#f1ce8a;--accent-ink:#32150e;--hero-start:#4d1b16;--hero-end:#24120e;--hero-glow:#7d2a22}
+:root[data-theme="winter"]{color-scheme:light;--bg:#f3f9ff;--panel:#fff;--line:#c9ddec;--text:#203f59;--muted:#49667e;--pink:#176b9a;--gold:#295e80;--accent-ink:#fff;--hero-start:#dcefff;--hero-end:#f0f8ff;--hero-glow:#b7d9f0}
+:root[data-theme="scarlet"]{color-scheme:dark;--bg:#16090b;--panel:#291013;--line:#70432b;--text:#fff6e7;--muted:#e0bcae;--pink:#f6c86b;--gold:#ffdb89;--accent-ink:#351006;--hero-start:#7b071a;--hero-end:#30090e;--hero-glow:#b90b25}
+:root[data-theme]:not([data-theme="classic"]) .top{background:color-mix(in srgb,var(--panel) 80%,var(--bg));border-color:var(--line)}
+:root[data-theme]:not([data-theme="classic"]) .hero{background:radial-gradient(ellipse at 95% 30%,var(--hero-glow) 0,transparent 55%),linear-gradient(120deg,var(--hero-start),var(--hero-end) 70%);border-color:var(--line)}
+:root[data-theme]:not([data-theme="classic"]) .primary,:root[data-theme]:not([data-theme="classic"]) .orderbtn:hover,:root[data-theme]:not([data-theme="classic"]) .pages .current{background:var(--pink);border-color:var(--pink);color:var(--accent-ink)}
+:root[data-theme]:not([data-theme="classic"]) .primary:hover{filter:brightness(1.08)}
+:root[data-theme]:not([data-theme="classic"]) .outline,:root[data-theme]:not([data-theme="classic"]) .linkitems a,:root[data-theme]:not([data-theme="classic"]) .orderbtn{border-color:var(--line)}
+:root[data-theme]:not([data-theme="classic"]) .linkitems a,:root[data-theme]:not([data-theme="classic"]) .orderbtn,:root[data-theme]:not([data-theme="classic"]) .song .icon,:root[data-theme]:not([data-theme="classic"]) .modalicon{background:color-mix(in srgb,var(--panel) 83%,var(--pink));color:var(--pink)}
+:root[data-theme]:not([data-theme="classic"]) .linkitems a{color:var(--text)}
+:root[data-theme]:not([data-theme="classic"]) .outline:hover,:root[data-theme]:not([data-theme="classic"]) .linkitems a:hover,:root[data-theme]:not([data-theme="classic"]) .filters button:hover,:root[data-theme]:not([data-theme="classic"]) .filters .active{background:color-mix(in srgb,var(--panel) 70%,var(--pink));border-color:var(--pink);color:var(--text)}
+:root[data-theme]:not([data-theme="classic"]) .song:hover{background:color-mix(in srgb,var(--panel) 90%,var(--pink))}
+:root[data-theme]:not([data-theme="classic"]) .support,:root[data-theme]:not([data-theme="classic"]) dialog{background:var(--panel);border-color:var(--line)}
+:root[data-theme]:not([data-theme="classic"]) .message>div{background:var(--bg)}
+:root[data-theme]:not([data-theme="classic"]) .badge{border-color:var(--gold)}
+:root[data-theme]:not([data-theme="classic"]) dialog::backdrop{background:#100b108e}
+:root[data-theme]:not([data-theme="classic"]) .disc{background:repeating-radial-gradient(circle,color-mix(in srgb,var(--hero-end) 75%,#16121f) 0px,color-mix(in srgb,var(--hero-end) 75%,#16121f) 4px,var(--line) 5px,var(--hero-end) 6px,var(--hero-end) 9px);border-color:var(--gold)}
+:root[data-theme]:not([data-theme="classic"]) .groove{background:radial-gradient(circle,var(--gold),var(--pink));border-color:var(--gold);color:var(--accent-ink)}
+:root[data-theme]:not([data-theme="classic"]) .orbit{border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+:root[data-theme]:not([data-theme="classic"]) .artlabel{color:var(--gold)}
+@media(max-width:840px){.brandarea{width:100%;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap}.theme-picker select{min-width:125px}}@media(max-width:400px){.brandarea{gap:8px}.theme-picker{gap:5px}.theme-picker select{min-width:0;width:130px;padding:7px}}
+/* Scarlet satin and polished gold — concert branding */
+:root[data-theme="scarlet"] .top{background:linear-gradient(105deg,#36090f,#1b090d 60%,#310c12);border-bottom:1px solid #ac7839}
+:root[data-theme="scarlet"] .brand b{color:#ffd88a}
+:root[data-theme="scarlet"] .hero{border-color:#c58d42;box-shadow:0 18px 48px #0005,inset 0 0 55px #25070d70}
+:root[data-theme="scarlet"] .hero:before,:root[data-theme="scarlet"] .hero:after{content:"";position:absolute;pointer-events:none;z-index:0;width:80%;height:30px;border-radius:50%;transform:rotate(-11deg);background:linear-gradient(180deg,#68101c,#ee1738 24%,#fc5363 40%,#8d071c 60%,#420711 76%,#b57925 79%,#ffe49a 89%,#a66b1b 100%);box-shadow:0 6px 15px #0004}
+:root[data-theme="scarlet"] .hero:before{top:-17px;left:-18%}
+:root[data-theme="scarlet"] .hero:after{bottom:-18px;right:-17%}
+:root[data-theme="scarlet"] .hero>div{position:relative;z-index:1}
+:root[data-theme="scarlet"] .primary,:root[data-theme="scarlet"] .orderbtn:hover{background:linear-gradient(145deg,#ffe6a3,#e4a83e);border-color:#ffdb87;color:#351006;box-shadow:0 4px 15px #e0a84930}
+:root[data-theme="scarlet"] .orderbtn{background:linear-gradient(145deg,#8d1025,#4d0c16);border-color:#ac7839;color:#ffe1a0}
+:root[data-theme="scarlet"] .orderbtn:hover{background:linear-gradient(145deg,#ffe6a3,#e4a83e);color:#351006}
+:root[data-theme="scarlet"] .linkitems a{background:#4a0d17;border-color:#805831}
+:root[data-theme="scarlet"] .filters .active{background:#831326;color:#fff1d0;border-color:#d8a653}
+:root[data-theme="scarlet"] .disc{border:2px solid #e5b75e;box-shadow:0 0 0 7px #b47a2730,12px 16px 55px #100910a0}
+:root[data-theme="scarlet"] .groove{background:radial-gradient(circle,#fff0a6,#d6a046 58%,#a36a1c);color:#470b13;border-color:#ffe5a3}
+.hero .photo-gallery{position:relative;z-index:1;min-width:0;display:flex;justify-content:center;align-items:center;isolation:isolate}
+.photo-frame{position:relative;width:min(100%,320px);aspect-ratio:3/4;border:1px solid var(--gold);border-radius:20px;overflow:hidden;background:var(--panel);box-shadow:12px 16px 50px #0005}
+.photo-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 36%;transition:opacity .35s}
+.photo-frame img.changing{opacity:0}
+.photo-frame::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 4px #ffffff12}
+.photo-controls{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:7px;padding:5px 8px;background:#141015bb;border-radius:20px;z-index:2}
+.photo-controls[hidden]{display:none}.photo-controls button{width:11px;height:11px;border:1px solid #fff;background:transparent;border-radius:50%;padding:0}.photo-controls button[aria-current="true"]{background:#fff}
+@media(max-width:740px){.photo-frame{width:min(100%,270px);aspect-ratio:3/4}.hero .photo-gallery{margin-top:6px}}@media(prefers-reduced-motion:reduce){.photo-frame img{transition:none}}
+footer.wrap{align-items:center;flex-wrap:wrap}footer .theme-picker{flex-shrink:0}footer .theme-picker select{min-width:145px}@media(max-width:740px){footer.wrap{align-items:flex-start}}
+.hero .tv-mention{font-size:14px;line-height:1.6;margin-top:19px;color:var(--muted)}.tv-mention a{display:inline-block;color:var(--gold);text-decoration:underline;text-underline-offset:3px;font-weight:600}.tv-mention a:hover{color:var(--pink)}
+.more-links{position:relative;display:inline-block}.more-links summary{display:flex;align-items:center;gap:7px;list-style:none;padding:6px 12px;border:1px solid var(--line);border-radius:8px;color:var(--muted);background:var(--panel);font-size:14px;cursor:pointer;white-space:nowrap}.more-links summary::-webkit-details-marker{display:none}.more-links summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-3px}.more-links[open] summary::after{transform:rotate(225deg);margin-top:3px}.more-links summary:hover,.more-links[open] summary{color:var(--gold);border-color:var(--gold)}.more-panel{position:absolute;z-index:10;top:calc(100% + 6px);right:0;min-width:164px;display:grid;gap:6px;padding:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 24px #0004}.more-panel a{justify-content:flex-start}.top{position:relative;z-index:5}@media(max-width:520px){.more-links summary{font-size:13px;padding:6px 10px}.more-panel{min-width:140px}}
+.hero-nav{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px;font-size:14px;color:var(--gold)}.hero-nav a:hover{text-decoration:underline}.release-strip{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;padding:19px 22px;margin:-30px 0 45px;border:1px solid var(--line);border-radius:14px;background:var(--panel);scroll-margin-top:20px}.release-info{display:flex;align-items:center;gap:15px}.release-icon{font-size:29px;color:var(--gold);background:var(--bg);border-radius:12px;padding:8px 16px}.release-strip h2{font-size:26px;margin:4px 0}.release-strip p{font-size:14px}.release-actions{display:flex;flex-wrap:wrap;gap:9px}.release-actions .outline{padding:8px 14px;font-size:14px}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:38px 0 24px}.profile-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;scroll-margin-top:20px}.profile-card h2{font-size:32px;margin-bottom:14px}.profile-card p{font-size:16px;margin-bottom:18px}.original-chips{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}.original-chips button{color:var(--text);border:1px solid var(--line);border-radius:999px;background:var(--bg);padding:6px 12px;cursor:pointer}.original-chips button:hover{border-color:var(--gold);color:var(--gold)}@media(max-width:740px){.profile-grid{grid-template-columns:1fr}.release-strip{margin:-20px 0 35px}.profile-card{padding:22px}}
+.premiere-banner{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:22px;margin:20px 0 -9px;padding:25px 28px;background:linear-gradient(115deg,color-mix(in srgb,var(--panel) 64%,var(--pink)),var(--panel) 70%);border:1px solid var(--gold);border-radius:17px;overflow:hidden;box-shadow:0 7px 28px color-mix(in srgb,var(--gold) 15%,transparent);scroll-margin-top:20px}.premiere-banner::after{content:"♫";position:absolute;z-index:-1;font-family:Georgia,serif;font-size:148px;line-height:1;right:19%;top:-20px;color:var(--gold);opacity:.11;transform:rotate(-12deg)}.premiere-flag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:2px;color:var(--gold)}.premiere-flag::before{content:"";height:8px;width:8px;background:var(--gold);border-radius:50%;box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 22%,transparent)}.premiere-banner h2{font-size:clamp(28px,4vw,42px);margin:6px 0;color:var(--text)}.premiere-banner p{font-size:16px}.premiere-banner .premiere-action{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;padding:12px 17px;color:#321c0b;background:linear-gradient(135deg,#fff0b7,#e3ad4c);border:1px solid #f8d583;font-weight:750}.premiere-action:hover{filter:brightness(1.08)}.feature-section{margin:35px 0;scroll-margin-top:20px}.feature-section .sectionhead{margin-bottom:18px}.schedule-grid,.clip-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.schedule-day,.clip-card,.history-card{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden}.schedule-day{padding:20px;text-align:center}.schedule-day strong{display:block;font-size:24px;color:var(--gold);margin-top:5px}.schedule-day span{color:var(--muted);font-size:14px}.schedule-note{margin:13px 0 0;font-size:14px}.schedule-note a,.history-card a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}.clip-card{display:flex;flex-direction:column;transition:border-color .15s}.clip-card:hover{border-color:var(--gold)}.clip-thumb{aspect-ratio:16/9;position:relative;background:var(--bg);display:grid;place-items:center;overflow:hidden}.clip-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}.clip-play{z-index:1;background:#151015bf;color:#fff;border-radius:50%;width:42px;height:42px;display:grid;place-items:center;font-size:18px;border:1px solid #fff8}.clip-caption{padding:12px 14px;font-weight:650}.clip-caption small{display:block;color:var(--muted);font-weight:400;margin-top:3px}.history-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.history-card{padding:20px}.history-card time{font-size:13px;color:var(--gold);font-weight:650}.history-card h3{margin:5px 0 8px;font-size:21px}.history-card p{font-size:15px;margin-bottom:12px}@media(max-width:740px){.premiere-banner{align-items:flex-start;flex-direction:column;padding:20px;gap:14px}.premiere-banner::after{right:0}.clip-grid,.history-grid{grid-template-columns:1fr}.schedule-day{padding:12px 7px}.schedule-day strong{font-size:21px}.schedule-day span{font-size:12px}} 
+.schedule-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* Nika Moiseeva — unified concert identity */
+:root{--accent-ink:#31121e;--brand-red:#d5203d;--brand-gold:#f5ce78;--brand-dark:#24090f}
+body{background:radial-gradient(ellipse at 50% 0,color-mix(in srgb,var(--pink) 7%,var(--bg)),var(--bg) 42%);background-attachment:fixed}
+.brand{font-family:Georgia,serif;font-size:25px;line-height:1.05;letter-spacing:-.7px}.brand b{font-weight:400}.brand small{font-family:system-ui,sans-serif;margin-top:6px;letter-spacing:2px;font-weight:650}
+.brand .berry{display:grid;place-items:center;width:51px;height:51px;border:1px solid color-mix(in srgb,var(--gold) 70%,transparent);border-radius:50%;background:radial-gradient(circle at 35% 25%,#601b2c,#23090f);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 9%,transparent);flex:none}.brand .berry svg{width:35px;height:35px}
+.top .nav{align-items:center;min-height:96px}.top .linklabel{font-weight:600;font-size:12px;letter-spacing:.25px}.top .linkitems a,.more-links summary{transition:background .18s,border-color .18s,transform .18s}.top .linkitems a:hover,.more-links summary:hover{transform:translateY(-1px)}
+.hero{min-height:430px;padding:48px 55px;border-radius:24px;box-shadow:0 20px 50px #0002}.hero h1{letter-spacing:-2.5px}.hero .eyebrow{display:flex;align-items:center;gap:5px}.hero .dot{margin:0}.hero .photo-gallery{position:relative}.hero .photo-gallery::before{content:"";position:absolute;width:min(93%,350px);aspect-ratio:3/4;border:1px solid var(--gold);opacity:.5;border-radius:27px;transform:rotate(5deg);z-index:-1}.photo-frame{border-radius:22px;border:2px solid var(--gold);box-shadow:0 14px 48px #0005,0 0 0 6px color-mix(in srgb,var(--gold) 11%,transparent)}
+.hero-nav{gap:8px;margin-top:22px}.hero-nav a{border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:999px;padding:6px 11px;font-size:13px}.hero-nav a:hover{background:color-mix(in srgb,var(--gold) 14%,transparent);text-decoration:none}
+.primary{gap:8px;min-height:49px;box-shadow:0 6px 20px color-mix(in srgb,var(--pink) 20%,transparent)}.primary::after{content:"↗";font-size:17px}.hero .secondary-cta{margin:28px 0 0 9px;vertical-align:top;min-height:49px}
+.premiere-banner{margin-top:24px;isolation:isolate}.premiere-banner .premiere-flag{font-size:11px;letter-spacing:2.3px}.premiere-banner::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(var(--gold),var(--pink));z-index:-1}.premiere-banner h2{font-family:Georgia,serif}.premiere-banner .premiere-action{box-shadow:0 3px 16px #a77b282a}
+.stats{margin-bottom:44px}.stats div{padding:19px 20px}.stats strong{font-variant-numeric:tabular-nums}.stats span{letter-spacing:.15px}
+.release-strip{margin:-16px 0 42px}.sectionhead .eyebrow,.profile-card .eyebrow,.support .eyebrow{display:flex;align-items:center;gap:8px}.sectionhead .eyebrow::before,.profile-card .eyebrow::before,.support .eyebrow::before{content:"";display:block;width:20px;height:1px;background:var(--gold)}
+.catalog{padding-top:7px;scroll-margin-top:24px}.catalog .sectionhead{align-items:center}.songlist{box-shadow:0 10px 30px #0001}.song .icon{border:1px solid color-mix(in srgb,var(--gold) 22%,transparent)}.song .orderbtn{min-height:38px;transition:background .18s,border-color .18s}.pages{margin-bottom:40px}
+.profile-card,.feature-section,.support{position:relative;overflow:hidden}.profile-card::before,.feature-section::before,.support::before{content:"";position:absolute;left:24px;right:24px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6;pointer-events:none}.profile-card,.feature-section{box-shadow:0 8px 26px #0001}.schedule-day{position:relative;overflow:hidden}.schedule-day strong{font-variant-numeric:tabular-nums;letter-spacing:-1px}.schedule-day::after{content:"♫";position:absolute;right:16px;bottom:-22px;font:92px Georgia,serif;color:var(--gold);opacity:.09;pointer-events:none}.history-card{border-left:2px solid color-mix(in srgb,var(--gold) 50%,var(--line))}.clip-card,.history-card{transition:transform .2s,border-color .2s}.clip-card:hover,.history-card:hover{transform:translateY(-3px);border-color:var(--gold)}
+footer.wrap{padding-top:27px}footer .footer-brand{display:flex;align-items:center;gap:7px;color:var(--gold);font-family:Georgia,serif;font-size:17px}
+:root[data-theme="scarlet"]{--bg:#15080a;--panel:#2c1015;--line:#73412d;--hero-start:#820b22;--hero-end:#24090e;--hero-glow:#b60c2c}
+:root[data-theme="scarlet"] body{background:radial-gradient(ellipse at 50% 0,#4c0c18 0%,var(--bg) 45%)}
+:root[data-theme="scarlet"] .hero{box-shadow:0 20px 55px #0007,inset 0 0 70px #25070d70}
+:root[data-theme="scarlet"] .primary,:root[data-theme="scarlet"] .premiere-action,:root[data-theme="scarlet"] .orderbtn:hover{background:linear-gradient(155deg,#fff4c3 0%,#f0c66c 38%,#bb7d27 70%,#ffe5a0 100%);border-color:#ffdea0;color:#351006}
+:root[data-theme="scarlet"] .premiere-banner{background:linear-gradient(110deg,#6c0d20,#290e14 75%);border-color:#c38e42}
+:root[data-theme="scarlet"] .profile-card,:root[data-theme="scarlet"] .feature-section,:root[data-theme="scarlet"] .release-strip,:root[data-theme="scarlet"] .support{background:linear-gradient(150deg,#331017,var(--panel) 65%);border-color:#754527}
+@media(max-width:840px){.top .nav{align-items:flex-start;min-height:0}.brand{font-size:23px}.hero{padding:38px 30px;gap:22px}.hero .secondary-cta{margin-left:0}.hero .photo-gallery::before{width:min(88%,290px)}}
+@media(max-width:740px){.hero{padding:30px 23px;min-height:0}.hero h1{font-size:clamp(42px,10vw,63px)}.hero .secondary-cta{margin-top:10px;margin-left:0}.hero .primary{margin-right:8px}.catalog .sectionhead{align-items:flex-start}.stats div{padding:12px 7px}.stats strong{font-size:25px}.hero-nav a{font-size:12px;padding:5px 9px}.release-strip{margin:-10px 0 32px}.song .orderbtn{min-height:40px}.premiere-banner{padding:20px}.top .linklabel{font-size:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.clip-card,.history-card,.top .linkitems a,.more-links summary{transition:none}.clip-card:hover,.history-card:hover,.top .linkitems a:hover,.more-links summary:hover{transform:none}}
+
+/* Menus expand in the document flow on every device, even if media queries fail. */
+.top .links,.linkrow,.linkitems{min-width:0;max-width:100%}
+.more-links{max-width:100%}
+.more-links[open]{flex:0 0 100%;width:100%;min-width:0}
+.more-links summary{display:inline-flex;align-items:center}
+.more-links .more-panel{position:static;top:auto;right:auto;left:auto;min-width:0;max-width:100%;width:100%;margin-top:7px;box-shadow:none;display:flex;flex-wrap:wrap}
+.more-links .more-panel a{white-space:normal;text-align:center;justify-content:center;min-width:0;max-width:100%;flex:1 1 125px;overflow-wrap:anywhere}
+html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}
+html.reload-top body{overflow-anchor:none}
+@media(max-width:840px){
+  .top .links,.linkrow,.linkitems{min-width:0;max-width:100%}
+  .more-links{max-width:100%}
+  .more-links[open]{flex:0 0 100%;width:100%;min-width:0}
+  .more-links summary{display:inline-flex;min-height:40px;align-items:center}
+  .more-links .more-panel{position:static;min-width:0;max-width:100%;width:100%;margin-top:7px;box-shadow:none;grid-template-columns:repeat(auto-fit,minmax(min(100%,125px),1fr))}
+  .more-panel a{white-space:normal;text-align:center;justify-content:center;min-width:0;min-height:40px;overflow-wrap:anywhere}
+  .top .linkitems>a{max-width:100%;white-space:normal;overflow-wrap:anywhere;min-height:40px}
+}
+@media(max-width:360px){.linkitems{gap:6px}.linkitems a{padding-inline:8px}.hero-nav{gap:6px}.hero-nav a{white-space:normal}.premiere-banner .premiere-action{max-width:100%;white-space:normal;text-align:center}}
+.catalog .controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,255px);gap:12px;align-items:end}
+.catalog .control-label{display:block;color:var(--gold);font-size:13px;font-weight:650;margin:0 0 6px 2px}
+.catalog .sort-control{min-width:0}.catalog .sort-control select{width:100%;max-width:none;min-height:54px;padding:10px 12px}
+.artist-picker{margin-top:12px;border:1px solid var(--line);border-radius:11px;background:var(--panel)}
+.artist-picker summary{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer;padding:13px 15px;min-height:48px;color:var(--text)}
+.artist-picker summary::-webkit-details-marker{display:none}.artist-picker summary::after{content:'⌄';font-size:22px;color:var(--gold);margin-left:auto}.artist-picker[open] summary::after{transform:rotate(180deg)}
+.artist-picker .artist-selected{color:var(--gold);font-weight:650;overflow-wrap:anywhere}.artist-picker .artist-total{color:var(--muted);font-size:13px;white-space:nowrap}
+.artist-body{padding:0 14px 14px}.artist-search{margin:0 0 10px}.artist-search input{font-size:16px}.artist-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-height:280px;overflow:auto;overscroll-behavior:contain;padding:2px}
+.artist-list button{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;min-width:0;min-height:42px;padding:8px 11px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:7px;overflow-wrap:anywhere}.artist-list button:hover,.artist-list button[aria-pressed=true]{border-color:var(--gold);color:var(--gold);background:color-mix(in srgb,var(--panel) 75%,var(--gold))}.artist-list button span:last-child{color:var(--muted);font-size:12px;flex:none}.artist-list .artist-empty{grid-column:1/-1;font-size:14px;padding:9px;color:var(--muted)}
+.artist-reset{margin-bottom:10px;min-height:37px;padding:6px 12px;font-size:13px}.artist-reset[hidden]{display:none}
+@media(max-width:740px){.catalog .controls{grid-template-columns:1fr;gap:11px}.catalog .sort-control select{min-height:44px;font-size:16px}.artist-list{grid-template-columns:1fr;max-height:270px}.artist-picker summary{flex-wrap:wrap;gap:7px}.artist-picker .artist-total{font-size:12px}.artist-picker summary::after{margin-left:auto}}
+.logo-picker{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;max-width:100%;flex-wrap:wrap}.logo-picker select{min-width:0;max-width:100%;padding:8px 10px;font-size:13px;cursor:pointer}.brand .berry.logo-image-mode{width:64px;height:64px;border:0;border-radius:0;background:none;box-shadow:none}.brand .berry .selected-logo{width:100%;height:100%;object-fit:contain;display:block}.brand .berry .selected-logo[hidden],.brand .berry.logo-image-mode svg{display:none}.logo-picker-status{font-size:11px;color:var(--muted)}.logo-picker-status:empty{display:none}
+:root[data-theme="chocolate"] .top{background:linear-gradient(110deg,#36160f,#180c09 72%);border-bottom-color:#8e5d36}:root[data-theme="chocolate"] .hero{box-shadow:0 20px 45px #0005;border-color:#805438}:root[data-theme="chocolate"] .primary{background:linear-gradient(145deg,#ffe1a0,#b98243);border-color:#d4a35e;color:#35150c}
+@media(max-width:740px){.logo-picker{width:100%;margin-top:2px}.logo-picker select{flex:1}.brand .berry.logo-image-mode{width:58px;height:58px}}
+.comment-banner{display:flex;align-items:center;gap:18px;margin:24px 0 0;padding:18px 24px;border:1px solid var(--line);border-left:3px solid var(--pink);border-radius:16px;background:var(--panel);box-shadow:0 6px 22px #0001}.comment-banner-icon{flex:0 0 52px;height:52px;display:grid;place-items:center;border-radius:15px;background:var(--bg);color:var(--pink);font-size:29px}.comment-banner-copy{flex:1;min-width:0}.comment-banner h2{font-size:clamp(23px,3vw,32px);margin:3px 0 5px;color:var(--text)}.comment-banner p{font-size:15px;max-width:650px}.comment-action,.comment-float{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#fff0b7,#e3ad4c);color:#321c0b;border:1px solid #f8d583;border-radius:12px;font-weight:750;min-height:46px;padding:10px 17px;text-align:center}.comment-action{flex-shrink:0}.comment-action:hover,.comment-float:hover{filter:brightness(1.08)}.comment-heart{display:inline-block;animation:comment-heartbeat 3.5s ease-in-out infinite}@keyframes comment-heartbeat{0%,88%,100%{transform:scale(1)}94%{transform:scale(1.15)}}.comment-float{position:fixed;z-index:4;right:max(15px,env(safe-area-inset-right));bottom:calc(15px + env(safe-area-inset-bottom));box-shadow:0 4px 22px #0006;transition:opacity .18s,transform .18s}.comment-float.is-hidden{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(8px)}.comment-float svg{width:22px;height:22px;flex-shrink:0}.comment-footer-link{color:var(--gold)}@media(max-width:740px){.comment-banner{align-items:flex-start;flex-wrap:wrap;padding:16px;gap:12px}.comment-banner-icon{flex-basis:42px;height:42px;font-size:23px}.comment-banner-copy{flex-basis:calc(100% - 54px)}.comment-action{width:100%}.comment-float{width:48px;height:48px;padding:0;border-radius:50%}.comment-float span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}body{padding-bottom:calc(56px + env(safe-area-inset-bottom))}}@media(prefers-reduced-motion:reduce){.comment-heart{animation:none}.comment-float{transition:none}}@supports(selector(body:has(dialog[open]))){body:has(dialog[open]) .comment-float{visibility:hidden}}
+.promo-carousel{margin:24px 0 0;scroll-margin-top:20px}.promo-stage{display:grid;overflow:hidden;position:relative;border:1px solid var(--gold);border-radius:17px;background:var(--panel);box-shadow:0 7px 28px color-mix(in srgb,var(--gold) 15%,transparent)}.promo-stage .promo-slide{grid-area:1/1;margin:0;min-width:0;border:0;border-radius:0;box-shadow:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .65s ease,visibility .65s;align-self:stretch}.promo-stage .promo-slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:1}.promo-stage .comment-banner{background:linear-gradient(115deg,color-mix(in srgb,var(--panel) 75%,var(--pink)),var(--panel));border-left:4px solid var(--pink)}.promo-controls{display:flex;justify-content:center;align-items:center;gap:8px;margin:10px 0}.promo-controls button{min-height:36px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--panel);padding:6px 13px;font-size:14px}.promo-controls button[aria-pressed=true]{color:var(--gold);border-color:var(--gold)}.promo-controls button:hover{border-color:var(--pink)}.promo-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.promo-actions a{display:flex;min-height:48px;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:10px 12px;font-weight:750;text-align:center;line-height:1.25}.promo-actions .release-quick{background:linear-gradient(135deg,#fff0b7,#e3ad4c);color:#321c0b;border:1px solid #f8d583}.promo-actions .support-quick{background:var(--panel);border:1px solid var(--pink);color:var(--text)}.promo-actions a:hover{filter:brightness(1.12)}@media(max-width:740px){.promo-stage .promo-slide{flex-wrap:wrap;padding:20px;gap:12px}.promo-stage .premiere-action,.promo-stage .comment-action{width:100%}.promo-stage .comment-banner-copy{flex-basis:calc(100% - 54px)}.promo-controls{gap:5px}.promo-controls button{padding:6px 10px;font-size:13px}.promo-actions a{font-size:14px}}@media(prefers-reduced-motion:reduce){.promo-stage .promo-slide{transition:none}}
+.promo-actions{margin-top:12px}
+</style>
+<script>
+(()=>{const themes=['classic','berry','emerald','sapphire','light','noir','lavender','ocean','sunset','winter','scarlet','chocolate'];let theme='scarlet';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
+(()=>{
+const sheets=[
+ {file:'logos-01.png',cols:2,rows:2,group:'Первая коллекция',items:[['note','Клубничка с нотой','logo-note.png'],['ribbon','Алая лента','logo-ribbon.png'],['signature','НМ — личная подпись','logo-signature.png'],['ruby','Клубничный рубин','logo-ruby.png']]},
+ {file:'logos-02.png',cols:5,rows:2,group:'Варианты Миши — набор 1',items:[['heart-note','Клубничная нота'],['nm-character','Монограмма НМ с характером'],['stage-emblem','Сценическая эмблема'],['author-line','Авторская линия'],['community-circle','Круг сообщества'],['gothic','Готическая клубника'],['sound-wave','Звуковая клубника'],['compass','Музыкальный компас'],['stage-window','Сценическое окно'],['minimal','Минималистичный знак']]},
+ {file:'logos-03-alpha.png',cols:3,rows:2,group:'Варианты Сергея — набор 1',items:[['sergey-orbit','Клубничная орбита'],['sergey-monogram','Музыкальная монограмма'],['sergey-ring','Золотое кольцо'],['sergey-crown','Королевская клубничка'],['sergey-signature','Авторская подпись'],['sergey-vinyl','Музыкальная пластинка']]},
+ {file:'logos-04-alpha.png',cols:5,rows:2,group:'Варианты Миши — набор 2',items:[['misha2-pick','Золотой медиатор'],['misha2-monogram','Монограмма НМ'],['misha2-pulse','Скрипичный пульс'],['misha2-ruby','Рубиновая грань'],['misha2-vinyl','Акустический винил'],['misha2-lyre','Лира и лист'],['misha2-spotlight','В свете софитов'],['misha2-autograph','Автограф души'],['misha2-harmony','Трио гармонии'],['misha2-cameo','Клубничная камея']]},
+ {file:'logos-05-alpha.png',cols:3,rows:2,group:'Варианты Сергея — набор 2',items:[['sergey2-orbit','Золотая орбита Nika Club'],['sergey2-headphones','Клубничка в наушниках'],['sergey2-brush','Розовый арт Nika Club'],['sergey2-wreath','Королевский клуб'],['sergey2-neon','Неоновый Nika Club'],['sergey2-music','Музыкальная орбита клуба']]},
+ {file:'logo-alexey-alpha.png',cols:1,rows:1,group:'Вариант Алексея',items:[['alexey-crest','Рубиновый герб']]},
+ {file:'logos-06-alpha.png',cols:3,rows:1,group:'Варианты Геннадия',items:[['gennady-crown','Королевская монограмма'],['gennady-diamond','Монограмма с рубином'],['gennady-music','Музыкальная монограмма']]}
+];
+const logos=new Map();for(const sheet of sheets)sheet.items.forEach(([id,title,fallback],index)=>logos.set(id,{...sheet,title,index,fallback}));
+document.addEventListener('DOMContentLoaded',()=>{
+ const brand=document.querySelector('.brandarea'),berry=brand.querySelector('.berry');const holder=document.createElement('label');holder.className='logo-picker';holder.append('Логотип: ');const picker=document.createElement('select');picker.id='logo-picker';picker.setAttribute('aria-label','Выбор логотипа');const option=(id,title)=>{const el=document.createElement('option');el.value=id;el.textContent=title;return el};picker.append(option('classic','Текущий'));for(const sheet of sheets){const group=document.createElement('optgroup');group.label=sheet.group;for(const [id,title] of sheet.items)group.append(option(id,title));picker.append(group)}holder.append(picker);const status=document.createElement('span');status.className='logo-picker-status';status.setAttribute('role','status');brand.append(holder,status);
+ const sprite=document.createElement('span');sprite.className='selected-logo';sprite.hidden=true;sprite.setAttribute('aria-hidden','true');berry.append(sprite);let selection='classic',token=0;try{const saved=localStorage.getItem('nika.catalog.logo');if(saved==='classic'||logos.has(saved))selection=saved}catch{}
+ const cache=new Map();function load(file){if(!cache.has(file)){const promise=new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(new Error(file));img.src=file});cache.set(file,promise);promise.catch(()=>cache.delete(file))}return cache.get(file)}
+ function show(img,file,cols,rows,index){const ratio=(img.naturalWidth/cols)/(img.naturalHeight/rows),col=index%cols,row=Math.floor(index/cols);sprite.style.width=(ratio>=1?100:100*ratio)+'%';sprite.style.height=(ratio>=1?100/ratio:100)+'%';sprite.style.backgroundImage='url("'+file+'")';sprite.style.backgroundSize=(cols*100)+'% '+(rows*100)+'%';sprite.style.backgroundPosition=(cols===1?0:col/(cols-1)*100)+'% '+(rows===1?0:row/(rows-1)*100)+'%';sprite.style.backgroundRepeat='no-repeat';sprite.hidden=false;berry.classList.add('logo-image-mode')}
+ function showKeyed(img,logo){const canvas=document.createElement('canvas'),col=logo.index%logo.cols,row=Math.floor(logo.index/logo.cols),h=img.naturalHeight/logo.rows,left=logo.xEdges?logo.xEdges[col]*img.naturalWidth:col*img.naturalWidth/logo.cols,right=logo.xEdges?logo.xEdges[col+1]*img.naturalWidth:(col+1)*img.naturalWidth/logo.cols,w=right-left;canvas.width=Math.round(w);canvas.height=Math.round(h);const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,left,row*h,w,h,0,0,canvas.width,canvas.height);const pixels=ctx.getImageData(0,0,canvas.width,canvas.height),d=pixels.data;for(let i=0;i<d.length;i+=4){const excess=d[i+2]-Math.max(d[i],d[i+1]);if(excess>25){const keep=1-Math.min(1,(excess-25)/85);d[i+3]=Math.round(d[i+3]*keep);d[i+2]=Math.min(d[i+2],Math.max(d[i],d[i+1])+12)}}ctx.putImageData(pixels,0,0);show({naturalWidth:canvas.width,naturalHeight:canvas.height},canvas.toDataURL('image/png'),1,1,0)}
+ async function apply(id){const request=++token;sprite.hidden=true;berry.classList.remove('logo-image-mode');status.textContent='';if(id==='classic')return;const logo=logos.get(id);if(!logo)return;try{const img=await load(logo.file);if(request===token){if(logo.key==='blue'){try{showKeyed(img,logo)}catch{status.textContent='Для прозрачности откройте сайт по HTTPS'}}else show(img,logo.file,logo.cols,logo.rows,logo.index)}}catch{if(request!==token)return;if(logo.fallback){try{const img=await load(logo.fallback);if(request===token)show(img,logo.fallback,1,1,0);return}catch{}}if(request===token)status.textContent='Ожидается файл '+logo.file}}
+ picker.value=selection;apply(selection);picker.addEventListener('change',()=>{selection=picker.value;try{localStorage.setItem('nika.catalog.logo',selection)}catch{}apply(selection)})
+})})();
+</script>
+</head>
+<body>
+<header class="top"><div class="wrap nav"><div class="brandarea"><a class="brand" href="#"><span class="berry"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="berry-red" x2="1" y2="1"><stop stop-color="#ff6b76"/><stop offset=".55" stop-color="#d5203d"/><stop offset="1" stop-color="#8e0b25"/></linearGradient></defs><path d="M24 13C11 4 3 15 8 27c3 8 11 16 16 17 5-1 13-9 16-17C45 15 37 4 24 13Z" fill="url(#berry-red)" stroke="#ffdc88" stroke-width="1.2"/><path d="M24 15 12 5l10 3 2-7 3 7 10-3-8 10-5-4Z" fill="#8eb25d" stroke="#f3d78c" stroke-width=".8"/><path d="M30 17v17c-2 3-7 4-9 2s0-6 5-6V18l11-3v5Z" fill="#ffe4a0"/><g fill="#ffe4a0"><ellipse cx="14" cy="19" rx="1" ry="1.8"/><ellipse cx="18" cy="27" rx="1" ry="1.8"/><ellipse cx="14" cy="30" rx="1" ry="1.8"/><ellipse cx="33" cy="38" rx="1" ry="1.8"/><ellipse cx="23" cy="39" rx="1" ry="1.8"/></g></svg></span><span>Ника <b>Моисеева</b><small>МУЗЫКА ОТ ДУШИ</small></span></a></div><div class="links" aria-label="Ссылки Ники">
+<div class="linkrow"><span class="linklabel">Стримы:</span><div class="linkitems"><a href="https://www.youtube.com/@nikamoiseeva" target="_blank" rel="noopener">YouTube</a><a href="https://www.twitch.tv/nikaclub" target="_blank" rel="noopener">Twitch</a><a href="https://live.vkvideo.ru/clubnika" target="_blank" rel="noopener">VK Видео Live</a></div></div>
+<div class="linkrow"><span class="linklabel">Соцсети:</span><div class="linkitems"><a href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Telegram</a><a href="https://vk.ru/nikamoiseevaa" target="_blank" rel="noopener">ВК сообщество</a><details class="more-links"><summary>Ещё</summary><div class="more-panel"><a href="https://boosty.to/clubnika" target="_blank" rel="noopener">Boosty</a><a href="https://www.tiktok.com/@nika.moiseeva" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/nikamoiseeva/" target="_blank" rel="noopener">Нельзяграм</a></div></details></div></div>
+<div class="linkrow"><span class="linklabel">Слушать мои песни на площадках:</span><div class="linkitems"><a href="https://music.yandex.ru/artist/21014825" target="_blank" rel="noopener">Яндекс Музыка</a><a href="https://band.link/paren_ydaloi" target="_blank" rel="noopener" title="VK Музыка через BandLink">VK Музыка</a><a href="https://share.zvuk.com/cLQ0/yj6scg99" target="_blank" rel="noopener">Звук</a><details class="more-links"><summary>Ещё</summary><div class="more-panel"><a href="https://music.mts.ru/artist/21014825" target="_blank" rel="noopener">КИОН Музыка</a><a href="https://music.apple.com/us/artist/1714333490" target="_blank" rel="noopener">Apple Music</a><a href="https://open.spotify.com/artist/36Ra4YAbdNiQ66JSdsK7VB" target="_blank" rel="noopener" title="Ника Моисеева — Spotify">Spotify</a></div></details></div></div>
+</div></div></header>
+<main class="wrap">
+<section id="news" class="promo-carousel" aria-label="Новости и поддержка Ники"><div class="promo-stage" id="promo-stage">
+<article class="premiere-banner promo-slide active" aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>У меня скоро выходит новая песня! Очень жду момента, когда смогу поделиться ею с вами. 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article>
+<article class="comment-banner promo-slide" id="comment-banner" aria-label="Поддержать Нику" aria-hidden="true" inert><div class="comment-banner-icon" aria-hidden="true"><span class="comment-heart">♥</span></div><div class="comment-banner-copy"><div class="eyebrow">МАЛЕНЬКАЯ ПРОСЬБА ОТ НИКИ</div><h2>Ваша поддержка вдохновляет!</h2><p>Каждый комментарий помогает моей музыке найти новых слушателей. Расскажите, какая песня вам запомнилась в эфире!</p></div><a class="comment-action" href="support.html">💬 Оставить комментарий</a></article></div>
+<div class="promo-actions" id="promo-actions"><a class="release-quick" href="release.html">♫ Новый релиз</a><a class="support-quick" href="support.html">💬 Оставить комментарий</a></div></section>
+<section class="hero"><div><div class="eyebrow"><span class="dot"></span> МУЗЫКАЛЬНЫЕ СТРИМЫ</div><h1>Песни, которые<br><em>мы любим</em></h1><p>Выберите любимую композицию из моего репертуара и закажите её на прямом эфире. Споём вместе!</p><a class="primary" href="#catalog">Выбрать песню</a><a class="outline secondary-cta" href="#schedule">Ближайшие эфиры</a><p class="tv-mention">Кроме стримов и авторских песен, мне довелось выступить в музыкальной передаче «Песни от всей души» у Андрея Малахова. <a href="https://www.youtube.com/watch?v=OeMVMUq8QUc" target="_blank" rel="noopener">▶ Смотреть выступление</a></p><div class="hero-nav"><a href="#about">Обо мне</a><a href="#my-music">Мои песни</a><a href="#news">Анонсы</a><a href="#schedule">Расписание</a><a href="#clips">Клипы</a><a href="#song-history">История песен</a><a href="support.html">Поддержать Нику</a></div></div><div class="photo-gallery"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></section>
+<script>
+(()=>{const photos=[{src:'photo_2026-11-22_14-20-12.jpg',alt:'Ника Моисеева в студии звукозаписи'},{src:'photo_2026-11-22_14-26-13.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'},{src:'photo_2026-11-22_14-26-16.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'}];const image=document.getElementById('hero-photo'),controls=document.getElementById('photo-controls');if(photos.length<2)return;let index=0,timer=null,transition=null,request=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const buttons=photos.map((photo,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Фото '+(i+1));b.setAttribute('aria-current',String(i===0));b.addEventListener('click',()=>{show(i);restart()});controls.append(b);return b});controls.hidden=false;function show(i){const token=++request;clearTimeout(transition);image.classList.remove('changing');const next=new Image();next.onload=()=>{if(token!==request)return;function apply(){if(token!==request)return;index=i;image.src=photos[i].src;image.alt=photos[i].alt;image.classList.remove('changing');buttons.forEach((b,j)=>b.setAttribute('aria-current',String(j===i)))}if(reduced){apply();return}image.classList.add('changing');transition=setTimeout(apply,350)};next.onerror=()=>{if(token===request){image.classList.remove('changing');index=i}};next.src=photos[i].src}function restart(){clearInterval(timer);if(!reduced&&!document.hidden)timer=setInterval(()=>show((index+1)%photos.length),6500)}document.addEventListener('visibilitychange',restart);restart()})();
+</script>
+<section class="stats"><div><strong id="total">734</strong><span>Песни в репертуаре</span></div><div><strong>10</strong><span>Авторских песен</span></div><div><strong>♥</strong><span>Музыка от сердца</span></div></section>
+<section id="latest-release" class="release-strip" aria-label="Анонсы и релизы"><div class="release-info"><span class="release-icon" aria-hidden="true">♫</span><div><div class="eyebrow">УЖЕ ВЫШЛА · 16 ОКТЯБРЯ 2026</div><h2>«Парень удалой»</h2><p>Моя песня уже на музыкальных площадках.</p></div></div><div class="release-actions"><a class="outline" href="https://band.link/paren_ydaloi" target="_blank" rel="noopener">Слушать песню</a><a class="outline" href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Следить за новостями</a></div></section>
+<section id="catalog" class="catalog">
+<div class="sectionhead"><div><div class="eyebrow">СОНГЛИСТ НИКИ</div><h2>Найдите свою песню</h2></div><button id="random" class="outline">✦ Случайная песня</button></div>
+<div class="controls"><div><label class="control-label" for="search">Поиск песни</label><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Название песни или исполнитель" autocomplete="off" aria-label="Поиск песни или исполнителя"><button id="clear" aria-label="Очистить поиск" hidden>×</button></label></div><div class="sort-control"><label class="control-label" for="sort">Сортировка списка</label><select id="sort"><option value="artist">По исполнителю (А–Я)</option><option value="title">По названию песни (А–Я)</option></select></div></div>
+<details class="artist-picker" id="artist-picker"><summary><span>Исполнитель:</span><span class="artist-selected" id="artist-selected">Все исполнители</span><span class="artist-total" id="artist-total"></span></summary><div class="artist-body"><label class="search artist-search"><span aria-hidden="true">⌕</span><input id="artist-search" type="search" placeholder="Найти исполнителя" autocomplete="off" aria-label="Поиск исполнителя"></label><button type="button" class="outline artist-reset" id="artist-reset" hidden>Сбросить выбор</button><div class="artist-list" id="artist-list" aria-label="Список исполнителей"></div></div></details>
+<div class="filters" role="group" aria-label="Категория песен"><button data-filter="all" class="active">Все песни</button><button data-filter="original">Авторские</button><button data-filter="folk">Народные и казачьи</button><button data-filter="film">Из кино и мультфильмов</button></div>
+<div class="results"><span id="count" aria-live="polite">Загрузка репертуара…</span><span>Выберите композицию для заказа</span></div>
+<div id="songs" class="songlist"></div>
+<div class="pages" id="pages"></div>
+</section>
+<div class="profile-grid">
+<section class="profile-card" id="about"><div class="eyebrow">ДАВАЙТЕ ЗНАКОМИТЬСЯ</div><h2>Обо мне</h2><p>Привет! Меня зовут Ника Моисеева. Я певица, записываю каверы и выпускаю собственные песни. На моих музыкальных стримах мы поём любимые композиции и делимся хорошим настроением.</p><p>Буду рада видеть вас в нашей клубничной семье! 🍓</p><a class="outline" href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Мой Telegram</a></section>
+<section class="profile-card" id="my-music"><div class="eyebrow">МОЁ ТВОРЧЕСТВО</div><h2>Авторские песни</h2><p>Здесь собраны мои собственные композиции, которые можно заказать на эфире. Выберите любимую песню.</p><div id="original-chips" class="original-chips" aria-label="Авторские песни"></div><button class="outline" id="show-originals">Все авторские песни</button></section>
+</div>
+<section id="schedule" class="feature-section"><div class="sectionhead"><div><div class="eyebrow">ВСТРЕЧИ В ПРЯМОМ ЭФИРЕ</div><h2>Расписание стримов</h2></div></div><div class="schedule-grid"><div class="schedule-day">Вторник<strong>19:30</strong><span>по Москве</span></div><div class="schedule-day">Суббота<strong>19:30</strong><span>по Москве</span></div></div><p class="schedule-note">Обычное расписание. Актуальные анонсы и изменения — в <a href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Telegram</a>.</p></section>
+<section id="clips" class="feature-section"><div class="sectionhead"><div><div class="eyebrow">МУЗЫКА В КАДРЕ</div><h2>Клипы и выступления</h2></div><a class="outline" href="https://www.youtube.com/@nikamoiseeva/videos" target="_blank" rel="noopener">Все видео</a></div><div class="clip-grid">
+<a class="clip-card" href="https://www.youtube.com/watch?v=d12L4DfqzY4" target="_blank" rel="noopener"><div class="clip-thumb"><img loading="lazy" src="https://i.ytimg.com/vi/d12L4DfqzY4/hqdefault.jpg" alt=""><span class="clip-play">▶</span></div><div class="clip-caption">Неси меня река<small>Релиз · 2024</small></div></a>
+<a class="clip-card" href="https://www.youtube.com/watch?v=SL_ZyD_ojHs" target="_blank" rel="noopener"><div class="clip-thumb"><img loading="lazy" src="https://i.ytimg.com/vi/SL_ZyD_ojHs/hqdefault.jpg" alt=""><span class="clip-play">▶</span></div><div class="clip-caption">Вороны<small>Релиз · 2023</small></div></a>
+<a class="clip-card" href="https://www.youtube.com/watch?v=OeMVMUq8QUc" target="_blank" rel="noopener"><div class="clip-thumb"><img loading="lazy" src="https://i.ytimg.com/vi/OeMVMUq8QUc/hqdefault.jpg" alt=""><span class="clip-play">▶</span></div><div class="clip-caption">Песни от всей души<small>Выступление у Андрея Малахова</small></div></a>
+</div></section>
+<section id="song-history" class="feature-section"><div class="sectionhead"><div><div class="eyebrow">МОЙ МУЗЫКАЛЬНЫЙ ПУТЬ</div><h2>История песен</h2></div></div><div class="history-grid">
+<article class="history-card"><time datetime="2026-10-16">16 октября 2026</time><h3>Парень удалой</h3><p>Релиз в сотрудничестве с музыкальным агентством «ПРО ПЕСНИ» и студией ND Media.</p><a href="https://band.link/paren_ydaloi" target="_blank" rel="noopener">Слушать</a></article>
+<article class="history-card"><time datetime="2026-07-31">31 июля 2026</time><h3>Казачка</h3><p>Премьера песни, которую мы отметили отдельным праздничным музыкальным эфиром.</p><a href="https://band.link/nikamsvakazachka" target="_blank" rel="noopener">Слушать</a></article>
+<article class="history-card"><time datetime="2024-06-14">2024</time><h3>Неси меня река</h3><p>Музыка Вячеслава Титова, слова Аллы Говоровой, аранжировка Сергея Бахтина.</p><a href="https://www.youtube.com/watch?v=d12L4DfqzY4" target="_blank" rel="noopener">Смотреть видео</a></article>
+<article class="history-card"><time datetime="2023-11-20">2023</time><h3>Вороны</h3><p>Одна из выпущенных в 2023 году авторских композиций.</p><a href="https://www.youtube.com/watch?v=SL_ZyD_ojHs" target="_blank" rel="noopener">Смотреть видео</a></article>
+</div></section>
+<section class="support"><div><div class="eyebrow">КАК ЗАКАЗАТЬ</div><h2>От вашей души — к нашей музыке</h2><p>Найдите песню, нажмите «Заказать» и выберите удобный сервис. Отправьте название песни в сообщении к донату во время эфира.</p></div><a class="outline" href="https://www.twitch.tv/nikaclub" target="_blank" rel="noopener">Смотреть трансляцию</a></section>
+</main>
+<footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="https://streamersonglist.com/t/nikaclub/songs" target="_blank" rel="noopener">Источник репертуара</a></span><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="chocolate">Шоколадная</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></footer>
+<dialog id="order"><button id="close" class="close" aria-label="Закрыть">×</button><div class="modalicon">♫</div><div class="eyebrow">ВАШ МУЗЫКАЛЬНЫЙ ЗАКАЗ</div><h2 id="orderTitle"></h2><p id="orderArtist"></p><div class="message"><label for="message">Сообщение к донату</label><div><input id="message" readonly><button id="copy" class="outline">Копировать</button></div></div><p class="help">Скопируйте сообщение и вставьте его в форму доната. Сумму выберите на странице сервиса.</p><a class="pay da" href="https://www.donationalerts.com/r/nikaclub" target="_blank" rel="noopener">DonationAlerts <span>Оплатить</span></a><a class="pay dp" href="https://new.donatepay.ru/@nikamoiseeva" target="_blank" rel="noopener">DonatePay <span>Оплатить</span></a><a class="pay ds" href="https://destream.net/live/nikaclub/donate" target="_blank" rel="noopener">Destream <span>Оплатить</span></a><div id="notice" aria-live="polite"></div></dialog>
+<script type="text/plain" id="catalog-data">
+2 Маши|Босая
+Activate|Let The Rhythm Take Control
+Adel|Lovesong
+Amber|This is your Night
+Animal Джаz|Три полоски
+ANIVAR|Любимый человек
+ANNA ASTI|По барам|Царица
+Aqua|Roses Are Red
+Dabro|Юность
+Dead Blonde|Бесприданница|Мальчик на девятке|Снег растаял на плечах
+DJ SLON|Ай диги дай
+DJ SLON, К. Замолодчикова|Дельфины
+DJ Smash, Nevesta|Позвони мне
+DJ Unix, Anna|Avatar
+DJ ДОЖДИК|Почему же
+Estradarada|Вите надо выйти
+Filatov & Karas (feat Masha)|Лирика
+Gayazovs Brothers|Малиновая Лада
+Hammali Navai|Птичка
+IOWA|140|Бьет бит|Маршрутка|Песня простая|Улыбайся|Одно и тоже
+Jazzdauren|Дарите женщинам цветы
+Jessica Jay|Casablanca
+Lian Rosse|Say you'll never
+LINNA|Потому что люблю
+Lx24|Красавица|Уголек
+Madonna|La isla bonita
+Masterboy|Mister Feeling
+Maywood|Mother, How Are You Today
+MIA Boyka|А он такой|Богатырская|Есть у берега река
+MIA Boyka, T-killah|Саламандра
+MIROLYBOVA|Гуляй|Лето
+Nautilus Pompilius|Дыхание
+Nina|The Reason Is You
+Polnalyubvi|Твои глаза
+Pussicat Dolls|Sway
+Rafaella Carra|Pedro
+Saro Vardanyan|Я знаю ты придёшь
+Selena Gomez and The Scene|Love You Like A Love Song
+SEREBRO|Мама Люба|Между нами любовь
+SEVENROSE|Черная смородина
+SONA|Все пройдёт
+The Cranberries|Zombie
+Thomas Anders|Why Do You Cry?
+Viktorija feat. Vasha|Tavasis Bučinys
+ZELENO|Ля ты какая
+Zivert|Credo|ЯТЛ
+А. Агурбаш|Я буду жить для тебя
+А. Айвазов|Бабочка луна
+А. Варум|Городок|Зимняя вишня|Колыбельная
+А. Варум, Л. Агутин|Все в твоих руках
+А. Ведищева|Все равно ты будешь мой|Лесной олень|Песенка о медведях
+А. Ведищева Из к/ф «Бриллиантовая рука»|Помоги мне
+А. Герман|А он мне нравится|Весеннее танго|Гори, гори, моя звезда|Город влюбленных людей|Колыбельная|Надежда|Один раз в год
+А. Герман. Из к/ф «Судьба».|Эхо любви
+А. Глызин|Зимний сад
+А. Гоман|Дом родной|Облака
+А. Джанабаева|Пообещай
+А. Егорова|А я теряю голову
+Айдамир Мугу|Чёрные глаза
+Аквариум|Город золотой
+Акула|Мало
+Алекса|Где же ты
+Алексей Кортнев. Из к/ф «Генералы песчаных карьеров»|Генералы песчаных карьеров
+Алена Апина|Узелки (Узелок)|Ксюша|Электричка
+Алёна Апина|Заплутали мишки
+Алёна Высоцкая|Вижу тебя
+Алёна Петровская|Рябина стучит в моё окно
+Алина|Холодно на морозе песни петь
+Алиса Мон|Подорожник
+Алсу|А у моей любви|Весна|Вчера|Зимний сон|Иногда
+А. Магомедова|Прогуляем
+А. Начёсова|Черная ночь
+Ангел-А|Простая девчонка
+Ангел-А feat. DJ SLON|Джимми, джимми
+Ангина|Твоя девочка ушла
+Андрей Бандера|Ивушки
+Андрей Губин|Мальчик - бродяга|Зима-холода
+Андрей Миронов. Из к/ф «Бриллиантовая рука»|Остров невезения
+А. Некрасова|Расцвела|Я тебя не знаю
+Аника Далински|Дороги
+Ани Лорак|Для тебя|Забирай рай|Медленно|Солнце
+Ани Лорак, Г. Лепс|Уходи по-английски
+Анита Цой|Полет
+Ансамбль Донских казаков|Русские просторы
+А. Пугачева|Доченька|Золотая карусель|Миллион алых роз|Нас бьют - мы летаем|На Тихорецкую|Позови меня с собой
+А. Пугачёва|Ты на свете есть|Этот мир|Я пою|Без тебя
+А. Пугачева, К. Орбакайте|Опять метель
+Ария|Потерянный рай|Штиль|Я свободен
+Аркадиас|Художник
+Арсен Шахунц|Девочка, стоп
+А. Руденко|Падал белый снег
+А. Свиридова|Эй, моряк
+А. Сотникова|Цветочек
+Ассорти|Красивая любовь
+А. Стрельченко|Гляжу в озёра синие
+А-Студио|Джулия|Папа, мама|Так же как все|Улетаю
+Афина|Душа кричит|Сердце напополам|Танцуй красивая|Улыбайся|Я и ты
+Ахра|Карие глаза
+Бабкины Внуки|Туман
+Балаган Лимитед|Вася-Василек|Колечко моё|Мальчик из Нальчика|Молодая, глупая|Там за околицей|Что я наделала
+Балкарская песня|Нальчик кечеле
+Баста|Сансара
+Белый день|Ах, мамочка|Ай-яй-яй|Галина|Деревенька|Запевай, земляки|Ромашка|Соловушка
+Белый день, Лена Василёк|Дарья|Закружился снег шальной
+Белый орёл|Как упоительны в России вечера|Я куплю тебе новую жизнь
+Блестящие|А я все летала|За четыре моря|Милый рулевой|Новогодняя песня|Пальмы парами|Ча-ча-ча
+Божья Коровка|Гранитный камушек
+Борис Чирков. Из к/ф «Юность Максима»|Крутится, вертится шар голубой
+Браво|Московский бит|Этот город
+Бутырка|Два полюса
+Бьянка|А че, че
+Валерия|Маленький самолет|Нежность моя|По серпантину|Самолет|Часики
+В. Алешко|Пусть сбывается
+В. Гасаев|Много ль надо мужикам
+В. Дворянинова|Спят усталые игрушки
+Вера Брежнева|Близкие люди|Девочка моя|Реальная жизнь
+Весна|Не торопись|Самый близкий человек|Я еду, да ну, в Ростов-на-Дону|Я нарисую мир таким
+ВИА Верасы|Малиновка (Малиновки заслышав голосок)
+ВИА Гра|My Emancipation|Антигейша|Бриллианты|Л.М.Л.|Мир о котором я не знала до тебя|Не надо|Не оставляй меня любимый|Океан и три реки|Перемирие|Попытка номер пять|Пошел вон|Стоп, стоп, стоп|У меня появился другой|Цветок и нож
+ВИА Лейся, песня|Синий иней
+ВИА Пламя|Идёт солдат по городу|Снег кружится
+ВИА Сливки|Куда уходит детство
+Виктория Черенцова|Миражи
+Виктор Сорокин|Морошка
+Виктор Цой, Кино|Группа крови|Звезда по имени Солнце|Пачка сигарет
+Винтаж|Деревья|Знак водолея|Роман
+Вирус|Попрошу у тебя|Ручки|Ты меня не ищи
+В. Королев|Букет из белых роз|Давай под капучино
+Владимир Высоцкий|Песня Марьи (Марьюшка)
+Владимир Захаров, Аня Воробей|Встреча
+Владимир Маркин|Я готов целовать песок
+Владимир Нечаев|Огонёк
+Владимир Пресняков|Стюардесса по имени Жанна
+Владимир Трошин|Подмосковные вечера
+В. Меладзе|Иностранец|Разведи огонь|Салют, Вера
+В. Мулерман|Лада
+В. Ободзинский|Восточная песня|Эти глаза напротив
+Воровайки|Девчонка рыжая
+В. Салтыков, гр.«Форум»|Белая ночь
+В. Сердючка|Новогодняя
+В. Стрыкало|Наше лето
+В. Толкунова|Кабы не было зимы|Носики-Курносики|Поговори со мною мама|По камушкам|Я не могу иначе
+В. Цыганова|За мужчин
+В. Шаинский|Если с другом вышел в путь|Песенка крокодила Гены|Чему учат в школе|Чунга-чанга
+Вячеслав Мясников|Папа
+Г. Байларкызы|По пьяни
+Геннадий Белов|На дальней станции сойду
+Г. Лепс, М. Фадеев|Орлы или вороны
+Глюкоза|А снег идет|Жу-жу|Невеста|Парень-танцевач|Пина-колада|Танцуй Россия|Фэн-шуй|Хулиганка|Юра
+Голубые береты|Одуванчики
+Город 312|Вне зоны доступа|Невидимка|Обернись|Фонари
+Горячий шоколад|Без ума от счастья и боли
+Градусы|Режиссер
+Г. Хасанова|Говори
+ДДТ|Что такое осень|Это все
+Демо|Дождик|Солнышко
+Детские|Выглянуло солнышко
+Детский хор|Вместе весело шагать
+Дима Билан|Про белые розы
+Дискотека Авария|Новогодняя
+Дискотека Авария, Ж. Фриске|Малинки
+Дуэт Пара Лель|Песня казачки
+Е. Белоусов|Девчонка-девчоночка
+Е. Климова. Из к/ф «Мы из Будущего»|Романс Нины
+Елена Ваенга|Абсент|Где была|Желаю|Золотая рыбка|Кайся|Курю|Ласточка|Мамочка|Невеста|Папа нарисуй|Принцесса|Реснички|Снег|Шопен
+Елена Ваенга, Алёна Петровская|Обыкновенный
+Елена Камбурова|Маленький принц
+Елена Кукарская|По маленькой
+Елка|Грею счастье|Не брошу на полпути
+Е. Осин|Плачет девушка в автомате
+Е. Терлеева|Солнце
+Жанна Добровольская|Одна
+Жанна Рождественская. Из к/ф «Карнавал»|Позвони, мне позвони
+Жасмин|За мужчин|Как ты мне нужен|Самый любимый
+Женя Отрадная|Уходи, дверь закрой|Я Тебя Очень
+Ж. Любич|Колыбельная тишины
+Жуки|Батарейка|Танкист
+Ж. Фриске|Где-то летом|Ла ла ла|Портофино
+Зара|Для нее|Любовь-красавица|Недолюбила
+Звери|До скорой встречи|Напитки покрепче|Районы- кварталы|Рома, извини
+Земляне|Трава у дома
+Земфира|Жить в твоей голове|Искала|Лондон|Хочешь
+И. Асварова|Разбито сердце мое
+Иванушки International|Тучи
+Игорь Тальков|Чистые пруды
+И. Дубцова|Как ты, где ты|Люби меня долго|Ну, как ты там|Сердце в тысячу свечей|Я тоже его люблю
+Из к/ф "Весна на заречной улице"|Когда весна, придёт не знаю
+Из к/ф "Гардемарины вперед"|Песня о любви (Как жизнь без весны)
+Из к/ф "Мэри Поппинс, до свидания"|Леди Мери
+Из к/ф Новые приключения неуловимых|Погоня
+Из к/ф «Судьба»|То не ветер ветку клонит («Лучина»)
+Из к/ф «Чародеи»|Пока часы двенадцать бьют
+Из к/ф "Чебурашка и крокодил Гена"|Голубой вагон
+Из м/ф "Бременские музыканты"|Бяки буки|Песенка друзей
+Из м/ф "В синем море, в белой пене"|Оставайся мальчик с нами
+Из м/ф "Крошка енот"|От улыбки
+Из м/ф "Летучий корабль"|Частушки Бабок-Ёжек
+Из м/ф «Маша и Медведь»|Песня про варенье|Песня про следы
+Из м/ф "По следам Бременских музыкантов"|Серенада трубадура
+Из т/ф «Ах, Водевиль, Водевиль»|Гадалка
+Из т/ф «Приключения Электроника»|Крылатые качели
+И. Итляшев|Кобра
+И. Кобзон|А у нас во дворе
+И. Корнелюк|Город, которого нет
+И. Круг|Бокал Бакарди|Вот и все|Дом на горе|Моя королева|Не привыкну никак|Прости меня|Тебе моя последняя любовь|Фамилия|Шанель|Я прочитаю в глазах твоих
+Инна Вальтер|Дымом лечилась|Корона
+Ирина Леонова Из т/с «Главный калибр»|Лети пёрышко
+Ирина Понаровская|Рябиновые бусы
+Ирина Салтыкова|Голубые глазки|Серые глаза
+Казачья|Любо, братцы, любо|Не для меня|Ойся ты ойся
+Казачья-плясовая|Донская плясовая
+К. Ваншенкин, Э. Колмановский|Алёша
+Квартет "Улыбка". к/ф «Девчата»|Хорошие девчата
+К. Голицына|Бессовестно красивая|Какая дама пропадает
+КиШ|Ведьма и осел|Кукла колдуна|Лесник
+Клавдия Шульженко|Синий платочек
+К. Лель|Мой мармеладный|Муси-пуси
+К. Орбакайте|Губки бантиком|Каждый день с тобой|Перелетная птица|Пьяная вишня
+КПТ|Русская рать
+Краски|А вы не трогайте меня|А он не знает ничего|Мне мальчик твой не нужен|Оранжевое солнце|Раз, два, три, четыре
+К. Румянова|Волшебный цветок|Облака|Песенка мамонтенка
+К. Шайн|Три желания
+Л. Агутин|Мир зеленого цвета|Хоп, хей
+Л. Агутин, А. Варум|Февраль
+Лариса Голубкина. Из к/ф «Гусарская баллада».|Колыбельная Светлане
+Л. Барыкина, ВИА «Весёлые ребята»|В последний раз (Все напоминает о тебе)|Папа, подари мне куклу
+Л. Владимирова|Красками разными
+Л. Гурченко|Молитва|Песенка о хорошем настроении|Пять минут
+Лев Лещенко|Родительский дом
+Лицей|Осень
+Л. Николаева|Завалинка|Золотая ярмарка
+Лолита|На Титанике|Пошлю его на
+Лолита, Коста Лакоста|По-другому
+Л. Успенская|Гитара|Кабриолет|К единственному нежному|По полюшку|Пропадаю я
+Л. Чеботина|Плакал Голливуд|Синий ветер, белый лен|Солнце Монако
+Л. Черникова|Влюбленный самолет
+Любовные истории|Школа
+Любэ|А река течёт|Конь
+Людмила Зыкина|На Побывку Едет|Оренбургский пуховый платок|Подари мне платок|Течёт река Волга|Травы луговые
+Ляпис Трубецкой|Евпатория|Яблони
+Максим|Ветром стать|Знаешь ли ты|Лучшая ночь|На радиоволнах|Небо, засыпай|Не отдам|Одиночка|Трудный возраст
+Марина Журавлева|Снежинка
+Марина Ладынина|Каким ты был
+Мария Ржевская|Когда я стану кошкой
+Марк Бернес|Журавли
+Марсель|Эта песня для тебя
+Марта Серебрякова|Пленница
+М. Бандоровский|Ценим жизнь
+МГК|Ах, какие ты говорил мне слова
+М. Девятова|Ах, мамочка|Белоснежная вишня|Ветер перемен|Виноградная косточка|Казаки в Берлине|Какая песня без баяна|Колечко на память|Московская кадриль|Ой, снег, снежок|Полюбила казака|Разговоры|Реченька-речушка|С днем рождения|Снег- снежок|Соловушка|Танец солнца и огня|Я - деревенская
+М. Девятова and ЧАПАЕВ|Любить по-русски
+М. Ермакова|Лучшее в тебе
+М. Журавлева|Белая черемуха|На сердце рана у меня
+Мила Нитич|Что тебе подарить
+М. Исаковский|Одинокая гармонь
+Михаил Круг, Вика Цыганова|Приходите в мой дом
+Михаил Шелег|За глаза твои карие
+М. Кристалинская|Два берега|Нежность|Старый клён|Я тебя подожду
+М. Кристалинская. Из к/ф «Карьера Димы Горина».|А снег идет
+М. Магомаев|Серенада Трубадура|Лучший город земли
+М. Муромов|Яблоки на снегу
+М. Насыров|Мальчик хочет в Тамбов|Я - это ты
+Мот|Звуки пианино|Соло
+М. Пахоменко|Стоят девчонки
+М. Фадеев|Гугуша
+м/ф «Как львенок и черепаха пели песню»|Песня Львенка и Черепахи
+М. Хлебникова|Солнышко мое вставай|Чашка кофею
+М. Чайковская|Нитью
+М. Шуфутинский|Наколочка|Левый берег Дона|Марджанджа|Третье сентября
+На-На|Фаина
+Народная|Заболела Дунина головка
+Народная Белорусская|Калыханка|Купалинка
+Народные|Верила, верю|Казачка вольная|Когда мы были на войне|Ой, то не вечер|Ой, цветёт калина|По Дону гуляет казак молодой|Ты шкатулка, шкатулка моя|Шёл казак
+Народные (Лидия Русланова)|Валенки
+Настасья Самбурская|Безответная
+Настя Задорожная|Буду
+Натали|Ветер с моря дул|Морская черепашка|Не стерпелось|Облака|Платье на брителях|Считалочка|Улыбочку|Четыре стены|Шахерезада|Не звони
+Натали, Аркадий Хоралов|Новогодние игрушки
+Натали и Ди-Бронкс|За горизонтом
+Наталья Ветлицкая|Глаза цвета виски|Посмотри в глаза
+Наталья Власова|Я у твоих ног
+Наталья Могилевская|Полюби меня такой
+Н. Бабкина и анс. «Русская песня»|Ромашки-цветы
+Н. Бабкина и Варвара|За рекой
+Н. Бабкина и гр.После 11|Тень тень над водою|Ягодиночка
+Н. Бродская|Звенит январская вьюга
+Ненси|Дым сиграет с ментолом|Туман-туман|Чистый лист
+Непоседы|Прекрасное далеко
+Ника Моисеева|Василёк|Казачка|Ласточка|Люли|Неси меня река|Парень удалой|Письмецо|Чужой|Вольный ветер|Вороны
+Никита Михалков. Из к/ф «Жестокий романс»|Мохнатый шмель («А цыган идёт»)
+Николай Басков|Зараза
+Николай Рыбников|Тишина за Рогожской заставою
+Н. Кадышева|Ах, судьба|Все уже когда-то было|Давай дружок на посошок|Зеленые глаза|Колдунья|Малиновый звон|С днем рождения|Снег летит|Течет ручей|Широка река|Пролетело лето
+Н. Королёва|Желтые тюльпаны|Маленькая страна|Синие лебеди|Сиреневый рай
+Н. Носков|А на меньшее я не согласен|Это здорово
+Новые Самоцветы|Льётся музыка|Всё, что в жизни есть у меня
+Ночные Снайперы|Ты дарила мне розы
+Н. Сенчукова|Лодка
+Оксана Джелиева|Без вины виноватая
+Ольга Воронец|Крапивушка
+Ольга Зарубина|На теплоходе музыка играет
+Ольга Плотникова|Платье
+О. Полякова|Королева ночи|Шлепки
+О. Рождественская|Песенка красной шапочки
+О. Серябкина|Бывшие
+Паулина Андреева. Из сериала «Оттепель»|Оттепель
+Песняры|Тальяночка
+Полина Гагарина|Полюшка|Ты не целуй
+Пропаганда|Гордая|Мелом|Сердце уходит в разведку|Яблоки ела
+Рада Рай|Калина|Душа
+Раиса Отрадная|Мужиков надо любить|На горе колхоз
+Ретро|Есть только миг|Замечательный сосед|Катюша|Колыбельная медведицы|Московские окна|Огней так много золотых|Песенка мамонтенка|Птица счастья|Там где клен шумит|Три белых коня|Ты меня подожди|Ты мое дыхание|Черное белое|Черный кот|Ягода-малина
+Рефлекс|Падали звезды|Просто потому что|Танцы|Я тебя всегда буду ждать|Сойти с ума
+РНП|Виновата ли я|Выйду на улицу|Ой, при лужку|Под окном черемуха колышится|Порушка-пораня|Тонкая рябина
+Рождество|Карандаши
+Рок-Острова|Ничего не говори
+Романс|В лунном сиянии
+Р. Филберг|Мой отец
+Самоцветы|Прошлогодние глаза
+Саша Квашеная|Не друг, не враг
+Света|А может нет, а может да|Дорога в аэропорт|Не говори|Синеглазые дельфины|Ты не мой|Хватит, довольно|Что мне делать
+Светлана Кофанова|Мы казачки вольные
+С. Владимировская|Мальчик мой
+Севара|Там нет меня
+Сектор Газа|Твой звонок
+Серега|Черный бумер
+С. Лобода|Американо|Занесло|К черту любовь|Мой|Молоко|Облака|Парень|Пуля-дура|Твои глаза
+Смысловые Галлюцинации|Зачем топтать мою любовь (ЗТМЛ)
+Согдиана|Птица без крыла
+Согдиана, Abdulkarim|Кольцо
+Сплин|Мое сердце|Романс
+С. Рерих|Две ладошки
+С. Ротару|Белая зима|Хуторянка|Червону руту
+Старинный казачий романс|Кукушка
+Стекловата|Новый год
+Султан Лагучев|Горький вкус|Коронована мадам|Люблю и ненавижу
+Тайпан, Nazami|Заплела косы
+Тамара Миансарова|Рыжик
+Татьяна Анциферова. Из к/ф «31 июня»|Ищу тебя
+Татьяна Овсиенко|Дальнобойщик|Школьная пора
+Татьяна Сашко|Белый танец
+Т. Буланова|Не бойтесь любви|Один день|Ясный мой свет
+Тимофей Копылов и Дарья Винокурова|Вот пуля просвистела
+Тина Кароль|Ноченька
+Т. Куртукова|Матушка-земля|Наливное яблочко|Одного
+Т. Муратова|На берегу чу
+Т. Повалий|Женщина, которая любит|Мама-мамочка|Три зимы|Чарiвна скрипка|Черноглазая казачка
+Т. Повалий, Н. Басков|Снегом белым
+Трофим|Город Сочи|За Тихой Рекою|Московская песня|Родина
+Турбомода|Море
+Тутси|Самый
+Т. Шилова|Баллада о трех сыновьях
+Унесенные ветром|Какао
+Уральский РНХ|Уральская рябинушка
+Фабрика|Позвони, будь посмелей|Рыбка
+Цветомузыка|Таня Танечка|Три аккорда
+Цыганский романс|Не будите (Солнышко)
+ЧИЖ|О любви
+Чи-Ли|Лето|Сердце
+Э. Асадов|Я могу тебя очень ждать
+Э. Геворгян|Никто с собой не заберет
+Эльбрус Джанмирзоев, Элвин Грей|Пошел налево
+ЭМИН|МММ
+Э. Хиль|Потолок ледяной
+Ю. Караулова|Ариведерчи
+Юлия Беретта|Дикая
+Юлия Михальчик|Лебедь белая
+Юрий Гуляев|Орлята учатся летать
+Юрий Никулин. Из к/ф «Кавказская пленница, или Новые приключения Шурика»|Если б я был султан
+Ю. Савичева|Если в сердце живет любовь|Москва - Владивосток
+Юта|Имя
+Юта. Из сериала «Пока станица спит».|Любимый мой
+Юта. Из сериала «Солдаты»|Жили-были
+Ю. Шатунов|А лето цвета|Белые розы|Грёзы|Забудь|Медленно уходит осень|Не бойся|Розовый вечер|Ромашки|С днем рождения|Детство
+Ян Френкель|Вальс расставания
+Ярослав Евдокимов|Майский вальс|Фантазер
+Я. Шведов, А. Новиков|Смуглянка
+
+</script>
+<script>
+const $=id=>document.getElementById(id);
+let all=[],filter='all',page=1,filtered=[],selectedArtist='';
+const perPage=10;
+const norm=s=>s.normalize('NFC').toLowerCase().replace(/ё/g,'е').replace(/[\u200b-\u200d\uFEFF]/g,'').trim();
+const original=s=>norm(s.artist)==='ника моисеева';
+const folk=s=>/народн|казач|рнп|рнх|балкарск/i.test(s.artist);
+const film=s=>/к\/ф|м\/ф|т\/ф|т\/с|сериал/i.test(s.artist);
+const categories={all:()=>true,original,folk,film};
+function button(text,fn,cls){const b=document.createElement('button');b.textContent=text;b.className=cls||'';b.addEventListener('click',fn);return b}
+function artistCounts(){const counts=new Map();for(const s of all.filter(categories[filter]))counts.set(s.artist,(counts.get(s.artist)||0)+1);return counts}
+function renderArtists(){const counts=artistCounts();const q=norm($('artist-search').value);const list=$('artist-list');list.replaceChildren();$('artist-total').textContent=counts.size+' исполнителей';$('artist-selected').textContent=selectedArtist||'Все исполнители';$('artist-reset').hidden=!selectedArtist;const rows=[...counts].filter(([name])=>norm(name).includes(q)).sort((a,b)=>a[0].localeCompare(b[0],'ru'));for(const [name,count] of rows){const b=button('',()=>selectArtist(name));b.type='button';b.setAttribute('aria-pressed',String(selectedArtist===name));const title=document.createElement('span');title.textContent=name;const num=document.createElement('span');num.textContent=count;num.setAttribute('aria-label','Песен: '+count);b.append(title,num);list.append(b)}if(!rows.length){const el=document.createElement('span');el.className='artist-empty';el.textContent='Исполнители не найдены';list.append(el)}}
+function selectArtist(name){selectedArtist=name;page=1;$('artist-search').value='';renderArtists();render();$('artist-picker').open=false;$('artist-picker').querySelector('summary').focus({preventScroll:true})}
+$('artist-search').addEventListener('input',renderArtists);$('artist-reset').addEventListener('click',()=>selectArtist(''));
+function render(scroll=false){const q=norm($('search').value).split(/\s+/).filter(Boolean);let sort=$('sort').value;
+filtered=all.filter(s=>categories[filter](s)&&(!selectedArtist||s.artist===selectedArtist)&&q.every(w=>norm(s.artist+' '+s.title).includes(w))).sort((a,b)=>a[sort].localeCompare(b[sort],'ru')||a.title.localeCompare(b.title,'ru')||a.artist.localeCompare(b.artist,'ru'));
+const max=Math.max(1,Math.ceil(filtered.length/perPage));page=Math.min(page,max);$('count').textContent='Найдено: '+filtered.length+' из '+all.length;$('songs').replaceChildren();$('clear').hidden=!$('search').value;
+if(!filtered.length){const n=document.createElement('div');n.className='empty';n.textContent='Песни не найдены. Попробуйте изменить запрос.';$('songs').append(n)}
+for(const s of filtered.slice((page-1)*perPage,page*perPage)){const row=document.createElement('div');row.className='song';const icon=document.createElement('span');icon.className='icon';icon.textContent='♪';icon.setAttribute('aria-hidden','true');const title=document.createElement('span');title.className='title';title.textContent=s.title;if(original(s)){const badge=document.createElement('span');badge.className='badge';badge.textContent='Авторская';title.append(badge)}const artist=document.createElement('span');artist.className='artist';artist.textContent=s.artist;row.append(icon,title,artist,button('Заказать',()=>order(s),'orderbtn'));$('songs').append(row)}
+const pages=$('pages');pages.replaceChildren();if(max>1){const go=n=>{page=n;render(true)};let prev=button('Назад',()=>go(page-1));prev.disabled=page===1;pages.append(prev);let nums=[...new Set([1,page-1,page,page+1,max])].filter(n=>n>0&&n<=max).sort((a,b)=>a-b);let last=0;for(let n of nums){if(last&&n-last>1){let dots=document.createElement('span');dots.textContent='…';pages.append(dots)}let b=button(n,()=>go(n),n===page?'current':'');if(n===page)b.setAttribute('aria-current','page');pages.append(b);last=n}let next=button('Далее',()=>go(page+1));next.disabled=page===max;pages.append(next)}if(scroll)$('catalog').scrollIntoView({behavior:'smooth',block:'start'})}
+function order(s){$('orderTitle').textContent=s.title;$('orderArtist').textContent=s.artist;$('message').value=s.artist+' — '+s.title;$('notice').textContent='';$('order').showModal()}
+async function copy(){try{await navigator.clipboard.writeText($('message').value)}catch{$('message').select();if(!document.execCommand('copy')){$('notice').textContent='Выделите сообщение и скопируйте его вручную.';return}}$('notice').textContent='✓ Сообщение скопировано'}
+$('copy').addEventListener('click',copy);$('close').addEventListener('click',()=>$('order').close());$('order').addEventListener('click',e=>{if(e.target===$('order'))$('order').close()});
+$('search').addEventListener('input',()=>{page=1;render()});$('clear').addEventListener('click',()=>{$('search').value='';$('search').focus();page=1;render()});$('sort').addEventListener('change',()=>{page=1;render()});for(const b of document.querySelectorAll('[data-filter]'))b.addEventListener('click',()=>{filter=b.dataset.filter;page=1;if(selectedArtist&&!artistCounts().has(selectedArtist))selectedArtist='';renderArtists();document.querySelectorAll('[data-filter]').forEach(a=>{a.classList.toggle('active',a===b);a.setAttribute('aria-pressed',String(a===b))});render()});$('random').addEventListener('click',()=>{if(filtered.length)order(filtered[Math.floor(Math.random()*filtered.length)])});
+const moreMenus=[...document.querySelectorAll('.more-links')];
+document.addEventListener('click',e=>{for(const menu of moreMenus)if(menu.open&&(!menu.contains(e.target)||e.target.closest('.more-panel a')))menu.open=false});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){const opened=moreMenus.find(m=>m.open);moreMenus.forEach(m=>m.open=false);if(opened)opened.querySelector('summary').focus()}});
+for(const menu of moreMenus)menu.addEventListener('toggle',()=>{if(menu.open)for(const other of moreMenus)if(other!==menu)other.open=false});
+$('show-originals').addEventListener('click',()=>{$('search').value='';selectedArtist='';document.querySelector('[data-filter="original"]').click();$('catalog').scrollIntoView({behavior:'smooth',block:'start'})});
+Promise.resolve(document.getElementById('catalog-data').textContent).then(t=>{all=t.trim().split(/\r?\n/).flatMap(line=>{const [artist,...titles]=line.split('|');return titles.map(title=>({artist,title}))});$('total').textContent=all.length;const chips=$('original-chips');chips.replaceChildren();for(const song of all.filter(original))chips.append(button(song.title,()=>order(song)));renderArtists();render()}).catch(()=>{$('count').textContent='Не удалось загрузить репертуар';$('songs').textContent='Обновите страницу или откройте исходный сонглист.'});
+
+</script>
+<a class="comment-float is-hidden" id="comment-float" href="support.html" aria-label="Оставить комментарий" title="Оставить комментарий"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linejoin="round" d="M3 4h18v13H11l-5 4v-4H3z"/><path stroke-linecap="round" d="M7 10h10M7 13h6"/></svg><span>Оставить комментарий</span></a>
+<script>
+(()=>{const stage=document.getElementById('promo-stage'),slides=[...stage.querySelectorAll('.promo-slide')],motion=matchMedia('(prefers-reduced-motion: reduce)');let active=0,timer,hover=false,focused=false;function show(i){active=i;slides.forEach((slide,n)=>{const on=n===i;slide.classList.toggle('active',on);slide.inert=!on;slide.setAttribute('aria-hidden',String(!on))})}function schedule(){clearTimeout(timer);if(!motion.matches&&!hover&&!focused&&!document.hidden)timer=setTimeout(()=>{show((active+1)%slides.length);schedule()},8000)}stage.addEventListener('mouseenter',()=>{hover=true;schedule()});stage.addEventListener('mouseleave',()=>{hover=false;schedule()});stage.addEventListener('focusin',()=>{focused=true;schedule()});stage.addEventListener('focusout',e=>{focused=stage.contains(e.relatedTarget);schedule()});document.addEventListener('visibilitychange',schedule);motion.addEventListener?.('change',schedule);schedule();const button=document.getElementById('comment-float'),actions=document.getElementById('promo-actions');if('IntersectionObserver' in window){new IntersectionObserver(([entry])=>button.classList.toggle('is-hidden',entry.isIntersecting||entry.boundingClientRect.top>0),{threshold:0}).observe(actions)}else{button.classList.remove('is-hidden')}})();
+</script>
+</body></html>
+

@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "Ника Моисеева",
+  "short_name": "Ника",
+  "description": "Музыка от души — репертуар, клипы и расписание стримов Ники Моисеевой",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#15080a",
+  "theme_color": "#15080a",
+  "icons": [
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"icon-maskable.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
+  ]
+}

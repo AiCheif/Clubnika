@@ -29,6 +29,7 @@
 <script>
 if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready).then(reg=>{if(reg.active)reg.active.postMessage({type:'CACHE_PAGE',url:location.href})}).catch(()=>{})})}
 </script>
+<script>if(location.hash==="#catalog")location.replace("songs.html");</script>
 <script>
 // On a real reload start at the top, without changing normal anchor navigation
 // or restoring pages from the back/forward cache.
@@ -179,7 +180,7 @@ html.reload-top body{overflow-anchor:none}
 .order-prices{margin:0 0 32px;padding:20px 22px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}.order-prices h2{font-size:clamp(25px,4vw,34px);margin:4px 0 14px}.price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.price-card{display:flex;flex-direction:column;gap:5px;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 15px}.price-card.priority{border-color:var(--gold)}.price-card strong{font-size:clamp(23px,3vw,30px);color:var(--gold);line-height:1.2}.price-card b{font-size:15px;color:var(--text);font-weight:650}.price-card small{font-size:14px;color:var(--muted);line-height:1.4}.order-prices .order-note,#order .order-note{max-width:none;margin:12px 0 0;font-size:14px;line-height:1.45;color:var(--muted)}#order .modal-prices{margin:16px 0;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.modal-prices h3{margin:0 0 8px;font-size:15px;color:var(--gold)}.modal-prices dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 12px;align-items:baseline;font-size:14px}.modal-prices dt{font-weight:750;color:var(--gold);white-space:nowrap}.modal-prices dd{margin:0;color:var(--text)}#order{max-height:calc(100% - 24px);overflow-y:auto;overscroll-behavior:contain}@media(max-width:540px){.order-prices{padding:15px;margin-bottom:25px}.price-grid{grid-template-columns:1fr;gap:8px}.price-card{display:grid;grid-template-columns:minmax(100px,auto) 1fr;align-items:center;padding:10px 12px;gap:2px 10px}.price-card strong{grid-row:span 2;font-size:22px}.price-card b{font-size:14px}.price-card small{font-size:13px}#order .modal-prices{padding:10px}.modal-prices dl{gap:6px 8px;font-size:13px}}
 .order-prices{padding:0;overflow:hidden}.order-prices-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 20px;cursor:pointer;list-style:none;color:var(--text);font-weight:650;min-height:48px}.order-prices-summary::-webkit-details-marker{display:none}.order-prices-summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);margin-right:4px;transition:transform .2s}.order-prices[open] .order-prices-summary::after{transform:rotate(225deg)}.order-prices-body{padding:0 20px 18px}.order-prices-summary:focus-visible{outline:2px solid var(--pink);outline-offset:-3px}.promo-stage .comment-action{flex-direction:column;gap:2px;line-height:1.2;white-space:normal;max-width:100%}.comment-action small{font-size:13px;font-weight:600}.promo-stage .comment-action span{max-width:100%}@media(max-width:540px){.order-prices-summary{padding:13px 15px}.order-prices-body{padding:0 15px 15px}}
 .live-panel{margin:16px 0 0;padding:18px 22px;border:1px solid var(--line);border-radius:16px;background:var(--panel);display:flex;align-items:center;justify-content:space-between;gap:18px}.live-panel.is-live{border-color:#e66b76}.live-panel h2{font-size:clamp(23px,3.5vw,31px);margin:3px 0 6px}.live-panel p{font-size:14px;color:var(--muted)}.live-panel .live-clock{color:var(--gold);font-weight:750;font-size:clamp(20px,3.5vw,30px);font-variant-numeric:tabular-nums;margin:5px 0}.live-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}.live-actions .outline{font-size:14px;padding:9px 13px;min-height:44px}.live-actions a.live-watch{background:var(--bg);border-color:var(--gold)}.live-panel [hidden]{display:none!important}.live-panel .live-label{color:var(--gold)}.live-panel.is-live .live-label{color:var(--pink)}@media(max-width:740px){.live-panel{flex-direction:column;align-items:stretch;padding:16px;gap:12px}.live-actions{justify-content:flex-start}.live-actions .outline{flex:1;white-space:normal;text-align:center}}
-</style>
+.promo-actions{grid-template-columns:repeat(3,minmax(0,1fr))}.promo-actions .songs-quick{background:var(--pink);color:var(--bg);border:1px solid var(--pink)}.promo-actions .release-quick{background:var(--panel);color:var(--gold);border-color:var(--gold)}.comment-bubble{width:23px;height:23px;flex-shrink:0}.comment-visual{display:flex;align-items:center;justify-content:center;gap:5px}.comment-visual .comment-bubble{width:17px;height:17px}.support-quick small{display:block;font-size:12px;font-weight:600;margin-top:3px}.original-chips .outline{min-height:34px;padding:5px 10px;font-size:14px}.promo-stage .song-promo .song-promo-action{background:var(--pink);color:var(--bg);border-color:var(--pink)}@media(max-width:740px){.promo-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.songs-quick{grid-column:1/-1}.promo-actions a{overflow-wrap:anywhere}.support-quick{gap:5px!important}.support-quick .comment-bubble{width:20px;height:20px}}</style>
 <script>
 (()=>{const themes=['classic','berry','emerald','sapphire','light','noir','lavender','ocean','sunset','winter','scarlet','chocolate'];let theme='scarlet';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
 (()=>{
@@ -212,29 +213,21 @@ document.addEventListener('DOMContentLoaded',()=>{
 </div></div></header>
 <main class="wrap">
 <section id="news" class="promo-carousel" aria-label="Новости и поддержка Ники"><div class="promo-stage" id="promo-stage">
-<article class="premiere-banner promo-slide active" aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>У меня скоро выходит новая песня! Очень жду момента, когда смогу поделиться ею с вами. 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article>
-<article class="comment-banner promo-slide" id="comment-banner" aria-label="Поддержать меня тёплым словом" aria-hidden="true" inert><div class="comment-banner-icon" aria-hidden="true"><span class="comment-heart">♥</span></div><div class="comment-banner-copy"><div class="eyebrow">МАЛЕНЬКАЯ ПРОСЬБА ОТ НИКИ</div><h2>Ваши слова вдохновляют!</h2><p>Каждый комментарий помогает моей музыке найти новых слушателей. Расскажите, какая песня вам запомнилась в эфире!</p></div><a class="comment-action" href="support.html"><span>❤️ Поддержать меня тёплым словом</span><small>Оставить комментарий</small></a></article></div>
-<div class="promo-actions" id="promo-actions"><a class="release-quick" href="release.html">♫ Новый релиз</a><a class="support-quick" href="support.html">❤️ Поддержать меня тёплым словом</a></div></section>
+<article class="premiere-banner promo-slide song-promo active" aria-label="Заказать песню"><div><div class="premiere-flag">МУЗЫКА НА ЗАКАЗ</div><h2>Закажите любимую песню</h2><p>Выбирайте любимые композиции из моего репертуара — споём вместе на эфире!</p></div><a class="premiere-action song-promo-action" href="songs.html">♫ Выбрать песню</a></article>
+<article class="premiere-banner promo-slide" aria-hidden="true" inert aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>У меня скоро выходит новая песня! Очень жду момента, когда смогу поделиться ею с вами. 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article>
+<article class="comment-banner promo-slide" id="comment-banner" aria-label="Поддержать меня добрым словом" aria-hidden="true" inert><div class="comment-banner-icon" aria-hidden="true"><span class="comment-heart">♥</span></div><div class="comment-banner-copy"><div class="eyebrow">МАЛЕНЬКАЯ ПРОСЬБА ОТ НИКИ</div><h2>Ваши слова вдохновляют!</h2><p>Каждый комментарий помогает моей музыке найти новых слушателей. Расскажите, какая песня вам запомнилась в эфире!</p></div><a class="comment-action" href="support.html"><span>❤️ Поддержать меня добрым словом</span><small class="comment-visual"><svg class="comment-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linejoin="round" d="M3 4h18v13H11l-5 4v-4H3z"/><path stroke-linecap="round" d="M7 9h10M7 13h6"/></svg> Оставить комментарий</small></a></article></div>
+<div class="promo-actions" id="promo-actions"><a class="songs-quick" href="songs.html">♫ Заказать песню</a><a class="release-quick" href="release.html">♫ Новый релиз</a><a class="support-quick" href="support.html"><svg class="comment-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linejoin="round" d="M3 4h18v13H11l-5 4v-4H3z"/><path stroke-linecap="round" d="M7 9h10M7 13h6"/></svg> <span>Поддержать меня добрым словом<small>Оставить комментарий</small></span></a></div></section>
 <section class="live-panel" id="live-panel" aria-label="Ближайший эфир"><div><div class="eyebrow live-label" id="live-label">МУЗЫКАЛЬНЫЕ ВСТРЕЧИ</div><h2 id="live-title">До нашей следующей встречи</h2><div class="live-clock" id="live-clock" hidden></div><p id="live-date">Обычное расписание: вторник и суббота, 19:30 по Москве.</p></div><div class="live-actions"><a class="outline live-watch" id="watch-youtube" href="https://www.youtube.com/@nikamoiseeva/live" target="_blank" rel="noopener noreferrer" hidden>YouTube</a><a class="outline live-watch" id="watch-twitch" href="https://www.twitch.tv/nikaclub" target="_blank" rel="noopener noreferrer" hidden>Twitch</a><a class="outline live-watch" id="watch-vkLive" href="https://live.vkvideo.ru/clubnika" target="_blank" rel="noopener noreferrer" hidden>VK Видео Live</a><button class="outline" id="live-calendar" type="button" hidden>📅 В календарь</button><a class="outline" id="live-telegram" href="https://t.me/nikamoiseeva" target="_blank" rel="noopener noreferrer">🔔 Анонсы в Telegram</a></div></section>
-<section class="hero"><div><div class="eyebrow"><span class="dot"></span> МУЗЫКАЛЬНЫЕ СТРИМЫ</div><h1>Песни, которые<br><em>мы любим</em></h1><p>Выберите любимую композицию из моего репертуара и закажите её на прямом эфире. Споём вместе!</p><a class="primary" href="#catalog">Выбрать песню</a><a class="outline secondary-cta" href="#schedule">Ближайшие эфиры</a><a class="tv-card" href="https://www.youtube.com/watch?v=OeMVMUq8QUc" target="_blank" rel="noopener noreferrer" aria-label="Смотреть выступление Ники в программе Песни от всей души на YouTube"><span class="tv-preview"><img src="https://i.ytimg.com/vi/OeMVMUq8QUc/hqdefault.jpg" alt="" width="480" height="360"><span class="tv-play" aria-hidden="true">▶</span></span><span class="tv-copy"><span class="tv-label">ЭФИР НА ТЕЛЕВИДЕНИИ</span><strong>Песни от всей души</strong><span class="tv-subtitle">Выступление в программе Андрея Малахова</span><span class="tv-watch">Смотреть выступление <span aria-hidden="true">↗</span></span></span></a><div class="hero-nav"><a href="#about">Обо мне</a><a href="#my-music">Мои песни</a><a href="#news">Анонсы</a><a href="#schedule">Расписание</a><a href="#clips">Клипы</a><a href="#song-history">История песен</a><a href="support.html">Поддержать меня тёплым словом</a></div></div><div class="photo-gallery"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></section>
+<section class="hero"><div><div class="eyebrow"><span class="dot"></span> МУЗЫКАЛЬНЫЕ СТРИМЫ</div><h1>Песни, которые<br><em>мы любим</em></h1><p>Выберите любимую композицию из моего репертуара и закажите её на прямом эфире. Споём вместе!</p><a class="primary" href="songs.html">Выбрать песню</a><a class="outline secondary-cta" href="#schedule">Ближайшие эфиры</a><a class="tv-card" href="https://www.youtube.com/watch?v=OeMVMUq8QUc" target="_blank" rel="noopener noreferrer" aria-label="Смотреть выступление Ники в программе Песни от всей души на YouTube"><span class="tv-preview"><img src="https://i.ytimg.com/vi/OeMVMUq8QUc/hqdefault.jpg" alt="" width="480" height="360"><span class="tv-play" aria-hidden="true">▶</span></span><span class="tv-copy"><span class="tv-label">ЭФИР НА ТЕЛЕВИДЕНИИ</span><strong>Песни от всей души</strong><span class="tv-subtitle">Выступление в программе Андрея Малахова</span><span class="tv-watch">Смотреть выступление <span aria-hidden="true">↗</span></span></span></a><div class="hero-nav"><a href="#about">Обо мне</a><a href="#my-music">Мои песни</a><a href="#news">Анонсы</a><a href="#schedule">Расписание</a><a href="#clips">Клипы</a><a href="#song-history">История песен</a><a href="support.html">Поддержать меня добрым словом</a></div></div><div class="photo-gallery"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></section>
 <script>
 (()=>{const photos=[{src:'photo_2026-11-22_14-20-12.jpg',alt:'Ника Моисеева в студии звукозаписи'},{src:'photo_2026-11-22_14-26-13.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'},{src:'photo_2026-11-22_14-26-16.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'}];const image=document.getElementById('hero-photo'),controls=document.getElementById('photo-controls');if(photos.length<2)return;let index=0,timer=null,transition=null,request=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const buttons=photos.map((photo,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Фото '+(i+1));b.setAttribute('aria-current',String(i===0));b.addEventListener('click',()=>{show(i);restart()});controls.append(b);return b});controls.hidden=false;function show(i){const token=++request;clearTimeout(transition);image.classList.remove('changing');const next=new Image();next.onload=()=>{if(token!==request)return;function apply(){if(token!==request)return;index=i;image.src=photos[i].src;image.alt=photos[i].alt;image.classList.remove('changing');buttons.forEach((b,j)=>b.setAttribute('aria-current',String(j===i)))}if(reduced){apply();return}image.classList.add('changing');transition=setTimeout(apply,350)};next.onerror=()=>{if(token===request){image.classList.remove('changing');index=i}};next.src=photos[i].src}function restart(){clearInterval(timer);if(!reduced&&!document.hidden)timer=setInterval(()=>show((index+1)%photos.length),6500)}document.addEventListener('visibilitychange',restart);restart()})();
 </script>
 <section class="stats"><div><strong id="total">734</strong><span>Песни в репертуаре</span></div><div><strong>10</strong><span>Авторских песен</span></div><div><strong>♥</strong><span>Музыка от сердца</span></div></section>
 <section id="latest-release" class="release-strip" aria-label="Анонсы и релизы"><div class="release-info"><span class="release-icon" aria-hidden="true">♫</span><div><div class="eyebrow">УЖЕ ВЫШЛА · 16 ОКТЯБРЯ 2026</div><h2>«Парень удалой»</h2><p>Моя песня уже на музыкальных площадках.</p></div></div><div class="release-actions"><a class="outline" href="https://band.link/paren_ydaloi" target="_blank" rel="noopener">Слушать песню</a><a class="outline" href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Следить за новостями</a></div></section>
-<section id="catalog" class="catalog">
-<details class="order-prices"><summary class="order-prices-summary"><span>Условия заказа песен</span></summary><div class="order-prices-body"><div class="price-grid"><article class="price-card"><strong>от 250 ₽</strong><b>🎵 Заказ песни</b><small>В порядке очереди</small></article><article class="price-card"><strong>от 700 ₽</strong><b>💌 Песня с сигной</b><small>В порядке очереди + персональная сигна</small></article><article class="price-card priority"><strong>от 1 000 ₽</strong><b>⭐ Песня вне очереди</b><small>Приоритет + персональная сигна</small></article></div><p class="order-note">Если не успею исполнить вашу песню в текущем эфире, заказ может быть перенесён на следующую трансляцию. Особенно это касается песен в порядке очереди. Спасибо за понимание! 🍓</p></div></details>
-<div class="sectionhead"><div><div class="eyebrow">СОНГЛИСТ НИКИ</div><h2>Найдите свою песню</h2></div><button id="random" class="outline">✦ Случайная песня</button></div>
-<div class="controls"><div><label class="control-label" for="search">Поиск песни</label><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Название песни или исполнитель" autocomplete="off" aria-label="Поиск песни или исполнителя"><button id="clear" aria-label="Очистить поиск" hidden>×</button></label></div><div class="sort-control"><label class="control-label" for="sort">Сортировка списка</label><select id="sort"><option value="artist">По исполнителю (А–Я)</option><option value="title">По названию песни (А–Я)</option></select></div></div>
-<details class="artist-picker" id="artist-picker"><summary><span>Исполнитель:</span><span class="artist-selected" id="artist-selected">Все исполнители</span><span class="artist-total" id="artist-total"></span></summary><div class="artist-body"><label class="search artist-search"><span aria-hidden="true">⌕</span><input id="artist-search" type="search" placeholder="Найти исполнителя" autocomplete="off" aria-label="Поиск исполнителя"></label><button type="button" class="outline artist-reset" id="artist-reset" hidden>Сбросить выбор</button><div class="artist-list" id="artist-list" aria-label="Список исполнителей"></div></div></details>
-<div class="filters" role="group" aria-label="Категория песен"><button data-filter="all" class="active">Все песни</button><button data-filter="original">Авторские</button><button data-filter="folk">Народные и казачьи</button><button data-filter="film">Из кино и мультфильмов</button></div>
-<div class="results"><span id="count" aria-live="polite">Загрузка репертуара…</span><span>Выберите композицию для заказа</span></div>
-<div id="songs" class="songlist"></div>
-<div class="pages" id="pages"></div>
-</section>
+
 <div class="profile-grid">
 <section class="profile-card" id="about"><div class="eyebrow">ДАВАЙТЕ ЗНАКОМИТЬСЯ</div><h2>Обо мне</h2><p>Привет! Меня зовут Ника Моисеева. Я певица, записываю каверы и выпускаю собственные песни. На моих музыкальных стримах мы поём любимые композиции и делимся хорошим настроением.</p><p>Буду рада видеть вас в нашей клубничной семье! 🍓</p><a class="outline" href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Мой Telegram</a></section>
-<section class="profile-card" id="my-music"><div class="eyebrow">МОЁ ТВОРЧЕСТВО</div><h2>Авторские песни</h2><p>Здесь собраны мои собственные композиции, которые можно заказать на эфире. Выберите любимую песню.</p><div id="original-chips" class="original-chips" aria-label="Авторские песни"></div><button class="outline" id="show-originals">Все авторские песни</button></section>
+<section class="profile-card" id="my-music"><div class="eyebrow">МОЁ ТВОРЧЕСТВО</div><h2>Авторские песни</h2><p>Здесь собраны мои собственные композиции, которые можно заказать на эфире. Выберите любимую песню.</p><div id="original-chips" class="original-chips" aria-label="Авторские песни"><a class="outline" href="songs.html?filter=original&amp;q=%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D1%91%D0%BA">Василёк</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9A%D0%B0%D0%B7%D0%B0%D1%87%D0%BA%D0%B0">Казачка</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9B%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B0">Ласточка</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9B%D1%8E%D0%BB%D0%B8">Люли</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9D%D0%B5%D1%81%D0%B8%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D1%80%D0%B5%D0%BA%D0%B0">Неси меня река</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9F%D0%B0%D1%80%D0%B5%D0%BD%D1%8C%20%D1%83%D0%B4%D0%B0%D0%BB%D0%BE%D0%B9">Парень удалой</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%B5%D1%86%D0%BE">Письмецо</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%A7%D1%83%D0%B6%D0%BE%D0%B9">Чужой</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%92%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%B2%D0%B5%D1%82%D0%B5%D1%80">Вольный ветер</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D1%8B">Вороны</a></div><a class="outline" href="songs.html?filter=original">Все авторские песни</a></section>
 </div>
 <section id="schedule" class="feature-section"><div class="sectionhead"><div><div class="eyebrow">ВСТРЕЧИ В ПРЯМОМ ЭФИРЕ</div><h2>Расписание стримов</h2></div></div><div class="schedule-grid"><div class="schedule-day">Вторник<strong>19:30</strong><span>по Москве</span></div><div class="schedule-day">Суббота<strong>19:30</strong><span>по Москве</span></div></div><p class="schedule-note">Обычное расписание. Актуальные анонсы и изменения — в <a href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Telegram</a>.</p></section>
 <section id="clips" class="feature-section"><div class="sectionhead"><div><div class="eyebrow">МУЗЫКА В КАДРЕ</div><h2>Клипы и выступления</h2></div><a class="outline" href="https://www.youtube.com/@nikamoiseeva/videos" target="_blank" rel="noopener">Все видео</a></div><div class="clip-grid">
@@ -248,420 +241,16 @@ document.addEventListener('DOMContentLoaded',()=>{
 <article class="history-card"><time datetime="2024-06-14">2024</time><h3>Неси меня река</h3><p>Музыка Вячеслава Титова, слова Аллы Говоровой, аранжировка Сергея Бахтина.</p><a href="https://www.youtube.com/watch?v=d12L4DfqzY4" target="_blank" rel="noopener">Смотреть видео</a></article>
 <article class="history-card"><time datetime="2023-11-20">2023</time><h3>Вороны</h3><p>Одна из выпущенных в 2023 году авторских композиций.</p><a href="https://www.youtube.com/watch?v=SL_ZyD_ojHs" target="_blank" rel="noopener">Смотреть видео</a></article>
 </div></section>
-<section class="support"><div><div class="eyebrow">КАК ЗАКАЗАТЬ</div><h2>От вашей души — к нашей музыке</h2><p>Найдите песню, нажмите «Заказать» и выберите удобный сервис. Отправьте название песни в сообщении к донату во время эфира.</p></div><a class="outline" href="https://www.twitch.tv/nikaclub" target="_blank" rel="noopener">Смотреть трансляцию</a></section>
+<section class="support"><div><div class="eyebrow">КАК ЗАКАЗАТЬ</div><h2>От вашей души — к нашей музыке</h2><p>Найдите песню, нажмите «Заказать» и выберите удобный сервис. Отправьте название песни в сообщении к донату во время эфира.</p></div><a class="outline" href="songs.html">Выбрать песню</a></section>
 </main>
 <footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="https://streamersonglist.com/t/nikaclub/songs" target="_blank" rel="noopener">Источник репертуара</a></span><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="chocolate">Шоколадная</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></footer>
-<dialog id="order"><button id="close" class="close" aria-label="Закрыть">×</button><div class="modalicon">♫</div><div class="eyebrow">ВАШ МУЗЫКАЛЬНЫЙ ЗАКАЗ</div><h2 id="orderTitle"></h2><p id="orderArtist"></p><section class="modal-prices" aria-labelledby="modal-prices-title"><h3 id="modal-prices-title">Условия заказа</h3><dl><dt>от 250 ₽</dt><dd>Песня в порядке очереди</dd><dt>от 700 ₽</dt><dd>Песня в очереди + персональная сигна</dd><dt>от 1 000 ₽</dt><dd>Песня вне очереди + персональная сигна</dd></dl><p class="order-note">Если песня не прозвучит в текущем эфире, заказ может быть перенесён на следующую трансляцию (особенно при обычной очереди).</p></section><div class="message"><label for="message">Сообщение к донату</label><div><input id="message" readonly><button id="copy" class="outline">Копировать</button></div></div><p class="help">Скопируйте сообщение и вставьте его в форму доната. Сумму выберите на странице сервиса.</p><a class="pay da" href="https://www.donationalerts.com/r/nikaclub" target="_blank" rel="noopener">DonationAlerts <span>Оплатить</span></a><a class="pay dp" href="https://new.donatepay.ru/@nikamoiseeva" target="_blank" rel="noopener">DonatePay <span>Оплатить</span></a><a class="pay ds" href="https://destream.net/live/nikaclub/donate" target="_blank" rel="noopener">Destream <span>Оплатить</span></a><div id="notice" aria-live="polite"></div></dialog>
-<script type="text/plain" id="catalog-data">
-2 Маши|Босая
-Activate|Let The Rhythm Take Control
-Adel|Lovesong
-Amber|This is your Night
-Animal Джаz|Три полоски
-ANIVAR|Любимый человек
-ANNA ASTI|По барам|Царица
-Aqua|Roses Are Red
-Dabro|Юность
-Dead Blonde|Бесприданница|Мальчик на девятке|Снег растаял на плечах
-DJ SLON|Ай диги дай
-DJ SLON, К. Замолодчикова|Дельфины
-DJ Smash, Nevesta|Позвони мне
-DJ Unix, Anna|Avatar
-DJ ДОЖДИК|Почему же
-Estradarada|Вите надо выйти
-Filatov & Karas (feat Masha)|Лирика
-Gayazovs Brothers|Малиновая Лада
-Hammali Navai|Птичка
-IOWA|140|Бьет бит|Маршрутка|Песня простая|Улыбайся|Одно и тоже
-Jazzdauren|Дарите женщинам цветы
-Jessica Jay|Casablanca
-Lian Rosse|Say you'll never
-LINNA|Потому что люблю
-Lx24|Красавица|Уголек
-Madonna|La isla bonita
-Masterboy|Mister Feeling
-Maywood|Mother, How Are You Today
-MIA Boyka|А он такой|Богатырская|Есть у берега река
-MIA Boyka, T-killah|Саламандра
-MIROLYBOVA|Гуляй|Лето
-Nautilus Pompilius|Дыхание
-Nina|The Reason Is You
-Polnalyubvi|Твои глаза
-Pussicat Dolls|Sway
-Rafaella Carra|Pedro
-Saro Vardanyan|Я знаю ты придёшь
-Selena Gomez and The Scene|Love You Like A Love Song
-SEREBRO|Мама Люба|Между нами любовь
-SEVENROSE|Черная смородина
-SONA|Все пройдёт
-The Cranberries|Zombie
-Thomas Anders|Why Do You Cry?
-Viktorija feat. Vasha|Tavasis Bučinys
-ZELENO|Ля ты какая
-Zivert|Credo|ЯТЛ
-А. Агурбаш|Я буду жить для тебя
-А. Айвазов|Бабочка луна
-А. Варум|Городок|Зимняя вишня|Колыбельная
-А. Варум, Л. Агутин|Все в твоих руках
-А. Ведищева|Все равно ты будешь мой|Лесной олень|Песенка о медведях
-А. Ведищева Из к/ф «Бриллиантовая рука»|Помоги мне
-А. Герман|А он мне нравится|Весеннее танго|Гори, гори, моя звезда|Город влюбленных людей|Колыбельная|Надежда|Один раз в год
-А. Герман. Из к/ф «Судьба».|Эхо любви
-А. Глызин|Зимний сад
-А. Гоман|Дом родной|Облака
-А. Джанабаева|Пообещай
-А. Егорова|А я теряю голову
-Айдамир Мугу|Чёрные глаза
-Аквариум|Город золотой
-Акула|Мало
-Алекса|Где же ты
-Алексей Кортнев. Из к/ф «Генералы песчаных карьеров»|Генералы песчаных карьеров
-Алена Апина|Узелки (Узелок)|Ксюша|Электричка
-Алёна Апина|Заплутали мишки
-Алёна Высоцкая|Вижу тебя
-Алёна Петровская|Рябина стучит в моё окно
-Алина|Холодно на морозе песни петь
-Алиса Мон|Подорожник
-Алсу|А у моей любви|Весна|Вчера|Зимний сон|Иногда
-А. Магомедова|Прогуляем
-А. Начёсова|Черная ночь
-Ангел-А|Простая девчонка
-Ангел-А feat. DJ SLON|Джимми, джимми
-Ангина|Твоя девочка ушла
-Андрей Бандера|Ивушки
-Андрей Губин|Мальчик - бродяга|Зима-холода
-Андрей Миронов. Из к/ф «Бриллиантовая рука»|Остров невезения
-А. Некрасова|Расцвела|Я тебя не знаю
-Аника Далински|Дороги
-Ани Лорак|Для тебя|Забирай рай|Медленно|Солнце
-Ани Лорак, Г. Лепс|Уходи по-английски
-Анита Цой|Полет
-Ансамбль Донских казаков|Русские просторы
-А. Пугачева|Доченька|Золотая карусель|Миллион алых роз|Нас бьют - мы летаем|На Тихорецкую|Позови меня с собой
-А. Пугачёва|Ты на свете есть|Этот мир|Я пою|Без тебя
-А. Пугачева, К. Орбакайте|Опять метель
-Ария|Потерянный рай|Штиль|Я свободен
-Аркадиас|Художник
-Арсен Шахунц|Девочка, стоп
-А. Руденко|Падал белый снег
-А. Свиридова|Эй, моряк
-А. Сотникова|Цветочек
-Ассорти|Красивая любовь
-А. Стрельченко|Гляжу в озёра синие
-А-Студио|Джулия|Папа, мама|Так же как все|Улетаю
-Афина|Душа кричит|Сердце напополам|Танцуй красивая|Улыбайся|Я и ты
-Ахра|Карие глаза
-Бабкины Внуки|Туман
-Балаган Лимитед|Вася-Василек|Колечко моё|Мальчик из Нальчика|Молодая, глупая|Там за околицей|Что я наделала
-Балкарская песня|Нальчик кечеле
-Баста|Сансара
-Белый день|Ах, мамочка|Ай-яй-яй|Галина|Деревенька|Запевай, земляки|Ромашка|Соловушка
-Белый день, Лена Василёк|Дарья|Закружился снег шальной
-Белый орёл|Как упоительны в России вечера|Я куплю тебе новую жизнь
-Блестящие|А я все летала|За четыре моря|Милый рулевой|Новогодняя песня|Пальмы парами|Ча-ча-ча
-Божья Коровка|Гранитный камушек
-Борис Чирков. Из к/ф «Юность Максима»|Крутится, вертится шар голубой
-Браво|Московский бит|Этот город
-Бутырка|Два полюса
-Бьянка|А че, че
-Валерия|Маленький самолет|Нежность моя|По серпантину|Самолет|Часики
-В. Алешко|Пусть сбывается
-В. Гасаев|Много ль надо мужикам
-В. Дворянинова|Спят усталые игрушки
-Вера Брежнева|Близкие люди|Девочка моя|Реальная жизнь
-Весна|Не торопись|Самый близкий человек|Я еду, да ну, в Ростов-на-Дону|Я нарисую мир таким
-ВИА Верасы|Малиновка (Малиновки заслышав голосок)
-ВИА Гра|My Emancipation|Антигейша|Бриллианты|Л.М.Л.|Мир о котором я не знала до тебя|Не надо|Не оставляй меня любимый|Океан и три реки|Перемирие|Попытка номер пять|Пошел вон|Стоп, стоп, стоп|У меня появился другой|Цветок и нож
-ВИА Лейся, песня|Синий иней
-ВИА Пламя|Идёт солдат по городу|Снег кружится
-ВИА Сливки|Куда уходит детство
-Виктория Черенцова|Миражи
-Виктор Сорокин|Морошка
-Виктор Цой, Кино|Группа крови|Звезда по имени Солнце|Пачка сигарет
-Винтаж|Деревья|Знак водолея|Роман
-Вирус|Попрошу у тебя|Ручки|Ты меня не ищи
-В. Королев|Букет из белых роз|Давай под капучино
-Владимир Высоцкий|Песня Марьи (Марьюшка)
-Владимир Захаров, Аня Воробей|Встреча
-Владимир Маркин|Я готов целовать песок
-Владимир Нечаев|Огонёк
-Владимир Пресняков|Стюардесса по имени Жанна
-Владимир Трошин|Подмосковные вечера
-В. Меладзе|Иностранец|Разведи огонь|Салют, Вера
-В. Мулерман|Лада
-В. Ободзинский|Восточная песня|Эти глаза напротив
-Воровайки|Девчонка рыжая
-В. Салтыков, гр.«Форум»|Белая ночь
-В. Сердючка|Новогодняя
-В. Стрыкало|Наше лето
-В. Толкунова|Кабы не было зимы|Носики-Курносики|Поговори со мною мама|По камушкам|Я не могу иначе
-В. Цыганова|За мужчин
-В. Шаинский|Если с другом вышел в путь|Песенка крокодила Гены|Чему учат в школе|Чунга-чанга
-Вячеслав Мясников|Папа
-Г. Байларкызы|По пьяни
-Геннадий Белов|На дальней станции сойду
-Г. Лепс, М. Фадеев|Орлы или вороны
-Глюкоза|А снег идет|Жу-жу|Невеста|Парень-танцевач|Пина-колада|Танцуй Россия|Фэн-шуй|Хулиганка|Юра
-Голубые береты|Одуванчики
-Город 312|Вне зоны доступа|Невидимка|Обернись|Фонари
-Горячий шоколад|Без ума от счастья и боли
-Градусы|Режиссер
-Г. Хасанова|Говори
-ДДТ|Что такое осень|Это все
-Демо|Дождик|Солнышко
-Детские|Выглянуло солнышко
-Детский хор|Вместе весело шагать
-Дима Билан|Про белые розы
-Дискотека Авария|Новогодняя
-Дискотека Авария, Ж. Фриске|Малинки
-Дуэт Пара Лель|Песня казачки
-Е. Белоусов|Девчонка-девчоночка
-Е. Климова. Из к/ф «Мы из Будущего»|Романс Нины
-Елена Ваенга|Абсент|Где была|Желаю|Золотая рыбка|Кайся|Курю|Ласточка|Мамочка|Невеста|Папа нарисуй|Принцесса|Реснички|Снег|Шопен
-Елена Ваенга, Алёна Петровская|Обыкновенный
-Елена Камбурова|Маленький принц
-Елена Кукарская|По маленькой
-Елка|Грею счастье|Не брошу на полпути
-Е. Осин|Плачет девушка в автомате
-Е. Терлеева|Солнце
-Жанна Добровольская|Одна
-Жанна Рождественская. Из к/ф «Карнавал»|Позвони, мне позвони
-Жасмин|За мужчин|Как ты мне нужен|Самый любимый
-Женя Отрадная|Уходи, дверь закрой|Я Тебя Очень
-Ж. Любич|Колыбельная тишины
-Жуки|Батарейка|Танкист
-Ж. Фриске|Где-то летом|Ла ла ла|Портофино
-Зара|Для нее|Любовь-красавица|Недолюбила
-Звери|До скорой встречи|Напитки покрепче|Районы- кварталы|Рома, извини
-Земляне|Трава у дома
-Земфира|Жить в твоей голове|Искала|Лондон|Хочешь
-И. Асварова|Разбито сердце мое
-Иванушки International|Тучи
-Игорь Тальков|Чистые пруды
-И. Дубцова|Как ты, где ты|Люби меня долго|Ну, как ты там|Сердце в тысячу свечей|Я тоже его люблю
-Из к/ф "Весна на заречной улице"|Когда весна, придёт не знаю
-Из к/ф "Гардемарины вперед"|Песня о любви (Как жизнь без весны)
-Из к/ф "Мэри Поппинс, до свидания"|Леди Мери
-Из к/ф Новые приключения неуловимых|Погоня
-Из к/ф «Судьба»|То не ветер ветку клонит («Лучина»)
-Из к/ф «Чародеи»|Пока часы двенадцать бьют
-Из к/ф "Чебурашка и крокодил Гена"|Голубой вагон
-Из м/ф "Бременские музыканты"|Бяки буки|Песенка друзей
-Из м/ф "В синем море, в белой пене"|Оставайся мальчик с нами
-Из м/ф "Крошка енот"|От улыбки
-Из м/ф "Летучий корабль"|Частушки Бабок-Ёжек
-Из м/ф «Маша и Медведь»|Песня про варенье|Песня про следы
-Из м/ф "По следам Бременских музыкантов"|Серенада трубадура
-Из т/ф «Ах, Водевиль, Водевиль»|Гадалка
-Из т/ф «Приключения Электроника»|Крылатые качели
-И. Итляшев|Кобра
-И. Кобзон|А у нас во дворе
-И. Корнелюк|Город, которого нет
-И. Круг|Бокал Бакарди|Вот и все|Дом на горе|Моя королева|Не привыкну никак|Прости меня|Тебе моя последняя любовь|Фамилия|Шанель|Я прочитаю в глазах твоих
-Инна Вальтер|Дымом лечилась|Корона
-Ирина Леонова Из т/с «Главный калибр»|Лети пёрышко
-Ирина Понаровская|Рябиновые бусы
-Ирина Салтыкова|Голубые глазки|Серые глаза
-Казачья|Любо, братцы, любо|Не для меня|Ойся ты ойся
-Казачья-плясовая|Донская плясовая
-К. Ваншенкин, Э. Колмановский|Алёша
-Квартет "Улыбка". к/ф «Девчата»|Хорошие девчата
-К. Голицына|Бессовестно красивая|Какая дама пропадает
-КиШ|Ведьма и осел|Кукла колдуна|Лесник
-Клавдия Шульженко|Синий платочек
-К. Лель|Мой мармеладный|Муси-пуси
-К. Орбакайте|Губки бантиком|Каждый день с тобой|Перелетная птица|Пьяная вишня
-КПТ|Русская рать
-Краски|А вы не трогайте меня|А он не знает ничего|Мне мальчик твой не нужен|Оранжевое солнце|Раз, два, три, четыре
-К. Румянова|Волшебный цветок|Облака|Песенка мамонтенка
-К. Шайн|Три желания
-Л. Агутин|Мир зеленого цвета|Хоп, хей
-Л. Агутин, А. Варум|Февраль
-Лариса Голубкина. Из к/ф «Гусарская баллада».|Колыбельная Светлане
-Л. Барыкина, ВИА «Весёлые ребята»|В последний раз (Все напоминает о тебе)|Папа, подари мне куклу
-Л. Владимирова|Красками разными
-Л. Гурченко|Молитва|Песенка о хорошем настроении|Пять минут
-Лев Лещенко|Родительский дом
-Лицей|Осень
-Л. Николаева|Завалинка|Золотая ярмарка
-Лолита|На Титанике|Пошлю его на
-Лолита, Коста Лакоста|По-другому
-Л. Успенская|Гитара|Кабриолет|К единственному нежному|По полюшку|Пропадаю я
-Л. Чеботина|Плакал Голливуд|Синий ветер, белый лен|Солнце Монако
-Л. Черникова|Влюбленный самолет
-Любовные истории|Школа
-Любэ|А река течёт|Конь
-Людмила Зыкина|На Побывку Едет|Оренбургский пуховый платок|Подари мне платок|Течёт река Волга|Травы луговые
-Ляпис Трубецкой|Евпатория|Яблони
-Максим|Ветром стать|Знаешь ли ты|Лучшая ночь|На радиоволнах|Небо, засыпай|Не отдам|Одиночка|Трудный возраст
-Марина Журавлева|Снежинка
-Марина Ладынина|Каким ты был
-Мария Ржевская|Когда я стану кошкой
-Марк Бернес|Журавли
-Марсель|Эта песня для тебя
-Марта Серебрякова|Пленница
-М. Бандоровский|Ценим жизнь
-МГК|Ах, какие ты говорил мне слова
-М. Девятова|Ах, мамочка|Белоснежная вишня|Ветер перемен|Виноградная косточка|Казаки в Берлине|Какая песня без баяна|Колечко на память|Московская кадриль|Ой, снег, снежок|Полюбила казака|Разговоры|Реченька-речушка|С днем рождения|Снег- снежок|Соловушка|Танец солнца и огня|Я - деревенская
-М. Девятова and ЧАПАЕВ|Любить по-русски
-М. Ермакова|Лучшее в тебе
-М. Журавлева|Белая черемуха|На сердце рана у меня
-Мила Нитич|Что тебе подарить
-М. Исаковский|Одинокая гармонь
-Михаил Круг, Вика Цыганова|Приходите в мой дом
-Михаил Шелег|За глаза твои карие
-М. Кристалинская|Два берега|Нежность|Старый клён|Я тебя подожду
-М. Кристалинская. Из к/ф «Карьера Димы Горина».|А снег идет
-М. Магомаев|Серенада Трубадура|Лучший город земли
-М. Муромов|Яблоки на снегу
-М. Насыров|Мальчик хочет в Тамбов|Я - это ты
-Мот|Звуки пианино|Соло
-М. Пахоменко|Стоят девчонки
-М. Фадеев|Гугуша
-м/ф «Как львенок и черепаха пели песню»|Песня Львенка и Черепахи
-М. Хлебникова|Солнышко мое вставай|Чашка кофею
-М. Чайковская|Нитью
-М. Шуфутинский|Наколочка|Левый берег Дона|Марджанджа|Третье сентября
-На-На|Фаина
-Народная|Заболела Дунина головка
-Народная Белорусская|Калыханка|Купалинка
-Народные|Верила, верю|Казачка вольная|Когда мы были на войне|Ой, то не вечер|Ой, цветёт калина|По Дону гуляет казак молодой|Ты шкатулка, шкатулка моя|Шёл казак
-Народные (Лидия Русланова)|Валенки
-Настасья Самбурская|Безответная
-Настя Задорожная|Буду
-Натали|Ветер с моря дул|Морская черепашка|Не стерпелось|Облака|Платье на брителях|Считалочка|Улыбочку|Четыре стены|Шахерезада|Не звони
-Натали, Аркадий Хоралов|Новогодние игрушки
-Натали и Ди-Бронкс|За горизонтом
-Наталья Ветлицкая|Глаза цвета виски|Посмотри в глаза
-Наталья Власова|Я у твоих ног
-Наталья Могилевская|Полюби меня такой
-Н. Бабкина и анс. «Русская песня»|Ромашки-цветы
-Н. Бабкина и Варвара|За рекой
-Н. Бабкина и гр.После 11|Тень тень над водою|Ягодиночка
-Н. Бродская|Звенит январская вьюга
-Ненси|Дым сиграет с ментолом|Туман-туман|Чистый лист
-Непоседы|Прекрасное далеко
-Ника Моисеева|Василёк|Казачка|Ласточка|Люли|Неси меня река|Парень удалой|Письмецо|Чужой|Вольный ветер|Вороны
-Никита Михалков. Из к/ф «Жестокий романс»|Мохнатый шмель («А цыган идёт»)
-Николай Басков|Зараза
-Николай Рыбников|Тишина за Рогожской заставою
-Н. Кадышева|Ах, судьба|Все уже когда-то было|Давай дружок на посошок|Зеленые глаза|Колдунья|Малиновый звон|С днем рождения|Снег летит|Течет ручей|Широка река|Пролетело лето
-Н. Королёва|Желтые тюльпаны|Маленькая страна|Синие лебеди|Сиреневый рай
-Н. Носков|А на меньшее я не согласен|Это здорово
-Новые Самоцветы|Льётся музыка|Всё, что в жизни есть у меня
-Ночные Снайперы|Ты дарила мне розы
-Н. Сенчукова|Лодка
-Оксана Джелиева|Без вины виноватая
-Ольга Воронец|Крапивушка
-Ольга Зарубина|На теплоходе музыка играет
-Ольга Плотникова|Платье
-О. Полякова|Королева ночи|Шлепки
-О. Рождественская|Песенка красной шапочки
-О. Серябкина|Бывшие
-Паулина Андреева. Из сериала «Оттепель»|Оттепель
-Песняры|Тальяночка
-Полина Гагарина|Полюшка|Ты не целуй
-Пропаганда|Гордая|Мелом|Сердце уходит в разведку|Яблоки ела
-Рада Рай|Калина|Душа
-Раиса Отрадная|Мужиков надо любить|На горе колхоз
-Ретро|Есть только миг|Замечательный сосед|Катюша|Колыбельная медведицы|Московские окна|Огней так много золотых|Песенка мамонтенка|Птица счастья|Там где клен шумит|Три белых коня|Ты меня подожди|Ты мое дыхание|Черное белое|Черный кот|Ягода-малина
-Рефлекс|Падали звезды|Просто потому что|Танцы|Я тебя всегда буду ждать|Сойти с ума
-РНП|Виновата ли я|Выйду на улицу|Ой, при лужку|Под окном черемуха колышится|Порушка-пораня|Тонкая рябина
-Рождество|Карандаши
-Рок-Острова|Ничего не говори
-Романс|В лунном сиянии
-Р. Филберг|Мой отец
-Самоцветы|Прошлогодние глаза
-Саша Квашеная|Не друг, не враг
-Света|А может нет, а может да|Дорога в аэропорт|Не говори|Синеглазые дельфины|Ты не мой|Хватит, довольно|Что мне делать
-Светлана Кофанова|Мы казачки вольные
-С. Владимировская|Мальчик мой
-Севара|Там нет меня
-Сектор Газа|Твой звонок
-Серега|Черный бумер
-С. Лобода|Американо|Занесло|К черту любовь|Мой|Молоко|Облака|Парень|Пуля-дура|Твои глаза
-Смысловые Галлюцинации|Зачем топтать мою любовь (ЗТМЛ)
-Согдиана|Птица без крыла
-Согдиана, Abdulkarim|Кольцо
-Сплин|Мое сердце|Романс
-С. Рерих|Две ладошки
-С. Ротару|Белая зима|Хуторянка|Червону руту
-Старинный казачий романс|Кукушка
-Стекловата|Новый год
-Султан Лагучев|Горький вкус|Коронована мадам|Люблю и ненавижу
-Тайпан, Nazami|Заплела косы
-Тамара Миансарова|Рыжик
-Татьяна Анциферова. Из к/ф «31 июня»|Ищу тебя
-Татьяна Овсиенко|Дальнобойщик|Школьная пора
-Татьяна Сашко|Белый танец
-Т. Буланова|Не бойтесь любви|Один день|Ясный мой свет
-Тимофей Копылов и Дарья Винокурова|Вот пуля просвистела
-Тина Кароль|Ноченька
-Т. Куртукова|Матушка-земля|Наливное яблочко|Одного
-Т. Муратова|На берегу чу
-Т. Повалий|Женщина, которая любит|Мама-мамочка|Три зимы|Чарiвна скрипка|Черноглазая казачка
-Т. Повалий, Н. Басков|Снегом белым
-Трофим|Город Сочи|За Тихой Рекою|Московская песня|Родина
-Турбомода|Море
-Тутси|Самый
-Т. Шилова|Баллада о трех сыновьях
-Унесенные ветром|Какао
-Уральский РНХ|Уральская рябинушка
-Фабрика|Позвони, будь посмелей|Рыбка
-Цветомузыка|Таня Танечка|Три аккорда
-Цыганский романс|Не будите (Солнышко)
-ЧИЖ|О любви
-Чи-Ли|Лето|Сердце
-Э. Асадов|Я могу тебя очень ждать
-Э. Геворгян|Никто с собой не заберет
-Эльбрус Джанмирзоев, Элвин Грей|Пошел налево
-ЭМИН|МММ
-Э. Хиль|Потолок ледяной
-Ю. Караулова|Ариведерчи
-Юлия Беретта|Дикая
-Юлия Михальчик|Лебедь белая
-Юрий Гуляев|Орлята учатся летать
-Юрий Никулин. Из к/ф «Кавказская пленница, или Новые приключения Шурика»|Если б я был султан
-Ю. Савичева|Если в сердце живет любовь|Москва - Владивосток
-Юта|Имя
-Юта. Из сериала «Пока станица спит».|Любимый мой
-Юта. Из сериала «Солдаты»|Жили-были
-Ю. Шатунов|А лето цвета|Белые розы|Грёзы|Забудь|Медленно уходит осень|Не бойся|Розовый вечер|Ромашки|С днем рождения|Детство
-Ян Френкель|Вальс расставания
-Ярослав Евдокимов|Майский вальс|Фантазер
-Я. Шведов, А. Новиков|Смуглянка
 
-</script>
+
 <script>
-const $=id=>document.getElementById(id);
-let all=[],filter='all',page=1,filtered=[],selectedArtist='';
-const perPage=10;
-const norm=s=>s.normalize('NFC').toLowerCase().replace(/ё/g,'е').replace(/[\u200b-\u200d\uFEFF]/g,'').trim();
-const original=s=>norm(s.artist)==='ника моисеева';
-const folk=s=>/народн|казач|рнп|рнх|балкарск/i.test(s.artist);
-const film=s=>/к\/ф|м\/ф|т\/ф|т\/с|сериал/i.test(s.artist);
-const categories={all:()=>true,original,folk,film};
-function button(text,fn,cls){const b=document.createElement('button');b.textContent=text;b.className=cls||'';b.addEventListener('click',fn);return b}
-function artistCounts(){const counts=new Map();for(const s of all.filter(categories[filter]))counts.set(s.artist,(counts.get(s.artist)||0)+1);return counts}
-function renderArtists(){const counts=artistCounts();const q=norm($('artist-search').value);const list=$('artist-list');list.replaceChildren();$('artist-total').textContent=counts.size+' исполнителей';$('artist-selected').textContent=selectedArtist||'Все исполнители';$('artist-reset').hidden=!selectedArtist;const rows=[...counts].filter(([name])=>norm(name).includes(q)).sort((a,b)=>a[0].localeCompare(b[0],'ru'));for(const [name,count] of rows){const b=button('',()=>selectArtist(name));b.type='button';b.setAttribute('aria-pressed',String(selectedArtist===name));const title=document.createElement('span');title.textContent=name;const num=document.createElement('span');num.textContent=count;num.setAttribute('aria-label','Песен: '+count);b.append(title,num);list.append(b)}if(!rows.length){const el=document.createElement('span');el.className='artist-empty';el.textContent='Исполнители не найдены';list.append(el)}}
-function selectArtist(name){selectedArtist=name;page=1;$('artist-search').value='';renderArtists();render();$('artist-picker').open=false;$('artist-picker').querySelector('summary').focus({preventScroll:true})}
-$('artist-search').addEventListener('input',renderArtists);$('artist-reset').addEventListener('click',()=>selectArtist(''));
-function render(scroll=false){const q=norm($('search').value).split(/\s+/).filter(Boolean);let sort=$('sort').value;
-filtered=all.filter(s=>categories[filter](s)&&(!selectedArtist||s.artist===selectedArtist)&&q.every(w=>norm(s.artist+' '+s.title).includes(w))).sort((a,b)=>a[sort].localeCompare(b[sort],'ru')||a.title.localeCompare(b.title,'ru')||a.artist.localeCompare(b.artist,'ru'));
-const max=Math.max(1,Math.ceil(filtered.length/perPage));page=Math.min(page,max);$('count').textContent='Найдено: '+filtered.length+' из '+all.length;$('songs').replaceChildren();$('clear').hidden=!$('search').value;
-if(!filtered.length){const n=document.createElement('div');n.className='empty';n.textContent='Песни не найдены. Попробуйте изменить запрос.';$('songs').append(n)}
-for(const s of filtered.slice((page-1)*perPage,page*perPage)){const row=document.createElement('div');row.className='song';const icon=document.createElement('span');icon.className='icon';icon.textContent='♪';icon.setAttribute('aria-hidden','true');const title=document.createElement('span');title.className='title';title.textContent=s.title;if(original(s)){const badge=document.createElement('span');badge.className='badge';badge.textContent='Авторская';title.append(badge)}const artist=document.createElement('span');artist.className='artist';artist.textContent=s.artist;row.append(icon,title,artist,button('Заказать',()=>order(s),'orderbtn'));$('songs').append(row)}
-const pages=$('pages');pages.replaceChildren();if(max>1){const go=n=>{page=n;render(true)};let prev=button('Назад',()=>go(page-1));prev.disabled=page===1;pages.append(prev);let nums=[...new Set([1,page-1,page,page+1,max])].filter(n=>n>0&&n<=max).sort((a,b)=>a-b);let last=0;for(let n of nums){if(last&&n-last>1){let dots=document.createElement('span');dots.textContent='…';pages.append(dots)}let b=button(n,()=>go(n),n===page?'current':'');if(n===page)b.setAttribute('aria-current','page');pages.append(b);last=n}let next=button('Далее',()=>go(page+1));next.disabled=page===max;pages.append(next)}if(scroll)$('catalog').scrollIntoView({behavior:'smooth',block:'start'})}
-function order(s){$('orderTitle').textContent=s.title;$('orderArtist').textContent=s.artist;$('message').value=s.artist+' — '+s.title;$('notice').textContent='';$('order').showModal()}
-async function copy(){try{await navigator.clipboard.writeText($('message').value)}catch{$('message').select();if(!document.execCommand('copy')){$('notice').textContent='Выделите сообщение и скопируйте его вручную.';return}}$('notice').textContent='✓ Сообщение скопировано'}
-$('copy').addEventListener('click',copy);$('close').addEventListener('click',()=>$('order').close());$('order').addEventListener('click',e=>{if(e.target===$('order'))$('order').close()});
-$('search').addEventListener('input',()=>{page=1;render()});$('clear').addEventListener('click',()=>{$('search').value='';$('search').focus();page=1;render()});$('sort').addEventListener('change',()=>{page=1;render()});for(const b of document.querySelectorAll('[data-filter]'))b.addEventListener('click',()=>{filter=b.dataset.filter;page=1;if(selectedArtist&&!artistCounts().has(selectedArtist))selectedArtist='';renderArtists();document.querySelectorAll('[data-filter]').forEach(a=>{a.classList.toggle('active',a===b);a.setAttribute('aria-pressed',String(a===b))});render()});$('random').addEventListener('click',()=>{if(filtered.length)order(filtered[Math.floor(Math.random()*filtered.length)])});
 const moreMenus=[...document.querySelectorAll('.more-links')];
 document.addEventListener('click',e=>{for(const menu of moreMenus)if(menu.open&&(!menu.contains(e.target)||e.target.closest('.more-panel a')))menu.open=false});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const opened=moreMenus.find(m=>m.open);moreMenus.forEach(m=>m.open=false);if(opened)opened.querySelector('summary').focus()}});
 for(const menu of moreMenus)menu.addEventListener('toggle',()=>{if(menu.open)for(const other of moreMenus)if(other!==menu)other.open=false});
-$('show-originals').addEventListener('click',()=>{$('search').value='';selectedArtist='';document.querySelector('[data-filter="original"]').click();$('catalog').scrollIntoView({behavior:'smooth',block:'start'})});
-Promise.resolve(document.getElementById('catalog-data').textContent).then(t=>{all=t.trim().split(/\r?\n/).flatMap(line=>{const [artist,...titles]=line.split('|');return titles.map(title=>({artist,title}))});$('total').textContent=all.length;const chips=$('original-chips');chips.replaceChildren();for(const song of all.filter(original))chips.append(button(song.title,()=>order(song)));renderArtists();render()}).catch(()=>{$('count').textContent='Не удалось загрузить репертуар';$('songs').textContent='Обновите страницу или откройте исходный сонглист.'});
 
 </script>
 <a class="comment-float is-hidden" id="comment-float" href="support.html" aria-label="Оставить комментарий" title="Оставить комментарий"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linejoin="round" d="M3 4h18v13H11l-5 4v-4H3z"/><path stroke-linecap="round" d="M7 10h10M7 13h6"/></svg><span>Оставить комментарий</span></a>

@@ -1,0 +1,12 @@
+{
+  "status": "scheduled",
+  "nextStart": "2026-12-01T19:30:00+03:00",
+  "title": "Музыкальный стрим Ники Моисеевой",
+  "liveUntil": "2026-12-01T21:30:00+03:00",
+  "links": {
+    "youtube": "https://www.youtube.com/@nikamoiseeva/live",
+    "twitch": "https://www.twitch.tv/nikaclub",
+    "vkLive": "https://live.vkvideo.ru/clubnika"
+  },
+  "telegramReminder": ""
+}

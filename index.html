@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="canonical" href="https://aicheif.github.io/Clubnika/">
+<link rel="canonical" href="https://nikamoiseeva.ru/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Ника Моисеева">
 <meta property="og:title" content="Ника Моисеева — Музыка от души">
 <meta property="og:description" content="Авторские песни, музыкальные стримы и репертуар Ники Моисеевой. Выберите любимую песню и закажите её на эфире!">
-<meta property="og:url" content="https://aicheif.github.io/Clubnika/">
-<meta property="og:image" content="https://aicheif.github.io/Clubnika/og-preview.jpg">
+<meta property="og:url" content="https://nikamoiseeva.ru/">
+<meta property="og:image" content="https://nikamoiseeva.ru/og-preview.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ника Моисеева — Музыка от души">
 <meta name="twitter:description" content="Авторские песни, музыкальные стримы и репертуар Ники Моисеевой">
-<meta name="twitter:image" content="https://aicheif.github.io/Clubnika/og-preview.jpg">
+<meta name="twitter:image" content="https://nikamoiseeva.ru/og-preview.jpg">
 <meta name="theme-color" content="#15080a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Ника Моисеева">
@@ -63,6 +63,7 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
 :root[data-theme="lavender"]{color-scheme:light;--bg:#f7f4ff;--panel:#fff;--line:#dcd3ee;--text:#38264d;--muted:#67557e;--pink:#7349ad;--gold:#70458c;--accent-ink:#fff;--hero-start:#e8ddff;--hero-end:#f7efff;--hero-glow:#ceafea}
 :root[data-theme="ocean"]{color-scheme:dark;--bg:#081a24;--panel:#102b39;--line:#2e5363;--text:#edfbff;--muted:#b3d2df;--pink:#65dce8;--gold:#9feac6;--accent-ink:#082c33;--hero-start:#15586b;--hero-end:#103141;--hero-glow:#168e9e}
 :root[data-theme="sunset"]{color-scheme:dark;--bg:#22110c;--panel:#331e16;--line:#694330;--text:#fff4e8;--muted:#e0bda6;--pink:#ffab72;--gold:#ffe0a1;--accent-ink:#361a0d;--hero-start:#773a24;--hero-end:#40241b;--hero-glow:#b55f39}
+:root[data-theme="chocolate"]{color-scheme:dark;--bg:#150b08;--panel:#291712;--line:#65402b;--text:#fff4e8;--muted:#d6b8a3;--pink:#e0a35d;--gold:#f1ce8a;--accent-ink:#32150e;--hero-start:#4d1b16;--hero-end:#24120e;--hero-glow:#7d2a22}
 :root[data-theme="winter"]{color-scheme:light;--bg:#f3f9ff;--panel:#fff;--line:#c9ddec;--text:#203f59;--muted:#49667e;--pink:#176b9a;--gold:#295e80;--accent-ink:#fff;--hero-start:#dcefff;--hero-end:#f0f8ff;--hero-glow:#b7d9f0}
 :root[data-theme="scarlet"]{color-scheme:dark;--bg:#16090b;--panel:#291013;--line:#70432b;--text:#fff6e7;--muted:#e0bcae;--pink:#f6c86b;--gold:#ffdb89;--accent-ink:#351006;--hero-start:#7b071a;--hero-end:#30090e;--hero-glow:#b90b25}
 :root[data-theme]:not([data-theme="classic"]) .top{background:color-mix(in srgb,var(--panel) 80%,var(--bg));border-color:var(--line)}
@@ -168,9 +169,13 @@ html.reload-top body{overflow-anchor:none}
 .artist-list button{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;min-width:0;min-height:42px;padding:8px 11px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:7px;overflow-wrap:anywhere}.artist-list button:hover,.artist-list button[aria-pressed=true]{border-color:var(--gold);color:var(--gold);background:color-mix(in srgb,var(--panel) 75%,var(--gold))}.artist-list button span:last-child{color:var(--muted);font-size:12px;flex:none}.artist-list .artist-empty{grid-column:1/-1;font-size:14px;padding:9px;color:var(--muted)}
 .artist-reset{margin-bottom:10px;min-height:37px;padding:6px 12px;font-size:13px}.artist-reset[hidden]{display:none}
 @media(max-width:740px){.catalog .controls{grid-template-columns:1fr;gap:11px}.catalog .sort-control select{min-height:44px;font-size:16px}.artist-list{grid-template-columns:1fr;max-height:270px}.artist-picker summary{flex-wrap:wrap;gap:7px}.artist-picker .artist-total{font-size:12px}.artist-picker summary::after{margin-left:auto}}
+.logo-picker{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;max-width:100%;flex-wrap:wrap}.logo-picker select{min-width:0;max-width:100%;padding:8px 10px;font-size:13px;cursor:pointer}.brand .berry.logo-image-mode{width:64px;height:64px;border:0;border-radius:0;background:none;box-shadow:none}.brand .berry .selected-logo{width:100%;height:100%;object-fit:contain;display:block}.brand .berry .selected-logo[hidden],.brand .berry.logo-image-mode svg{display:none}.logo-picker-status{font-size:11px;color:var(--muted)}.logo-picker-status:empty{display:none}
+:root[data-theme="chocolate"] .top{background:linear-gradient(110deg,#36160f,#180c09 72%);border-bottom-color:#8e5d36}:root[data-theme="chocolate"] .hero{box-shadow:0 20px 45px #0005;border-color:#805438}:root[data-theme="chocolate"] .primary{background:linear-gradient(145deg,#ffe1a0,#b98243);border-color:#d4a35e;color:#35150c}
+@media(max-width:740px){.logo-picker{width:100%;margin-top:2px}.logo-picker select{flex:1}.brand .berry.logo-image-mode{width:58px;height:58px}}
 </style>
 <script>
-(()=>{const themes=['classic','berry','emerald','sapphire','light','noir','lavender','ocean','sunset','winter','scarlet'];let theme='scarlet';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
+(()=>{const themes=['classic','berry','emerald','sapphire','light','noir','lavender','ocean','sunset','winter','scarlet','chocolate'];let theme='scarlet';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
+(()=>{const files={note:'logo-note.png',ribbon:'logo-ribbon.png',signature:'logo-signature.png',ruby:'logo-ruby.png'};document.addEventListener('DOMContentLoaded',()=>{const brand=document.querySelector('.brandarea'),berry=brand.querySelector('.berry');const holder=document.createElement('label');holder.className='logo-picker';holder.append('Логотип: ');const picker=document.createElement('select');picker.id='logo-picker';picker.setAttribute('aria-label','Выбор логотипа');for(const [id,title] of [['classic','Текущий'],['note','Клубничка с нотой'],['ribbon','Алая лента'],['signature','НМ — личная подпись'],['ruby','Клубничный рубин']]){const option=document.createElement('option');option.value=id;option.textContent=title;picker.append(option)}holder.append(picker);const status=document.createElement('span');status.className='logo-picker-status';status.setAttribute('role','status');brand.append(holder,status);const img=document.createElement('img');img.className='selected-logo';img.alt='';img.hidden=true;berry.append(img);let selection='classic',token=0;try{const saved=localStorage.getItem('nika.catalog.logo');if(saved==='classic'||Object.prototype.hasOwnProperty.call(files,saved))selection=saved}catch{}function apply(id){const request=++token;img.hidden=true;berry.classList.remove('logo-image-mode');status.textContent='';if(id==='classic'){img.removeAttribute('src');return}const pending=new Image();pending.onload=()=>{if(request!==token)return;img.src=files[id];img.hidden=false;berry.classList.add('logo-image-mode')};pending.onerror=()=>{if(request!==token)return;status.textContent='Ожидается файл '+files[id]};pending.src=files[id]}picker.value=selection;apply(selection);picker.addEventListener('change',()=>{selection=picker.value;try{localStorage.setItem('nika.catalog.logo',selection)}catch{}apply(selection)})})})();
 </script>
 </head>
 <body>
@@ -214,7 +219,7 @@ html.reload-top body{overflow-anchor:none}
 </div></section>
 <section class="support"><div><div class="eyebrow">КАК ЗАКАЗАТЬ</div><h2>От вашей души — к нашей музыке</h2><p>Найдите песню, нажмите «Заказать» и выберите удобный сервис. Отправьте название песни в сообщении к донату во время эфира.</p></div><a class="outline" href="https://www.twitch.tv/nikaclub" target="_blank" rel="noopener">Смотреть трансляцию</a></section>
 </main>
-<footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="https://streamersonglist.com/t/nikaclub/songs" target="_blank" rel="noopener">Источник репертуара</a></span><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></footer>
+<footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="https://streamersonglist.com/t/nikaclub/songs" target="_blank" rel="noopener">Источник репертуара</a></span><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="chocolate">Шоколадная</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></footer>
 <dialog id="order"><button id="close" class="close" aria-label="Закрыть">×</button><div class="modalicon">♫</div><div class="eyebrow">ВАШ МУЗЫКАЛЬНЫЙ ЗАКАЗ</div><h2 id="orderTitle"></h2><p id="orderArtist"></p><div class="message"><label for="message">Сообщение к донату</label><div><input id="message" readonly><button id="copy" class="outline">Копировать</button></div></div><p class="help">Скопируйте сообщение и вставьте его в форму доната. Сумму выберите на странице сервиса.</p><a class="pay da" href="https://www.donationalerts.com/r/nikaclub" target="_blank" rel="noopener">DonationAlerts <span>Оплатить</span></a><a class="pay dp" href="https://new.donatepay.ru/@nikamoiseeva" target="_blank" rel="noopener">DonatePay <span>Оплатить</span></a><a class="pay ds" href="https://destream.net/live/nikaclub/donate" target="_blank" rel="noopener">Destream <span>Оплатить</span></a><div id="notice" aria-live="polite"></div></dialog>
 <script type="text/plain" id="catalog-data">
 2 Маши|Босая

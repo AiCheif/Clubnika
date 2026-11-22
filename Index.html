@@ -16,6 +16,12 @@
 :root[data-theme="emerald"]{color-scheme:dark;--bg:#0c1917;--panel:#142723;--line:#31574e;--text:#effff7;--muted:#b2cec5;--pink:#74dfab;--gold:#f4d59a;--accent-ink:#12352b;--hero-start:#144f3e;--hero-end:#18332e;--hero-glow:#387c61}
 :root[data-theme="sapphire"]{color-scheme:dark;--bg:#101522;--panel:#19243b;--line:#3c527a;--text:#f1f5ff;--muted:#bacbe6;--pink:#8bbaff;--gold:#d4c3ff;--accent-ink:#142647;--hero-start:#25396a;--hero-end:#1d294e;--hero-glow:#5861b5}
 :root[data-theme="light"]{color-scheme:light;--bg:#fff8f8;--panel:#fff;--line:#eacbd5;--text:#482538;--muted:#775467;--pink:#a33063;--gold:#8a531b;--accent-ink:#fff;--hero-start:#fce3eb;--hero-end:#fff0e4;--hero-glow:#f9c4d5}
+:root[data-theme="noir"]{color-scheme:dark;--bg:#0c0c0e;--panel:#1b1b20;--line:#45434b;--text:#fff9ed;--muted:#ccc5b8;--pink:#e6c176;--gold:#f4dbaa;--accent-ink:#201609;--hero-start:#3a3222;--hero-end:#18171a;--hero-glow:#80602c}
+:root[data-theme="lavender"]{color-scheme:light;--bg:#f7f4ff;--panel:#fff;--line:#dcd3ee;--text:#38264d;--muted:#67557e;--pink:#7349ad;--gold:#70458c;--accent-ink:#fff;--hero-start:#e8ddff;--hero-end:#f7efff;--hero-glow:#ceafea}
+:root[data-theme="ocean"]{color-scheme:dark;--bg:#081a24;--panel:#102b39;--line:#2e5363;--text:#edfbff;--muted:#b3d2df;--pink:#65dce8;--gold:#9feac6;--accent-ink:#082c33;--hero-start:#15586b;--hero-end:#103141;--hero-glow:#168e9e}
+:root[data-theme="sunset"]{color-scheme:dark;--bg:#22110c;--panel:#331e16;--line:#694330;--text:#fff4e8;--muted:#e0bda6;--pink:#ffab72;--gold:#ffe0a1;--accent-ink:#361a0d;--hero-start:#773a24;--hero-end:#40241b;--hero-glow:#b55f39}
+:root[data-theme="winter"]{color-scheme:light;--bg:#f3f9ff;--panel:#fff;--line:#c9ddec;--text:#203f59;--muted:#49667e;--pink:#176b9a;--gold:#295e80;--accent-ink:#fff;--hero-start:#dcefff;--hero-end:#f0f8ff;--hero-glow:#b7d9f0}
+:root[data-theme="scarlet"]{color-scheme:dark;--bg:#16090b;--panel:#291013;--line:#70432b;--text:#fff6e7;--muted:#e0bcae;--pink:#f6c86b;--gold:#ffdb89;--accent-ink:#351006;--hero-start:#7b071a;--hero-end:#30090e;--hero-glow:#b90b25}
 :root[data-theme]:not([data-theme="classic"]) .top{background:color-mix(in srgb,var(--panel) 80%,var(--bg));border-color:var(--line)}
 :root[data-theme]:not([data-theme="classic"]) .hero{background:radial-gradient(ellipse at 95% 30%,var(--hero-glow) 0,transparent 55%),linear-gradient(120deg,var(--hero-start),var(--hero-end) 70%);border-color:var(--line)}
 :root[data-theme]:not([data-theme="classic"]) .primary,:root[data-theme]:not([data-theme="classic"]) .orderbtn:hover,:root[data-theme]:not([data-theme="classic"]) .pages .current{background:var(--pink);border-color:var(--pink);color:var(--accent-ink)}
@@ -34,13 +40,28 @@
 :root[data-theme]:not([data-theme="classic"]) .orbit{border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
 :root[data-theme]:not([data-theme="classic"]) .artlabel{color:var(--gold)}
 @media(max-width:840px){.brandarea{width:100%;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap}.theme-picker select{min-width:125px}}@media(max-width:400px){.brandarea{gap:8px}.theme-picker{gap:5px}.theme-picker select{min-width:0;width:130px;padding:7px}}
+/* Scarlet satin and polished gold — concert branding */
+:root[data-theme="scarlet"] .top{background:linear-gradient(105deg,#36090f,#1b090d 60%,#310c12);border-bottom:1px solid #ac7839}
+:root[data-theme="scarlet"] .brand b{color:#ffd88a}
+:root[data-theme="scarlet"] .hero{border-color:#c58d42;box-shadow:0 18px 48px #0005,inset 0 0 55px #25070d70}
+:root[data-theme="scarlet"] .hero:before,:root[data-theme="scarlet"] .hero:after{content:"";position:absolute;pointer-events:none;z-index:0;width:80%;height:30px;border-radius:50%;transform:rotate(-11deg);background:linear-gradient(180deg,#68101c,#ee1738 24%,#fc5363 40%,#8d071c 60%,#420711 76%,#b57925 79%,#ffe49a 89%,#a66b1b 100%);box-shadow:0 6px 15px #0004}
+:root[data-theme="scarlet"] .hero:before{top:-17px;left:-18%}
+:root[data-theme="scarlet"] .hero:after{bottom:-18px;right:-17%}
+:root[data-theme="scarlet"] .hero>div{position:relative;z-index:1}
+:root[data-theme="scarlet"] .primary,:root[data-theme="scarlet"] .orderbtn:hover{background:linear-gradient(145deg,#ffe6a3,#e4a83e);border-color:#ffdb87;color:#351006;box-shadow:0 4px 15px #e0a84930}
+:root[data-theme="scarlet"] .orderbtn{background:linear-gradient(145deg,#8d1025,#4d0c16);border-color:#ac7839;color:#ffe1a0}
+:root[data-theme="scarlet"] .orderbtn:hover{background:linear-gradient(145deg,#ffe6a3,#e4a83e);color:#351006}
+:root[data-theme="scarlet"] .linkitems a{background:#4a0d17;border-color:#805831}
+:root[data-theme="scarlet"] .filters .active{background:#831326;color:#fff1d0;border-color:#d8a653}
+:root[data-theme="scarlet"] .disc{border:2px solid #e5b75e;box-shadow:0 0 0 7px #b47a2730,12px 16px 55px #100910a0}
+:root[data-theme="scarlet"] .groove{background:radial-gradient(circle,#fff0a6,#d6a046 58%,#a36a1c);color:#470b13;border-color:#ffe5a3}
 </style>
 <script>
-(()=>{const themes=['classic','berry','emerald','sapphire','light'];let theme='classic';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
+(()=>{const themes=['classic','berry','emerald','sapphire','light','noir','lavender','ocean','sunset','winter','scarlet'];let theme='classic';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
 </script>
 </head>
 <body>
-<header class="top"><div class="wrap nav"><div class="brandarea"><a class="brand" href="#"><span class="berry">🍓</span><span>Ника <b>Моисеева</b><small>МУЗЫКА ОТ ДУШИ</small></span></a><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option></select></label></div><div class="links" aria-label="Ссылки Ники">
+<header class="top"><div class="wrap nav"><div class="brandarea"><a class="brand" href="#"><span class="berry">🍓</span><span>Ника <b>Моисеева</b><small>МУЗЫКА ОТ ДУШИ</small></span></a><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></div><div class="links" aria-label="Ссылки Ники">
 <div class="linkrow"><span class="linklabel">Стримы:</span><div class="linkitems"><a href="https://www.youtube.com/@nikamoiseeva" target="_blank" rel="noopener">YouTube</a><a href="https://www.twitch.tv/nikaclub" target="_blank" rel="noopener">Twitch</a><a href="https://live.vkvideo.ru/clubnika" target="_blank" rel="noopener">VK Видео Live</a></div></div>
 <div class="linkrow"><span class="linklabel">Соцсети:</span><div class="linkitems"><a href="https://t.me/nikamoiseeva" target="_blank" rel="noopener">Telegram</a><a href="https://vk.ru/nikamoiseevaa" target="_blank" rel="noopener">ВК сообщество</a><a href="https://boosty.to/clubnika" target="_blank" rel="noopener">Boosty</a></div></div>
 <div class="linkrow"><span class="linklabel">Слушать мои песни на площадках:</span><div class="linkitems"><a href="https://music.yandex.ru/artist/21014825" target="_blank" rel="noopener">Яндекс Музыка</a><a href="https://music.mts.ru/artist/21014825" target="_blank" rel="noopener">КИОН Музыка</a><a href="https://music.apple.com/us/artist/1714333490" target="_blank" rel="noopener">Apple Music</a></div></div>

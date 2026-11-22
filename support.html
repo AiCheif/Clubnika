@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#24131b">
-<title>Поддержать добрым словом — Музыка от души</title>
+<title>Поддержать меня тёплым словом — Музыка от души</title>
 <meta name="description" content="Поделитесь впечатлениями от музыкального эфира Ники Моисеевой. Ваши комментарии очень важны!">
 <link rel="canonical" href="https://nikamoiseeva.ru/support.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="🍓 Поддержать добрым словом — Музыка от души">
+<meta property="og:title" content="🍓 Поддержать меня тёплым словом — Музыка от души">
 <meta property="og:description" content="Какая песня тронула ваше сердце? Поделитесь впечатлениями от эфира!">
 <meta property="og:url" content="https://nikamoiseeva.ru/support.html">
 <meta property="og:image" content="https://nikamoiseeva.ru/og-preview.jpg">
@@ -40,7 +40,7 @@ function applyStreams(data){if(!data||typeof data!=='object'||Array.isArray(data
 const fallbacks=Object.fromEntries(Object.keys(allowedHosts).map(key=>[key,{url:document.getElementById(key+'-link').href,label:document.getElementById(key+'-label').textContent}]));
 async function loadStreams(){for(const [key,fallback] of Object.entries(fallbacks)){document.getElementById(key+'-link').href=fallback.url;document.getElementById(key+'-label').textContent=fallback.label}document.getElementById('stream-info').hidden=true;try{const response=await fetch('./streams.json',{cache:'no-store'});if(!response.ok)return;applyStreams(await response.json())}catch{/* Offline or invalid JSON: keep the existing channel links. */}}
 loadStreams();window.addEventListener('pageshow',event=>{if(event.persisted)loadStreams()});
-document.getElementById('share').addEventListener('click',async()=>{const url='https://nikamoiseeva.ru/support.html',status=document.getElementById('status');try{if(navigator.share){await navigator.share({title:'Поддержать добрым словом 🍓',url});return}if(navigator.clipboard){await navigator.clipboard.writeText(url);status.textContent='Ссылка скопирована!';return}}catch(e){if(e.name==='AbortError')return}status.textContent=url;});
+document.getElementById('share').addEventListener('click',async()=>{const url='https://nikamoiseeva.ru/support.html',status=document.getElementById('status');try{if(navigator.share){await navigator.share({title:'Поддержать меня тёплым словом 🍓',url});return}if(navigator.clipboard){await navigator.clipboard.writeText(url);status.textContent='Ссылка скопирована!';return}}catch(e){if(e.name==='AbortError')return}status.textContent=url;});
 </script>
 </body>
 </html>

@@ -264,7 +264,6 @@ function render(){
       image.muted=true;image.defaultMuted=true;image.autoplay=true;image.loop=true;image.playsInline=true;image.preload='auto';image.poster=x.poster;image.src=x.preview;image.setAttribute('aria-hidden','true');
     }else{image.src=x.poster;image.loading='lazy';image.decoding='async';image.alt=title(x)}
     b.append(image);b.addEventListener('click',()=>{trigger=b;openAt(i)});
-    if(x.type==='video'){const play=document.createElement('span');play.className='sign-play';play.textContent='▶';play.setAttribute('aria-hidden','true');b.append(play)}
     card.append(b);grid.append(card);
   });
   if(!dialog.open)previews(true);

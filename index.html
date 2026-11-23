@@ -322,5 +322,5 @@ function render(){const now=Date.now(),until=timestamp(config.liveUntil),live=co
 async function refresh(){try{const response=await fetch('./live.json',{cache:'no-store'});if(!response.ok)return;const data=await response.json();if(data&&typeof data==='object'&&!Array.isArray(data)){config=data;render()}}catch{}}render();refresh();setInterval(render,1000);setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){render();refresh()}})})();
 </script>
 <script>(()=>{const menus=[...document.querySelectorAll('.site-menu')],mq=matchMedia('(max-width:900px)');const sync=()=>menus.forEach(m=>m.open=!mq.matches);sync();mq.addEventListener?.('change',sync);document.addEventListener('click',e=>{if(mq.matches)for(const m of menus)if(m.open&&!m.contains(e.target))m.open=false})})();</script>
-<script src="shorts-data.js?v=3"></script><script src="shorts.js?v=3"></script></body></html>
+<script src="shorts-data.js?v=4"></script><script src="shorts.js?v=4"></script></body></html>
 

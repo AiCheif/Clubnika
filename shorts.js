@@ -2,6 +2,8 @@
   const grid = document.getElementById('shorts-grid');
   if (!grid || typeof shortsCatalog === 'undefined') return;
   const {items, updated} = shortsCatalog;
+  const channelOrder = new Map((shortsCatalog.chronology || []).map((id,index)=>[id,index]));
+  const newestFirst = (a,b) => (channelOrder.get(a.id) ?? Number.MAX_SAFE_INTEGER) - (channelOrder.get(b.id) ?? Number.MAX_SAFE_INTEGER);
   const countFormat = new Intl.NumberFormat('ru-RU', {maximumFractionDigits: 1});
   const formatViews = n => n >= 1000000 ? `${countFormat.format(n / 1000000)} млн` : n >= 1000 ? `${countFormat.format(n / 1000)} тыс.` : countFormat.format(n);
   const category = item => item.type === 'original' ? 'Авторская песня' : item.type === 'cover' ? 'Кавер' : 'Перевод песни';
@@ -62,7 +64,7 @@
   function render() {
     const query = (search?.value || '').trim().toLocaleLowerCase('ru');
     const result = displayed.filter(item => (filter === 'all' || item.type === filter) && (!songFilter?.value || item.song === songFilter.value) && `${item.title} ${item.song || ''} ${item.search || ''}`.toLocaleLowerCase('ru').includes(query));
-    result.sort(sort?.value === 'title' ? (a,b) => a.title.localeCompare(b.title,'ru') : (a,b) => b.views-a.views);
+    result.sort(sort?.value === 'newest' ? newestFirst : sort?.value === 'title' ? (a,b) => a.title.localeCompare(b.title,'ru') : (a,b) => b.views-a.views);
     const maxPage = Math.max(1, Math.ceil(result.length / pageSize));
     page = Math.min(page,maxPage);
     grid.replaceChildren(...result.slice((page-1)*pageSize,page*pageSize).map(card));

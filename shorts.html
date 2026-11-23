@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   </div>
   <div class="shorts-controls">
   <div class="search"><span aria-hidden="true">⌕</span><input id="shorts-search" type="search" placeholder="Найти песню или исполнителя" aria-label="Поиск роликов"></div>
-  <label class="shorts-sort">Сортировка: <select id="shorts-sort"><option value="views">По просмотрам</option><option value="title">По названию</option></select></label>
+  <label class="shorts-sort">Сортировка: <select id="shorts-sort"><option value="newest">Сначала новые</option><option value="views">По просмотрам</option><option value="title">По названию</option></select></label>
 </div>
 <div class="filters" id="shorts-filters" aria-label="Тип ролика"><button type="button" class="active" data-filter="all" aria-pressed="true">Все</button><button type="button" data-filter="translation" aria-pressed="false">Переводы</button><button type="button" data-filter="cover" aria-pressed="false">Каверы</button><button type="button" data-filter="original" aria-pressed="false">Авторские песни</button></div><label class="shorts-sort shorts-song-filter" hidden>Песня: <select id="shorts-song"><option value="">Все авторские песни</option></select></label>
 <p class="shorts-count" id="shorts-count" role="status"></p>
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 </section>
 </main>
 <footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="https://streamersonglist.com/t/nikaclub/songs" target="_blank" rel="noopener">Источник репертуара</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="chocolate">Шоколадная</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></div></footer>
-<script src="shorts-data.js?v=3"></script>
-<script src="shorts.js?v=3"></script>
+<script src="shorts-data.js?v=4"></script>
+<script src="shorts.js?v=4"></script>
 <script>(()=>{const menus=[...document.querySelectorAll('.site-menu')],mq=matchMedia('(max-width:900px)');const sync=()=>menus.forEach(m=>m.open=!mq.matches);sync();mq.addEventListener?.('change',sync);document.addEventListener('click',e=>{if(mq.matches)for(const m of menus)if(m.open&&!m.contains(e.target))m.open=false})})();</script>
 </body></html>

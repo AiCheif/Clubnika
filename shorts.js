@@ -29,7 +29,7 @@
     const copy = make('span', 'short-copy');
     copy.append(make('span', 'short-category', category(item)), make('strong', '', item.song || item.title));
     if (item.song) copy.append(make('span', 'short-category', item.title));
-    copy.append(make('span', 'short-views', `${formatViews(item.views)} просмотров`));
+    if (Number.isFinite(item.views)) copy.append(make('span', 'short-views', `${formatViews(item.views)} просмотров`));
     link.append(preview, copy);
     return link;
   }
@@ -42,12 +42,13 @@
   let filter = filters && ['original','cover','translation'].includes(requested) ? requested : 'all';
   let page = 1;
   const pageSize = 24;
-  const popular = [...items].sort((a,b) => b.views-a.views);
+  const byViews = (a,b) => (b.views ?? -1)-(a.views ?? -1);
+  const popular = items.filter(item => Number.isFinite(item.views)).sort(byViews);
   const featured = popular.filter(item => item.type !== 'original').slice(0,4);
   const displayed = filters ? items : featured;
   const total = document.getElementById('shorts-total-number');
   const date = document.getElementById('shorts-updated');
-  if (total) total.textContent = formatViews(displayed.reduce((sum,item) => sum+item.views,0));
+  if (total) total.textContent = formatViews(displayed.reduce((sum,item) => sum+(Number.isFinite(item.views)?item.views:0),0));
   if (date) date.textContent = `Просмотры по данным YouTube на ${updated}`;
   const pages = make('div', 'pages');
   if (filters) { pages.setAttribute('aria-label','Страницы каталога'); grid.after(pages); }
@@ -64,7 +65,7 @@
   function render() {
     const query = (search?.value || '').trim().toLocaleLowerCase('ru');
     const result = displayed.filter(item => (filter === 'all' || item.type === filter) && (!songFilter?.value || item.song === songFilter.value) && `${item.title} ${item.song || ''} ${item.search || ''}`.toLocaleLowerCase('ru').includes(query));
-    result.sort(sort?.value === 'newest' ? newestFirst : sort?.value === 'title' ? (a,b) => a.title.localeCompare(b.title,'ru') : (a,b) => b.views-a.views);
+    result.sort(sort?.value === 'newest' ? newestFirst : sort?.value === 'title' ? (a,b) => a.title.localeCompare(b.title,'ru') : byViews);
     const maxPage = Math.max(1, Math.ceil(result.length / pageSize));
     page = Math.min(page,maxPage);
     grid.replaceChildren(...result.slice((page-1)*pageSize,page*pageSize).map(card));

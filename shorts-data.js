@@ -358,7 +358,7 @@ shortsCatalog.items.push(
 );
 
 // Channel feed order (newest first); the flat export does not include exact dates.
-shortsCatalog.items.unshift({id:'vyMj33pmzcs',title:'Bon Jovi — It’s My Life',type:'translation',views:24,publishedAt:'2026-11-23',thumbnail:'https://i.ytimg.com/vi/vyMj33pmzcs/hqdefault.jpg',search:'А вы знали перевод этой песни? 🔥 #переводпесни #ностальгия #музыка #bonjovi #itsmylife'});
+shortsCatalog.items.unshift({id:'vyMj33pmzcs',title:'Bon Jovi — It’s My Life',type:'translation',views:null,publishedAt:'2026-11-23',thumbnail:'https://i.ytimg.com/vi/vyMj33pmzcs/hqdefault.jpg',search:'А вы знали перевод этой песни? 🔥 #переводпесни #ностальгия #музыка #bonjovi #itsmylife'});
 shortsCatalog.chronology = [
   "vyMj33pmzcs","Zv6DJEu5Ny8","3gGi0q5riTM","yrNh4uKwr40","Kbz60kNbF48","7Nm_7JMolnM","OUXECJKf-qU","XSWhiMWP0Fc",
   "ihn7vK7q4b4","8UnzUfKA9r8","xIjcVzJ--hE","r3JSmSuYJiE","kSt_CrmXWNU","SAUIlQf6a2Y","ev3qcpFon38","qg24DHQJTUU",

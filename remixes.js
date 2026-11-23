@@ -14,6 +14,7 @@
     const a=link(videoURL(video.id),'','rank-clip');const img=el('img');img.src=video.thumbnail?.startsWith('https://')?video.thumbnail:`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;img.alt='';img.loading='lazy';
     a.append(img,el('strong','',video.title||'Shorts'));
     if(video.authorName)a.append(el('small','',video.authorName));
+    if(Number.isFinite(Date.parse(video.publishedAt)))a.append(el('small','',new Intl.DateTimeFormat('ru-RU',{dateStyle:'medium',timeZone:'Europe/Moscow'}).format(new Date(video.publishedAt))));
     const metric=(label,value)=>{const row=el('small','rank-video-metric');row.append(el('span','',label),el('b','',value));a.append(row);};
     metric('Просмотры',fmt(video.views));metric('За 7 дней',fmt(video.views7d));metric('В сутки',fmt(video.viewsPerDay==null?null:Math.round(video.viewsPerDay)));metric('Лайки',fmt(video.likes));metric('Лайки / просмотры',video.likeRate==null?'—':`${video.likeRate.toLocaleString('ru-RU',{maximumFractionDigits:2})}%`);return a;
   }
@@ -45,13 +46,18 @@
       try{const response=await fetch('./remix-history.json',{cache:'no-cache'});if(response.ok)snapshots=(await response.json()).snapshots||[];}catch{}
       const names=new Map(authors.flatMap(a=>a.channelIds.map(id=>[id,a.name])));
       for(const v of videos)Object.assign(v,remixMetrics.calculate(v,data.updatedAt,snapshots),{authorName:names.get(v.channelId)});
+      const newest=[...videos].filter(v=>Number.isFinite(Date.parse(v.publishedAt))).sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.id.localeCompare(b.id));
+      $('rank-new-list').replaceChildren(...newest.slice(0,8).map(clip));
+      $('rank-new-section').hidden=!newest.length;
       $('rank-song').textContent=data.song;
       $('rank-videos').textContent=fmt(data.stats.videoCount);$('rank-authors').textContent=fmt(authors.length);$('rank-views').textContent=fmt(data.stats.views);
       const best=[...videos].sort((a,b)=>(b.views??-1)-(a.views??-1))[0];
       if(best){$('rank-best').textContent=fmt(best.views);$('rank-best-link').href=videoURL(best.id);$('rank-best-link').hidden=false;}
       $('rank-updated').textContent=`Данные YouTube на ${new Intl.DateTimeFormat('ru-RU',{dateStyle:'long',timeZone:'Europe/Moscow'}).format(new Date(data.updatedAt))}`;
       let mode='authors',page=1;
-      const options={authors:[['views','По просмотрам'],['videoCount','По числу роликов'],['likes','По лайкам']],videos:[['views','По просмотрам'],['views7d','За 7 дней'],['viewsPerDay','По просмотрам в сутки'],['likes','По лайкам'],['likeRate','По доле лайков']]};
+      const videoOptions=[['views','По просмотрам'],['views7d','За 7 дней'],['viewsPerDay','По просмотрам в сутки'],['likes','По лайкам'],['likeRate','По доле лайков']];
+      const options={authors:videoOptions,videos:videoOptions};
+      const compareVideos=(a,b,sort)=>(b[sort]??-1)-(a[sort]??-1)||(b.views??-1)-(a.views??-1)||a.id.localeCompare(b.id);
       function renderVideos(){
         const sort=$('rank-sort').value,query=$('rank-search').value.trim().toLocaleLowerCase('ru');
         const ordered=[...videos].filter(v=>`${v.title||''} ${v.authorName||''}`.toLocaleLowerCase('ru').includes(query)).sort((a,b)=>(b[sort]??-1)-(a[sort]??-1)||(b.views??-1)-(a.views??-1)||a.id.localeCompare(b.id));
@@ -65,8 +71,9 @@
       function switchMode(next){
         mode=next;page=1;$('rank-search').value='';
         for(const key of Object.keys(options))$('rank-mode-'+key).setAttribute('aria-pressed',String(key===mode));
-        $('rank-heading').textContent=mode==='authors'?'Рейтинг авторов':'Рейтинг роликов';
-        $('rank-description').textContent=mode==='authors'?'Нажмите на строку автора, чтобы увидеть его ролики.':'Просмотры в сутки — среднее с публикации (минимум одни сутки). За 7 дней — по снимкам статистики; для новых роликов — все просмотры. Пропуск означает отсутствие данных.';
+        $('rank-heading').textContent=mode==='authors'?'Авторы':'Рейтинг роликов';
+        $('rank-description').textContent=mode==='authors'?'Авторы расположены по алфавиту. Сортировка меняет порядок роликов внутри каждого автора.':'Просмотры в сутки — среднее с публикации (минимум одни сутки). За 7 дней — по снимкам статистики; для новых роликов — все просмотры. Пропуск означает отсутствие данных.';
+        $('rank-new-section').hidden=mode!=='authors'||!newest.length;
         $('rank-search').placeholder=mode==='authors'?'Найти автора':'Найти ролик или автора';$('rank-search').setAttribute('aria-label',$('rank-search').placeholder);
         $('rank-sort').replaceChildren(...options[mode].map(([value,label])=>{const o=el('option','',label);o.value=value;return o;}));render();
       }
@@ -74,19 +81,21 @@
         if(mode==='videos'){renderVideos();return;}
         $('rank-pagination').hidden=true;
         const sort=$('rank-sort').value,query=$('rank-search').value.trim().toLocaleLowerCase('ru');
-        const ordered=[...authors].sort((a,b)=>(b[sort]??-1)-(a[sort]??-1)||(b.views??-1)-(a.views??-1)||a.channelId.localeCompare(b.channelId));
+        const ordered=[...authors].sort((a,b)=>a.name.localeCompare(b.name,'ru',{sensitivity:'base'})||a.channelId.localeCompare(b.channelId));
+        const opened=new Set([...$('rank-list').querySelectorAll('details[open]')].map(row=>row.dataset.channel));
         const rows=[];
         ordered.forEach((author,index)=>{
           if(query&&!author.name.toLocaleLowerCase('ru').includes(query))return;
           const details=el('details','rank-row');const summary=el('summary','rank-summary');
-          const placement=el('span',`rank-place${index<3?' podium':''}`,String(index+1));
+          details.dataset.channel=author.channelId;
           const identity=el('span','rank-identity');const copy=el('span','rank-name');copy.append(el('strong','',author.name),el('small','',author.channelIds.length>1?`YouTube · ${author.channelIds.length} канала`:`YouTube · ${author.channelId.slice(-6)}`));identity.append(avatar(author),copy);
-          const metric=(label,value)=>{const b=el('span','rank-metric');b.append(el('small','',label),el('strong','',fmt(value)));return b;};
-          summary.append(placement,identity,metric('Роликов',author.videoCount),metric('Просмотры',author.views),metric('Лайки',author.likes),el('span','rank-expand','⌄'));
+          summary.append(identity,el('span','rank-expand','⌄'));
           const body=el('div','rank-details');const actions=el('div','rank-actions');author.channelIds.forEach((id,i)=>actions.append(link(channelURL(id),author.channelIds.length>1?`Канал ${i+1}`:'Канал автора','outline')));
           if(author.bestVideoId)actions.append(link(videoURL(author.bestVideoId),'Лучший Shorts','outline'));
           body.append(actions);details.append(summary,body);
-          details.addEventListener('toggle',()=>{if(!details.open||body.dataset.loaded)return;body.dataset.loaded='true';const grid=el('div','rank-clips');for(const id of author.videoIds||[]){const v=byId.get(id);if(v)grid.append(clip(v));}body.append(grid);});
+          const loadClips=()=>{if(!details.open||body.dataset.loaded)return;body.dataset.loaded='true';const grid=el('div','rank-clips');for(const v of (author.videoIds||[]).map(id=>byId.get(id)).filter(Boolean).sort((a,b)=>compareVideos(a,b,sort)))grid.append(clip(v));body.append(grid);};
+          details.addEventListener('toggle',loadClips);
+          if(opened.has(author.channelId)){details.open=true;loadClips();}
           rows.push(details);
         });
         $('rank-list').replaceChildren(...rows);if(!rows.length)$('rank-list').append(el('p','empty','Авторы не найдены'));

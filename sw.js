@@ -1,6 +1,6 @@
-const CACHE='nika-catalog-pwa-v6';
+const CACHE='nika-catalog-pwa-v7';
 const BASE=new URL('./',self.location.href);
-const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./shorts-data.js?v=2','./shorts.js?v=2','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
+const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./shorts-data.js?v=3','./shorts.js?v=3','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
 const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html'].map(p=>new URL(p,BASE).pathname));
 const relativeURL=p=>new URL(p,BASE).href;
 async function cacheEntry(cache,url){try{const response=await fetch(url,{cache:'reload'});if(response.ok&&response.type!=='opaque')await cache.put(url,response)}catch{}}

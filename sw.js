@@ -1,7 +1,7 @@
-const CACHE='nika-catalog-pwa-v4';
+const CACHE='nika-catalog-pwa-v5';
 const BASE=new URL('./',self.location.href);
-const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
-const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html'].map(p=>new URL(p,BASE).pathname));
+const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./shorts-data.js','./shorts.js','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
+const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html'].map(p=>new URL(p,BASE).pathname));
 const relativeURL=p=>new URL(p,BASE).href;
 async function cacheEntry(cache,url){try{const response=await fetch(url,{cache:'reload'});if(response.ok&&response.type!=='opaque')await cache.put(url,response)}catch{}}
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await Promise.all(CORE.map(p=>cacheEntry(cache,relativeURL(p))));await self.skipWaiting()})()));

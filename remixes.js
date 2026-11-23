@@ -73,7 +73,7 @@
         for(const key of Object.keys(options))$('rank-mode-'+key).setAttribute('aria-pressed',String(key===mode));
         $('rank-heading').textContent=mode==='authors'?'Авторы':'Рейтинг роликов';
         $('rank-description').textContent=mode==='authors'?'Авторы расположены по алфавиту. Сортировка меняет порядок роликов внутри каждого автора.':'Просмотры в сутки — среднее с публикации (минимум одни сутки). За 7 дней — по снимкам статистики; для новых роликов — все просмотры. Пропуск означает отсутствие данных.';
-        $('rank-new-section').hidden=mode!=='authors'||!newest.length;
+        $('rank-new-section').hidden=!newest.length;
         $('rank-search').placeholder=mode==='authors'?'Найти автора':'Найти ролик или автора';$('rank-search').setAttribute('aria-label',$('rank-search').placeholder);
         $('rank-sort').replaceChildren(...options[mode].map(([value,label])=>{const o=el('option','',label);o.value=value;return o;}));render();
       }

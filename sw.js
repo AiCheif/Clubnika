@@ -1,7 +1,7 @@
-const CACHE='nika-catalog-pwa-v7';
+const CACHE='nika-catalog-pwa-v8';
 const BASE=new URL('./',self.location.href);
-const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./shorts-data.js?v=3','./shorts.js?v=3','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
-const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html'].map(p=>new URL(p,BASE).pathname));
+const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./shorts-data.js?v=3','./shorts.js?v=3','./remixes.html','./remixes.js?v=1','./remix-ranking.json','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
+const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./remixes.html'].map(p=>new URL(p,BASE).pathname));
 const relativeURL=p=>new URL(p,BASE).href;
 async function cacheEntry(cache,url){try{const response=await fetch(url,{cache:'reload'});if(response.ok&&response.type!=='opaque')await cache.put(url,response)}catch{}}
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await Promise.all(CORE.map(p=>cacheEntry(cache,relativeURL(p))));await self.skipWaiting()})()));
@@ -14,6 +14,6 @@ self.addEventListener('fetch',event=>{
     event.respondWith((async()=>{const cache=await caches.open(CACHE);const key=new URL(url.href);key.search='';key.hash='';try{const response=await fetch(request,{cache:'no-cache'});if(response.ok)await cache.put(key.href,response.clone());return response}catch{return await cache.match(key.href)||(!['./','./index.html'].some(p=>new URL(p,BASE).pathname===key.pathname)?null:await cache.match(relativeURL('./'))||await cache.match(relativeURL('./index.html')))||new Response('Нет подключения к интернету. Откройте сайт онлайн хотя бы один раз.',{status:503,headers:{'Content-Type':'text/plain; charset=utf-8'}})}})());
     return;
   }
-  if(!['image','style','script','font','manifest'].includes(request.destination))return;
+  if(!['image','style','script','font','manifest'].includes(request.destination)&&url.pathname!==new URL('./remix-ranking.json',BASE).pathname)return;
   event.respondWith((async()=>{const cache=await caches.open(CACHE);try{const response=await fetch(request,{cache:request.destination==='script'||request.destination==='style'?'no-cache':'default'});if(response.ok&&response.type!=='opaque')await cache.put(request,response.clone());return response}catch{return await cache.match(request)||Response.error()}})());
 });

@@ -54,7 +54,7 @@
       const best=[...videos].sort((a,b)=>(b.views??-1)-(a.views??-1))[0];
       if(best){$('rank-best').textContent=fmt(best.views);$('rank-best-link').href=videoURL(best.id);$('rank-best-link').hidden=false;}
       $('rank-updated').textContent=`Данные YouTube на ${new Intl.DateTimeFormat('ru-RU',{dateStyle:'long',timeZone:'Europe/Moscow'}).format(new Date(data.updatedAt))}`;
-      let mode='authors',page=1;
+      let mode='new',page=1;
       const videoOptions=[['views','По просмотрам'],['views7d','За 7 дней'],['viewsPerDay','По просмотрам в сутки'],['likes','По лайкам'],['likeRate','По доле лайков']];
       const options={authors:videoOptions,videos:videoOptions};
       const compareVideos=(a,b,sort)=>(b[sort]??-1)-(a[sort]??-1)||(b.views??-1)-(a.views??-1)||a.id.localeCompare(b.id);
@@ -70,10 +70,12 @@
       }
       function switchMode(next){
         mode=next;page=1;$('rank-search').value='';
-        for(const key of Object.keys(options))$('rank-mode-'+key).setAttribute('aria-pressed',String(key===mode));
+        for(const key of ['new','authors','videos'])$('rank-mode-'+key).setAttribute('aria-pressed',String(key===mode));
+        $('rank-new-section').hidden=mode!=='new';
+        $('rank-catalog-section').hidden=mode==='new';
+        if(mode==='new'){if(!newest.length)$('rank-new-list').replaceChildren(el('p','empty','Новые ролики не найдены'));return;}
         $('rank-heading').textContent=mode==='authors'?'Авторы':'Рейтинг роликов';
         $('rank-description').textContent=mode==='authors'?'Авторы расположены по алфавиту. Сортировка меняет порядок роликов внутри каждого автора.':'Просмотры в сутки — среднее с публикации (минимум одни сутки). За 7 дней — по снимкам статистики; для новых роликов — все просмотры. Пропуск означает отсутствие данных.';
-        $('rank-new-section').hidden=!newest.length;
         $('rank-search').placeholder=mode==='authors'?'Найти автора':'Найти ролик или автора';$('rank-search').setAttribute('aria-label',$('rank-search').placeholder);
         $('rank-sort').replaceChildren(...options[mode].map(([value,label])=>{const o=el('option','',label);o.value=value;return o;}));render();
       }
@@ -101,7 +103,7 @@
         $('rank-list').replaceChildren(...rows);if(!rows.length)$('rank-list').append(el('p','empty','Авторы не найдены'));
         $('rank-count').textContent=`Авторов: ${rows.length} из ${authors.length}`;
       }
-      $('rank-sort').addEventListener('change',()=>{page=1;render();});$('rank-search').addEventListener('input',()=>{page=1;render();});$('rank-mode-authors').addEventListener('click',()=>switchMode('authors'));$('rank-mode-videos').addEventListener('click',()=>switchMode('videos'));render();
+      $('rank-sort').addEventListener('change',()=>{page=1;render();});$('rank-search').addEventListener('input',()=>{page=1;render();});$('rank-mode-new').addEventListener('click',()=>switchMode('new'));$('rank-mode-authors').addEventListener('click',()=>switchMode('authors'));$('rank-mode-videos').addEventListener('click',()=>switchMode('videos'));switchMode('new');
     }catch{ $('rank-count').textContent='Не удалось загрузить рейтинг. Обновите страницу.'; }
   }
   init();

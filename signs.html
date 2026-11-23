@@ -191,6 +191,7 @@ html.reload-top body{overflow-anchor:none}
 main>.feature-section{margin:28px 0;padding:clamp(16px,3.3vw,30px);border:1px solid color-mix(in srgb,var(--gold) 56%,var(--line));border-radius:20px;background-color:var(--panel);box-shadow:0 12px 32px #0003,inset 0 0 0 4px color-mix(in srgb,var(--gold) 6%,transparent);position:relative;overflow:hidden}main>.feature-section .eyebrow::before{content:none;display:none}main>.feature-section::before{left:24px;right:24px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.85}main>.feature-section::after{content:"";position:absolute;bottom:0;left:24px;right:24px;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 75%,transparent),transparent);pointer-events:none}.platform-link{min-width:0;overflow-wrap:anywhere}
 .footer-settings{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;max-width:100%}.footer-settings .logo-picker{width:auto;margin:0}.footer-settings .logo-picker select{max-width:min(250px,65vw);flex:0 1 auto}.footer-settings .logo-picker-status{flex-basis:100%}footer.wrap{flex-wrap:wrap;align-items:center}@media(max-width:740px){.hero{grid-template-columns:minmax(0,1fr);gap:22px}.hero .about-actions a{flex:1 1 auto}footer.wrap{align-items:flex-start}.footer-settings{width:100%}}@media(max-width:480px){main>.feature-section{margin:20px 0;border-radius:16px}.platform-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .signs-section{margin:28px 0;padding:clamp(14px,3vw,28px);border:1px solid color-mix(in srgb,var(--gold) 60%,var(--line));border-radius:22px;background:var(--panel);box-shadow:0 12px 32px #0003}.signs-section h1{font-size:clamp(38px,6vw,64px);letter-spacing:-1px;margin:12px 0}.signs-section p{max-width:70ch}.sign-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:22px 0}.sign-toolbar button{font-size:14px;min-height:44px}.sign-toolbar button[aria-pressed=true]{background:var(--gold);color:#301b12;border-color:var(--gold)}#sign-count{margin-left:auto;color:var(--muted);font-size:14px}.sign-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}.sign-card{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--bg);min-width:0}.sign-open{position:relative;display:block;width:100%;padding:0;border:0;background:var(--bg);cursor:pointer;aspect-ratio:4/3;overflow:hidden}.sign-open img,.sign-open video{display:block;width:100%;height:100%;object-fit:contain}.sign-open video{pointer-events:none}.sign-play{position:absolute;inset:0;margin:auto;display:grid;place-items:center;width:46px;height:46px;border:1px solid #fff8;border-radius:50%;background:#000a;color:white;font-size:20px}.sign-info{padding:10px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;color:var(--muted);font-size:12px}.sign-info .sign-download{width:100%;text-align:center}.sign-download{font-size:13px;padding:8px 10px;min-height:40px}.sign-dialog{max-width:min(900px,calc(100vw - 24px));width:100%;max-height:90dvh;overflow:auto;background:var(--panel);color:var(--text);border:1px solid var(--gold);border-radius:16px;padding:14px}.sign-dialog::backdrop{background:#000c}.sign-dialog-top,.sign-dialog-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.sign-dialog-top{margin-bottom:10px}.sign-dialog-bottom{margin-top:12px}.sign-dialog .outline{min-height:44px;padding:8px 14px}.sign-dialog-media{display:grid;place-items:center;background:#000;border-radius:10px;overflow:hidden}.sign-dialog-media img,.sign-dialog-media video{display:block;max-width:100%;max-height:65dvh;object-fit:contain}.sign-dialog-media video{width:100%}@media(max-width:480px){.sign-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.sign-info{padding:8px}.sign-download{width:100%;font-size:12px}#sign-count{margin-left:0;width:100%}.sign-dialog-bottom .outline{flex:1 1 auto}}
+.sign-albums{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,235px),1fr));gap:14px;margin-top:24px}.sign-album{display:block;width:100%;min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:14px;padding:0;background:var(--bg);color:var(--text);text-align:left}.sign-album:hover{border-color:var(--gold)}.sign-album img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--panel)}.sign-album-info{display:grid;gap:4px;padding:14px}.sign-album-info strong{font-size:16px;color:var(--gold)}.sign-album-info span{font-size:13px;color:var(--muted)}.sign-album-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:24px}.sign-album-heading h2{font-size:clamp(23px,4vw,32px);margin:0}.sign-album-heading .outline{font-size:14px}.signs-section [hidden]{display:none!important}.sign-card:focus-within{outline:2px solid var(--pink);outline-offset:2px}.sign-open:focus-visible{outline-offset:-4px}@media(max-width:480px){.sign-albums{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.sign-album-info{padding:10px}.sign-album-info strong{font-size:14px}.sign-album-heading{align-items:flex-start;flex-direction:column;gap:8px}}
 </style>
 <script>
 (()=>{const themes=['classic','berry','emerald','sapphire','light','noir','lavender','ocean','sunset','winter','scarlet','chocolate'];let theme='scarlet';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
@@ -218,13 +219,18 @@ document.addEventListener('DOMContentLoaded',()=>{
 </head>
 <body>
 <header class="top"><div class="wrap nav"><div class="brandarea"><a class="brand" href="index.html"><span class="berry"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="berry-red" x2="1" y2="1"><stop stop-color="#ff6b76"/><stop offset=".55" stop-color="#d5203d"/><stop offset="1" stop-color="#8e0b25"/></linearGradient></defs><path d="M24 13C11 4 3 15 8 27c3 8 11 16 16 17 5-1 13-9 16-17C45 15 37 4 24 13Z" fill="url(#berry-red)" stroke="#ffdc88" stroke-width="1.2"/><path d="M24 15 12 5l10 3 2-7 3 7 10-3-8 10-5-4Z" fill="#8eb25d" stroke="#f3d78c" stroke-width=".8"/><path d="M30 17v17c-2 3-7 4-9 2s0-6 5-6V18l11-3v5Z" fill="#ffe4a0"/><g fill="#ffe4a0"><ellipse cx="14" cy="19" rx="1" ry="1.8"/><ellipse cx="18" cy="27" rx="1" ry="1.8"/><ellipse cx="14" cy="30" rx="1" ry="1.8"/><ellipse cx="33" cy="38" rx="1" ry="1.8"/><ellipse cx="23" cy="39" rx="1" ry="1.8"/></g></svg></span><span>Ника <b>Моисеева</b><small>МУЗЫКА ОТ ДУШИ</small></span></a></div><details class="site-menu" open><summary aria-label="Меню сайта">☰ <span>Меню</span></summary><nav class="site-nav" aria-label="Навигация по сайту"><a href="index.html">Главная</a><a href="about.html">Обо мне</a><a href="signs.html" aria-current="page">Сигны</a><a href="songs.html">Заказать песню</a><a href="release.html">Новый релиз</a><a href="support.html">❤️ Доброе слово</a></nav></details></div></header>
-<main class="wrap"><section class="signs-section"><div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div><h1>Сигны</h1><p>Маленькие музыкальные приветы для вас! Здесь можно посмотреть фотографии и видео, а также скачать оригинал в полном качестве.</p><div class="sign-toolbar" aria-label="Виды сигн"><button type="button" class="outline" data-sign-filter="all" aria-pressed="true">Все</button><button type="button" class="outline" data-sign-filter="photo" aria-pressed="false">Фото</button><button type="button" class="outline" data-sign-filter="video" aria-pressed="false">Видео</button><span id="sign-count" aria-live="polite"></span></div><div id="sign-grid" class="sign-grid"></div><noscript>Для просмотра галереи включите JavaScript.</noscript></section></main>
+<main class="wrap"><section class="signs-section"><div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div><h1>Сигны</h1><p>Маленькие музыкальные приветы для вас! Здесь можно посмотреть фотографии и видео, а также скачать оригинал в полном качестве.</p><div id="sign-albums" class="sign-albums" aria-label="Альбомы сигн"></div><div id="sign-gallery" hidden><div class="sign-album-heading"><h2 id="sign-album-title"></h2><button type="button" class="outline" id="sign-back">‹ Все альбомы</button></div><div class="sign-toolbar" aria-label="Виды сигн"><button type="button" class="outline" data-sign-filter="all" aria-pressed="true">Все</button><button type="button" class="outline" data-sign-filter="photo" aria-pressed="false">Фото</button><button type="button" class="outline" data-sign-filter="video" aria-pressed="false">Видео</button><span id="sign-count" aria-live="polite"></span></div><div id="sign-grid" class="sign-grid"></div></div><noscript>Для просмотра галереи включите JavaScript.</noscript></section></main>
 <dialog class="sign-dialog" id="sign-dialog"><div class="sign-dialog-top"><strong id="sign-dialog-title">Сигна</strong><button type="button" class="outline" id="sign-close" aria-label="Закрыть">✕</button></div><div id="sign-media" class="sign-dialog-media"></div><div class="sign-dialog-bottom"><button type="button" class="outline" id="sign-prev">‹ Предыдущая</button><a class="outline sign-download" id="sign-original" download>Скачать</a><button type="button" class="outline" id="sign-next">Следующая ›</button></div></dialog>
 <script src="signs/data.js"></script>
+<script src="signs/albums.js"></script>
 <script>
 (()=>{
-const all=Array.isArray(window.SIGN_ITEMS)?window.SIGN_ITEMS:[],grid=document.getElementById('sign-grid'),dialog=document.getElementById('sign-dialog'),media=document.getElementById('sign-media'),count=document.getElementById('sign-count');
-let list=all,selected=0,trigger=null;
+const albums=(Array.isArray(window.SIGN_ALBUMS)?window.SIGN_ALBUMS:[]).filter(a=>a.items?.length).slice().sort((a,b)=>b.date.localeCompare(a.date));
+const albumGrid=document.getElementById('sign-albums'),gallery=document.getElementById('sign-gallery'),albumTitle=document.getElementById('sign-album-title'),grid=document.getElementById('sign-grid'),dialog=document.getElementById('sign-dialog'),media=document.getElementById('sign-media'),count=document.getElementById('sign-count');
+const filters=[...document.querySelectorAll('[data-sign-filter]')];
+let album=null,list=[],selected=0,trigger=null,albumTrigger=null;
+const dateLabel=date=>new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(date+'T00:00:00Z')).replace(/\s*г\.$/,'');
+const noun=(n,forms)=>forms[n%100>=11&&n%100<=14?2:n%10===1?0:n%10>=2&&n%10<=4?1:2];
 const title=x=>x.type==='video'?'Видео-сигна':'Фото-сигна';
 function download(a,x){a.href=x.original;a.download=x.name;a.textContent='Скачать'}
 function previews(play){for(const v of grid.querySelectorAll('video')){if(play)v.play().catch(()=>{});else v.pause()}}
@@ -234,20 +240,21 @@ function openAt(i){
   media.replaceChildren();
   const el=document.createElement(x.type==='video'?'video':'img');
   if(x.type==='video'){
-    el.controls=true;el.playsInline=true;el.preload='metadata';el.poster=x.poster;
+    el.controls=true;el.playsInline=true;el.autoplay=true;el.preload='auto';el.poster=x.poster;
     el.addEventListener('error',()=>{
       if(!el.isConnected||x.original===x.preview)return;
       const note=document.createElement('p');note.textContent='Исходное видео не удалось воспроизвести. Показываем облегчённую версию; оригинал доступен для скачивания.';
-      media.append(note);el.src=x.preview;
+      media.append(note);el.src=x.preview;el.play().catch(()=>{});
     },{once:true});
   }else el.alt=title(x);
   el.src=x.original;media.append(el);
   document.getElementById('sign-dialog-title').textContent='Сигна · '+(selected+1)+' из '+list.length;
   download(document.getElementById('sign-original'),x);
   if(!dialog.open){previews(false);dialog.showModal()}
+  if(x.type==='video')el.play().catch(()=>{});
 }
 function render(){
-  previews(false);grid.replaceChildren();count.textContent=list.length+' из '+all.length;
+  previews(false);grid.replaceChildren();count.textContent=list.length+' из '+album.items.length;
   if(!list.length){const p=document.createElement('p');p.textContent='Нет файлов для просмотра.';grid.append(p);return}
   list.forEach((x,i)=>{
     const card=document.createElement('article');card.className='sign-card';
@@ -257,17 +264,27 @@ function render(){
       image.muted=true;image.defaultMuted=true;image.autoplay=true;image.loop=true;image.playsInline=true;image.preload='auto';image.poster=x.poster;image.src=x.preview;image.setAttribute('aria-hidden','true');
     }else{image.src=x.poster;image.loading='lazy';image.decoding='async';image.alt=title(x)}
     b.append(image);b.addEventListener('click',()=>{trigger=b;openAt(i)});
-    const info=document.createElement('div');info.className='sign-info';const a=document.createElement('a');a.className='outline sign-download';download(a,x);info.append(a);card.append(b,info);grid.append(card);
+    if(x.type==='video'){const play=document.createElement('span');play.className='sign-play';play.textContent='▶';play.setAttribute('aria-hidden','true');b.append(play)}
+    card.append(b);grid.append(card);
   });
   if(!dialog.open)previews(true);
 }
-for(const b of document.querySelectorAll('[data-sign-filter]'))b.addEventListener('click',()=>{const f=b.dataset.signFilter;list=f==='all'?all:all.filter(x=>x.type===f);for(const c of document.querySelectorAll('[data-sign-filter]'))c.setAttribute('aria-pressed',String(c===b));render()});
+function filter(f){list=f==='all'?album.items:album.items.filter(x=>x.type===f);for(const b of filters)b.setAttribute('aria-pressed',String(b.dataset.signFilter===f));render()}
+function openAlbum(a,button){album=a;albumTrigger=button;albumTitle.textContent=dateLabel(a.date);albumGrid.hidden=true;gallery.hidden=false;filter('all');document.getElementById('sign-back').focus({preventScroll:true})}
+function showAlbums(){previews(false);grid.replaceChildren();gallery.hidden=true;albumGrid.hidden=false;album=null;list=[];albumTrigger?.focus({preventScroll:true})}
+for(const a of albums){
+  const button=document.createElement('button');button.type='button';button.className='sign-album';
+  const image=document.createElement('img');image.src=a.cover||a.items[0].poster;image.alt='';image.loading='lazy';image.decoding='async';
+  const info=document.createElement('span');info.className='sign-album-info';const heading=document.createElement('strong');heading.textContent=dateLabel(a.date);const summary=document.createElement('span');summary.textContent=a.items.length+' '+noun(a.items.length,['материал','материала','материалов']);info.append(heading,summary);button.append(image,info);button.addEventListener('click',()=>openAlbum(a,button));albumGrid.append(button);
+}
+if(!albums.length){const p=document.createElement('p');p.textContent='Пока нет альбомов.';albumGrid.append(p)}
+for(const b of filters)b.addEventListener('click',()=>filter(b.dataset.signFilter));
+document.getElementById('sign-back').onclick=showAlbums;
 document.getElementById('sign-close').onclick=()=>dialog.close();
 document.getElementById('sign-prev').onclick=()=>openAt(selected-1);
 document.getElementById('sign-next').onclick=()=>openAt(selected+1);
 dialog.addEventListener('close',()=>{media.replaceChildren();previews(true);trigger?.focus({preventScroll:true})});
 dialog.addEventListener('click',e=>{if(e.target===dialog&&e.offsetX<0)dialog.close()});
-render();
 })();
 </script>
 <footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="https://streamersonglist.com/t/nikaclub/songs" target="_blank" rel="noopener">Источник репертуара</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="chocolate">Шоколадная</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></div></footer>

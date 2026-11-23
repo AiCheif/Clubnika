@@ -1,4 +1,4 @@
-const CACHE='nika-catalog-pwa-v9';
+const CACHE='nika-catalog-pwa-v10';
 const BASE=new URL('./',self.location.href);
 const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./shorts-data.js?v=3','./shorts.js?v=3','./remixes.html','./remixes.js?v=2','./remix-ranking.json','./authors.json','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
 const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./remixes.html'].map(p=>new URL(p,BASE).pathname));

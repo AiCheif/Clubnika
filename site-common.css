@@ -204,3 +204,10 @@ body.site-unified-panels main #about-shorts{background:var(--panel)}
  background:linear-gradient(180deg,#68101c,#ee1738 24%,#fc5363 40%,#8d071c 60%,#420711 76%,#b57925 79%,#ffe49a 89%,#a66b1b 100%);
 }
 body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.photo-gallery,.hero-copy){position:relative;z-index:1}
+@media (max-width: 1100px) {
+  .home-feature-pair,
+  .about-feature-pair,
+  .site-platform-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

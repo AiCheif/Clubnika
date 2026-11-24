@@ -1,0 +1,19 @@
+{
+  "defaultProject": "paren-udaloy",
+  "projects": [
+    {
+      "id": "paren-udaloy",
+      "title": "Парень удалой",
+      "ranking": "remix-ranking.json",
+      "history": "remix-history.json",
+      "coverVideoId": "ihHUpuzonco",
+      "shortsVideoId": "ihHUpuzonco"
+    },
+    {
+      "id": "new-song",
+      "title": "Новая песня",
+      "ranking": "remix-new-song-ranking.json",
+      "history": "remix-new-song-history.json"
+    }
+  ]
+}

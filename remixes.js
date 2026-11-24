@@ -37,23 +37,37 @@
   }
   async function init(){
     try {
-      const response=await fetch('./remix-ranking.json',{cache:'no-cache'});if(!response.ok)throw new Error();
+      const registryResponse=await fetch('./remix-projects.json',{cache:'no-cache'});if(!registryResponse.ok)throw new Error('projects');
+      const registry=await registryResponse.json(),projects=registry.projects||[];
+      const requested=new URLSearchParams(location.search).get('song');
+      const project=projects.find(p=>p.id===requested)||projects.find(p=>p.id===registry.defaultProject)||projects[0];
+      if(!project)throw new Error('project');
+      $('rank-song').textContent=project.title;
+      for(const item of projects){
+        const card=el('a','rank-project');card.href=`remixes.html?song=${encodeURIComponent(item.id)}`;
+        if(item.id===project.id)card.setAttribute('aria-current','page');
+        const cover=el('span','rank-project-cover','♫');
+        if(item.coverVideoId){const img=el('img');img.src=`https://i.ytimg.com/vi/${encodeURIComponent(item.coverVideoId)}/hqdefault.jpg`;img.alt='';img.addEventListener('error',()=>img.remove());cover.replaceChildren(img);}
+        const copy=el('span');copy.append(el('strong','',item.title),el('small','',item.shortsVideoId?'Ролики зрителей':'Готовится к запуску'));card.append(cover,copy);$('rank-projects').append(card);
+      }
+      if(project.shortsVideoId){$('rank-create').href=videoURL(project.shortsVideoId);$('rank-create').hidden=false;}
+      const response=await fetch(`./${project.ranking}`,{cache:'no-cache'});if(!response.ok)throw new Error('ranking');
       const data=await response.json();const videos=data.videos||[],byId=new Map(videos.map(v=>[v.id,v]));
       let groups=[];
       try{const response=await fetch('./authors.json',{cache:'no-cache'});if(response.ok)groups=(await response.json()).authors||[];}catch{}
       const authors=mergeAuthors(data.authors||[],groups,byId);
       let snapshots=[];
-      try{const response=await fetch('./remix-history.json',{cache:'no-cache'});if(response.ok)snapshots=(await response.json()).snapshots||[];}catch{}
+      try{const response=await fetch(`./${project.history}`,{cache:'no-cache'});if(response.ok)snapshots=(await response.json()).snapshots||[];}catch{}
       const names=new Map(authors.flatMap(a=>a.channelIds.map(id=>[id,a.name])));
       for(const v of videos)Object.assign(v,remixMetrics.calculate(v,data.updatedAt,snapshots),{authorName:names.get(v.channelId)});
       const newest=[...videos].filter(v=>Number.isFinite(Date.parse(v.publishedAt))).sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.id.localeCompare(b.id));
       $('rank-new-list').replaceChildren(...newest.slice(0,8).map(clip));
       $('rank-new-section').hidden=!newest.length;
-      $('rank-song').textContent=data.song;
-      $('rank-videos').textContent=fmt(data.stats.videoCount);$('rank-authors').textContent=fmt(authors.length);$('rank-views').textContent=fmt(data.stats.views);
+      $('rank-song').textContent=project.title;
+      $('rank-videos').textContent=fmt(data.stats?.videoCount??videos.length);$('rank-authors').textContent=fmt(authors.length);$('rank-views').textContent=fmt(data.stats?.views??0);
       const best=[...videos].sort((a,b)=>(b.views??-1)-(a.views??-1))[0];
-      if(best){$('rank-best').textContent=fmt(best.views);$('rank-best-link').href=videoURL(best.id);$('rank-best-link').hidden=false;}
-      $('rank-updated').textContent=`Данные YouTube на ${new Intl.DateTimeFormat('ru-RU',{dateStyle:'long',timeZone:'Europe/Moscow'}).format(new Date(data.updatedAt))}`;
+      if(best){$('rank-best').textContent=fmt(best.views);$('rank-best-link').href=videoURL(best.id);$('rank-best-link').hidden=false;$('rank-best-label').hidden=true;}
+      $('rank-updated').textContent=Number.isFinite(Date.parse(data.updatedAt))?`Данные YouTube на ${new Intl.DateTimeFormat('ru-RU',{dateStyle:'long',timeZone:'Europe/Moscow'}).format(new Date(data.updatedAt))}`:'Статистика появится после публикации первых роликов.';
       let mode='new',page=1;
       const videoOptions=[['views','По просмотрам'],['views7d','За 7 дней'],['viewsPerDay','По просмотрам в сутки'],['likes','По лайкам'],['likeRate','По доле лайков']];
       const options={authors:videoOptions,videos:videoOptions};
@@ -73,7 +87,7 @@
         for(const key of ['new','authors','videos'])$('rank-mode-'+key).setAttribute('aria-pressed',String(key===mode));
         $('rank-new-section').hidden=mode!=='new';
         $('rank-catalog-section').hidden=mode==='new';
-        if(mode==='new'){if(!newest.length)$('rank-new-list').replaceChildren(el('p','empty','Новые ролики не найдены'));return;}
+        if(mode==='new'){if(!newest.length)$('rank-new-list').replaceChildren(el('p','rank-empty',videos.length?'Новые ролики не найдены':'Пока здесь нет роликов. Совсем скоро появятся ваши видео под эту песню!'));return;}
         $('rank-heading').textContent=mode==='authors'?'Авторы':'Рейтинг роликов';
         $('rank-description').textContent=mode==='authors'?'Авторы расположены по алфавиту. Сортировка меняет порядок роликов внутри каждого автора.':'Просмотры в сутки — среднее с публикации (минимум одни сутки). За 7 дней — по снимкам статистики; для новых роликов — все просмотры. Пропуск означает отсутствие данных.';
         $('rank-search').placeholder=mode==='authors'?'Найти автора':'Найти ролик или автора';$('rank-search').setAttribute('aria-label',$('rank-search').placeholder);
@@ -104,7 +118,7 @@
         $('rank-count').textContent=`Авторов: ${rows.length} из ${authors.length}`;
       }
       $('rank-sort').addEventListener('change',()=>{page=1;render();});$('rank-search').addEventListener('input',()=>{page=1;render();});$('rank-mode-new').addEventListener('click',()=>switchMode('new'));$('rank-mode-authors').addEventListener('click',()=>switchMode('authors'));$('rank-mode-videos').addEventListener('click',()=>switchMode('videos'));switchMode('new');
-    }catch{ $('rank-count').textContent='Не удалось загрузить рейтинг. Обновите страницу.'; }
+    }catch{ const error=$('rank-load-error');error.textContent='Не удалось загрузить рейтинг. Обновите страницу.';error.hidden=false;$('rank-count').textContent=error.textContent; }
   }
   init();
 })();

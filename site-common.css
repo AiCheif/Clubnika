@@ -51,3 +51,20 @@ main > #my-music{margin:14px 0;padding:clamp(16px,3.3vw,30px);background:var(--p
 #my-music .original-home-actions .outline:hover{filter:brightness(1.12)}
 @media(max-width:740px){#my-music .original-home-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#my-music .original-home-actions .original-new-release{grid-column:1/-1}}
 @media(max-width:390px){#my-music .original-home-actions{grid-template-columns:1fr}}
+
+/* Shared next-stream panel (optional song-order action). */
+main > .site-live-panel{display:block;margin:10px 0 0;padding:10px 16px;border:1px solid var(--gold);border-radius:16px;background:var(--panel);box-shadow:none}
+main > .site-live-panel.is-live{border-color:#e66b76}
+.site-live-panel .site-live-label::before{content:none;display:none}
+.site-live-panel [hidden]{display:none!important}
+.site-live-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.site-live-heading h2{font-family:Georgia,serif;font-weight:400;color:var(--text);font-size:clamp(21px,3vw,26px);line-height:1.15;margin:0;min-width:0}
+.site-live-links{display:flex;align-items:center;flex-shrink:0;gap:6px}
+.site-live-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;min-height:36px;padding:5px 10px;border-radius:8px;color:var(--text);font-size:13px;font-weight:700}
+.site-live-link:hover{background:color-mix(in srgb,var(--text) 7%,transparent)}
+.site-live-icon,.site-live-icon svg{display:block;width:22px;height:22px;flex:0 0 22px}
+.site-live-clock{color:var(--gold);font-weight:750;font-size:clamp(24px,3.6vw,34px);line-height:1.15;font-variant-numeric:tabular-nums;margin:1px 0 3px}
+.site-live-panel #live-date{font-size:13px;line-height:1.35;color:var(--muted);margin:4px 0 0}
+.site-live-order{display:flex;align-items:center;justify-content:center;min-height:42px;margin-top:12px;padding:9px 12px;border-radius:12px;background:var(--pink);color:var(--bg);font-weight:750;text-align:center}
+.site-live-order:hover{filter:brightness(1.08)}
+@media(max-width:740px){main > .site-live-panel{padding:8px 12px;margin-top:12px}.site-live-heading{gap:4px}.site-live-heading h2{font-size:clamp(19px,5vw,23px)}.site-live-links{gap:0}.site-live-link{position:relative;width:36px;min-height:44px;padding:0;flex:none}.site-live-icon,.site-live-icon svg{width:23px;height:23px;flex-basis:23px}.site-live-link>span:not(.site-live-icon){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.site-live-clock{font-size:clamp(23px,6vw,30px)}.site-live-order{margin-top:10px;min-height:44px}}

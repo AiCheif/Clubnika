@@ -217,11 +217,13 @@ html.reload-top body{overflow-anchor:none}
 .support-page .support-intro{margin:28px 0;padding:clamp(24px,5vw,54px);border:1px solid color-mix(in srgb,var(--gold) 65%,var(--line));border-radius:24px;background:radial-gradient(ellipse at 95% 30%,var(--hero-glow,#683044),transparent 72%),linear-gradient(120deg,var(--hero-start,#3a1b2b),var(--hero-end,#251820));box-shadow:0 12px 32px #0003}
 .support-page h1{font-size:clamp(36px,5.5vw,64px);line-height:1.08;letter-spacing:-1.5px;margin:12px 0 16px}
 .support-page p{max-width:760px}
-.support-page .comment-section,.support-page .tips{margin:24px 0;padding:clamp(18px,3.3vw,30px);border:1px solid color-mix(in srgb,var(--gold) 56%,var(--line));border-radius:20px;background:var(--panel);box-shadow:0 12px 32px #0003}
+.support-page .comment-section,.support-page .tips{position:relative;overflow:hidden;margin:24px 0;padding:clamp(18px,3.3vw,30px);border:1px solid color-mix(in srgb,var(--gold) 56%,var(--line));border-radius:20px;background:var(--panel);box-shadow:0 12px 32px #0003}
+.support-page .comment-section::before,.support-page .tips::before{content:"";position:absolute;left:24px;right:24px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.65;pointer-events:none}
+.support-page .tips::after{content:"♫";position:absolute;right:18px;bottom:-26px;font:96px Georgia,serif;color:var(--gold);opacity:.08;pointer-events:none}
 .support-page h2{font-size:clamp(26px,3.5vw,38px);margin:0 0 12px}
 .support-page .links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
-.support-page .platform{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--bg);min-height:72px}
-.support-page .platform:hover,.support-page .platform:focus-visible{border-color:var(--gold);background:color-mix(in srgb,var(--panel) 85%,var(--pink))}
+.support-page .platform{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--bg);min-height:72px;transition:border-color .18s,transform .18s}
+.support-page .platform:hover,.support-page .platform:focus-visible{border-color:var(--gold);background:color-mix(in srgb,var(--panel) 85%,var(--pink));transform:translateY(-2px)}
 .support-page .platform strong{display:block;font-size:17px}
 .support-page .platform small{display:block;color:var(--muted);font-size:14px}
 .support-page .icon{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;flex-shrink:0;font-size:20px;font-weight:800;background:#e0002a;color:#fff}
@@ -229,21 +231,248 @@ html.reload-top body{overflow-anchor:none}
 .support-page ul{padding-left:22px;margin:12px 0 0}
 .support-page li+li{margin-top:9px}
 .support-page .support-note{margin-top:16px;font-size:14px}
-.support-page .share{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.support-page .share button,.support-page .back{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-weight:650;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 18px;color:var(--text);cursor:pointer;min-height:44px}
-.support-page .share button{background:var(--pink);color:var(--accent-ink);border-color:var(--pink)}
-:root[data-theme="scarlet"] .support-page .share button{background:linear-gradient(155deg,#fff4c3,#f0c66c 38%,#bb7d27 70%,#ffe5a0);border-color:#ffdea0;color:#351006}
-.support-page .share button:hover,.support-page .back:hover{border-color:var(--gold);filter:brightness(1.08)}
-.support-page .status{min-height:24px;color:var(--gold);margin:8px 0 20px}
+.support-page .share{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 36px}
+.support-page .cta-order,.support-page .back{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:650;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:11px 20px;color:var(--text);cursor:pointer;min-height:46px;transition:filter .18s,border-color .18s}
+.support-page .cta-order{background:var(--pink);color:var(--accent-ink);border-color:var(--pink)}
+.support-page .cta-order::after{content:"↗";font-size:16px}
+:root[data-theme="scarlet"] .support-page .cta-order{background:linear-gradient(155deg,#fff4c3,#f0c66c 38%,#bb7d27 70%,#ffe5a0);border-color:#ffdea0;color:#351006}
+.support-page .cta-order:hover,.support-page .back:hover{border-color:var(--gold);filter:brightness(1.08)}
 .support-page [hidden]{display:none!important}
-@media(max-width:740px){.support-page .links{grid-template-columns:1fr}.support-page .platform{padding:13px}.support-page .share>*{flex:1}}
-.support-page .support-intro{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);gap:clamp(18px,4vw,40px);align-items:center;margin:16px 0;padding:clamp(16px,3.5vw,32px);border:1px solid var(--gold);border-radius:16px;box-shadow:none}.support-portrait{width:100%;aspect-ratio:1;display:block;object-fit:cover;border-radius:14px;border:1px solid var(--gold)}.support-page .support-message h1{font-size:clamp(30px,4vw,46px);line-height:1.12;margin:10px 0 15px}.support-message p+p{margin-top:12px}.support-signature{font-family:Georgia,serif;font-style:italic;color:var(--gold);font-size:23px!important;margin-top:18px!important}.support-page .comment-section,.support-page .tips{border:1px solid var(--gold);border-radius:16px;box-shadow:none;margin:14px 0}.support-page .platform{border-color:var(--gold);min-height:76px}.support-page .icon svg{width:28px;height:28px}.support-page .tips ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.support-page .tips li{padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);margin:0;color:var(--text)}.support-page .tips li+li{margin:0}.support-heart{display:inline-block;color:var(--gold);animation:heart-pulse 3.5s ease-in-out infinite}@keyframes heart-pulse{0%,88%,100%{transform:scale(1)}94%{transform:scale(1.15)}}@media(prefers-reduced-motion:reduce){.support-heart{animation:none}}@media(max-width:740px){.support-page .support-intro{grid-template-columns:1fr;gap:14px;margin-top:12px}.support-portrait{width:min(100%,340px);justify-self:center}.support-page .support-message h1{font-size:clamp(28px,7vw,38px)}.support-page .tips ul{grid-template-columns:1fr}.support-page .comment-section,.support-page .tips{margin:12px 0}}
-.support-page .support-intro{grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:16px 26px;align-items:center;padding:clamp(16px,3vw,28px);background:radial-gradient(ellipse at 95% 20%,color-mix(in srgb,var(--hero-glow,#683044) 45%,transparent),transparent 80%),var(--panel)}.support-heading{grid-column:1/-1}.support-page .support-heading h1{font-size:clamp(29px,4vw,44px);line-height:1.1;margin:7px 0 0;letter-spacing:-.7px}.support-portrait{width:100%;max-width:260px;height:auto;aspect-ratio:1;object-fit:cover;justify-self:center;box-shadow:0 4px 18px #0003}.support-message{min-width:0}.support-message p{font-size:clamp(15px,1.6vw,17px);line-height:1.55}.support-message p+p{margin-top:8px}.support-message .support-signature{font-size:20px!important;margin-top:12px!important}.support-intro:has(.support-portrait[hidden]) .support-message{grid-column:1/-1}.support-page .comment-section,.support-page .tips{padding:clamp(16px,2.5vw,24px)}.support-page .comment-section h2,.support-page .tips h2{font-size:clamp(24px,3vw,32px);margin-bottom:8px}.support-page .links{margin-top:14px}
-@media(max-width:740px){.support-page .support-intro{grid-template-columns:1fr;gap:12px;align-items:start}.support-heading{text-align:center}.support-page .support-heading h1{font-size:clamp(26px,6vw,34px)}.support-portrait{width:min(100%,210px);max-width:210px;height:auto}.support-message p{font-size:15px}.support-message .support-signature{font-size:19px!important}.support-page .platform{min-height:64px}.support-page .platform strong{font-size:15px}}
-.viewer-quote{margin-top:16px;padding:12px 15px;border:1px solid var(--gold);border-radius:12px;background:color-mix(in srgb,var(--bg) 82%,var(--panel));position:relative;min-height:110px}.viewer-quote::before{content:"";position:absolute;left:-7px;top:21px;width:12px;height:12px;background:color-mix(in srgb,var(--bg) 82%,var(--panel));border-left:1px solid var(--gold);border-bottom:1px solid var(--gold);transform:rotate(45deg)}.viewer-quote-head{display:flex;align-items:center;justify-content:space-between;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:1px;gap:10px}.viewer-quote-head button{border:0;background:transparent;color:var(--gold);font-size:16px;padding:3px 6px;cursor:pointer;min-width:30px;min-height:30px}.viewer-quote blockquote{margin:6px 0;font-size:14px;line-height:1.45;color:var(--text);overflow-wrap:anywhere}.viewer-quote a{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.viewer-quote a:hover{text-decoration:underline}.viewer-quote.quote-enter blockquote,.viewer-quote.quote-enter a{animation:quote-in .55s ease-out}@keyframes quote-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@media(max-width:740px){.viewer-quote{margin-top:12px}.viewer-quote::before{display:none}}@media(prefers-reduced-motion:reduce){.viewer-quote.quote-enter blockquote,.viewer-quote.quote-enter a{animation:none}}
+@media(max-width:740px){.support-page .links{grid-template-columns:1fr}.support-page .platform{padding:13px}.support-page .share>*{flex:1 1 100%}}
+
+/* Portrait with signature rotated double gold frame */
+.support-page .support-intro{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);gap:clamp(18px,4vw,40px);align-items:center;margin:16px 0;padding:clamp(16px,3.5vw,32px);border:1px solid var(--gold);border-radius:16px;box-shadow:none}
+.support-portrait-wrap{position:relative;isolation:isolate;width:100%;max-width:340px;justify-self:center}
+.support-portrait-wrap::before{content:"";position:absolute;inset:-9px -10px;border:1px solid var(--gold);opacity:.5;border-radius:20px;transform:rotate(2.5deg);z-index:-1;pointer-events:none}
+.support-portrait{position:relative;z-index:1;width:100%;aspect-ratio:1;display:block;object-fit:cover;border-radius:14px;border:1px solid var(--gold);box-shadow:0 12px 32px #0005,0 0 0 5px color-mix(in srgb,var(--gold) 10%,transparent)}
+.support-intro:has(.support-portrait-wrap[hidden]) .support-message{grid-column:1/-1}
+
+.support-page .support-message h1{font-size:clamp(30px,4vw,46px);line-height:1.12;margin:10px 0 15px}
+.support-message p+p{margin-top:12px}
+.signature-divider{display:flex;align-items:center;gap:10px;max-width:240px;margin:16px 0 8px;color:var(--gold);opacity:.78}
+.signature-divider span{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.signature-divider span:first-child{max-width:26px;background:var(--gold)}
+.support-signature{font-family:Georgia,serif;font-style:italic;color:var(--gold);font-size:23px!important;margin-top:0!important}
+.support-page .comment-section,.support-page .tips{border:1px solid var(--gold);border-radius:16px;box-shadow:none;margin:14px 0}
+.support-page .platform{border-color:var(--gold);min-height:76px}
+.support-page .icon svg{width:28px;height:28px}
+
+/* Tips header and animated question cards */
+.tips-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.tips-shuffle{gap:7px;padding:8px 14px;font-size:13px;min-height:38px;border-color:color-mix(in srgb,var(--gold) 55%,var(--line));color:var(--gold);flex-shrink:0}
+.tips-shuffle:hover{background:color-mix(in srgb,var(--gold) 14%,transparent);border-color:var(--gold)}
+.tips-shuffle svg{transition:transform .35s ease}
+.tips-shuffle:active svg{transform:rotate(180deg)}
+.support-page .tips ul{position:relative;z-index:1;list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.support-page .tips li{padding:13px 15px;border:1px solid var(--line);border-left:2px solid color-mix(in srgb,var(--gold) 65%,var(--line));border-radius:10px;background:var(--bg);margin:0;color:var(--text);font-size:15px;line-height:1.45}
+.support-page .tips li+li{margin:0}
+.support-page .tips ul.tips-refresh li{animation:quote-in .4s ease-out}
+
+.support-heart{display:inline-flex;align-items:center;vertical-align:-.12em;color:var(--gold);animation:heart-pulse 3.5s ease-in-out infinite}
+@keyframes heart-pulse{0%,88%,100%{transform:scale(1)}94%{transform:scale(1.15)}}
+@media(prefers-reduced-motion:reduce){.support-heart,.support-page .tips ul.tips-refresh li{animation:none}.support-page .platform{transition:none}.support-page .platform:hover{transform:none}}
+@media(max-width:740px){
+  .support-page .support-intro{grid-template-columns:1fr;gap:14px;margin-top:12px}
+  .support-portrait-wrap{max-width:210px}
+  .support-portrait-wrap::before{inset:-6px -7px;border-radius:17px}
+  .support-page .support-message h1{font-size:clamp(28px,7vw,38px)}
+  .support-page .tips ul{grid-template-columns:1fr}
+  .support-page .comment-section,.support-page .tips{margin:12px 0}
+}
+.support-page .support-intro{grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:16px 26px;align-items:center;padding:clamp(16px,3vw,28px);background:radial-gradient(ellipse at 95% 20%,color-mix(in srgb,var(--hero-glow,#683044) 45%,transparent),transparent 80%),var(--panel)}
+.support-heading{grid-column:1/-1}
+.support-page .support-heading h1{font-size:clamp(29px,4vw,44px);line-height:1.1;margin:7px 0 0;letter-spacing:-.7px}
+.support-message{min-width:0}
+.support-message p{font-size:clamp(15px,1.6vw,17px);line-height:1.55}
+.support-message p+p{margin-top:8px}
+.support-message .support-signature{font-size:20px!important}
+.support-page .comment-section,.support-page .tips{padding:clamp(16px,2.5vw,24px)}
+.support-page .comment-section h2,.support-page .tips h2{font-size:clamp(24px,3vw,32px);margin-bottom:8px}
+.support-page .links{margin-top:14px}
+@media(max-width:740px){
+  .support-page .support-intro{grid-template-columns:1fr;gap:12px;align-items:start}
+  .support-heading{text-align:center}
+  .support-page .support-heading h1{font-size:clamp(26px,6vw,34px)}
+  .support-message p{font-size:15px}
+  .support-message .support-signature{font-size:19px!important}
+  .support-page .platform{min-height:64px}
+  .support-page .platform strong{font-size:15px}
+}
+
+/* Viewer quotes: book typography, decorative quote mark, SVG controls & floating heart */
+.viewer-quote{margin-top:16px;padding:13px 16px 14px;border:1px solid var(--gold);border-radius:12px;background:color-mix(in srgb,var(--bg) 82%,var(--panel));position:relative;min-height:118px;overflow:visible}
+.viewer-quote::before{content:"";position:absolute;left:-7px;top:21px;width:12px;height:12px;background:color-mix(in srgb,var(--bg) 82%,var(--panel));border-left:1px solid var(--gold);border-bottom:1px solid var(--gold);transform:rotate(45deg)}
+.quote-deco-mark {
+  position: absolute;
+  left: 12px;
+  top: 38px;
+  font-family: Georgia, serif;
+  font-size: 46px;
+  line-height: 1;
+  color: var(--gold);
+  opacity: .26;
+  pointer-events: none;
+  user-select: none;
+}
+.viewer-quote-head{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:1px;gap:10px}
+.viewer-quote-label{display:inline-flex;align-items:center;gap:6px}
+.viewer-quote-actions{display:inline-flex;align-items:center;gap:2px}
+.viewer-quote-head button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:7px;background:transparent;color:var(--gold);padding:4px;cursor:pointer;min-width:28px;min-height:28px;transition:background .15s}
+.viewer-quote-head button:hover{background:color-mix(in srgb,var(--gold) 15%,transparent)}
+.viewer-quote blockquote {
+  position: relative;
+  z-index: 1;
+  margin: 8px 0 7px;
+  padding-left: 22px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+.viewer-quote blockquote::after {
+  content: "”";
+  position: relative;
+  top: 14px;
+  margin-left: 4px;
+  font-family: Georgia, serif;
+  font-style: normal;
+  font-size: 46px;
+  line-height: 0;
+  color: var(--gold);
+  opacity: .26;
+  pointer-events: none;
+  user-select: none;
+}
+.viewer-quote a{position:relative;z-index:1;display:inline-block;padding-left:14px;font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.viewer-quote a:hover{text-decoration:underline;color:var(--gold)}
+.viewer-quote.quote-enter blockquote,.viewer-quote.quote-enter a{animation:quote-in .55s ease-out}
+@keyframes quote-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* Floating translucent heart near end of quote display */
+/* Всплывающее красное сердечко в конце показа отзыва */
+.quote-float-heart {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  width: 38px;
+  height: 38px;
+  fill: rgba(229, 36, 63, 0.42);
+  stroke: #ff4766;
+  stroke-width: 1.7;
+  filter: drop-shadow(0 2px 8px rgba(229, 36, 63, 0.35));
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.quote-float-heart.is-active {
+  animation: quoteHeartFloat 1.45s ease-out forwards;
+}
+
+@keyframes quoteHeartFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(.7) rotate(-8deg);
+  }
+  22% {
+    opacity: .95;
+  }
+  68% {
+    opacity: .78;
+    transform: translateY(-48px) scale(1.08) rotate(8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-86px) scale(1.22) rotate(-5deg);
+  }
+}@media(max-width:740px){.viewer-quote{margin-top:12px}.viewer-quote::before{display:none}.viewer-quote blockquote{font-size:14.5px}}
+@media(prefers-reduced-motion:reduce){.viewer-quote.quote-enter blockquote,.viewer-quote.quote-enter a,.quote-float-heart.is-active{animation:none}}
 @media(max-width:740px){.support-heading>.eyebrow{text-align:left;justify-content:flex-start}}
-.support-page #stream-info{color:var(--gold);font-size:clamp(14px,1.7vw,17px);font-weight:750;line-height:1.45;margin:16px 0 0;max-width:none;padding:10px 14px;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;background:color-mix(in srgb,var(--gold) 9%,transparent)}.support-page #stream-info::before{content:"ПОСЛЕДНИЙ ЭФИР";display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:4px;color:var(--muted)}
-@media(min-width:741px){.support-page .support-intro{grid-template-columns:minmax(0,clamp(280px,32vw,350px)) minmax(0,1fr)}.support-portrait{max-width:350px}}
+
+.support-page #stream-info{color:var(--gold);font-size:clamp(14px,1.7vw,17px);font-weight:750;line-height:1.45;margin:16px 0 0;max-width:none;padding:10px 14px;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;background:color-mix(in srgb,var(--gold) 9%,transparent)}
+.support-page #stream-info::before{content:"ПОСЛЕДНИЙ ЭФИР";display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:4px;color:var(--muted)}
+@media(min-width:741px){.support-page .support-intro{grid-template-columns:minmax(0,clamp(280px,32vw,340px)) minmax(0,1fr)}.support-portrait-wrap{max-width:340px}}
+
+/* Stream preview cards (cover + caption) */
+.support-page .platform:not(.has-preview) .platform-body{display:contents}
+.support-page .platform.has-preview{flex-direction:column;align-items:stretch;padding:0;overflow:hidden;gap:0}
+.support-page .platform-cover{position:relative;aspect-ratio:16/9;width:100%;background:radial-gradient(circle at 30% 25%,#4a1828,#190d13);border-bottom:1px solid color-mix(in srgb,var(--gold) 45%,var(--line));display:grid;place-items:center;overflow:hidden}
+.support-page .platform-cover.vk-cover{background:radial-gradient(circle at 30% 25%,#163d7a,#0e1729)}
+.support-page .platform-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .25s ease}
+.support-page .platform-cover img.is-loaded{opacity:1}
+.support-page .platform-cover-play{position:relative;z-index:1;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#140d12bd;color:#fff;border:1px solid #ffffff99;font-size:17px;padding-left:3px;opacity:0;transition:opacity .25s ease,transform .2s ease;pointer-events:none}
+.support-page .platform-cover img.is-loaded+.platform-cover-play{opacity:1}
+.support-page .platform:hover .platform-cover-play{transform:scale(1.08);border-color:var(--gold)}
+.support-page .platform-cover-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;opacity:.9;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.support-page .platform-cover-fallback svg{width:38px;height:38px}
+.support-page .platform-badge{position:absolute;top:10px;left:10px;z-index:2;padding:4px 9px;border-radius:6px;font-size:11px;font-weight:750;letter-spacing:.4px;background:#140d12cc;color:#fff;border:1px solid #ffffff26;backdrop-filter:blur(4px)}
+.support-page .platform-body{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.support-page .platform-text{min-width:0;display:flex;flex-direction:column;gap:3px}
+.support-page .platform-stream-title{font-size:14.5px;font-weight:650;letter-spacing:.3px;color:var(--gold);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:740px){.support-page .platform-body{padding:12px 13px}}
+/* Возврат исходного квадратного размера портрета */
+.support-page .support-portrait-wrap {
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 1 / 1;
+}
+
+.support-page .support-portrait-wrap .support-portrait {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+@media (min-width: 741px) {
+  .support-page .support-intro {
+    grid-template-columns: minmax(0, clamp(280px, 32vw, 350px)) minmax(0, 1fr);
+  }
+  .support-page .support-portrait-wrap {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 740px) {
+  .support-page .support-portrait-wrap {
+    width: min(100%, 210px);
+    max-width: 210px;
+  }
+}
+/* Запрещаем браузеру искусственно наклонять эмодзи */
+.support-signature,
+.viewer-quote blockquote,
+em {
+  font-synthesis-style: none;
+}
+
+.emoji {
+  font-style: normal;
+  display: inline-block;
+}
+/* Фиксированная высота блока отзывов без скачков */
+.viewer-quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 154px;
+  min-height: 154px;
+}
+
+.viewer-quote blockquote {
+  margin: auto 0;
+}
+
+@media (max-width: 740px) {
+  .viewer-quote {
+    height: 168px;
+    min-height: 168px;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-common.css">
@@ -254,30 +483,437 @@ html.reload-top body{overflow-anchor:none}
 <body>
 <script src="site-header.js" data-page="support.html"></script>
 <main class="wrap support-page">
-<section class="support-intro"><div class="support-heading"><div class="eyebrow">🍓 КЛУБНИЧНАЯ СЕМЬЯ</div><h1>Ваши слова <em>вдохновляют меня!</em> <span class="support-heart" aria-hidden="true">♥</span></h1></div><img class="support-portrait" src="support-photo.jpg" alt="Ника Моисеева в уютной музыкальной студии" width="800" height="800" onerror="this.hidden=true"><div class="support-message"><p>Дорогие мои, спасибо, что вы рядом, слушаете мои песни и разделяете со мной музыкальные вечера.</p><p>Если моя музыка подарила вам улыбку, подняла настроение или тронула душу — расскажите об этом в комментариях.</p><p>Даже несколько добрых слов помогают моим песням найти новых слушателей, а мне — вдохновение для творчества.</p><p class="support-signature">С любовью, ваша Ника. 🍓</p><div class="viewer-quote" id="viewer-quote" hidden><div class="viewer-quote-head"><span>♥ ДОБРЫЕ СЛОВА ЗРИТЕЛЕЙ</span><button type="button" id="quote-toggle" aria-label="Приостановить смену комментариев" title="Приостановить смену комментариев">Ⅱ</button></div><blockquote id="quote-text"></blockquote><a id="quote-source" href="https://www.youtube.com/@nikamoiseeva/streams" target="_blank" rel="noopener noreferrer"></a></div></div></section>
-<section class="comment-section" id="comment-section"><h2>Подарите мне минутку своего времени</h2>
-<p>Выберите любимую площадку и оставьте несколько искренних слов под записью эфира.</p>
-<p id="stream-info" class="support-note" hidden></p>
-<div class="links">
-<a class="platform" id="youtube-link" href="https://www.youtube.com/@nikamoiseeva/streams" target="_blank" rel="noopener noreferrer"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="#fff"/><path d="m10 8 6 4-6 4z" fill="#e0002a"/></svg></span><span><strong>Оставить комментарий на YouTube</strong><small id="youtube-label">Открыть записи трансляций</small></span></a>
-<a class="platform" id="vk-link" href="https://vk.ru/nikamoiseevaa" target="_blank" rel="noopener noreferrer"><span class="icon vk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5.5a2 2 0 0 1 3-.2l9 5.2a1.8 1.8 0 0 1 0 3l-9 5.2a2 2 0 0 1-3-1.7z" fill="#fff"/><path d="m8 5 5 3-5 9z" fill="#ff355e"/></svg></span><span><strong>Оставить комментарий в VK Видео</strong><small id="vk-label">Открыть сообщество и найти запись эфира</small></span></a>
-</div>
-</section><section class="tips"><h2>Не знаете, с чего начать?</h2><p>Несколько подсказок для вдохновения:</p><ul><li>«Сегодня особенно тронула песня…»</li><li>«Мне запомнилось, как…»</li><li>«В следующий раз хотелось бы услышать…»</li><li>«После эфира у меня осталось чувство…»</li></ul><p class="support-note">Пишите своими словами — даже короткий комментарий от души ценен. ❤️</p></section>
-<div class="share"><button id="share" type="button">Поделиться страницей</button><a class="back" href="./">На главную</a></div><p class="status" id="status" role="status"></p>
+<section class="support-intro">
+  <div class="support-heading">
+    <div class="eyebrow">🍓 КЛУБНИЧНАЯ СЕМЬЯ</div>
+    <h1>Ваши слова <em>вдохновляют меня!</em> <span class="support-heart" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></h1>
+  </div>
+  <div class="support-portrait-wrap">
+    <img class="support-portrait" src="support-photo.jpg" alt="Ника Моисеева в уютной музыкальной студии" width="800" height="800" onerror="this.parentElement.hidden=true">
+  </div>
+  <div class="support-message">
+    <p>Дорогие мои, спасибо, что вы рядом, слушаете мои песни и разделяете со мной музыкальные вечера.</p>
+    <p>Если моя музыка подарила вам улыбку, подняла настроение или тронула душу — расскажите об этом в комментариях.</p>
+    <p>Даже несколько добрых слов помогают моим песням найти новых слушателей, а мне дают силы и радость петь для вас дальше.</p>
+    <div class="signature-divider" aria-hidden="true">
+      <span></span>
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <span></span>
+    </div>
+    <p class="support-signature">С любовью, ваша Ника. <span class="emoji">🍓</span></p>
 
+    <div class="viewer-quote" id="viewer-quote" hidden>
+      <span class="quote-deco-mark" aria-hidden="true">“</span>
+      <div class="viewer-quote-head">
+        <span class="viewer-quote-label">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          ДОБРЫЕ СЛОВА ЗРИТЕЛЕЙ
+        </span>
+        <div class="viewer-quote-actions">
+          <button type="button" id="quote-next" aria-label="Следующий комментарий" title="Следующий комментарий">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </button>
+          <button type="button" id="quote-toggle" aria-label="Приостановить смену комментариев" title="Приостановить смену комментариев">
+            <svg id="quote-icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+            <svg id="quote-icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M7 4.5v15l12-7.5z"/></svg>
+          </button>
+        </div>
+      </div>
+      <blockquote id="quote-text"></blockquote>
+      <a id="quote-source" href="https://www.youtube.com/@nikamoiseeva/streams" target="_blank" rel="noopener noreferrer"></a>
+      <svg class="quote-float-heart" id="quote-float-heart" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="comment-section" id="comment-section">
+  <h2>Подарите мне минутку своего времени</h2>
+  <p>Выберите любимую площадку и оставьте несколько искренних слов под записью эфира.</p>
+  <p id="stream-info" class="support-note" hidden></p>
+  <div class="links">
+    <a class="platform" id="youtube-link" href="https://www.youtube.com/@nikamoiseeva/streams" target="_blank" rel="noopener noreferrer">
+      <div class="platform-cover" id="youtube-cover" hidden>
+        <span class="platform-badge">YouTube</span>
+        <span class="platform-cover-fallback" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0002a"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg>
+          <span>Запись эфира</span>
+        </span>
+        <img id="youtube-img" alt="">
+        <span class="platform-cover-play" aria-hidden="true">▶</span>
+      </div>
+      <div class="platform-body">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="#fff"/><path d="m10 8 6 4-6 4z" fill="#e0002a"/></svg></span>
+        <span class="platform-text">
+          <span class="platform-stream-title" id="youtube-stream-title" hidden></span>
+          <strong>Написать на YouTube</strong>
+          <small id="youtube-label">Перейти к записям эфиров →</small>
+        </span>
+      </div>
+    </a>
+    <a class="platform" id="vk-link" href="https://vk.ru/nikamoiseevaa" target="_blank" rel="noopener noreferrer">
+      <div class="platform-cover vk-cover" id="vk-cover" hidden>
+        <span class="platform-badge">VK Видео</span>
+        <span class="platform-cover-fallback" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 5.5a2 2 0 0 1 3-.2l9 5.2a1.8 1.8 0 0 1 0 3l-9 5.2a2 2 0 0 1-3-1.7z" fill="#0077ff"/><path d="m8 5 5 3-5 9z" fill="#fff"/></svg>
+          <span>Запись эфира</span>
+        </span>
+        <img id="vk-img" alt="">
+        <span class="platform-cover-play" aria-hidden="true">▶</span>
+      </div>
+      <div class="platform-body">
+        <span class="icon vk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5.5a2 2 0 0 1 3-.2l9 5.2a1.8 1.8 0 0 1 0 3l-9 5.2a2 2 0 0 1-3-1.7z" fill="#fff"/><path d="m8 5 5 3-5 9z" fill="#ff355e"/></svg></span>
+        <span class="platform-text">
+          <span class="platform-stream-title" id="vk-stream-title" hidden></span>
+          <strong>Написать в VK Видео</strong>
+          <small id="vk-label">Перейти в сообщество →</small>
+        </span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="tips">
+  <div class="tips-head">
+    <div>
+      <h2>Не знаете, с чего начать?</h2>
+      <p>Несколько вопросов, которые помогут начать:</p>
+    </div>
+    <button type="button" class="outline tips-shuffle" id="tips-shuffle" title="Показать другие вопросы">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+      <span>Другие вопросы</span>
+    </button>
+  </div>
+  <ul id="tips-list">
+    <li>«Какая песня сегодня попала прямо в настроение — и почему?»</li>
+    <li>«Какой момент эфира вызвал улыбку или мурашки?»</li>
+    <li>«С каким чувством вы закрыли трансляцию?»</li>
+    <li>«Какую песню хочется услышать на следующем вечере?»</li>
+  </ul>
+  <p class="support-note">Пишите своими словами — даже короткий комментарий от души ценен. ❤️</p>
+</section>
+
+<div class="share">
+  <a class="cta-order" href="./#catalog">Заказать песню на следующий эфир</a>
+  <a class="back" href="./">На главную</a>
+</div>
 </main>
 <script src="site-footer.js" data-hide-platforms data-hide-comment></script>
 <script>
+// Random open-ended prompt questions (prevents identical copy-pasted comments)
+const promptQuestions=[
+  'Какая песня сегодня попала прямо в настроение — и почему?',
+  'Какой момент эфира вызвал улыбку или мурашки?',
+  'С каким чувством вы закрыли трансляцию?',
+  'Какую песню хочется услышать на следующем вечере?',
+  'Какое исполнение сегодня запомнилось больше всего?',
+  'Была ли песня, которая вернула вас в тёплое воспоминание?',
+  'Что особенно понравилось в сегодняшней атмосфере эфира?',
+  'Какой куплет или акапельный момент прозвучал для вас по-особенному?',
+  'Откуда вы сегодня смотрели эфир и как прошёл ваш вечер?',
+  'Какую песню из репертуара Ники вы готовы переслушивать снова и снова?',
+  'Если бы этот эфир можно было описать одним словом — каким бы оно было?',
+  'Какая мелодия осталась звучать в голове уже после окончания стрима?',
+  'Что бы вам хотелось пожелать Нике перед следующим концертом?',
+  'Какой перевод или кавер хотелось бы услышать на будущих вечерах?',
+  'Что сегодня сильнее всего тронуло в голосе и подаче?'
+];
+
+let customStreamQuestion='';
+let currentQuestions=[];
+
+function renderRandomQuestions(animate=false){
+  const listEl=document.getElementById('tips-list');
+  if(!listEl)return;
+  const pool=promptQuestions.filter(q=>q!==customStreamQuestion&&!currentQuestions.includes(q));
+  const sourcePool=pool.length>=4?pool:[...promptQuestions];
+  for(let i=sourcePool.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [sourcePool[i],sourcePool[j]]=[sourcePool[j],sourcePool[i]];
+  }
+  const picked=customStreamQuestion
+    ?[customStreamQuestion,...sourcePool.slice(0,3)]
+    :sourcePool.slice(0,4);
+  currentQuestions=picked;
+  listEl.innerHTML=picked.map(q=>`<li>${q}</li>`).join('');
+  if(animate){
+    listEl.classList.remove('tips-refresh');
+    void listEl.offsetWidth;
+    listEl.classList.add('tips-refresh');
+  }
+}
+
+renderRandomQuestions(false);
+document.getElementById('tips-shuffle')?.addEventListener('click',()=>renderRandomQuestions(true));
+
 // Current replay URLs are managed in streams.json. Keep the channel fallbacks.
 const allowedHosts={youtube:['youtube.com','youtu.be'],vk:['vk.ru','vk.com','vkvideo.ru']};
-function validStreamURL(value,key){if(typeof value!=='string'||!value.trim())return null;try{const url=new URL(value.trim());if(url.protocol!=='https:'||url.username||url.password||url.port)return null;return allowedHosts[key].some(host=>url.hostname===host||url.hostname===`www.${host}`||url.hostname===`m.${host}`)?url.href:null}catch{return null}}
-function applyStreams(data){if(!data||typeof data!=='object'||Array.isArray(data))return;let count=0;for(const key of Object.keys(allowedHosts)){const url=validStreamURL(data[key],key);if(!url)continue;document.getElementById(key+'-link').href=url;document.getElementById(key+'-label').textContent='Открыть актуальный эфир и оставить комментарий';count++}if(count){const info=document.getElementById('stream-info');const title=typeof data.title==='string'?data.title.trim():'';const date=typeof data.updatedAt==='string'?Date.parse(data.updatedAt):NaN;info.textContent=[title||'Актуальные ссылки на эфир',Number.isFinite(date)?'Обновлено: '+new Intl.DateTimeFormat('ru-RU',{dateStyle:'medium',timeZone:'Europe/Moscow'}).format(date):''].filter(Boolean).join(' · ');info.hidden=false}}
-const fallbacks=Object.fromEntries(Object.keys(allowedHosts).map(key=>[key,{url:document.getElementById(key+'-link').href,label:document.getElementById(key+'-label').textContent}]));
-async function loadStreams(){for(const [key,fallback] of Object.entries(fallbacks)){document.getElementById(key+'-link').href=fallback.url;document.getElementById(key+'-label').textContent=fallback.label}document.getElementById('stream-info').hidden=true;try{const response=await fetch('./streams.json',{cache:'no-store'});if(!response.ok)return;applyStreams(await response.json())}catch{/* Offline or invalid JSON: keep the existing channel links. */}}
-loadStreams();window.addEventListener('pageshow',event=>{if(event.persisted)loadStreams()});
-document.getElementById('share').addEventListener('click',async()=>{const url='https://nikamoiseeva.ru/support.html',status=document.getElementById('status');try{if(navigator.share){await navigator.share({title:'Поддержать добрым словом 🍓',url});return}if(navigator.clipboard){await navigator.clipboard.writeText(url);status.textContent='Ссылка скопирована!';return}}catch(e){if(e.name==='AbortError')return}status.textContent=url;});
+
+function validStreamURL(value,key){
+  if(typeof value!=='string'||!value.trim())return null;
+  try{
+    const url=new URL(value.trim());
+    if(url.protocol!=='https:'||url.username||url.password||url.port)return null;
+    return allowedHosts[key].some(host=>url.hostname===host||url.hostname===`www.${host}`||url.hostname===`m.${host}`)?url.href:null;
+  }catch{return null;}
+}
+
+function validCoverURL(value){
+  if(typeof value!=='string'||!value.trim())return null;
+  const trimmed=value.trim();
+  if(/^[a-zA-Z0-9_./-]+\.(?:jpg|jpeg|png|webp|avif)(?:\?.*)?$/i.test(trimmed))return trimmed;
+  try{
+    const url=new URL(trimmed);
+    return url.protocol==='https:'&&!url.username&&!url.password?url.href:null;
+  }catch{return null;}
+}
+
+function parseStreamDate(value){
+  if(typeof value!=='string')return NaN;
+  const s=value.trim();
+  const ru=s.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+  if(ru)return Date.parse(`${ru[3]}-${ru[2]}-${ru[1]}T12:00:00+03:00`);
+  return Date.parse(s);
+}
+
+function extractYouTubeId(urlStr){
+  try{
+    const u=new URL(urlStr);
+    if(u.hostname==='youtu.be'||u.hostname==='www.youtu.be'){
+      return u.pathname.slice(1).split('/')[0]||null;
+    }
+    if(u.searchParams.get('v'))return u.searchParams.get('v');
+    const m=u.pathname.match(/^\/(?:live|shorts|embed)\/([^/?#]+)/);
+    return m?m[1]:null;
+  }catch{return null;}
+}
+
+async function fetchYouTubeTitle(videoId){
+  try{
+    const oembedUrl='https://www.youtube.com/oembed?url='+encodeURIComponent('https://www.youtube.com/watch?v='+videoId)+'&format=json';
+    const res=await fetch(oembedUrl);
+    if(!res.ok)return null;
+    const json=await res.json();
+    return typeof json.title==='string'&&json.title.trim()?json.title.trim():null;
+  }catch{return null;}
+}
+
+function setCardCover(key,coverUrl,altText){
+  const coverBox=document.getElementById(key+'-cover');
+  const img=document.getElementById(key+'-img');
+  coverBox.hidden=false;
+  img.classList.remove('is-loaded');
+  if(coverUrl){
+    img.onload=()=>{img.classList.add('is-loaded');};
+    img.onerror=()=>{img.classList.remove('is-loaded');img.removeAttribute('src');};
+    img.alt=altText||'';
+    img.src=coverUrl;
+  }else{
+    img.removeAttribute('src');
+  }
+}
+
+function setCardTitle(key,titleText){
+  const el=document.getElementById(key+'-stream-title');
+  if(titleText){
+    el.textContent=titleText;
+    el.hidden=false;
+  }else{
+    el.textContent='';
+    el.hidden=true;
+  }
+}
+
+async function applyStreams(data){
+  if(!data||typeof data!=='object'||Array.isArray(data))return;
+  const commonTitle=typeof data.title==='string'?data.title.trim():'';
+  if(typeof data.question==='string'&&data.question.trim()){
+    customStreamQuestion=data.question.trim();
+    renderRandomQuestions(false);
+  }
+  let count=0;
+
+  for(const key of Object.keys(allowedHosts)){
+    const url=validStreamURL(data[key],key);
+    if(!url)continue;
+
+    const card=document.getElementById(key+'-link');
+    card.href=url;
+    card.classList.add('has-preview');
+    document.getElementById(key+'-label').textContent='Перейти к записи эфира →';
+    count++;
+
+    const customTitle=typeof data[key+'Title']==='string'?data[key+'Title'].trim():'';
+    const initialTitle=customTitle||commonTitle;
+    setCardTitle(key,initialTitle);
+
+    let coverUrl=validCoverURL(data[key+'Cover']||data.cover);
+    if(key==='youtube'){
+      const videoId=extractYouTubeId(url);
+      if(videoId){
+        if(!coverUrl)coverUrl=`https://i.ytimg.com/vi/${encodeURIComponent(videoId)}/mqdefault.jpg`;
+        if(!customTitle){
+          fetchYouTubeTitle(videoId).then(ytTitle=>{
+            if(ytTitle&&card.classList.contains('has-preview'))setCardTitle('youtube',ytTitle);
+          });
+        }
+      }
+    }
+    setCardCover(key,coverUrl,initialTitle);
+  }
+
+  if(count){
+    const info=document.getElementById('stream-info');
+    const date=parseStreamDate(data.updatedAt);
+    info.textContent=[
+      commonTitle||'Актуальные ссылки на эфир',
+      Number.isFinite(date)?'Обновлено: '+new Intl.DateTimeFormat('ru-RU',{dateStyle:'medium',timeZone:'Europe/Moscow'}).format(date):''
+    ].filter(Boolean).join(' · ');
+    info.hidden=false;
+  }
+}
+
+const fallbacks=Object.fromEntries(Object.keys(allowedHosts).map(key=>[
+  key,
+  {
+    url:document.getElementById(key+'-link').href,
+    label:document.getElementById(key+'-label').textContent
+  }
+]));
+
+async function loadStreams(){
+  for(const [key,fallback] of Object.entries(fallbacks)){
+    const card=document.getElementById(key+'-link');
+    card.href=fallback.url;
+    card.classList.remove('has-preview');
+    document.getElementById(key+'-label').textContent=fallback.label;
+    document.getElementById(key+'-cover').hidden=true;
+    const img=document.getElementById(key+'-img');
+    img.classList.remove('is-loaded');
+    img.removeAttribute('src');
+    setCardTitle(key,'');
+  }
+  document.getElementById('stream-info').hidden=true;
+  try{
+    const response=await fetch('./streams.json',{cache:'no-store'});
+    if(!response.ok)return;
+    await applyStreams(await response.json());
+  }catch{/* Offline or invalid JSON: keep the existing channel links. */}
+}
+
+loadStreams();
+window.addEventListener('pageshow',event=>{if(event.persisted)loadStreams();});
 </script>
 <script src="viewer-comments.js"></script>
-<script>(()=>{const list=window.nikaViewerComments||[],card=document.getElementById('viewer-quote'),quote=document.getElementById('quote-text'),source=document.getElementById('quote-source'),toggle=document.getElementById('quote-toggle');if(!list.length||!card)return;let index=Math.floor(Math.random()*list.length),paused=matchMedia('(prefers-reduced-motion: reduce)').matches,timer;function show(){const c=list[index];quote.textContent='«'+c.text+'»';source.textContent=c.author+' · YouTube';source.href='https://www.youtube.com/watch?v='+encodeURIComponent(c.video);card.classList.remove('quote-enter');void card.offsetWidth;card.classList.add('quote-enter')}function schedule(){clearInterval(timer);if(!paused)timer=setInterval(()=>{index=(index+1)%list.length;show()},6500)}function state(){toggle.textContent=paused?'▶':'Ⅱ';toggle.setAttribute('aria-label',paused?'Возобновить смену комментариев':'Приостановить смену комментариев');toggle.title=toggle.getAttribute('aria-label');schedule()}toggle.addEventListener('click',()=>{paused=!paused;state()});document.addEventListener('visibilitychange',()=>{if(document.hidden)clearInterval(timer);else schedule()});card.hidden=false;show();state()})();</script>
+<script>(()=>{
+  const list=window.nikaViewerComments||[],
+        card=document.getElementById('viewer-quote'),
+        quote=document.getElementById('quote-text'),
+        source=document.getElementById('quote-source'),
+        toggle=document.getElementById('quote-toggle'),
+        nextBtn=document.getElementById('quote-next'),
+        iconPause=document.getElementById('quote-icon-pause'),
+        iconPlay=document.getElementById('quote-icon-play'),
+        floatHeart=document.getElementById('quote-float-heart');
+  if(!list.length||!card)return;
+
+  const SLIDE_MS=6800;
+  const HEART_LEAD_MS=1450;
+  let index=Math.floor(Math.random()*list.length),
+      paused=matchMedia('(prefers-reduced-motion: reduce)').matches,
+      slideTimer,
+      heartTimer;
+
+  function clearTimers(){
+    clearTimeout(slideTimer);
+    clearTimeout(heartTimer);
+  }
+
+  function triggerHeart(){
+    if(!floatHeart||paused)return;
+    floatHeart.classList.remove('is-active');
+    void floatHeart.offsetWidth;
+    floatHeart.classList.add('is-active');
+  }
+
+  function setQuoteText(el,text){
+    el.textContent='';
+    const parts=String(text).split(/(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)/gu);
+    for(let i=0;i<parts.length;i++){
+      if(!parts[i])continue;
+      if(i%2===1){
+        const span=document.createElement('span');
+        span.className='emoji';
+        span.textContent=parts[i];
+        el.appendChild(span);
+      }else{
+        el.appendChild(document.createTextNode(parts[i]));
+      }
+    }
+  }
+ function formatQuoteText(raw){
+    const maxLen=window.innerWidth<=740?140:165;
+    // Сокращаем длинные цепочки одинаковых эмодзи (например, 15 сердечек подряд) до 3
+    let clean=String(raw).replace(/(\p{Extended_Pictographic}\uFE0F?)\1{3,}/gu,'$1$1$1').trim();
+    if(clean.length<=maxLen)return clean;
+    const cut=clean.slice(0,maxLen);
+    const lastSpace=cut.lastIndexOf(' ');
+    return (lastSpace>maxLen*0.6?cut.slice(0,lastSpace):cut).replace(/[.,!?;:—–-]+$/,'')+'…';
+  }
+
+  function show(){
+    const c=list[index];
+    if(floatHeart)floatHeart.classList.remove('is-active');
+    setQuoteText(quote,formatQuoteText(c.text));
+    source.textContent=c.author+' · YouTube';
+    source.href='https://www.youtube.com/watch?v='+encodeURIComponent(c.video);
+    card.classList.remove('quote-enter');
+    void card.offsetWidth;
+    card.classList.add('quote-enter');
+  }
+
+  function schedule(){
+    clearTimers();
+    if(paused)return;
+    heartTimer=setTimeout(triggerHeart,Math.max(1000,SLIDE_MS-HEART_LEAD_MS));
+    slideTimer=setTimeout(()=>{
+      index=(index+1)%list.length;
+      show();
+      schedule();
+    },SLIDE_MS);
+  }
+
+  function updateToggleUI(){
+    if(iconPause)iconPause.hidden=paused;
+    if(iconPlay)iconPlay.hidden=!paused;
+    const label=paused?'Возобновить смену комментариев':'Приостановить смену комментариев';
+    toggle.setAttribute('aria-label',label);
+    toggle.title=label;
+    schedule();
+  }
+
+  toggle.addEventListener('click',()=>{
+    paused=!paused;
+    updateToggleUI();
+  });
+
+  if(nextBtn){
+    nextBtn.addEventListener('click',()=>{
+      index=(index+1)%list.length;
+      show();
+      schedule();
+    });
+  }
+
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)clearTimers();
+    else schedule();
+  });
+
+  card.hidden=false;
+  show();
+  updateToggleUI();
+})();</script>
 </body>
 </html>

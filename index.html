@@ -252,6 +252,15 @@ html.reload-top body{overflow-anchor:none}
 @media(max-width:740px){.hero .hero-about .about-cta,.hero .hero-about .hero-support{flex:1 1 auto}.tv-feature{grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:10px;padding:9px;margin:12px 0}.tv-feature .tv-copy{gap:4px}.tv-feature .tv-copy strong{font-size:19px}.tv-feature .tv-subtitle{font-size:12px}.tv-feature .tv-label{font-size:9px}.tv-feature .tv-watch{font-size:12px;padding:4px 6px}.tv-feature .tv-play{width:34px;height:34px}}
 #translations .eyebrow::before,#stream-platforms .eyebrow::before{content:none;display:none}.tv-feature{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;gap:12px;padding:14px}.tv-feature .tv-preview{width:min(100%,480px)}.tv-feature .tv-copy{align-items:center}.original-release-action{grid-template-columns:1fr;margin-top:12px}.platform-mark img,.platform-mark svg{display:block;width:30px;height:30px;object-fit:contain;border-radius:6px}.platform-mark img[hidden],.platform-mark span[hidden]{display:none}.platform-mark{background:transparent}#stream-platforms .platform-grid{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:420px){#stream-platforms .platform-grid{grid-template-columns:1fr}.tv-feature{padding:10px;gap:8px}}
 :root[data-theme] main>:is(.live-panel,.hero,.tv-feature,.shorts-section,.profile-card,.feature-section),main>:is(.live-panel,.hero,.tv-feature,.shorts-section,.profile-card,.feature-section),main .promo-stage{border:1px solid var(--gold);border-radius:16px;box-shadow:none}#stream-platforms{margin:14px 0;padding:clamp(16px,3.3vw,30px);background:var(--panel)}#stream-platforms .platform-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#stream-platforms .platform-link:last-child{grid-column:1/-1}.tv-feature>.tv-label{font-size:12px;letter-spacing:1px}.hero .hero-about a#hero-support{border:1px solid var(--gold);border-radius:10px;background:color-mix(in srgb,var(--panel) 65%,transparent)}.hero .hero-about a#hero-support:hover{background:color-mix(in srgb,var(--panel) 70%,var(--pink))}
+#my-music .original-chips{margin:12px 0 18px}
+#my-music .original-chips .outline:hover{color:var(--gold);border-color:var(--gold)}
+.original-home-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-top:16px;border-top:1px solid var(--line)}
+#my-music .original-home-actions .outline{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 12px;text-align:center;line-height:1.3;font-size:14px;border-color:var(--gold);color:var(--gold)}
+.original-action-icon{font-size:21px;line-height:1;flex:none}
+#my-music .original-home-actions .original-new-release{background:var(--gold);color:var(--accent-ink)}
+#my-music .original-home-actions .outline:hover{filter:brightness(1.12)}
+@media(max-width:740px){.original-home-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.original-home-actions .original-new-release{grid-column:1/-1}}
+@media(max-width:390px){.original-home-actions{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-common.css">
@@ -282,7 +291,28 @@ html.reload-top body{overflow-anchor:none}
   </div>
   <div class="shorts-footer"><small id="shorts-updated">Просмотры по данным YouTube на 23 ноября 2026 г.</small><a class="outline youtube-button" href="shorts.html"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Все переводы и каверы</span></a></div>
 </section>
-<section class="profile-card" id="my-music"><div class="eyebrow">МОЁ ТВОРЧЕСТВО</div><h2>Авторские песни</h2><p>Здесь собраны мои собственные композиции, которые можно заказать на эфире. Выберите любимую песню.</p><div class="original-shorts-action"><a class="outline original-shorts-button" href="shorts.html?type=original"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Shorts авторских песен</span></a></div><div id="original-chips" class="original-chips" aria-label="Авторские песни"><a class="outline" href="songs.html?filter=original&amp;q=%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D1%91%D0%BA">Василёк</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9A%D0%B0%D0%B7%D0%B0%D1%87%D0%BA%D0%B0">Казачка</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9B%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B0">Ласточка</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9B%D1%8E%D0%BB%D0%B8">Люли</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9D%D0%B5%D1%81%D0%B8%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D1%80%D0%B5%D0%BA%D0%B0">Неси меня река</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9F%D0%B0%D1%80%D0%B5%D0%BD%D1%8C%20%D1%83%D0%B4%D0%B0%D0%BB%D0%BE%D0%B9">Парень удалой</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%B5%D1%86%D0%BE">Письмецо</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%A7%D1%83%D0%B6%D0%BE%D0%B9">Чужой</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%92%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%B2%D0%B5%D1%82%D0%B5%D1%80">Вольный ветер</a><a class="outline" href="songs.html?filter=original&amp;q=%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D1%8B">Вороны</a></div><a class="outline" href="originals.html">Все авторские песни</a><div class="promo-actions original-release-action"><a class="release-quick" href="release.html">♫ Новый релиз</a></div></section>
+<section class="profile-card" id="my-music">
+  <div class="eyebrow">МОЁ ТВОРЧЕСТВО</div><h2>Авторские песни</h2>
+  <p>В каждой песне — частичка моей души. Выберите любимую композицию и послушайте её на удобной площадке.</p>
+  <div id="original-chips" class="original-chips" aria-label="Авторские песни">
+    <a class="outline" href="originals.html" data-song="Василёк">Василёк</a>
+    <a class="outline" href="originals.html" data-song="Казачка">Казачка</a>
+    <a class="outline" href="originals.html" data-song="Ласточка">Ласточка</a>
+    <a class="outline" href="originals.html" data-song="Люли">Люли</a>
+    <a class="outline" href="originals.html" data-song="Неси меня река">Неси меня река</a>
+    <a class="outline" href="originals.html" data-song="Парень удалой">Парень удалой</a>
+    <a class="outline" href="originals.html#pismetso">Письмецо</a>
+    <a class="outline" href="originals.html" data-song="Чужой">Чужой</a>
+    <a class="outline" href="originals.html" data-song="Вольный ветер">Вольный ветер</a>
+    <a class="outline" href="originals.html" data-song="Вороны">Вороны</a>
+  </div>
+  <div class="original-home-actions">
+    <a class="outline" href="shorts.html?type=original"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Shorts авторских песен</span></a>
+    <a class="outline" href="originals.html"><span class="original-action-icon" aria-hidden="true">♫</span><span>Все авторские песни</span></a>
+    <a class="outline original-new-release" href="release.html"><span class="original-action-icon" aria-hidden="true">✦</span><span>Новый релиз</span></a>
+  </div>
+</section>
+<script>document.querySelectorAll('#original-chips [data-song]').forEach(a=>{const url=window.NikaSiteConfig?.originalSongLinks?.[a.dataset.song];if(url){a.href=url;a.target='_blank';a.rel='noopener noreferrer';}});</script>
 
 
 <script>

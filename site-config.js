@@ -1,5 +1,16 @@
 /* One place for platform links and shared footer contents. */
 window.NikaSiteConfig = {
+  "originalSongLinks": {
+    "Парень удалой": "https://band.link/paren_ydaloi",
+    "Казачка": "https://band.link/nikamsvakazachka",
+    "Ласточка": "https://band.link/lastochkamoya",
+    "Люли": "https://band.link/oyluli",
+    "Василёк": "https://band.link/vasilyok",
+    "Неси меня река": "https://band.link/nikamoiseevareka",
+    "Вольный ветер": "https://band.link/volniyveter",
+    "Чужой": "https://band.link/nikachujoy",
+    "Вороны": "https://band.link/nikamoiseevaV"
+  },
   "sourceCatalog": "https://streamersonglist.com/t/nikaclub/songs",
   "platforms": [
     {

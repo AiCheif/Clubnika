@@ -100,7 +100,7 @@ window.NikaSiteConfig = {
         {
           "href": "https://www.instagram.com/nikamoiseeva/",
           "attrs": "target=\"_blank\" rel=\"noopener\"",
-          "html": "<span class=\"platform-mark\" aria-hidden=\"true\"></span>Нельзяграм"
+          "html": "<span class=\"platform-mark platform-placeholder\" aria-hidden=\"true\"></span>Нельзяграм"
         }
       ]
     }

@@ -50,7 +50,7 @@
   const date = document.getElementById('shorts-updated');
   if (total) total.textContent = formatViews(displayed.reduce((sum,item) => sum+(Number.isFinite(item.views)?item.views:0),0));
   const heroViews=document.getElementById('hero-views');
-  if(heroViews&&total)heroViews.textContent=total.textContent;
+  if(heroViews)heroViews.textContent=formatViews(items.reduce((sum,item)=>sum+(Number.isFinite(item.views)?item.views:0),0));
   const daily=document.getElementById('my-music');
   const songLinks=window.NikaSiteConfig?.originalSongLinks;
   if(heroViews&&daily&&songLinks){

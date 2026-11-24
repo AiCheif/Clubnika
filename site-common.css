@@ -130,11 +130,11 @@ main > .site-live-panel.is-live{border-color:#e66b76}
 .site-live-link:hover{background:color-mix(in srgb,var(--text) 7%,transparent)}
 .site-live-icon,.site-live-icon svg{display:block;width:22px;height:22px;flex:0 0 22px}
 
-.site-live-clock{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:2px 0 3px;font-variant-numeric:tabular-nums}
+.site-live-clock{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:4px 0;font-family:var(--font-sans);font-variant-numeric:tabular-nums;color:var(--gold);font-size:clamp(22px,3vw,30px);line-height:1.2}
 .clock-part{display:inline-flex;align-items:baseline;gap:5px}
-.clock-num{font-family:var(--font-serif);font-weight:700;color:var(--gold);font-size:clamp(28px,3.8vw,38px);line-height:1.05}
-.clock-unit{font-family:var(--font-sans);font-weight:500;color:var(--muted);font-size:clamp(14px,1.8vw,17px)}
-.clock-sep{color:var(--gold);opacity:.65;font-weight:700}
+.clock-num{font-weight:800;color:var(--gold)}
+.clock-unit{font-weight:600;color:var(--gold);opacity:.92}
+.clock-sep{color:var(--gold);opacity:.6;font-weight:700}
 
 .site-live-panel #live-date{font-size:13px;line-height:1.35;color:var(--muted);margin:3px 0 0}
 .site-live-order{display:flex;align-items:center;justify-content:center;min-height:42px;margin-top:12px;padding:9px 14px;border-radius:12px;background:var(--pink);color:var(--accent-ink,var(--bg));font-weight:750;text-align:center}
@@ -156,8 +156,7 @@ main > .site-live-panel.is-live{border-color:#e66b76}
   .site-live-link{position:relative;width:34px;min-height:38px;padding:0;flex:none}
   .site-live-icon,.site-live-icon svg{width:22px;height:22px;flex-basis:22px}
   .site-live-link>span:not(.site-live-icon){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  .clock-num{font-size:26px}
-  .clock-unit{font-size:14px}
+  .site-live-clock{font-size:clamp(21px,5.5vw,26px)}
   .site-live-order{margin-top:7px;min-height:40px;padding:7px 10px;font-size:14px}
 }
 @media(prefers-reduced-motion:reduce){.live-beacon{animation:none}}

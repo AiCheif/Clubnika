@@ -393,3 +393,113 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
 @media(prefers-reduced-motion:reduce){:is(.primary,.site-live-order,.premiere-action,.about-cta,.comment-float,.cta-order,.site-tv-card,.daily-song,.hero-stats>a,.selected-logo){transition:none}}
 @keyframes site-enter{from{opacity:.88;transform:translateY(5px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:no-preference){.site-entered{animation:site-enter .45s ease-out}}
+/* 1. Симметричные строчные кавычки «» прямо у границ текста */
+.viewer-quote .quote-deco-mark {
+  display: none !important;
+}
+
+.viewer-quote blockquote {
+  position: relative;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.viewer-quote blockquote::before,
+.viewer-quote blockquote::after {
+  position: static !important;
+  inset: auto !important;
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.08em;
+  line-height: 0;
+  color: var(--gold);
+  opacity: .85;
+}
+
+.viewer-quote blockquote::before {
+  content: "«";
+  margin-right: 4px;
+}
+
+.viewer-quote blockquote::after {
+  content: "»";
+  margin-left: 4px;
+}
+
+/* 2. Улучшенная рамка портрета: тонкий контур, внутренняя тень и золотой ореол */
+.hero .photo-visual,
+.support-page .support-portrait-wrap {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero .photo-visual::before,
+.support-page .support-portrait-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -9px -10px;
+  border: 1px solid color-mix(in srgb, var(--gold) 65%, transparent);
+  border-radius: 24px;
+  transform: rotate(2.8deg);
+  transition: transform .45s ease, border-color .45s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero .photo-visual::after,
+.support-page .support-portrait-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: 28px;
+  border: 1px solid color-mix(in srgb, var(--gold) 32%, transparent);
+  background: radial-gradient(circle, color-mix(in srgb, var(--gold) 22%, transparent) 0%, transparent 72%);
+  filter: blur(8px);
+  opacity: .75;
+  transition: opacity .45s ease, transform .45s ease;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.hero .photo-frame,
+.support-page .support-portrait-wrap .support-portrait {
+  border: 1px solid var(--gold);
+  box-shadow: 0 14px 36px #0006;
+  transition: border-color .35s ease, box-shadow .35s ease;
+}
+
+/* Внутренняя тень, чтобы фото «утопало» внутри рамки */
+.hero .photo-frame::after {
+  box-shadow: inset 0 2px 14px #00000085, inset 0 0 0 1px #ffffff14;
+}
+
+.hero .photo-visual:hover::before,
+.support-page .support-portrait-wrap:hover::before {
+  transform: rotate(3.8deg) scale(1.01);
+  border-color: var(--gold);
+}
+
+.hero .photo-visual:hover::after,
+.support-page .support-portrait-wrap:hover::after {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.hero .photo-visual:hover .photo-frame,
+.support-page .support-portrait-wrap:hover .support-portrait {
+  border-color: color-mix(in srgb, var(--gold) 85%, #fff);
+  box-shadow: 0 16px 42px #0007, 0 0 24px color-mix(in srgb, var(--gold) 24%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .photo-visual::before,
+  .hero .photo-visual::after,
+  .hero .photo-frame,
+  .support-page .support-portrait-wrap::before,
+  .support-page .support-portrait-wrap::after,
+  .support-page .support-portrait-wrap .support-portrait {
+    transition: none;
+  }
+}

@@ -240,8 +240,8 @@ main > :is(#listen,#social).site-platforms .platform-grid{grid-template-columns:
 
 /* Original-song module, shared by the home and about pages */
 main #my-music{position:relative;overflow:hidden;margin:14px 0;padding:clamp(16px,3.3vw,30px);background:var(--panel);border:1px solid var(--gold);border-radius:16px;box-shadow:none}
-#my-music>*{position:relative;z-index:1}
-.original-watermark{position:absolute;right:12px;bottom:8px;width:210px;height:auto;color:var(--gold);opacity:.065;pointer-events:none;z-index:0}
+#my-music>:not(.original-watermark){position:relative;z-index:1}
+.original-watermark{position:absolute;top:12px;right:-14px;bottom:auto;width:310px;height:auto;color:var(--gold);opacity:.16;transform:rotate(-4deg);pointer-events:none;z-index:0}
 #my-music h2{font:600 clamp(28px,3.4vw,36px)/1.12 var(--font-serif);margin:6px 0 12px}
 #my-music p{max-width:60ch;font-size:15.5px;margin:0 0 14px;color:var(--muted)}
 #my-music .eyebrow::before{content:none;display:none}
@@ -304,7 +304,8 @@ main > .site-live-panel.is-live{border-color:#e66b76}
   .site-live-link{position:relative;width:34px;min-height:38px;padding:0;flex:none}
   .site-live-icon,.site-live-icon svg{width:22px;height:22px;flex-basis:22px}
   .site-live-link>span:not(.site-live-icon){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  .site-live-clock{font-size:clamp(21px,5.5vw,26px)}
+  .clock-num{font-size:26px}
+  .clock-unit{font-size:14px}
   .site-live-order{margin-top:7px;min-height:40px;padding:7px 10px;font-size:14px}
 }
 @media(prefers-reduced-motion:reduce){.live-beacon{animation:none}}
@@ -393,7 +394,8 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
 @media(prefers-reduced-motion:reduce){:is(.primary,.site-live-order,.premiere-action,.about-cta,.comment-float,.cta-order,.site-tv-card,.daily-song,.hero-stats>a,.selected-logo){transition:none}}
 @keyframes site-enter{from{opacity:.88;transform:translateY(5px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:no-preference){.site-entered{animation:site-enter .45s ease-out}}
-/* 1. Симметричные строчные кавычки «» прямо у границ текста */
+
+/* 1. Декоративные симметричные кавычки-лапки “ ” прямо у границ текста */
 .viewer-quote .quote-deco-mark {
   display: none !important;
 }
@@ -406,26 +408,29 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
 
 .viewer-quote blockquote::before,
 .viewer-quote blockquote::after {
-  position: static !important;
+  position: relative !important;
   inset: auto !important;
+  top: 7px !important;
   margin: 0;
   font-family: var(--font-serif, Georgia, serif);
   font-style: normal;
   font-weight: 700;
-  font-size: 1.08em;
+  font-size: 34px;
   line-height: 0;
   color: var(--gold);
-  opacity: .85;
+  opacity: .38;
+  pointer-events: none;
+  user-select: none;
 }
 
 .viewer-quote blockquote::before {
-  content: "«";
-  margin-right: 4px;
+  content: "“";
+  margin-right: 5px;
 }
 
 .viewer-quote blockquote::after {
-  content: "»";
-  margin-left: 4px;
+  content: "”";
+  margin-left: 5px;
 }
 
 /* 2. Улучшенная рамка портрета: тонкий контур, внутренняя тень и золотой ореол */

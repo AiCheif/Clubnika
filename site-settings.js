@@ -1,21 +1,22 @@
-(()=>{const themes=['classic','berry','emerald','sapphire','light','noir','lavender','ocean','sunset','winter','scarlet','chocolate'];let theme='scarlet';try{const saved=localStorage.getItem('nika.catalog.theme');if(themes.includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme;document.addEventListener('DOMContentLoaded',()=>{const picker=document.getElementById('theme-picker');picker.value=theme;picker.addEventListener('change',()=>{if(!themes.includes(picker.value))return;document.documentElement.dataset.theme=picker.value;try{localStorage.setItem('nika.catalog.theme',picker.value)}catch{}})})})();
+/* Shared theme preference. Unsupported saved themes fall back to scarlet. */
 (()=>{
-const sheets=[
- {file:'logos-01.png',cols:2,rows:2,group:'Первая коллекция',items:[['note','Клубничка с нотой','logo-note.png'],['ribbon','Алая лента','logo-ribbon.png'],['signature','НМ — личная подпись','logo-signature.png'],['ruby','Клубничный рубин','logo-ruby.png']]},
- {file:'logos-02.png',cols:5,rows:2,group:'Варианты Миши — набор 1',items:[['heart-note','Клубничная нота'],['nm-character','Монограмма НМ с характером'],['stage-emblem','Сценическая эмблема'],['author-line','Авторская линия'],['community-circle','Круг сообщества'],['gothic','Готическая клубника'],['sound-wave','Звуковая клубника'],['compass','Музыкальный компас'],['stage-window','Сценическое окно'],['minimal','Минималистичный знак']]},
- {file:'logos-03-alpha.png',cols:3,rows:2,group:'Варианты Сергея — набор 1',items:[['sergey-orbit','Клубничная орбита'],['sergey-monogram','Музыкальная монограмма'],['sergey-ring','Золотое кольцо'],['sergey-crown','Королевская клубничка'],['sergey-signature','Авторская подпись'],['sergey-vinyl','Музыкальная пластинка']]},
- {file:'logos-04-alpha.png',cols:5,rows:2,group:'Варианты Миши — набор 2',items:[['misha2-pick','Золотой медиатор'],['misha2-monogram','Монограмма НМ'],['misha2-pulse','Скрипичный пульс'],['misha2-ruby','Рубиновая грань'],['misha2-vinyl','Акустический винил'],['misha2-lyre','Лира и лист'],['misha2-spotlight','В свете софитов'],['misha2-autograph','Автограф души'],['misha2-harmony','Трио гармонии'],['misha2-cameo','Клубничная камея']]},
- {file:'logos-05-alpha.png',cols:3,rows:2,group:'Варианты Сергея — набор 2',items:[['sergey2-orbit','Золотая орбита Nika Club'],['sergey2-headphones','Клубничка в наушниках'],['sergey2-brush','Розовый арт Nika Club'],['sergey2-wreath','Королевский клуб'],['sergey2-neon','Неоновый Nika Club'],['sergey2-music','Музыкальная орбита клуба']]},
- {file:'logo-alexey-alpha.png',cols:1,rows:1,group:'Вариант Алексея',items:[['alexey-crest','Рубиновый герб']]},
- {file:'logos-06-alpha.png',cols:3,rows:1,group:'Варианты Геннадия',items:[['gennady-crown','Королевская монограмма'],['gennady-diamond','Монограмма с рубином'],['gennady-music','Музыкальная монограмма']]}
-];
-const logos=new Map();for(const sheet of sheets)sheet.items.forEach(([id,title,fallback],index)=>logos.set(id,{...sheet,title,index,fallback}));
-document.addEventListener('DOMContentLoaded',()=>{
- const brand=document.querySelector('.brandarea'),berry=brand.querySelector('.berry');const holder=document.createElement('label');holder.className='logo-picker';holder.append('Логотип: ');const picker=document.createElement('select');picker.id='logo-picker';picker.setAttribute('aria-label','Выбор логотипа');const option=(id,title)=>{const el=document.createElement('option');el.value=id;el.textContent=title;return el};picker.append(option('classic','Клубничка с нотой (прежний)'));for(const sheet of sheets){const group=document.createElement('optgroup');group.label=sheet.group;for(const [id,title] of sheet.items)group.append(option(id,title));picker.append(group)}holder.append(picker);const status=document.createElement('span');status.className='logo-picker-status';status.setAttribute('role','status');document.querySelector('.footer-settings').append(holder,status);
- const sprite=document.createElement('span');sprite.className='selected-logo';sprite.hidden=true;sprite.setAttribute('aria-hidden','true');berry.append(sprite);let selection='ruby',token=0;try{const saved=localStorage.getItem('nika.catalog.logo');if(saved==='classic'||logos.has(saved))selection=saved}catch{}
- const cache=new Map();function load(file){if(!cache.has(file)){const promise=new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(new Error(file));img.src=file});cache.set(file,promise);promise.catch(()=>cache.delete(file))}return cache.get(file)}
- function show(img,file,cols,rows,index){const ratio=(img.naturalWidth/cols)/(img.naturalHeight/rows),col=index%cols,row=Math.floor(index/cols);sprite.style.width=(ratio>=1?100:100*ratio)+'%';sprite.style.height=(ratio>=1?100/ratio:100)+'%';sprite.style.backgroundImage='url("'+file+'")';sprite.style.backgroundSize=(cols*100)+'% '+(rows*100)+'%';sprite.style.backgroundPosition=(cols===1?0:col/(cols-1)*100)+'% '+(rows===1?0:row/(rows-1)*100)+'%';sprite.style.backgroundRepeat='no-repeat';sprite.hidden=false;berry.classList.add('logo-image-mode')}
- function showKeyed(img,logo){const canvas=document.createElement('canvas'),col=logo.index%logo.cols,row=Math.floor(logo.index/logo.cols),h=img.naturalHeight/logo.rows,left=logo.xEdges?logo.xEdges[col]*img.naturalWidth:col*img.naturalWidth/logo.cols,right=logo.xEdges?logo.xEdges[col+1]*img.naturalWidth:(col+1)*img.naturalWidth/logo.cols,w=right-left;canvas.width=Math.round(w);canvas.height=Math.round(h);const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,left,row*h,w,h,0,0,canvas.width,canvas.height);const pixels=ctx.getImageData(0,0,canvas.width,canvas.height),d=pixels.data;for(let i=0;i<d.length;i+=4){const excess=d[i+2]-Math.max(d[i],d[i+1]);if(excess>25){const keep=1-Math.min(1,(excess-25)/85);d[i+3]=Math.round(d[i+3]*keep);d[i+2]=Math.min(d[i+2],Math.max(d[i],d[i+1])+12)}}ctx.putImageData(pixels,0,0);show({naturalWidth:canvas.width,naturalHeight:canvas.height},canvas.toDataURL('image/png'),1,1,0)}
- async function apply(id){const request=++token;sprite.hidden=true;berry.classList.remove('logo-image-mode');status.textContent='';if(id==='classic')return;const logo=logos.get(id);if(!logo)return;if(id==='ruby'&&logo.fallback){try{const img=await load(logo.fallback);if(request===token)show(img,logo.fallback,1,1,0);return}catch{if(request!==token)return}}try{const img=await load(logo.file);if(request===token){if(logo.key==='blue'){try{showKeyed(img,logo)}catch{status.textContent='Для прозрачности откройте сайт по HTTPS'}}else show(img,logo.file,logo.cols,logo.rows,logo.index)}}catch{if(request!==token)return;if(logo.fallback){try{const img=await load(logo.fallback);if(request===token)show(img,logo.fallback,1,1,0);return}catch{}}if(request===token)status.textContent='Ожидается файл '+logo.file}}
- picker.value=selection;apply(selection);picker.addEventListener('change',()=>{selection=picker.value;try{localStorage.setItem('nika.catalog.logo',selection)}catch{}apply(selection)})
-})})();
+ const themes=['scarlet','berry','emerald','sapphire','winter'];
+ let theme='scarlet';
+ try{
+   const saved=localStorage.getItem('nika.catalog.theme');
+   if(themes.includes(saved))theme=saved;
+   else if(saved!==null)localStorage.setItem('nika.catalog.theme',theme);
+ }catch{}
+ document.documentElement.dataset.theme=theme;
+ document.addEventListener('DOMContentLoaded',()=>{
+   const picker=document.getElementById('theme-picker');
+   if(!picker)return;
+   picker.value=theme;
+   picker.addEventListener('change',()=>{
+     if(!themes.includes(picker.value))return;
+     theme=picker.value;
+     document.documentElement.dataset.theme=theme;
+     try{localStorage.setItem('nika.catalog.theme',theme)}catch{}
+   });
+ });
+})();

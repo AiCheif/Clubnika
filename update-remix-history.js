@@ -2,7 +2,7 @@
 const fs=require('node:fs');
 const path=require('node:path');
 const registry=JSON.parse(fs.readFileSync(path.join(__dirname,'remix-projects.json'),'utf8'));
-const project=registry.projects.find(p=>p.id===(process.argv[2]||registry.defaultProject));
+const project=registry.projects.find(p=>p.id===(process.argv[2]||registry.defaultUpdateProject||registry.defaultProject));
 if(!project)throw Error('Unknown remix project');
 const ranking=JSON.parse(fs.readFileSync(path.join(__dirname,project.ranking),'utf8'));
 const file=path.join(__dirname,project.history);

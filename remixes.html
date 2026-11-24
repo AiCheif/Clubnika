@@ -280,6 +280,7 @@ html.reload-top body{overflow-anchor:none}
 @media(max-width:740px){.rank-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.rank-summary{grid-template-columns:30px repeat(3,minmax(0,1fr)) 18px;gap:8px;padding:12px}.rank-identity{grid-column:2/5}.rank-expand{grid-column:5;grid-row:1}.rank-metric:nth-child(3){grid-column:2;grid-row:2}.rank-metric:nth-child(4){grid-column:3;grid-row:2}.rank-metric:nth-child(5){grid-column:4;grid-row:2}.rank-metric strong{font-size:15px}.rank-clips{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .rank-summary{grid-template-columns:minmax(0,1fr) 22px}.rank-summary .rank-identity{grid-column:1;grid-row:1}.rank-summary .rank-expand{grid-column:2;grid-row:1}
 .rank-projects{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:3px 2px 8px;margin:12px 0 20px}.rank-project{display:flex;align-items:center;gap:12px;flex:0 0 min(260px,80vw);padding:10px 13px;min-height:78px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);scroll-snap-align:start}.rank-project[aria-current="page"]{border-color:var(--gold);background:color-mix(in srgb,var(--panel) 85%,var(--gold));color:var(--gold)}.rank-project:hover{border-color:var(--gold)}.rank-project-cover{display:grid;place-items:center;width:54px;height:54px;border-radius:8px;overflow:hidden;flex:none;color:var(--gold);background:var(--panel);font-size:25px}.rank-project-cover img{display:block;width:100%;height:100%;object-fit:cover}.rank-project strong{font-size:16px}.rank-project small{display:block;margin-top:4px;color:var(--muted);font-size:12px}.rank-projects-label{color:var(--gold);font-size:13px;font-weight:750}.rank-section [hidden]{display:none!important}.rank-empty{border:1px dashed var(--line);border-radius:12px;padding:20px;color:var(--muted);text-align:center}.rank-load-error{color:var(--muted);margin:12px 0}@media(max-width:740px){.rank-projects{margin:8px 0 14px;gap:8px}.rank-project{flex-basis:min(215px,70vw);min-height:66px;padding:8px;gap:8px}.rank-project-cover{width:44px;height:44px}}
+.rank-section>.sectionhead .eyebrow::before{content:none;display:none}
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-common.css">
@@ -290,9 +291,9 @@ html.reload-top body{overflow-anchor:none}
 <script src="site-header.js" data-page="remixes.html"></script>
 <main class="wrap shorts-page">
 <section class="shorts-section rank-section">
-<div class="sectionhead"><div><div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div><h1>Ваши видео под мои песни</h1><p>Спасибо, что делитесь моими песнями! Здесь собраны ролики наших зрителей и рейтинг авторов Shorts.</p></div></div>
+<div class="sectionhead"><div><div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div><h1>Ваши видео под мои песни</h1><p>Спасибо, что делитесь моими песнями! Здесь собраны ролики наших зрителей.</p></div></div>
 <div class="rank-projects-label">Выберите песню</div><div class="rank-projects" id="rank-projects" aria-label="Песни"></div>
-<h2 id="rank-song">Парень удалой</h2><p id="rank-load-error" class="rank-load-error" role="status" hidden></p>
+<h2 id="rank-song">Новая песня</h2><p id="rank-load-error" class="rank-load-error" role="status" hidden></p>
 <div class="rank-stats" aria-label="Общая статистика">
 <div><strong id="rank-videos">—</strong><span>Shorts</span></div><div><strong id="rank-authors">—</strong><span>авторов</span></div><div><strong id="rank-views">—</strong><span>просмотров</span></div><div><strong id="rank-best">—</strong><span id="rank-best-label">Лучший ролик</span><a id="rank-best-link" target="_blank" rel="noopener noreferrer" hidden>Лучший ролик</a></div>
 </div>
@@ -306,7 +307,7 @@ html.reload-top body{overflow-anchor:none}
 </div>
 <div class="shorts-footer"><small id="rank-updated"></small><a class="outline" id="rank-create" target="_blank" rel="noopener noreferrer" hidden>Снять свой Shorts</a></div>
 </section></main>
-<script src="site-footer.js"></script>
+<script src="site-footer.js" data-hide-platforms data-hide-comment></script>
 <script src="remix-metrics.js?v=1"></script>
 <script src="remixes.js?v=7"></script>
 </body></html>

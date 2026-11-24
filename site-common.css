@@ -101,3 +101,19 @@ main .site-platform-pair>.site-platforms{margin:0;min-width:0;padding:clamp(16px
 .site-platform-pair .platform-link{padding:9px;gap:7px;font-size:14px;min-width:0}
 @media(max-width:900px){.site-platform-pair{grid-template-columns:1fr}.site-platform-pair .sectionhead h2{font-size:clamp(27px,4.5vw,43px)}}
 @media(max-width:740px){.site-platform-pair #stream-platforms .platform-grid,.site-platform-pair #listen .platform-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.site-platform-pair #stream-platforms .platform-link:last-child{grid-column:1/-1;justify-content:center}}
+
+/* Consistent outer frames on Home and About, including paired sections. */
+body.site-unified-panels main :is(.hero,.home-premiere,.site-live-panel,.site-tv-card,.shorts-section,.profile-card,.feature-section){
+ border:1px solid var(--gold);border-radius:16px;box-shadow:none
+}
+body.site-unified-panels main :is(.profile-card,.feature-section,.shorts-section)::before,
+body.site-unified-panels main :is(.profile-card,.feature-section,.shorts-section)::after{content:none}
+body.site-unified-panels main :is(.profile-card,.feature-section,.shorts-section) .eyebrow::before{content:none;display:none}
+body.site-unified-panels main #about-shorts{background:var(--panel)}
+:root[data-theme="scarlet"] body.site-unified-panels .hero::before{
+ width:52%;left:-18%;top:-30px;transform:rotate(-9deg)
+}
+:root[data-theme="scarlet"] body.site-unified-panels .hero::after{
+ width:52%;right:-18%;bottom:-30px;transform:rotate(-9deg)
+}
+body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.photo-gallery,.hero-copy){position:relative;z-index:1}

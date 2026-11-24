@@ -33,21 +33,43 @@
 
   const quoteSource=document.getElementById('quote-source');
   if(quoteSource){
-    let enhancing=false;
+    let busy=false,lastRaw='';
+    const buildBadge=()=>{
+      const tag=document.createElement('span');
+      tag.className='quote-platform-tag';
+      tag.setAttribute('aria-hidden','true');
+      const svgNS='http://www.w3.org/2000/svg';
+      const svg=document.createElementNS(svgNS,'svg');
+      svg.setAttribute('viewBox','0 0 24 24');
+      const rect=document.createElementNS(svgNS,'rect');
+      rect.setAttribute('x','1');rect.setAttribute('y','4');
+      rect.setAttribute('width','22');rect.setAttribute('height','16');
+      rect.setAttribute('rx','5');rect.setAttribute('fill','#e0002a');
+      const poly=document.createElementNS(svgNS,'path');
+      poly.setAttribute('d','m10 8 6 4-6 4z');poly.setAttribute('fill','#fff');
+      svg.append(rect,poly);
+      tag.append(svg);
+      return tag;
+    };
     const enhanceSource=()=>{
-      if(enhancing||quoteSource.querySelector('.quote-platform-tag'))return;
-      const raw=(quoteSource.textContent||'').trim();
-      if(!raw)return;
-      enhancing=true;
-      const author=raw.replace(/\s*·\s*YouTube\s*$/i,'').trim();
-      const cleanName=author.replace(/^@+/,'');
+      if(busy)return;
+      const nameEl=quoteSource.querySelector('.quote-author-name');
+      const raw=((nameEl?nameEl.textContent:quoteSource.textContent)||'').replace(/\s*·\s*YouTube\s*$/i,'').trim();
+      if(!raw||raw===lastRaw)return;
+      busy=true;
+      lastRaw=raw;
+      const cleanName=raw.replace(/^@+/,'');
       const initial=(cleanName.match(/[\p{L}\p{N}]/u)?.[0]||'Н').toUpperCase();
-      quoteSource.setAttribute('aria-label',`${author} — открыть на YouTube`);
+      quoteSource.setAttribute('aria-label',`${raw} — открыть на YouTube`);
       quoteSource.title='Открыть комментарий на YouTube';
-      quoteSource.innerHTML=`<span class="quote-avatar" aria-hidden="true">${initial}</span><span class="quote-author-name">${author}</span><span class="quote-platform-tag" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0002a"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg></span>`;
-      requestAnimationFrame(()=>{enhancing=false;});
+      const av=document.createElement('span');
+      av.className='quote-avatar';av.setAttribute('aria-hidden','true');av.textContent=initial;
+      const nm=document.createElement('span');
+      nm.className='quote-author-name';nm.textContent=raw;
+      quoteSource.replaceChildren(av,nm,buildBadge());
+      queueMicrotask(()=>{busy=false;});
     };
     enhanceSource();
-    new MutationObserver(()=>enhanceSource()).observe(quoteSource,{childList:true,characterData:true,subtree:true});
+    new MutationObserver(enhanceSource).observe(quoteSource,{childList:true,characterData:true,subtree:true});
   }
 })();

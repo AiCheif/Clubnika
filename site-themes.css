@@ -1,11 +1,25 @@
 /* Единые цветовые палитры сайта. Меняйте цвета здесь. */
 :root {
+  /* Базовые (используются везде) */
   --brand-red: #d5203d;
   --brand-gold: #f5ce78;
   --brand-dark: #24090f;
+
+  /* Для совместимости с существующим кодом */
+  --bg: #15080a;
+  --panel: #2c1015;
+  --line: #73412d;
+  --text: #fff6e7;
+  --muted: #e0bcae;
+  --pink: #f6c86b;
+  --gold: #ffdb89;
+  --accent-ink: #351006;
+  --hero-start: #820b22;
+  --hero-end: #24090e;
+  --hero-glow: #b60c2c;
 }
 
-/* Алое золото (по умолчанию) */
+/* ==================== ТЕКУЩИЕ ТЕМЫ ==================== */
 :root, :root[data-theme="scarlet"] {
   color-scheme: dark;
   --bg: #15080a;
@@ -21,7 +35,6 @@
   --hero-glow: #b60c2c;
 }
 
-/* Клубничная */
 :root[data-theme="berry"] {
   color-scheme: dark;
   --bg: #190c16;
@@ -37,7 +50,6 @@
   --hero-glow: #9d3563;
 }
 
-/* Изумрудная */
 :root[data-theme="emerald"] {
   color-scheme: dark;
   --bg: #0c1917;
@@ -53,7 +65,6 @@
   --hero-glow: #387c61;
 }
 
-/* Сапфировая */
 :root[data-theme="sapphire"] {
   color-scheme: dark;
   --bg: #101522;
@@ -69,7 +80,6 @@
   --hero-glow: #5861b5;
 }
 
-/* Зимняя сказка */
 :root[data-theme="winter"] {
   color-scheme: light;
   --bg: #f3f9ff;
@@ -83,4 +93,86 @@
   --hero-start: #dcefff;
   --hero-end: #f0f8ff;
   --hero-glow: #b7d9f0;
+}
+
+/* ==================== МОИ НОВЫЕ ТЕМЫ ==================== */
+
+/* Лавандовая — свежая, нежная, современная */
+:root[data-theme="lavender"] {
+  color-scheme: dark;
+  --bg: #0f0c15;
+  --panel: #1e1728;
+  --line: #5b4a7a;
+  --text: #f0e6ff;
+  --muted: #c8b8e0;
+  --pink: #e0a0ff;
+  --gold: #d4b8ff;
+  --accent-ink: #2a1f3f;
+  --hero-start: #3a2a5e;
+  --hero-end: #1f1629;
+  --hero-glow: #8a6aff;
+}
+
+/* Медовая — тёплая, уютная, вечерний эфир */
+:root[data-theme="honey"] {
+  color-scheme: dark;
+  --bg: #160f08;
+  --panel: #2a2117;
+  --line: #7a5f3f;
+  --text: #fff7e6;
+  --muted: #e8d5b8;
+  --pink: #ffbb77;
+  --gold: #ffdb89;
+  --accent-ink: #3f2a0f;
+  --hero-start: #5c3f1f;
+  --hero-end: #2c1f0f;
+  --hero-glow: #b38b4f;
+}
+
+/* Лаймовая — свежая, энергичная, молодёжь */
+:root[data-theme="lime"] {
+  color-scheme: dark;
+  --bg: #0a1208;
+  --panel: #17231a;
+  --line: #4a7a4a;
+  --text: #f0ffe6;
+  --muted: #b8e0b8;
+  --pink: #77ff77;
+  --gold: #d4ff89;
+  --accent-ink: #132a0f;
+  --hero-start: #2a5e1f;
+  --hero-end: #152a17;
+  --hero-glow: #6ac66a;
+}
+
+/* Розово-оранжевая (Корал) — страстная, яркая */
+:root[data-theme="coral"] {
+  color-scheme: dark;
+  --bg: #140f12;
+  --panel: #2c1f24;
+  --line: #7a4a5f;
+  --text: #fff0f0;
+  --muted: #e8b8c8;
+  --pink: #ff8899;
+  --gold: #ffccaa;
+  --accent-ink: #3f1f2a;
+  --hero-start: #5c2a3f;
+  --hero-end: #2c1f24;
+  --hero-glow: #b85f7a;
+}
+
+/* Бирюзовая — свежая, «пляжная» свежесть */
+:root[data-theme="turquoise"] {
+  color-scheme: dark;
+  --bg: #08120f;
+  --panel: #142722;
+  --line: #4a7a6e;
+  --text: #e6fff7;
+  --muted: #b8e0d4;
+  --pink: #77ffdd;
+  --gold: #c4ffdb;
+  --accent-ink: #0f2a23;
+  --hero-start: #1f5e4e;
+  --hero-end: #132a26;
+  --hero-glow: #5ecca8;
 }

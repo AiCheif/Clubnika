@@ -12,7 +12,11 @@
   const markup=`<div class="site-platform-pair">${paired.map(renderSection).join('')}</div>${others.map(renderSection).join('')}`;
   const showPlatforms=!script.hasAttribute('data-hide-platforms');
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
-  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="winter">Зимняя сказка</option></select></label></div></footer>`);
+  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="winter">Зимняя сказка</option><option value="lavender">Лавандовая</option>
+<option value="honey">Медовая</option>
+<option value="lime">Лаймовая</option>
+<option value="coral">Коралловая</option>
+<option value="turquoise">Бирюзовая</option></select></label></div></footer>`);
   if(!script.hasAttribute('data-hide-comment')){
     script.insertAdjacentHTML('beforebegin',"<a class=\"comment-float is-hidden\" id=\"comment-float\" href=\"support.html\" aria-label=\"Оставить комментарий\" title=\"Оставить комментарий\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path stroke-linejoin=\"round\" d=\"M3 4h18v13H11l-5 4v-4H3z\"/><path stroke-linecap=\"round\" d=\"M7 10h10M7 13h6\"/></svg><span>Оставить комментарий</span></a>");
     const button=document.getElementById('comment-float'),commentSection=document.getElementById('comment-section'),anchor=document.getElementById('my-music')||document.getElementById('translations')||commentSection;

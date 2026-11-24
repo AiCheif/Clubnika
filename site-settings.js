@@ -1,6 +1,6 @@
 /* Shared theme preference. Unsupported saved themes fall back to scarlet. */
 (()=>{
- const themes=['scarlet','berry','emerald','sapphire','winter'];
+ const themes=['scarlet','berry','emerald','sapphire','winter', 'lavender', 'honey', 'lime', 'coral', 'turquoise'];
  let theme='scarlet';
  try{
    const saved=localStorage.getItem('nika.catalog.theme');

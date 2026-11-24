@@ -260,6 +260,20 @@ html.reload-top body{overflow-anchor:none}
 #my-music .original-home-actions .outline:hover{filter:brightness(1.12)}
 @media(max-width:740px){.original-home-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.original-home-actions .original-new-release{grid-column:1/-1}}
 @media(max-width:390px){.original-home-actions{grid-template-columns:1fr}}
+.home-premiere-section{margin:12px 0 0}
+.home-premiere-section .home-premiere{margin:0;padding:18px 24px;min-height:125px;border:1px solid var(--gold);box-shadow:none}
+.home-premiere-section .home-premiere h2{font:400 clamp(27px,3.3vw,35px)/1.15 Georgia,serif;margin:5px 0}
+.home-premiere-section .home-premiere p{font-size:15px}
+.hero{padding:clamp(20px,3vw,32px);row-gap:16px}
+.hero h1.hero-heading{font-size:12px;line-height:1.4;letter-spacing:2px;font-weight:800}
+.hero .photo-gallery{margin-top:10px}
+.hero .hero-intro{max-width:54ch;font-size:16px;line-height:1.65}
+.home-feature-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:14px;align-items:stretch;margin:14px 0}
+.home-feature-pair #my-music{margin:0;min-width:0;padding:22px;display:flex;flex-direction:column;justify-content:center}
+.home-feature-pair #my-music .original-home-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+.home-feature-pair #my-music .original-new-release{grid-column:1/-1}
+@media(max-width:740px){.home-premiere-section .home-premiere{min-height:0;padding:12px 15px;gap:10px}.home-premiere-section .home-premiere h2{font-size:27px}.home-feature-pair{grid-template-columns:1fr;gap:12px}.hero .photo-gallery{margin-top:8px}}
+@media(max-width:390px){.home-feature-pair #my-music .original-home-actions{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-common.css">
@@ -271,12 +285,12 @@ html.reload-top body{overflow-anchor:none}
 <script src="site-header.js" data-page="index.html"></script>
 <main class="wrap">
 <script src="site-live-panel.js" data-show-order></script>
-<section id="news" class="promo-carousel" aria-label="Новости и поддержка Ники"><div class="promo-stage" id="promo-stage">
-<article class="premiere-banner promo-slide active" aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>Скоро поделюсь с вами новой песней! 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article>
-<article class="comment-banner promo-slide" id="comment-banner" aria-label="Поддержать добрым словом" aria-hidden="true" inert><div class="comment-banner-icon" aria-hidden="true"><span class="comment-heart">♥</span></div><div class="comment-banner-copy"><div class="eyebrow">МАЛЕНЬКАЯ ПРОСЬБА ОТ НИКИ</div><h2>Ваши слова вдохновляют!</h2><p>Расскажите, какая песня вам запомнилась в эфире!</p></div><a class="comment-action" href="support.html"><span>❤️ Поддержать добрым словом</span><small class="comment-visual"><svg class="comment-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linejoin="round" d="M3 4h18v13H11l-5 4v-4H3z"/><path stroke-linecap="round" d="M7 9h10M7 13h6"/></svg> Оставить комментарий</small></a></article></div>
-</section>
-<section class="hero"><h1 class="eyebrow hero-heading"><span class="dot"></span> ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных стримах звучат любимые песни, душевные мелодии и мои авторские композиции. Здесь мы поём вместе и делимся теплом.</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a><a class="outline hero-support" id="hero-support" href="support.html"><span aria-hidden="true">❤️</span> <span>Поддержать добрым словом</span></a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong>10</strong><span>Авторских песен</span></a></div></div></section>
-<a class="tv-card tv-feature" href="https://www.youtube.com/watch?v=OeMVMUq8QUc" target="_blank" rel="noopener noreferrer" aria-label="Смотреть выступление Ники в программе Песни от всей души на YouTube"><span class="tv-label">ЭФИР НА ТЕЛЕВИДЕНИИ</span><span class="tv-preview"><img src="tv-preview.png" alt="Ника Моисеева и Андрей Малахов в программе Песни от всей души" width="480" height="270" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/OeMVMUq8QUc/hqdefault.jpg'"><span class="tv-play" aria-hidden="true">▶</span></span><span class="tv-copy"><strong>Песни от всей души</strong><span class="tv-subtitle">Выступление в программе Андрея Малахова</span><span class="tv-watch">▶ Смотреть выступление</span></span></a>
+<section id="news" class="home-premiere-section" aria-label="Анонс новой песни"><article class="premiere-banner home-premiere" aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>Скоро поделюсь с вами новой песней! 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article></section>
+<section class="hero"><h1 class="eyebrow hero-heading">ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных эфирах звучат любимые песни, душевные мелодии и мои авторские композиции. Мне нравится открывать знакомую музыку заново и делиться с вами новыми песнями. Здесь можно выбрать композицию для ближайшего эфира, спеть вместе со мной и просто провести вечер в тёплой компании. Буду рада видеть вас в нашей клубничной семье! 🍓</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a><a class="outline hero-support" id="hero-support" href="support.html"><span aria-hidden="true">❤️</span> <span>Поддержать добрым словом</span></a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong>10</strong><span>Авторских песен</span></a></div></div></section>
+<div class="home-feature-pair">
+<script src="site-tv-card.js"></script>
+<script src="site-original-songs.js"></script>
+</div>
 <section class="shorts-section" id="translations">
   <div class="sectionhead">
     <div><div class="eyebrow">ПЕРЕВОДЫ И КАВЕРЫ</div><h2>Песни без границ</h2><p>Мировые хиты на русском и любимые песни в новом исполнении.</p></div>
@@ -290,7 +304,6 @@ html.reload-top body{overflow-anchor:none}
   </div>
   <div class="shorts-footer"><small id="shorts-updated">Просмотры по данным YouTube на 23 ноября 2026 г.</small><a class="outline youtube-button" href="shorts.html"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Все переводы и каверы</span></a></div>
 </section>
-<script src="site-original-songs.js"></script>
 
 
 <script>
@@ -308,9 +321,6 @@ document.addEventListener('click',e=>{for(const menu of moreMenus)if(menu.open&&
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const opened=moreMenus.find(m=>m.open);moreMenus.forEach(m=>m.open=false);if(opened)opened.querySelector('summary').focus()}});
 for(const menu of moreMenus)menu.addEventListener('toggle',()=>{if(menu.open)for(const other of moreMenus)if(other!==menu)other.open=false});
 
-</script>
-<script>
-(()=>{const stage=document.getElementById('promo-stage'),slides=[...stage.querySelectorAll('.promo-slide')],motion=matchMedia('(prefers-reduced-motion: reduce)');let active=0,timer,hover=false,focused=false;function show(i){active=i;slides.forEach((slide,n)=>{const on=n===i;slide.classList.toggle('active',on);slide.inert=!on;slide.setAttribute('aria-hidden',String(!on))})}function schedule(){clearTimeout(timer);if(!motion.matches&&!hover&&!focused&&!document.hidden)timer=setTimeout(()=>{show((active+1)%slides.length);schedule()},8000)}stage.addEventListener('mouseenter',()=>{hover=true;schedule()});stage.addEventListener('mouseleave',()=>{hover=false;schedule()});stage.addEventListener('focusin',()=>{focused=true;schedule()});stage.addEventListener('focusout',e=>{focused=stage.contains(e.relatedTarget);schedule()});document.addEventListener('visibilitychange',schedule);motion.addEventListener?.('change',schedule);schedule();})();
 </script>
 <script src="shorts-data.js?v=5"></script><script src="shorts.js?v=5"></script></body></html>
 

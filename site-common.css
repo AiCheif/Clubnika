@@ -241,7 +241,7 @@ main > :is(#listen,#social).site-platforms .platform-grid{grid-template-columns:
 /* Original-song module, shared by the home and about pages */
 main #my-music{position:relative;overflow:hidden;margin:14px 0;padding:clamp(16px,3.3vw,30px);background:var(--panel);border:1px solid var(--gold);border-radius:16px;box-shadow:none}
 #my-music>:not(.original-watermark){position:relative;z-index:1}
-.original-watermark{position:absolute;top:12px;right:-14px;bottom:auto;width:310px;height:auto;color:var(--gold);opacity:.16;transform:rotate(-4deg);pointer-events:none;z-index:0}
+.original-watermark{position:absolute;top:6px;left:-16px;right:auto;bottom:auto;width:min(490px,calc(100% + 28px));max-width:none;height:auto;color:var(--gold);opacity:.15;transform:rotate(-2deg);pointer-events:none;z-index:0}
 #my-music h2{font:600 clamp(28px,3.4vw,36px)/1.12 var(--font-serif);margin:6px 0 12px}
 #my-music p{max-width:60ch;font-size:15.5px;margin:0 0 14px;color:var(--muted)}
 #my-music .eyebrow::before{content:none;display:none}
@@ -311,16 +311,18 @@ main > .site-live-panel.is-live{border-color:#e66b76}
 @media(prefers-reduced-motion:reduce){.live-beacon{animation:none}}
 
 /* Shared television feature with signature offset gold frame */
-.site-tv-card{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:12px;min-width:0;padding:18px;border:1px solid var(--gold);border-radius:16px;background:var(--panel);color:var(--text);text-decoration:none;transition:border-color .2s}
+.site-tv-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:14px;min-width:0;padding:clamp(18px,2.4vw,24px);border:1px solid var(--gold);border-radius:16px;background:var(--panel);color:var(--text);text-decoration:none;transition:border-color .2s}
 .home-feature-pair .site-tv-card::before{content:"";position:absolute;inset:-5px -6px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:19px;transform:rotate(-1.3deg);z-index:-1;pointer-events:none}
 .site-tv-card:hover{border-color:var(--pink)}
 .site-tv-label{color:var(--gold);font-size:11.5px;font-weight:800;letter-spacing:2.2px;line-height:1.4}
-.site-tv-preview{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:9px;background:var(--bg)}
+.site-tv-preview{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:10px;background:var(--bg)}
 .site-tv-preview img{display:block;width:100%;height:100%;object-fit:cover}
-.site-tv-play{position:absolute;inset:0;margin:auto;width:46px;height:46px;display:grid;place-items:center;border:1px solid #fff9;border-radius:50%;background:#000a;color:#fff;font-size:19px}
+.site-tv-play{position:absolute;inset:0;margin:auto;width:48px;height:48px;display:grid;place-items:center;border:1px solid #fff9;border-radius:50%;background:#000a;color:#fff;font-size:19px;padding-left:3px}
 .site-tv-copy{display:flex;flex-direction:column;gap:5px}
-.site-tv-copy strong{font:600 clamp(26px,3.2vw,32px)/1.15 var(--font-serif)}
-.site-tv-subtitle{color:var(--muted);font-size:14px}
+.site-tv-copy strong{font:600 clamp(26px,3.2vw,34px)/1.15 var(--font-serif)}
+.site-tv-subtitle{color:var(--muted);font-size:14.5px}
+.site-tv-copy::after{content:"Смотреть фрагмент выпуска →";display:inline-flex;align-items:center;align-self:flex-start;margin-top:8px;padding:7px 13px;border:1px solid color-mix(in srgb,var(--gold) 65%,transparent);border-radius:9px;background:color-mix(in srgb,var(--bg) 55%,transparent);color:var(--gold);font-size:13.5px;font-weight:700;transition:background .18s,border-color .18s}
+.site-tv-card:hover .site-tv-copy::after{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 14%,transparent)}
 @media(max-width:740px){.home-feature-pair .site-tv-card::before{inset:-3px -4px;transform:rotate(-.8deg)}}
 
 /* Keep streaming and music sections together on wide screens */

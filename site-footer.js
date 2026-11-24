@@ -2,7 +2,7 @@
 (()=>{
   const config=window.NikaSiteConfig,script=document.currentScript,main=document.querySelector('main');
   if(!config||!main)return;
-  const markup=config.platforms.map(section=>`<section class="feature-section site-platforms" id="${section.id}"><div class="sectionhead"><div><div class="eyebrow">${section.label}</div><h2>${section.title}</h2></div></div><div class="platform-grid">${section.links.map(link=>`<a class="platform-link" href="${link.href}" ${link.attrs}>${link.html}</a>`).join('')}</div></section>`).join('');
+  const markup=config.platforms.map(section=>`<section class="feature-section site-platforms" id="${section.id}"><div class="sectionhead"><div><div class="eyebrow">${section.label}</div><h2>${section.title}</h2></div></div><div class="platform-grid">${section.links.map(link=>`<a class="platform-link" href="${link.href}" ${link.attrs}>${link.html}</a>`).join('')}</div>${section.id==='stream-platforms'?'<p class="platform-schedule"><strong>Обычное расписание:</strong> вторник и суббота в 19:30 (МСК)</p>':''}</section>`).join('');
   const showPlatforms=!script.hasAttribute('data-hide-platforms');
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
   script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Источник репертуара</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="classic">Бордо и золото</option><option value="scarlet">Алое золото</option><option value="chocolate">Шоколадная</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="light">Светлая</option><option value="noir">Чёрное золото</option><option value="lavender">Лавандовая</option><option value="ocean">Морская</option><option value="sunset">Янтарный закат</option><option value="winter">Зимняя сказка</option></select></label></div></footer>`);
@@ -13,7 +13,7 @@
   const update=()=>{const show=anchor?anchor.getBoundingClientRect().bottom<=0:window.scrollY>=100;button.classList.toggle('is-hidden',!show)};
   addEventListener('scroll',update,{passive:true});addEventListener('resize',update);addEventListener('pageshow',update);requestAnimationFrame(update);
   }
-  if(showPlatforms&&!document.getElementById('watch-youtube')){
+  if(main.querySelector('[data-live-platform]')&&!document.getElementById('watch-youtube')){
     const allowed={youtube:['youtube.com','youtu.be'],twitch:['twitch.tv'],vkLive:['vkvideo.ru','vk.ru','vk.com']};
     const links=[...main.querySelectorAll('[data-live-platform]')];const defaults=new Map(links.map(link=>[link,link.href]));
     function safe(value,key){try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&allowed[key].some(h=>u.hostname===h||u.hostname.endsWith('.'+h))?u.href:null}catch{return null}}

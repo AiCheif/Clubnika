@@ -11,7 +11,7 @@
   if(videos.length){cover.setAttribute('aria-label','Смотреть Shorts песни '+title);cover.textContent='♫';const img=el('img');img.alt='';img.src=videos[0].thumbnail||'https://i.ytimg.com/vi/'+videos[0].id+'/hqdefault.jpg';img.loading='lazy';img.addEventListener('error',()=>img.remove());cover.append(img,el('span','original-play','▶'));}
   const copy=el('div','original-card-copy');copy.append(el('h3','',title),el('small','',videos.length?'Shorts с этой песней: '+videos.length:'Можно заказать на эфире'));
   const actions=el('div','original-card-actions');if(videos.length)actions.append(link('▶ Смотреть',shortsURL));actions.append(link('♫ Заказать','songs.html?filter=original&q='+encodeURIComponent(title),'original-button primary'));
-  if(title==='Парень удалой'){const listen=link('Слушать','https://band.link/paren_ydaloi');listen.target='_blank';listen.rel='noopener noreferrer';actions.append(listen,link('Ваши видео','remixes.html?song=paren-udaloy','original-button remix'));}
+  if(title==='Парень удалой'){const listen=link('Слушать','https://band.link/paren_ydaloi');listen.target='_blank';listen.rel='noopener noreferrer';actions.append(listen);}
   copy.append(actions);card.append(cover,copy);grid.append(card);
  }
 })();

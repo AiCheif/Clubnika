@@ -472,13 +472,13 @@ em {
     min-height: 168px;
   }
 }
-/* Адаптивная высота и отступы блока отзывов без наезда на рамку */
+/* Блок отзывов: высота подстраивается под самый длинный отзыв без скачков */
 .viewer-quote {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 162px;
-  min-height: 162px;
+  height: auto;
+  min-height: 150px;
   padding: 12px 15px 13px;
 }
 
@@ -489,8 +489,8 @@ em {
 
 @media (max-width: 740px) {
   .viewer-quote {
-    height: 180px;
-    min-height: 180px;
+    height: auto;
+    min-height: 165px;
     padding: 12px 13px 13px;
   }
   .quote-deco-mark {
@@ -506,6 +506,7 @@ em {
   .viewer-quote a {
     padding-left: 16px;
   }
+
 }
 </style>
 <link rel="stylesheet" href="site-nav.css">
@@ -887,28 +888,40 @@ window.addEventListener('pageshow',event=>{if(event.persisted)loadStreams();});
     }
   }
 function formatQuoteText(raw){
-    const maxLen=window.innerWidth<=740?115:165;
-    let clean=String(raw)
+    return String(raw)
       .replace(/\s+/g,' ')
       .replace(/(\p{Extended_Pictographic}\uFE0F?)\1{3,}/gu,'$1$1$1')
       .trim();
-    if(clean.length<=maxLen)return clean;
-    const cut=clean.slice(0,maxLen);
-    const lastSpace=cut.lastIndexOf(' ');
-    return (lastSpace>maxLen*0.6?cut.slice(0,lastSpace):cut).replace(/[.,!?;:—–-]+$/,'')+'…';
   }
 
-  function show(){
-    const c=list[index];
-    if(floatHeart)floatHeart.classList.remove('is-active');
+  function renderQuoteItem(c){
     setQuoteText(quote,formatQuoteText(c.text));
     source.textContent=c.author+' · YouTube';
     source.href='https://www.youtube.com/watch?v='+encodeURIComponent(c.video);
+  }
+
+  function syncQuoteHeight(){
+    if(card.hidden||!list.length)return;
+    card.style.minHeight='';
+    const candidates=[...list]
+      .sort((a,b)=>String(b.text).length-String(a.text).length)
+      .slice(0,15);
+    let maxH=0;
+    for(const item of candidates){
+      renderQuoteItem(item);
+      if(card.offsetHeight>maxH)maxH=card.offsetHeight;
+    }
+    renderQuoteItem(list[index]);
+    if(maxH>0)card.style.minHeight=maxH+'px';
+  }
+
+  function show(){
+    if(floatHeart)floatHeart.classList.remove('is-active');
+    renderQuoteItem(list[index]);
     card.classList.remove('quote-enter');
     void card.offsetWidth;
     card.classList.add('quote-enter');
   }
-
   function schedule(){
     clearTimers();
     if(paused)return;
@@ -949,7 +962,17 @@ function formatQuoteText(raw){
 
   card.hidden=false;
   show();
+  syncQuoteHeight();
   updateToggleUI();
+
+  document.fonts?.ready.then(syncQuoteHeight);
+  let lastWidth=window.innerWidth;
+  window.addEventListener('resize',()=>{
+    if(window.innerWidth!==lastWidth){
+      lastWidth=window.innerWidth;
+      syncQuoteHeight();
+    }
+  });
 })();</script>
 </body>
 </html>

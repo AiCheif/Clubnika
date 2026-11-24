@@ -56,6 +56,8 @@
     for(const song of [...new Set(items.map(i=>i.song).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru'))){
       const option=make('option','',song);option.value=song;songFilter.append(option);
     }
+    const requestedSong=new URLSearchParams(location.search).get('song');
+    if(filter==='original'&&[...songFilter.options].some(option=>option.value===requestedSong))songFilter.value=requestedSong;
     songFilter.addEventListener('change',()=>{page=1;render();});
   }
   function syncFilters(){

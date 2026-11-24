@@ -19,7 +19,7 @@ footer.wrap{display:flex;align-items:center;flex-wrap:wrap;gap:12px;justify-cont
 .top .brandarea{width:auto;max-width:100%;flex:0 1 auto;gap:6px;flex-direction:column;align-items:flex-start}.top .brand{font-size:23px;padding-top:0;gap:8px}.top .brand .berry{width:44px;height:44px}.top .brand .berry svg{width:30px;height:30px}.top .brand small{margin-top:4px}
 .top{position:sticky;top:0;z-index:30;background:var(--panel);box-shadow:0 3px 12px #0002}
 .top .brand small{margin-top:7px}
-.brand-note{color:var(--gold);font-size:1.15em;letter-spacing:0}
+.brand-note{color:#e84255;font-size:1.15em;letter-spacing:0}
 html{scroll-padding-top:90px}
 .site-platforms .platform-mark.platform-placeholder{border-radius:6px;background:transparent}
 .site-menu{position:relative;min-width:0}.site-menu summary{display:none;cursor:pointer;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--text);list-style:none}.site-menu summary::-webkit-details-marker{display:none}.site-nav,.site-menu:not([open])>.site-nav{display:flex;align-items:center;flex-wrap:wrap;color:var(--text)}.site-nav a{border-radius:9px;color:var(--text)}.site-nav a:hover,.site-nav a[aria-current=page]{background:var(--panel);color:var(--gold);outline:1px solid var(--line)}
@@ -28,3 +28,7 @@ main > :is(#listen,#social).site-platforms .platform-grid{grid-template-columns:
 @media(max-width:900px){.site-menu summary{display:flex;align-items:center;gap:7px;min-height:44px}.site-menu:not([open])>.site-nav{display:none}.site-menu[open]>.site-nav{position:absolute;right:0;top:calc(100% + 8px);display:grid;min-width:215px;max-width:calc(100vw - 40px);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 12px 35px #0005;z-index:20}.site-nav a{width:100%}}
 @media(max-width:740px){.top .brand{font-size:20px}.top .brand .berry{width:40px;height:40px}main > :is(#stream-platforms,#listen,#social).site-platforms{margin:12px 0}main > :is(#listen,#social).site-platforms .platform-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){.top .site-menu[open]>.site-nav{max-height:calc(100dvh - 90px);overflow-y:auto}}
+.top .nav{padding-block:5px;min-height:62px}
+.top .brandarea{flex-shrink:0}
+.top .brand>span:last-child{white-space:nowrap}
+@media(min-width:901px) and (max-width:1150px){.top .site-nav a,.top .site-nav a:first-child{min-height:34px;padding-block:5px}}

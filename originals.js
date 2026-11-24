@@ -17,9 +17,9 @@
   const card=el('article','original-card');const cover=videos.length?link('',shortsURL,'original-cover'):el('div','original-cover','♫');
   if(title==='Письмецо')card.id='pismetso';
   if(videos.length){cover.setAttribute('aria-label','Смотреть сниппеты песни '+title);cover.textContent='♫';const img=el('img');img.alt='';img.src=videos[0].thumbnail||'https://i.ytimg.com/vi/'+videos[0].id+'/hqdefault.jpg';img.loading='lazy';img.addEventListener('error',()=>img.remove());cover.append(img,el('span','original-play','▶'));}
-  const copy=el('div','original-card-copy');copy.append(el('h3','',title),el('small','',videos.length?'Сниппеты: '+videos.length:'Можно заказать на эфире'));
+  const copy=el('div','original-card-copy');copy.append(el('h3','',title));if(!videos.length)copy.append(el('small','','Можно заказать на эфире'));
   const info=history[title];if(info){const date=el('time','original-date',info.date);date.dateTime=info.datetime;copy.append(date,el('p','original-description',info.description));}
-  const actions=el('div','original-card-actions');if(videos.length)actions.append(link('▶ Сниппеты',shortsURL));actions.append(link('♫ Заказать','songs.html?filter=original&q='+encodeURIComponent(title),'original-button primary'));
+  const actions=el('div','original-card-actions');if(videos.length)actions.append(link('▶ Сниппеты ('+videos.length+')',shortsURL));actions.append(link('♫ Заказать','songs.html?filter=original&q='+encodeURIComponent(title),'original-button primary'));
   if(listenLinks[title]){const listen=link('Слушать',listenLinks[title]);listen.target='_blank';listen.rel='noopener noreferrer';actions.append(listen);}
   if(info?.video){const video=link('Видео',info.video);video.target='_blank';video.rel='noopener noreferrer';actions.append(video);}
   copy.append(actions);card.append(cover,copy);grid.append(card);

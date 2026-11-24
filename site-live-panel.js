@@ -22,7 +22,6 @@ function render(){
   const now=Date.now(),until=timestamp(config.liveUntil),live=config.status==='live'&&Number.isFinite(until)&&until>now,explicit=timestamp(config.nextStart),cancelled=config.status==='cancelled';
   el('live-panel').classList.toggle('is-live',live);
   el('live-label').hidden=!live;
-  el('live-title').querySelector('span:last-child').textContent=live?'Сейчас в эфире!':'До нашего эфира';
   for(const key of Object.keys(defaults)){
     const link=el('watch-'+key);
     link.href=(live?validURL(config.links?.[key],hosts[key]):null)||defaults[key];
@@ -30,6 +29,10 @@ function render(){
     document.querySelectorAll('[data-live-platform="'+key+'"]').forEach(other=>other.href=link.href);
   }
   selectedStart=!live&&!cancelled?(Number.isFinite(explicit)?(explicit>now?explicit:null):regularNext(now)):null;
+  const dayKey=value=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'}).format(value);
+  const today=selectedStart!==null&&dayKey(selectedStart)===dayKey(now);
+  el('live-panel').classList.toggle('is-today',today);
+  el('live-title').querySelector('span:last-child').textContent=live?'Сейчас в эфире!':today?'Сегодня поём!':'До нашего эфира';
   el('live-clock').hidden=!selectedStart;
   if(live){el('live-date').textContent=config.title||'Присоединяйтесь к музыкальному вечеру!';return}
   if(!selectedStart){el('live-date').textContent='Следите за анонсами ближайшего эфира в Telegram.';return}

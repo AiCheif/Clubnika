@@ -9,6 +9,14 @@
  }catch{}
  document.documentElement.dataset.theme=theme;
  document.addEventListener('DOMContentLoaded',()=>{
+   if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+     const observer=new IntersectionObserver(entries=>{
+       for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('site-entered');observer.unobserve(entry.target);}
+     },{threshold:0.08});
+     document.querySelectorAll('body.site-unified-panels main :is(.home-feature-pair,.about-feature-pair,.site-platform-pair,.shorts-section,#gallery,#social)').forEach(el=>{
+       if(el.getBoundingClientRect().top>=window.innerHeight)observer.observe(el);
+     });
+   }
    const picker=document.getElementById('theme-picker');
    if(!picker)return;
    picker.value=theme;

@@ -49,6 +49,24 @@
   const total = document.getElementById('shorts-total-number');
   const date = document.getElementById('shorts-updated');
   if (total) total.textContent = formatViews(displayed.reduce((sum,item) => sum+(Number.isFinite(item.views)?item.views:0),0));
+  const heroViews=document.getElementById('hero-views');
+  if(heroViews&&total)heroViews.textContent=total.textContent;
+  const daily=document.getElementById('my-music');
+  const songLinks=window.NikaSiteConfig?.originalSongLinks;
+  if(heroViews&&daily&&songLinks){
+    const songs=Object.keys(songLinks).filter(song=>items.some(i=>i.type==='original'&&i.song===song));
+    if(songs.length){
+      const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+      const dateParts=Object.fromEntries(parts.map(p=>[p.type,p.value]));
+      const day=Math.floor(Date.UTC(+dateParts.year,+dateParts.month-1,+dateParts.day)/86400000);
+      const song=songs[day%songs.length],item=items.filter(i=>i.type==='original'&&i.song===song).sort(byViews)[0];
+      const link=make('a','daily-song');link.href=songLinks[song];link.target='_blank';link.rel='noopener noreferrer';
+      const img=make('img');img.src=item.thumbnail||`https://i.ytimg.com/vi/${item.id}/hqdefault.jpg`;img.alt='';img.loading='lazy';
+      const text=make('span','daily-song-copy');text.append(make('small','','ПЕСНЯ ДНЯ'),make('strong','',song));
+      link.append(img,text,make('span','daily-song-action','♪ Слушать'));
+      daily.querySelector('#original-chips')?.before(link);
+    }
+  }
   if (date) date.textContent = `Просмотры по данным YouTube на ${updated}`;
   const pages = make('div', 'pages');
   if (filters) { pages.setAttribute('aria-label','Страницы каталога'); grid.after(pages); }

@@ -300,95 +300,6 @@ html.reload-top body{overflow-anchor:none}
 }
 
 /* Viewer quotes: book typography, decorative quote mark, SVG controls & floating heart */
-.viewer-quote{margin-top:16px;padding:13px 16px 14px;border:1px solid var(--gold);border-radius:12px;background:color-mix(in srgb,var(--bg) 82%,var(--panel));position:relative;min-height:118px;overflow:visible}
-.viewer-quote::before{content:"";position:absolute;left:-7px;top:21px;width:12px;height:12px;background:color-mix(in srgb,var(--bg) 82%,var(--panel));border-left:1px solid var(--gold);border-bottom:1px solid var(--gold);transform:rotate(45deg)}
-.quote-deco-mark {
-  position: absolute;
-  left: 12px;
-  top: 38px;
-  font-family: Georgia, serif;
-  font-size: 46px;
-  line-height: 1;
-  color: var(--gold);
-  opacity: .26;
-  pointer-events: none;
-  user-select: none;
-}
-.viewer-quote-head{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:1px;gap:10px}
-.viewer-quote-label{display:inline-flex;align-items:center;gap:6px}
-.viewer-quote-actions{display:inline-flex;align-items:center;gap:2px}
-.viewer-quote-head button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:7px;background:transparent;color:var(--gold);padding:4px;cursor:pointer;min-width:28px;min-height:28px;transition:background .15s}
-.viewer-quote-head button:hover{background:color-mix(in srgb,var(--gold) 15%,transparent)}
-.viewer-quote blockquote {
-  position: relative;
-  z-index: 1;
-  margin: 8px 0 7px;
-  padding-left: 22px;
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: 15.5px;
-  line-height: 1.5;
-  color: var(--text);
-  overflow-wrap: anywhere;
-}
-.viewer-quote blockquote::after {
-  content: "”";
-  position: relative;
-  top: 14px;
-  margin-left: 4px;
-  font-family: Georgia, serif;
-  font-style: normal;
-  font-size: 46px;
-  line-height: 0;
-  color: var(--gold);
-  opacity: .26;
-  pointer-events: none;
-  user-select: none;
-}
-.viewer-quote a{position:relative;z-index:1;display:inline-block;padding-left:14px;font-size:12px;color:var(--muted);overflow-wrap:anywhere}
-.viewer-quote a:hover{text-decoration:underline;color:var(--gold)}
-.viewer-quote.quote-enter blockquote,.viewer-quote.quote-enter a{animation:quote-in .55s ease-out}
-@keyframes quote-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-
-/* Floating translucent heart near end of quote display */
-/* Всплывающее красное сердечко в конце показа отзыва */
-.quote-float-heart {
-  position: absolute;
-  right: 16px;
-  bottom: 12px;
-  width: 38px;
-  height: 38px;
-  fill: rgba(229, 36, 63, 0.42);
-  stroke: #ff4766;
-  stroke-width: 1.7;
-  filter: drop-shadow(0 2px 8px rgba(229, 36, 63, 0.35));
-  opacity: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.quote-float-heart.is-active {
-  animation: quoteHeartFloat 1.45s ease-out forwards;
-}
-
-@keyframes quoteHeartFloat {
-  0% {
-    opacity: 0;
-    transform: translateY(6px) scale(.7) rotate(-8deg);
-  }
-  22% {
-    opacity: .95;
-  }
-  68% {
-    opacity: .78;
-    transform: translateY(-48px) scale(1.08) rotate(8deg);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-86px) scale(1.22) rotate(-5deg);
-  }
-}@media(max-width:740px){.viewer-quote{margin-top:12px}.viewer-quote::before{display:none}.viewer-quote blockquote{font-size:14.5px}}
-@media(prefers-reduced-motion:reduce){.viewer-quote.quote-enter blockquote,.viewer-quote.quote-enter a,.quote-float-heart.is-active{animation:none}}
 @media(max-width:740px){.support-heading>.eyebrow{text-align:left;justify-content:flex-start}}
 
 .support-page #stream-info{color:var(--gold);font-size:clamp(14px,1.7vw,17px);font-weight:750;line-height:1.45;margin:16px 0 0;max-width:none;padding:10px 14px;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;background:color-mix(in srgb,var(--gold) 9%,transparent)}
@@ -453,61 +364,6 @@ em {
   font-style: normal;
   display: inline-block;
 }
-/* Фиксированная высота блока отзывов без скачков */
-.viewer-quote {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 154px;
-  min-height: 154px;
-}
-
-.viewer-quote blockquote {
-  margin: auto 0;
-}
-
-@media (max-width: 740px) {
-  .viewer-quote {
-    height: 168px;
-    min-height: 168px;
-  }
-}
-/* Блок отзывов: высота подстраивается под самый длинный отзыв без скачков */
-.viewer-quote {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: auto;
-  min-height: 150px;
-  padding: 12px 15px 13px;
-}
-
-.viewer-quote blockquote {
-  margin: auto 0;
-  padding-left: 20px;
-}
-
-@media (max-width: 740px) {
-  .viewer-quote {
-    height: auto;
-    min-height: 165px;
-    padding: 12px 13px 13px;
-  }
-  .quote-deco-mark {
-    left: 10px;
-    top: 34px;
-    font-size: 40px;
-  }
-  .viewer-quote blockquote {
-    padding-left: 16px;
-    font-size: 14px;
-    line-height: 1.42;
-  }
-  .viewer-quote a {
-    padding-left: 16px;
-  }
-
-}
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-common.css">
@@ -537,29 +393,8 @@ em {
     </div>
     <p class="support-signature">С любовью, ваша Ника. <span class="emoji">🍓</span></p>
 
-    <div class="viewer-quote" id="viewer-quote" hidden>
-      <span class="quote-deco-mark" aria-hidden="true">“</span>
-      <div class="viewer-quote-head">
-        <span class="viewer-quote-label">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          ДОБРЫЕ СЛОВА ЗРИТЕЛЕЙ
-        </span>
-        <div class="viewer-quote-actions">
-          <button type="button" id="quote-next" aria-label="Следующий комментарий" title="Следующий комментарий">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-          </button>
-          <button type="button" id="quote-toggle" aria-label="Приостановить смену комментариев" title="Приостановить смену комментариев">
-            <svg id="quote-icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-            <svg id="quote-icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M7 4.5v15l12-7.5z"/></svg>
-          </button>
-        </div>
-      </div>
-      <blockquote id="quote-text"></blockquote>
-      <a id="quote-source" href="https://www.youtube.com/@nikamoiseeva/streams" target="_blank" rel="noopener noreferrer"></a>
-      <svg class="quote-float-heart" id="quote-float-heart" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-      </svg>
-    </div>
+    <script src="viewer-comments.js"></script>
+    <script src="site-viewer-quotes.js"></script>
   </div>
 </section>
 
@@ -630,7 +465,7 @@ em {
 </section>
 
 <div class="share">
-  <a class="cta-order" href="./#catalog">Заказать песню на следующий эфир</a>
+  <a class="cta-order" href="songs.html">Заказать песню на следующий эфир</a>
   <a class="back" href="./">На главную</a>
 </div>
 </main>
@@ -840,139 +675,5 @@ async function loadStreams(){
 loadStreams();
 window.addEventListener('pageshow',event=>{if(event.persisted)loadStreams();});
 </script>
-<script src="viewer-comments.js"></script>
-<script>(()=>{
-  const list=window.nikaViewerComments||[],
-        card=document.getElementById('viewer-quote'),
-        quote=document.getElementById('quote-text'),
-        source=document.getElementById('quote-source'),
-        toggle=document.getElementById('quote-toggle'),
-        nextBtn=document.getElementById('quote-next'),
-        iconPause=document.getElementById('quote-icon-pause'),
-        iconPlay=document.getElementById('quote-icon-play'),
-        floatHeart=document.getElementById('quote-float-heart');
-  if(!list.length||!card)return;
-
-  const SLIDE_MS=6800;
-  const HEART_LEAD_MS=1450;
-  let index=Math.floor(Math.random()*list.length),
-      paused=matchMedia('(prefers-reduced-motion: reduce)').matches,
-      slideTimer,
-      heartTimer;
-
-  function clearTimers(){
-    clearTimeout(slideTimer);
-    clearTimeout(heartTimer);
-  }
-
-  function triggerHeart(){
-    if(!floatHeart||paused)return;
-    floatHeart.classList.remove('is-active');
-    void floatHeart.offsetWidth;
-    floatHeart.classList.add('is-active');
-  }
-
-  function setQuoteText(el,text){
-    el.textContent='';
-    const parts=String(text).split(/(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)/gu);
-    for(let i=0;i<parts.length;i++){
-      if(!parts[i])continue;
-      if(i%2===1){
-        const span=document.createElement('span');
-        span.className='emoji';
-        span.textContent=parts[i];
-        el.appendChild(span);
-      }else{
-        el.appendChild(document.createTextNode(parts[i]));
-      }
-    }
-  }
-function formatQuoteText(raw){
-    return String(raw)
-      .replace(/\s+/g,' ')
-      .replace(/(\p{Extended_Pictographic}\uFE0F?)\1{3,}/gu,'$1$1$1')
-      .trim();
-  }
-
-  function renderQuoteItem(c){
-    setQuoteText(quote,formatQuoteText(c.text));
-    source.textContent=c.author+' · YouTube';
-    source.href='https://www.youtube.com/watch?v='+encodeURIComponent(c.video);
-  }
-
-  function syncQuoteHeight(){
-    if(card.hidden||!list.length)return;
-    card.style.minHeight='';
-    const candidates=[...list]
-      .sort((a,b)=>String(b.text).length-String(a.text).length)
-      .slice(0,15);
-    let maxH=0;
-    for(const item of candidates){
-      renderQuoteItem(item);
-      if(card.offsetHeight>maxH)maxH=card.offsetHeight;
-    }
-    renderQuoteItem(list[index]);
-    if(maxH>0)card.style.minHeight=maxH+'px';
-  }
-
-  function show(){
-    if(floatHeart)floatHeart.classList.remove('is-active');
-    renderQuoteItem(list[index]);
-    card.classList.remove('quote-enter');
-    void card.offsetWidth;
-    card.classList.add('quote-enter');
-  }
-  function schedule(){
-    clearTimers();
-    if(paused)return;
-    heartTimer=setTimeout(triggerHeart,Math.max(1000,SLIDE_MS-HEART_LEAD_MS));
-    slideTimer=setTimeout(()=>{
-      index=(index+1)%list.length;
-      show();
-      schedule();
-    },SLIDE_MS);
-  }
-
-  function updateToggleUI(){
-    if(iconPause)iconPause.hidden=paused;
-    if(iconPlay)iconPlay.hidden=!paused;
-    const label=paused?'Возобновить смену комментариев':'Приостановить смену комментариев';
-    toggle.setAttribute('aria-label',label);
-    toggle.title=label;
-    schedule();
-  }
-
-  toggle.addEventListener('click',()=>{
-    paused=!paused;
-    updateToggleUI();
-  });
-
-  if(nextBtn){
-    nextBtn.addEventListener('click',()=>{
-      index=(index+1)%list.length;
-      show();
-      schedule();
-    });
-  }
-
-  document.addEventListener('visibilitychange',()=>{
-    if(document.hidden)clearTimers();
-    else schedule();
-  });
-
-  card.hidden=false;
-  show();
-  syncQuoteHeight();
-  updateToggleUI();
-
-  document.fonts?.ready.then(syncQuoteHeight);
-  let lastWidth=window.innerWidth;
-  window.addEventListener('resize',()=>{
-    if(window.innerWidth!==lastWidth){
-      lastWidth=window.innerWidth;
-      syncQuoteHeight();
-    }
-  });
-})();</script>
 </body>
 </html>

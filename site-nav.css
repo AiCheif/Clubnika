@@ -1,0 +1,7 @@
+/* Shared navigation layout across the public pages. */
+.top .nav{display:flex;flex-direction:row;align-items:center;justify-content:space-between;min-height:72px;padding:12px 0;gap:16px}
+.top .site-nav{gap:8px;justify-content:flex-end}
+.top .site-nav a,.top .site-nav a:first-child{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:8px 12px;font-size:14px;white-space:nowrap}
+.site-nav .nav-icon{display:block;width:16px;height:16px;flex:0 0 16px;color:var(--gold)}
+@media(min-width:901px) and (max-width:1150px){.top .nav{gap:10px}.top .site-nav{gap:4px}.top .site-nav a,.top .site-nav a:first-child{font-size:13px;padding:8px 7px;gap:5px}.site-nav .nav-icon{width:15px;height:15px;flex-basis:15px}}
+@media(max-width:900px){.top .site-nav{justify-content:stretch}.top .site-nav a,.top .site-nav a:first-child{min-height:44px;padding:10px 12px;gap:10px}.site-nav .nav-icon{width:18px;height:18px;flex-basis:18px}}

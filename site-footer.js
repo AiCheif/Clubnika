@@ -12,13 +12,9 @@
   const markup=`<div class="site-platform-pair">${paired.map(renderSection).join('')}</div>${others.map(renderSection).join('')}`;
   const showPlatforms=!script.hasAttribute('data-hide-platforms');
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
-  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="winter">Зимняя сказка</option><option value="lavender">Лавандовая</option>
-<option value="honey">Медовая</option>
-<option value="lime">Лаймовая</option>
-<option value="coral">Коралловая</option>
-<option value="turquoise">Бирюзовая</option></select></label></div></footer>`);
+  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="winter">Зимняя сказка</option></select></label></div></footer>`);
   if(!script.hasAttribute('data-hide-comment')){
-    script.insertAdjacentHTML('beforebegin',"<a class=\"comment-float is-hidden\" id=\"comment-float\" href=\"support.html\" aria-label=\"Оставить комментарий\" title=\"Оставить комментарий\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path stroke-linejoin=\"round\" d=\"M3 4h18v13H11l-5 4v-4H3z\"/><path stroke-linecap=\"round\" d=\"M7 10h10M7 13h6\"/></svg><span>Оставить комментарий</span></a>");
+    script.insertAdjacentHTML('beforebegin',"<a class="comment-float is-hidden" id="comment-float" href="support.html" aria-label="Оставить комментарий" title="Оставить комментарий"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2C7.4 17.7 4.2 14.3 4.2 10.3 4.2 7.5 6.3 5.6 8.8 5.6c1.4 0 2.5.6 3.2 1.6.7-1 1.8-1.6 3.2-1.6 2.5 0 4.6 1.9 4.6 4.7 0 4-3.2 7.4-7.8 10.9Z" fill="#e5243f" fill-opacity=".25" stroke="#9c1428" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 6.2c-.9-1.6-2.4-2.5-4.1-2.5M12 6.2c.9-1.6 2.4-2.5 4.1-2.5M12 6.2V3.2" fill="none" stroke="#2f6f3e" stroke-width="1.6" stroke-linecap="round"/><circle cx="9.4" cy="10.8" r=".75" fill="#9c1428"/><circle cx="14.6" cy="10.8" r=".75" fill="#9c1428"/><circle cx="12" cy="13.6" r=".75" fill="#9c1428"/></svg><span>Оставить комментарий</span></a>");
     const button=document.getElementById('comment-float'),commentSection=document.getElementById('comment-section'),anchor=document.getElementById('my-music')||document.getElementById('translations')||commentSection;
     if(commentSection)button.href='#comment-section';
     const update=()=>{
@@ -33,5 +29,25 @@
     function safe(value,key){try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&allowed[key].some(h=>u.hostname===h||u.hostname.endsWith('.'+h))?u.href:null}catch{return null}}
     async function refresh(){try{const response=await fetch('./live.json',{cache:'no-store'});if(!response.ok)return;const data=await response.json(),live=data.status==='live'&&Date.parse(data.liveUntil)>Date.now();for(const link of links)link.href=(live?safe(data.links?.[link.dataset.livePlatform],link.dataset.livePlatform):null)||defaults.get(link)}catch{}}
     refresh();setInterval(refresh,60000);
+  }
+
+  const quoteSource=document.getElementById('quote-source');
+  if(quoteSource){
+    let enhancing=false;
+    const enhanceSource=()=>{
+      if(enhancing||quoteSource.querySelector('.quote-platform-tag'))return;
+      const raw=(quoteSource.textContent||'').trim();
+      if(!raw)return;
+      enhancing=true;
+      const author=raw.replace(/\s*·\s*YouTube\s*$/i,'').trim();
+      const cleanName=author.replace(/^@+/,'');
+      const initial=(cleanName.match(/[\p{L}\p{N}]/u)?.[0]||'Н').toUpperCase();
+      quoteSource.setAttribute('aria-label',`${author} — открыть на YouTube`);
+      quoteSource.title='Открыть комментарий на YouTube';
+      quoteSource.innerHTML=`<span class="quote-avatar" aria-hidden="true">${initial}</span><span class="quote-author-name">${author}</span><span class="quote-platform-tag" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="5" fill="#e0002a"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg></span>`;
+      requestAnimationFrame(()=>{enhancing=false;});
+    };
+    enhanceSource();
+    new MutationObserver(()=>enhanceSource()).observe(quoteSource,{childList:true,characterData:true,subtree:true});
   }
 })();

@@ -241,7 +241,7 @@ main > :is(#listen,#social).site-platforms .platform-grid{grid-template-columns:
 /* Original-song module, shared by the home and about pages */
 main #my-music{position:relative;overflow:hidden;margin:14px 0;padding:clamp(16px,3.3vw,30px);background:var(--panel);border:1px solid var(--gold);border-radius:16px;box-shadow:none}
 #my-music>:not(.original-watermark){position:relative;z-index:1}
-.original-watermark{position:absolute;top:6px;left:-16px;right:auto;bottom:auto;width:min(490px,calc(100% + 28px));max-width:none;height:auto;color:var(--gold);opacity:.15;transform:rotate(-2deg);pointer-events:none;z-index:0}
+.original-watermark{position:absolute;top:10px;right:10px;left:auto;bottom:auto;width:240px;max-width:65%;height:auto;color:var(--gold);opacity:.04;transform:rotate(-3deg);-webkit-mask-image:radial-gradient(ellipse 75% 75% at 55% 45%,#000 20%,transparent 78%);mask-image:radial-gradient(ellipse 75% 75% at 55% 45%,#000 20%,transparent 78%);pointer-events:none;z-index:0}
 #my-music h2{font:600 clamp(28px,3.4vw,36px)/1.12 var(--font-serif);margin:6px 0 12px}
 #my-music p{max-width:60ch;font-size:15.5px;margin:0 0 14px;color:var(--muted)}
 #my-music .eyebrow::before{content:none;display:none}
@@ -397,7 +397,7 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
 @keyframes site-enter{from{opacity:.88;transform:translateY(5px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:no-preference){.site-entered{animation:site-enter .45s ease-out}}
 
-/* 1. Декоративные симметричные кавычки-лапки “ ” прямо у границ текста */
+/* 1. Симметричные декоративные кавычки-лапки “ ” прямо у границ текста */
 .viewer-quote .quote-deco-mark {
   display: none !important;
 }
@@ -433,6 +433,56 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
 .viewer-quote blockquote::after {
   content: "”";
   margin-left: 5px;
+}
+
+.viewer-quote #quote-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-left: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.viewer-quote #quote-source:hover {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.viewer-quote #quote-source:hover .quote-author-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.quote-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 28%, var(--panel)), color-mix(in srgb, var(--pink) 24%, var(--bg)));
+  border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
+  color: var(--gold);
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11.5px;
+  line-height: 1;
+  flex: none;
+}
+
+.quote-platform-tag {
+  display: inline-flex;
+  align-items: center;
+  opacity: .95;
+}
+
+.quote-platform-tag svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  display: block;
 }
 
 /* 2. Улучшенная рамка портрета: тонкий контур, внутренняя тень и золотой ореол */

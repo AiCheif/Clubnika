@@ -60,12 +60,8 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
 <title>Ника Моисеева | Песни на заказ</title>
 <style>
 :root{
-  color-scheme:dark;
   --font-serif:"Cormorant Garamond",Georgia,serif;
-  --font-sans:"Manrope",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --bg:#131014;--panel:#201920;--line:#3b2b38;--text:#fff6f4;--muted:#bcaab4;--pink:#f2879d;--gold:#efd29c;
-  --accent-ink:#31121e;--brand-red:#d5203d;--brand-gold:#f5ce78;--brand-dark:#24090f;
-}
+  --font-sans:"Manrope",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}
@@ -90,11 +86,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .wrap{width:min(1120px,calc(100% - 40px));margin:auto}
 
 /* Themes */
-:root[data-theme="berry"]{color-scheme:dark;--bg:#190c16;--panel:#2b1424;--line:#57304c;--text:#fff4fa;--muted:#e0b7cc;--pink:#ff77b0;--gold:#ffcae1;--accent-ink:#3b102c;--hero-start:#541a3b;--hero-end:#301529;--hero-glow:#9d3563}
-:root[data-theme="emerald"]{color-scheme:dark;--bg:#0c1917;--panel:#142723;--line:#31574e;--text:#effff7;--muted:#b2cec5;--pink:#74dfab;--gold:#f4d59a;--accent-ink:#12352b;--hero-start:#144f3e;--hero-end:#18332e;--hero-glow:#387c61}
-:root[data-theme="sapphire"]{color-scheme:dark;--bg:#101522;--panel:#19243b;--line:#3c527a;--text:#f1f5ff;--muted:#bacbe6;--pink:#8bbaff;--gold:#d4c3ff;--accent-ink:#142647;--hero-start:#25396a;--hero-end:#1d294e;--hero-glow:#5861b5}
-:root[data-theme="winter"]{color-scheme:light;--bg:#f3f9ff;--panel:#fff;--line:#c9ddec;--text:#203f59;--muted:#49667e;--pink:#176b9a;--gold:#295e80;--accent-ink:#fff;--hero-start:#dcefff;--hero-end:#f0f8ff;--hero-glow:#b7d9f0}
-:root[data-theme="scarlet"]{color-scheme:dark;--bg:#15080a;--panel:#2c1015;--line:#73412d;--text:#fff6e7;--muted:#e0bcae;--pink:#f6c86b;--gold:#ffdb89;--accent-ink:#351006;--hero-start:#820b22;--hero-end:#24090e;--hero-glow:#b60c2c}
+
+
+
+
+
 :root[data-theme="scarlet"] body{background:radial-gradient(ellipse at 50% 0,#4c0c18 0%,var(--bg) 45%)}
 :root[data-theme]:not([data-theme="classic"]) .top{background:color-mix(in srgb,var(--panel) 80%,var(--bg));border-color:var(--line)}
 :root[data-theme]:not([data-theme="classic"]) .hero{background:radial-gradient(ellipse at 95% 30%,var(--hero-glow) 0,transparent 55%),linear-gradient(120deg,var(--hero-start),var(--hero-end) 70%);border-color:var(--line)}
@@ -241,7 +237,7 @@ footer .footer-brand{display:flex;align-items:center;gap:7px;color:var(--gold);f
 }
 </style>
 <link rel="stylesheet" href="site-nav.css">
-<link rel="stylesheet" href="site-common.css">
+<link rel="stylesheet" href="site-themes.css"><link rel="stylesheet" href="site-common.css">
 <script src="site-config.js"></script>
 <script src="site-analytics.js" defer></script>
 <script src="site-settings.js"></script>

@@ -1,0 +1,86 @@
+/* Единые цветовые палитры сайта. Меняйте цвета здесь. */
+:root {
+  --brand-red: #d5203d;
+  --brand-gold: #f5ce78;
+  --brand-dark: #24090f;
+}
+
+/* Алое золото (по умолчанию) */
+:root, :root[data-theme="scarlet"] {
+  color-scheme: dark;
+  --bg: #15080a;
+  --panel: #2c1015;
+  --line: #73412d;
+  --text: #fff6e7;
+  --muted: #e0bcae;
+  --pink: #f6c86b;
+  --gold: #ffdb89;
+  --accent-ink: #351006;
+  --hero-start: #820b22;
+  --hero-end: #24090e;
+  --hero-glow: #b60c2c;
+}
+
+/* Клубничная */
+:root[data-theme="berry"] {
+  color-scheme: dark;
+  --bg: #190c16;
+  --panel: #2b1424;
+  --line: #57304c;
+  --text: #fff4fa;
+  --muted: #e0b7cc;
+  --pink: #ff77b0;
+  --gold: #ffcae1;
+  --accent-ink: #3b102c;
+  --hero-start: #541a3b;
+  --hero-end: #301529;
+  --hero-glow: #9d3563;
+}
+
+/* Изумрудная */
+:root[data-theme="emerald"] {
+  color-scheme: dark;
+  --bg: #0c1917;
+  --panel: #142723;
+  --line: #31574e;
+  --text: #effff7;
+  --muted: #b2cec5;
+  --pink: #74dfab;
+  --gold: #f4d59a;
+  --accent-ink: #12352b;
+  --hero-start: #144f3e;
+  --hero-end: #18332e;
+  --hero-glow: #387c61;
+}
+
+/* Сапфировая */
+:root[data-theme="sapphire"] {
+  color-scheme: dark;
+  --bg: #101522;
+  --panel: #19243b;
+  --line: #3c527a;
+  --text: #f1f5ff;
+  --muted: #bacbe6;
+  --pink: #8bbaff;
+  --gold: #d4c3ff;
+  --accent-ink: #142647;
+  --hero-start: #25396a;
+  --hero-end: #1d294e;
+  --hero-glow: #5861b5;
+}
+
+/* Зимняя сказка */
+:root[data-theme="winter"] {
+  color-scheme: light;
+  --bg: #f3f9ff;
+  --panel: #fff;
+  --line: #c9ddec;
+  --text: #203f59;
+  --muted: #49667e;
+  --pink: #176b9a;
+  --gold: #295e80;
+  --accent-ink: #fff;
+  --hero-start: #dcefff;
+  --hero-end: #f0f8ff;
+  --hero-glow: #b7d9f0;
+}

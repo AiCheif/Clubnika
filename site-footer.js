@@ -2,7 +2,10 @@
 (()=>{
   const config=window.NikaSiteConfig,script=document.currentScript,main=document.querySelector('main');
   if(!config||!main)return;
-  const markup=config.platforms.map(section=>`<section class="feature-section site-platforms" id="${section.id}"><div class="sectionhead"><div><div class="eyebrow">${section.label}</div><h2>${section.title}</h2></div></div><div class="platform-grid">${section.links.map(link=>`<a class="platform-link" href="${link.href}" ${link.attrs}>${link.html}</a>`).join('')}</div>${section.id==='stream-platforms'?'<p class="platform-schedule"><strong>Обычное расписание:</strong> вторник и суббота в 19:30 (МСК)</p>':''}</section>`).join('');
+  const renderSection=section=>`<section class="feature-section site-platforms" id="${section.id}"><div class="sectionhead"><div><div class="eyebrow">${section.label}</div><h2>${section.title}</h2></div></div><div class="platform-grid">${section.links.map(link=>`<a class="platform-link" href="${link.href}" ${link.attrs}>${link.html}</a>`).join('')}</div>${section.id==='stream-platforms'?'<p class="platform-schedule"><strong>Обычное расписание:</strong> вторник и суббота в 19:30 (МСК)</p>':''}</section>`;
+  const paired=config.platforms.filter(section=>['stream-platforms','listen'].includes(section.id));
+  const others=config.platforms.filter(section=>!paired.includes(section));
+  const markup=`<div class="site-platform-pair">${paired.map(renderSection).join('')}</div>${others.map(renderSection).join('')}`;
   const showPlatforms=!script.hasAttribute('data-hide-platforms');
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
   script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand">🍓 Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Источник репертуара</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: <select id="theme-picker"><option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="emerald">Изумрудная</option><option value="sapphire">Сапфировая</option><option value="winter">Зимняя сказка</option></select></label></div></footer>`);

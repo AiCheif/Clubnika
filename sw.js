@@ -1,7 +1,7 @@
-const CACHE='nika-catalog-pwa-v18';
+const CACHE='nika-catalog-pwa-v19';
 const BASE=new URL('./',self.location.href);
-const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./shorts-data.js?v=5','./shorts.js?v=5','./remixes.html','./remixes.js?v=7','./remix-metrics.js?v=1','./remix-projects.json','./remix-ranking.json','./remix-history.json','./remix-new-song-ranking.json','./remix-new-song-history.json','./authors.json','./site-nav.css','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
-const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./shorts.html','./remixes.html'].map(p=>new URL(p,BASE).pathname));
+const CORE=['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./signs.html','./Nika-Catalog.html','./shorts.html','./shorts-data.js?v=5','./shorts.js?v=5','./remixes.html','./remixes.js?v=7','./remix-metrics.js?v=1','./remix-projects.json','./remix-ranking.json','./remix-history.json','./remix-new-song-ranking.json','./remix-new-song-history.json','./authors.json','./site-nav.css','./site-common.css','./site-config.js','./site-header.js','./site-footer.js','./site-settings.js','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable.png'];
+const APP_PAGES=new Set(['./','./index.html','./songs.html','./about.html','./support.html','./release.html','./signs.html','./Nika-Catalog.html','./shorts.html','./remixes.html'].map(p=>new URL(p,BASE).pathname));
 const relativeURL=p=>new URL(p,BASE).href;
 async function cacheEntry(cache,url){try{const response=await fetch(url,{cache:'reload'});if(response.ok&&response.type!=='opaque')await cache.put(url,response)}catch{}}
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await Promise.all(CORE.map(p=>cacheEntry(cache,relativeURL(p))));await self.skipWaiting()})()));

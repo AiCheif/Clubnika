@@ -736,11 +736,13 @@ em{font-synthesis-style:none}
     if(!quote)return;
     const first=quote.firstChild;
     if(first&&first.nodeType===Node.TEXT_NODE){
-      first.nodeValue=first.nodeValue.replace(/^[«“"]+\s*/,'');
+      const value = first.nodeValue.replace(/^[«“"]+\s*/, '');
+      if (first.nodeValue !== value) first.nodeValue = value;
     }
     const last=quote.lastChild;
     if(last&&last.nodeType===Node.TEXT_NODE){
-      last.nodeValue=last.nodeValue.replace(/\s*[»”"]+$/,'');
+      const value = last.nodeValue.replace(/\s*[»”"]+$/, '');
+      if (last.nodeValue !== value) last.nodeValue = value;
     }
   }
 

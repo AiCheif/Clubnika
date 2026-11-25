@@ -746,15 +746,74 @@ body::before {
 .comment-float {
   z-index: 25;
 }
+/* === Заметные, но благородные градиенты, текстура и акценты под темы === */
 
-/* 3. Тонкие золотые разделители и аккуратное свечение логотипа */
+/* 1. Глубокий фон страницы и перелив карточек через переменные темы */
+html body {
+  background-image:
+    radial-gradient(ellipse 90% 48% at 50% 0%, color-mix(in srgb, var(--gold) 15%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 76%, var(--panel)) 100%);
+  background-attachment: scroll;
+}
+
+html[data-theme="scarlet"] body {
+  background-image:
+    radial-gradient(ellipse 90% 48% at 50% 0%, rgba(255, 204, 112, 0.18), transparent 72%),
+    linear-gradient(180deg, #190509 0%, #310912 52%, #150408 100%);
+}
+
+html[data-theme="chocolate"] body {
+  background-image:
+    radial-gradient(ellipse 90% 48% at 50% 0%, rgba(245, 206, 120, 0.16), transparent 72%),
+    linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 72%, #461d12) 100%);
+}
+
+/* Внутренний градиент на карточках и секциях */
+main > :is(.site-platforms, .site-live-panel, #my-music, .shorts-section, .feature-section),
+main .site-platform-pair > .site-platforms,
+.site-tv-card,
+.profile-card {
+  background-image: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--gold) 10%, var(--panel)) 0%,
+    var(--panel) 50%,
+    color-mix(in srgb, var(--bg) 52%, var(--panel)) 100%
+  );
+}
+
+/* Более выразительный мягкий золотой градиент на ключевых кнопках */
+:root[data-theme="scarlet"] :is(.primary, .site-live-order, .premiere-action, .comment-action, .comment-float) {
+  background-image: linear-gradient(155deg, #fff8d4 0%, #f5c96b 40%, #b8761e 78%, #ffe9ad 100%);
+  box-shadow: 0 5px 20px rgba(224, 168, 73, 0.30);
+}
+
+/* 2. Деликатная текстура поверх фона (без ряби и без перегруза картинками) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.065;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+.top {
+  z-index: 30;
+}
+
+.comment-float {
+  z-index: 25;
+}
+
+/* 3. Тонкие золотые разделители и мягкое свечение логотипа */
 .section-gold-divider {
   display: flex;
   align-items: center;
   gap: 12px;
   margin: 14px 0;
   color: var(--gold);
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 .section-gold-divider::before,
@@ -762,7 +821,7 @@ body::before {
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 70%, transparent), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 78%, transparent), transparent);
 }
 
 .section-gold-divider span {
@@ -771,7 +830,7 @@ body::before {
 }
 
 .brand .berry.logo-image-mode {
-  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--gold) 18%, transparent));
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--gold) 26%, transparent));
 }
 
 @media (prefers-reduced-motion: reduce) {

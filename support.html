@@ -613,15 +613,11 @@ em{font-synthesis-style:none}
 /* Заголовок в правой колонке, фото крупнее и прижато к верхнему краю */
 @media (min-width: 741px) {
   .support-page .support-intro {
+    display: grid;
     grid-template-columns: minmax(0, clamp(300px, 35vw, 390px)) minmax(0, 1fr);
-    gap: 10px 32px;
+    grid-template-rows: auto 1fr;
+    gap: 14px 32px;
     align-items: start;
-  }
-
-  .support-page .support-heading {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: start;
   }
 
   .support-page .support-portrait-wrap {
@@ -634,25 +630,16 @@ em{font-synthesis-style:none}
     aspect-ratio: 1 / 1;
   }
 
+  .support-page .support-heading {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
   .support-page .support-message {
     grid-column: 2;
     grid-row: 2;
     align-self: start;
   }
-}
-
-.support-page .support-portrait-wrap .support-portrait {
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: 50% 22%;
-}
-
-.support-page .support-intro:has(.support-portrait-wrap[hidden]) .support-heading,
-.support-page .support-intro:has(.support-portrait-wrap[hidden]) .support-message {
-  grid-column: 1 / -1;
 }
 
 @media (max-width: 740px) {
@@ -669,10 +656,13 @@ em{font-synthesis-style:none}
   }
 
   .support-page .support-portrait-wrap {
-    width: min(100%, 240px);
-    max-width: 240px;
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: start;
+    justify-self: center;
+    width: 100%;
+    max-width: 390px;
     aspect-ratio: 1 / 1;
-    margin-inline: auto;
   }
 }
 </style>

@@ -155,7 +155,9 @@ body{font-family:var(--font-sans);font-synthesis-style:none}
 h1,h2{font-family:var(--font-serif);font-weight:600}
 .emoji{font-style:normal;display:inline-block}
 
-main > .site-platforms{margin:14px 0;padding:clamp(16px,3.3vw,30px);border:1px solid var(--gold);border-radius:16px;background:var(--panel);box-shadow:none;overflow:hidden}
+
+
+/*main > .site-platforms{margin:14px 0;padding:clamp(16px,3.3vw,30px);border:1px solid var(--gold);border-radius:16px;background:var(--panel);box-shadow:none;overflow:hidden}
 main > .site-platforms .sectionhead{display:flex;align-items:center;justify-content:space-between;margin:0 0 18px;padding:0}
 main > .site-platforms .eyebrow::before{content:none;display:none}
 main > .site-platforms .sectionhead h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(28px,4.5vw,42px);line-height:1.12;margin:6px 0 0;color:var(--text)}
@@ -165,8 +167,160 @@ main > .site-platforms .sectionhead h2{font-family:var(--font-serif);font-weight
 .site-platforms .platform-mark{display:grid;place-items:center;flex:0 0 32px;height:32px;color:var(--gold);font-weight:800;font-size:15px;background:transparent}
 .site-platforms .platform-mark img,.site-platforms .platform-mark svg{display:block;width:30px;height:30px;object-fit:contain;border-radius:6px}
 .site-platforms .platform-mark [hidden]{display:none}
+*/
+/* Compact platform sections (#stream-platforms, #listen, #social) */
+main > .site-platforms,
+main .site-platform-pair > .site-platforms {
+  margin: 10px 0;
+  padding: clamp(12px, 1.8vw, 18px) clamp(14px, 2vw, 20px);
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: none;
+  overflow: hidden;
+}
+main .site-platform-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin: 10px 0;
+}
+main .site-platform-pair > .site-platforms {
+  margin: 0;
+  min-width: 0;
+}
+.site-platforms .sectionhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 11px;
+  padding: 0;
+}
+.site-platforms .eyebrow::before {
+  content: none;
+  display: none;
+}
+.site-platforms .sectionhead h2,
+.site-platform-pair .sectionhead h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(24px, 2.8vw, 32px);
+  line-height: 1.1;
+  margin: 3px 0 0;
+  color: var(--text);
+}
+.site-platforms .platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+main > #social.site-platforms .platform-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr));
+}
+.site-platforms .platform-link,
+.site-platform-pair .platform-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 10px;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  transition: border-color .18s;
+}
+.site-platforms .platform-link:hover {
+  border-color: var(--gold);
+}
+.site-platforms .platform-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 13px;
+  background: transparent;
+}
+.site-platforms .platform-mark img,
+.site-platforms .platform-mark svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+.site-platforms .platform-mark [hidden] {
+  display: none;
+}
+.site-platforms .platform-mark.platform-placeholder {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  box-sizing: border-box;
+}
+.platform-schedule {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.platform-schedule strong {
+  color: var(--gold);
+}
+
+@media (max-width: 900px) {
+  main .site-platform-pair {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 740px) {
+  main > .site-platforms,
+  main .site-platform-pair > .site-platforms {
+    margin: 10px 0;
+    padding: 12px;
+  }
+  .site-platforms .sectionhead {
+    margin-bottom: 9px;
+  }
+  .site-platforms .platform-grid,
+  main > #stream-platforms .platform-grid,
+  main > #listen .platform-grid,
+  main > #social .platform-grid,
+  .site-platform-pair #stream-platforms .platform-grid,
+  .site-platform-pair #listen .platform-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+  .site-platforms .platform-link,
+  .site-platform-pair .platform-link {
+    min-height: 40px;
+    padding: 6px 8px;
+    gap: 7px;
+    font-size: 13.5px;
+  }
+  main > #stream-platforms .platform-link:last-child,
+  main > #social .platform-grid .platform-link:last-child:nth-child(odd),
+  .site-platform-pair #stream-platforms .platform-link:last-child {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+}
+
 main > #stream-platforms .platform-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 main > #stream-platforms .platform-link:last-child{grid-column:auto}
+
+
 .platform-schedule{margin:14px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
 .platform-schedule strong{color:var(--gold)}
 
@@ -325,7 +479,7 @@ main > .site-live-panel.is-live{border-color:#e66b76}
 .site-tv-card:hover .site-tv-copy::after{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 14%,transparent)}
 @media(max-width:740px){.home-feature-pair .site-tv-card::before{inset:-3px -4px;transform:rotate(-.8deg)}}
 
-/* Keep streaming and music sections together on wide screens */
+/* Keep streaming and music sections together on wide screens 
 .site-platform-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:stretch;margin:14px 0}
 main .site-platform-pair>.site-platforms{margin:0;min-width:0;padding:clamp(16px,2vw,24px);border:1px solid var(--gold);border-radius:16px;background:var(--panel);box-shadow:none;overflow:hidden}
 .site-platform-pair .sectionhead{margin:0 0 18px;padding:0}
@@ -337,6 +491,7 @@ main .site-platform-pair>.site-platforms{margin:0;min-width:0;padding:clamp(16px
 .site-platform-pair .platform-link{padding:9px;gap:7px;font-size:14px;min-width:0}
 @media(max-width:900px){.site-platform-pair{grid-template-columns:1fr}.site-platform-pair .sectionhead h2{font-size:clamp(28px,4.5vw,42px)}}
 @media(max-width:740px){.site-platform-pair #stream-platforms .platform-grid,.site-platform-pair #listen .platform-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.site-platform-pair #stream-platforms .platform-link:last-child{grid-column:1/-1;justify-content:center}}
+*/
 
 /* Consistent outer frames on Home and About */
 body.site-unified-panels main :is(.hero,.home-premiere,.site-live-panel,.site-tv-card,.shorts-section,.profile-card,.feature-section){

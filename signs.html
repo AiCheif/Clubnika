@@ -88,7 +88,7 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
 @media(max-width:740px){footer.wrap{align-items:flex-start}.footer-settings{width:100%}}
 @media(max-width:400px){.top .brandarea .brand{font-size:16px}.site-menu summary span{display:none}}
 
-/* === Галерея сигн, хранители фотоальбома и мобильные анимации === */
+/* === Галерея сигн, хранители фотоальбома и мини-игра «Найди клубничку» === */
 .signs-section {
   position: relative;
   isolation: isolate;
@@ -237,7 +237,7 @@ html.anim-ready:not([data-anim="off"]) .sign-support-callout:has(.sign-callout-b
   margin-top: 4px;
 }
 
-/* Сетка альбомов и живые обложки */
+/* Сетка альбомов и плавные живые обложки */
 .sign-albums {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
@@ -271,7 +271,7 @@ html.anim-ready:not([data-anim="off"]) .sign-support-callout:has(.sign-callout-b
 }
 
 @media (hover: none) {
-  html.anim-ready:not([data-anim="off"]) .sign-album.is-spotlight .sign-album-media img:not(.is-next) {
+  html.anim-ready:not([data-anim="off"]) .sign-album.is-spotlight .sign-album-media img.is-current {
     transform: scale(1.045);
   }
 
@@ -301,11 +301,24 @@ html.anim-ready:not([data-anim="off"]) .sign-support-callout:has(.sign-callout-b
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity .85s ease, transform .75s ease;
+  opacity: 0;
+  transform: scale(1.04);
+  will-change: opacity, transform;
+  transition:
+    opacity 1.35s cubic-bezier(.4, 0, .2, 1),
+    transform 4.4s cubic-bezier(.22, 1, .36, 1);
 }
 
-.sign-album-media img.is-next {
+.sign-album-media img.is-current {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.sign-album-media img.is-fading-out {
   opacity: 0;
+  transform: scale(1.06);
+  z-index: 1;
 }
 
 .sign-album-info {
@@ -324,12 +337,12 @@ html.anim-ready:not([data-anim="off"]) .sign-support-callout:has(.sign-callout-b
   color: var(--muted);
 }
 
-/* Наклейка свежего альбома (без лайка) */
+/* Наклейка свежего альбома */
 .sign-new-badge {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 2;
+  z-index: 3;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -352,7 +365,7 @@ html.anim-ready[data-anim="full"] .sign-album:first-child::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
   background: linear-gradient(115deg, transparent 30%, rgba(255, 232, 168, .16) 50%, transparent 70%);
   transform: translateX(-120%);
   animation: albumShimmer 5.6s ease-in-out infinite;
@@ -383,7 +396,7 @@ html.anim-ready[data-anim="full"] .sign-album:first-child::before {
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 22px 0;
+  margin: 18px 0 22px;
 }
 
 .sign-toolbar button {
@@ -403,6 +416,100 @@ html.anim-ready[data-anim="full"] .sign-album:first-child::before {
   font-size: 14px;
 }
 
+/* Переключатель и плашка мини-игры «Найди клубничку» */
+.sign-game-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, var(--line));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg) 78%, var(--panel));
+}
+
+.sign-game-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  min-height: 42px;
+  border: 1px solid color-mix(in srgb, var(--gold) 65%, var(--line));
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.sign-game-toggle:hover {
+  border-color: var(--gold);
+}
+
+.sign-game-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 35%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, var(--line));
+  transition: background .22s ease, border-color .22s ease;
+  flex: none;
+}
+
+.sign-game-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform .22s var(--ease-out, ease), background .22s ease;
+}
+
+.sign-game-toggle[aria-pressed="true"] {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 15%, var(--panel));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gold) 16%, transparent);
+}
+
+.sign-game-toggle[aria-pressed="true"] .sign-game-switch {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.sign-game-toggle[aria-pressed="true"] .sign-game-switch::after {
+  transform: translateX(16px);
+  background: #2c140c;
+}
+
+.sign-game-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.sign-game-status strong {
+  color: var(--gold);
+  font-weight: 750;
+}
+
+.sign-game-reset {
+  padding: 5px 10px;
+  min-height: 32px;
+  font-size: 12.5px;
+  border-radius: 8px;
+}
+
+/* Карточки в сетке и отметки открытых фруктов */
 .sign-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
@@ -410,11 +517,18 @@ html.anim-ready[data-anim="full"] .sign-album:first-child::before {
 }
 
 .sign-card {
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--bg);
   min-width: 0;
+  transition: border-color .22s ease, box-shadow .22s ease;
+}
+
+.sign-card.is-winner-card {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 65%, transparent), 0 8px 24px color-mix(in srgb, var(--gold) 22%, transparent);
 }
 
 .sign-card:focus-within {
@@ -448,6 +562,31 @@ html.anim-ready[data-anim="full"] .sign-album:first-child::before {
 
 .sign-open video {
   pointer-events: none;
+}
+
+/* Значок открытого фрукта на карточке в сетке */
+.sign-card-fruit {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--line));
+  background: color-mix(in srgb, var(--panel) 88%, #000);
+  font-size: 14px;
+  line-height: 1.2;
+  box-shadow: 0 4px 12px #0007;
+  pointer-events: none;
+}
+
+.sign-card-fruit.is-win {
+  background: linear-gradient(135deg, #fff0b7, #e3ad4c);
+  border-color: #f8d583;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--gold) 50%, transparent);
 }
 
 .sign-empty-state {
@@ -527,17 +666,23 @@ html.anim-ready[data-anim="full"] .sign-album:first-child::before {
   white-space: nowrap;
 }
 
-/* Модальное окно просмотра и свайп-анимация */
+/* Модальное окно просмотра, свайп и игровая рулетка */
 .sign-dialog {
   max-width: min(900px, calc(100vw - 24px));
   width: 100%;
-  max-height: 90dvh;
+  max-height: 92dvh;
   overflow: auto;
   background: var(--panel);
   color: var(--text);
   border: 1px solid var(--gold);
   border-radius: 16px;
   padding: 14px;
+  transition: box-shadow .35s ease, border-color .35s ease;
+}
+
+.sign-dialog.is-game-win {
+  border-color: #ffe28a;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 65%, transparent), 0 18px 60px rgba(235, 178, 70, 0.35);
 }
 
 .sign-dialog::backdrop {
@@ -585,12 +730,95 @@ html.anim-ready[data-anim="full"] .sign-album:first-child::before {
 .sign-dialog-media video {
   display: block;
   max-width: 100%;
-  max-height: 65dvh;
+  max-height: 58dvh;
   object-fit: contain;
 }
 
 .sign-dialog-media video {
   width: 100%;
+}
+
+/* Панель розыгрыша фруктов внутри окна просмотра */
+.sign-game-stage {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--bg) 82%, var(--panel)), var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.sign-game-stage.is-win {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 22%, var(--panel)), color-mix(in srgb, var(--pink) 16%, var(--bg)));
+}
+
+.sign-game-reels {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sign-reel {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--line));
+  background: var(--panel);
+  font-size: 25px;
+  line-height: 1;
+  box-shadow: inset 0 2px 8px #0006;
+  transition: transform .25s var(--ease-spring, ease), border-color .25s ease, box-shadow .25s ease;
+}
+
+html.anim-ready:not([data-anim="off"]) .sign-reel.is-spinning {
+  animation: reelPulse .22s ease-in-out infinite alternate;
+}
+
+html.anim-ready:not([data-anim="off"]) .sign-reel.is-landed {
+  animation: reelPop .38s var(--ease-spring, ease);
+}
+
+.sign-reel.is-strawberry {
+  border-color: #ffe28a;
+  background: linear-gradient(145deg, #fff0b7, #e3ad4c);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gold) 65%, transparent);
+}
+
+.sign-game-caption {
+  flex: 1;
+  min-width: 180px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.sign-game-caption small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.sign-game-stage.is-win .sign-game-caption strong {
+  color: var(--gold);
+}
+
+@keyframes reelPulse {
+  from { transform: translateY(-2px) scale(0.95); }
+  to { transform: translateY(2px) scale(1.04); }
+}
+
+@keyframes reelPop {
+  0% { transform: scale(0.75); }
+  65% { transform: scale(1.16); }
+  100% { transform: scale(1); }
 }
 
 html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-left {
@@ -659,7 +887,8 @@ html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-right {
   transform: translate(-50%, 0) scale(1);
 }
 
-.signs-section [hidden] {
+.signs-section [hidden],
+.sign-dialog [hidden] {
   display: none !important;
 }
 
@@ -789,6 +1018,11 @@ html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-right {
     flex-direction: column;
     gap: 8px;
   }
+
+  .sign-game-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 </style>
 <link rel="stylesheet" href="site-nav.css">
@@ -811,7 +1045,7 @@ html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-right {
       </div>
       <div class="signs-hero-mascot-wrap">
         <div class="signs-speech-bubble" id="hero-mascot-bubble" data-mascot-bubble>Найдите своё клубничное послание!</div>
-        <button type="button" class="signs-mascot-btn signs-hero-mascot" id="hero-mascot-btn" data-mascot data-mascot-flip data-mascot-bubble="#hero-mascot-bubble" data-lines="Найдите своё клубничное послание!|Откройте любой альбом и заберите фото или видео в оригинале.|Новые сигны появляются после прямых эфиров!|Нажмите на карточку внутри альбома, чтобы скачать файл на память." data-mascot-hint="mascot-hero.webp" aria-label="Подсказка от клубнички">
+        <button type="button" class="signs-mascot-btn signs-hero-mascot" id="hero-mascot-btn" data-mascot data-mascot-flip data-mascot-bubble="#hero-mascot-bubble" data-lines="Найдите своё клубничное послание!|Откройте любой альбом и заберите фото или видео в оригинале.|Внутри альбома можно включить мини-игру и найти счастливую клубничку 🍓|Нажмите на карточку внутри альбома, чтобы скачать файл на память." data-mascot-hint="mascot-hero.webp" aria-label="Подсказка от клубнички">
           <img src="signs/mascot-hero.webp" alt="" width="164" height="164" decoding="async" onerror="this.parentElement.classList.add('is-placeholder');this.remove()">
         </button>
       </div>
@@ -823,6 +1057,15 @@ html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-right {
       <div class="sign-album-heading">
         <h2 id="sign-album-title"></h2>
         <button type="button" class="outline" id="sign-back">‹ Все альбомы</button>
+      </div>
+      <div class="sign-game-bar" aria-label="Мини-игра Найди клубничку">
+        <button type="button" class="sign-game-toggle" id="sign-game-toggle" aria-pressed="false">
+          <span><span class="emoji" aria-hidden="true">🍓</span> Игра «Найди клубничку»</span>
+          <span class="sign-game-switch" aria-hidden="true"></span>
+        </button>
+        <div class="sign-game-status" id="sign-game-status">
+          <span>Включите игру и открывайте сигны — в одной спрятана счастливая клубничка!</span>
+        </div>
       </div>
       <div class="sign-toolbar" aria-label="Виды сигн">
         <button type="button" class="outline" data-sign-filter="all" aria-pressed="true">Все</button>
@@ -849,18 +1092,106 @@ html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-right {
     <noscript>Для просмотра галереи включите JavaScript.</noscript>
   </section>
 </main>
-<dialog class="sign-dialog" id="sign-dialog"><div class="sign-dialog-top"><strong id="sign-dialog-title">Сигна</strong><button type="button" class="outline" id="sign-close" aria-label="Закрыть">✕</button></div><div id="sign-media" class="sign-dialog-media"></div><div class="sign-dialog-bottom"><button type="button" class="outline" id="sign-prev">‹ Предыдущая</button><a class="outline sign-download" id="sign-original" download>Скачать</a><button type="button" class="outline" id="sign-next">Следующая ›</button></div></dialog>
+<dialog class="sign-dialog" id="sign-dialog">
+  <div class="sign-dialog-top">
+    <strong id="sign-dialog-title">Сигна</strong>
+    <button type="button" class="outline" id="sign-close" aria-label="Закрыть">✕</button>
+  </div>
+  <div id="sign-media" class="sign-dialog-media"></div>
+  <div id="sign-game-stage" class="sign-game-stage" hidden>
+    <div id="sign-game-reels" class="sign-game-reels" aria-hidden="true"></div>
+    <div id="sign-game-caption" class="sign-game-caption"></div>
+  </div>
+  <div class="sign-dialog-bottom">
+    <button type="button" class="outline" id="sign-prev">‹ Предыдущая</button>
+    <a class="outline sign-download" id="sign-original" download>Скачать</a>
+    <button type="button" class="outline" id="sign-next">Следующая ›</button>
+  </div>
+</dialog>
 <script src="signs/data.js"></script>
 <script src="signs/albums.js"></script>
 <script>
 (()=>{
-const albums=(Array.isArray(window.SIGN_ALBUMS)?window.SIGN_ALBUMS:[]).filter(a=>a.items?.length).slice().sort((a,b)=>b.date.localeCompare(a.date));
+const rawAlbums=(Array.isArray(window.SIGN_ALBUMS)?window.SIGN_ALBUMS:[]).filter(a=>a.items?.length).slice().sort((a,b)=>b.date.localeCompare(a.date));
+
+/* Фрукты для мини-игры: 🍓 победная, остальные — обычные */
+const WIN_FRUIT='🍓';
+const REGULAR_FRUITS=['🍒','🍋','🍑','🍇','🍏','🍊','🍉','🍍'];
+const ALL_FRUITS=[WIN_FRUIT,...REGULAR_FRUITS];
+
+function normalizeAlbumItems(albumObj){
+  const items=albumObj.items||[];
+  const parsed=items.map(it=>{
+    const raw=it.fruits;
+    const arr=Array.isArray(raw)?raw.filter(f=>ALL_FRUITS.includes(f)):(typeof raw==='string'&&ALL_FRUITS.includes(raw)?[raw]:[]);
+    return arr;
+  });
+  let winCount=0;
+  let allValid=items.length>0;
+  for(let i=0;i<items.length;i++){
+    const exp=items[i].type==='video'?3:1;
+    if(parsed[i].length!==exp){allValid=false;break;}
+    if(parsed[i].includes(WIN_FRUIT))winCount++;
+  }
+  if(allValid&&winCount===1){
+    items.forEach((it,i)=>{it._fruits=parsed[i];});
+    return;
+  }
+  /* Запасной генератор, если в старом альбоме фрукты ещё не проставлены */
+  const tickets=[];
+  items.forEach((it,i)=>{
+    const w=it.type==='video'?3:1;
+    for(let k=0;k<w;k++)tickets.push(i);
+  });
+  const winIdx=tickets[Math.floor(Math.random()*tickets.length)];
+  items.forEach((it,i)=>{
+    const isVid=it.type==='video';
+    const isWin=i===winIdx;
+    const pool=REGULAR_FRUITS.slice().sort(()=>Math.random()-0.5);
+    if(isVid){
+      it._fruits=isWin?[WIN_FRUIT,pool[0],pool[1]].sort(()=>Math.random()-0.5):[pool[0],pool[1],pool[2]];
+    }else{
+      it._fruits=isWin?[WIN_FRUIT]:[pool[0]];
+    }
+  });
+}
+
+rawAlbums.forEach(normalizeAlbumItems);
+const albums=rawAlbums;
+
 const albumGrid=document.getElementById('sign-albums'),gallery=document.getElementById('sign-gallery'),albumTitle=document.getElementById('sign-album-title'),grid=document.getElementById('sign-grid'),endNote=document.getElementById('sign-end-note'),dialog=document.getElementById('sign-dialog'),media=document.getElementById('sign-media'),count=document.getElementById('sign-count');
+const gameToggle=document.getElementById('sign-game-toggle'),gameStatus=document.getElementById('sign-game-status'),gameStage=document.getElementById('sign-game-stage'),gameReels=document.getElementById('sign-game-reels'),gameCaption=document.getElementById('sign-game-caption');
 const filters=[...document.querySelectorAll('[data-sign-filter]')];
 const reducedQuery=matchMedia('(prefers-reduced-motion: reduce)');
 const isAnimOff=()=>document.documentElement.dataset.anim==='off'||(!document.documentElement.dataset.anim&&reducedQuery.matches);
-let album=null,list=[],selected=0,trigger=null,albumTrigger=null,openRequestId=0;
+let album=null,list=[],selected=0,trigger=null,albumTrigger=null,openRequestId=0,closingFromPopstate=false;
 const prefetchedUrls=new Set();
+
+/* Состояние мини-игры по альбомам (сохраняется в sessionStorage) */
+let gameEnabled=false;
+let activeRollTimers=[];
+let rollToken=0;
+
+function stopRollTimers(){
+  rollToken++;
+  while(activeRollTimers.length){
+    const t=activeRollTimers.pop();
+    clearInterval(t);
+    clearTimeout(t);
+  }
+}
+
+function getGameKey(dateStr){return 'clubnika_sign_game_'+dateStr;}
+function loadRevealedMap(dateStr){
+  try{
+    const raw=sessionStorage.getItem(getGameKey(dateStr));
+    return raw?JSON.parse(raw):{};
+  }catch{return {};}
+}
+function saveRevealedMap(dateStr,map){
+  try{sessionStorage.setItem(getGameKey(dateStr),JSON.stringify(map));}catch{}
+}
+function getItemKey(item,idx){return item.id+'_'+idx;}
 
 const dateLabel=date=>new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(date+'T00:00:00Z')).replace(/\s*г\.$/,'');
 const noun=(n,forms)=>forms[n%100>=11&&n%100<=14?2:n%10===1?0:n%10>=2&&n%10<=4?1:2];
@@ -874,6 +1205,143 @@ function clearCardLoading(){
     btn.classList.remove('is-loading');
     btn.removeAttribute('aria-busy');
   }
+}
+
+function updateGameStatusUI(){
+  if(!album||!gameStatus)return;
+  gameToggle?.setAttribute('aria-pressed',String(gameEnabled));
+  if(!gameEnabled){
+    gameStatus.innerHTML='<span>Включите игру и открывайте сигны — в одной спрятана счастливая клубничка!</span>';
+    return;
+  }
+  const map=loadRevealedMap(album.date);
+  const total=album.items.length;
+  const openedKeys=Object.keys(map);
+  const openedCount=openedKeys.length;
+  const foundStrawberry=openedKeys.some(k=>Array.isArray(map[k])&&map[k].includes(WIN_FRUIT));
+
+  gameStatus.replaceChildren();
+  const textSpan=document.createElement('span');
+  if(foundStrawberry){
+    textSpan.innerHTML='<strong><span class="emoji" aria-hidden="true">🍓</span> Клубничка найдена!</strong> Открыто '+openedCount+' из '+total+'.';
+  }else{
+    textSpan.innerHTML='Открыто <strong>'+openedCount+' из '+total+'</strong> · Ищите счастливую <span class="emoji" aria-hidden="true">🍓</span>';
+  }
+  gameStatus.append(textSpan);
+
+  if(openedCount>0){
+    const resetBtn=document.createElement('button');
+    resetBtn.type='button';
+    resetBtn.className='outline sign-game-reset';
+    resetBtn.textContent='Сбросить';
+    resetBtn.addEventListener('click',()=>{
+      saveRevealedMap(album.date,{});
+      updateGameStatusUI();
+      render();
+    });
+    gameStatus.append(resetBtn);
+  }
+}
+
+function runGameForItem(item,albumIdx){
+  stopRollTimers();
+  dialog.classList.remove('is-game-win');
+  if(!gameEnabled||!album||!item){
+    gameStage.hidden=true;
+    return;
+  }
+
+  const fruits=item._fruits||[REGULAR_FRUITS[0]];
+  const itemKey=getItemKey(item,albumIdx);
+  const map=loadRevealedMap(album.date);
+  const alreadyOpened=Array.isArray(map[itemKey]);
+  const isWinner=fruits.includes(WIN_FRUIT);
+
+  gameStage.hidden=false;
+  gameStage.classList.toggle('is-win',alreadyOpened&&isWinner);
+  gameReels.replaceChildren();
+
+  const reels=fruits.map(()=>{
+    const slot=document.createElement('span');
+    slot.className='sign-reel';
+    slot.textContent='❓';
+    gameReels.append(slot);
+    return slot;
+  });
+
+  const finalize=(celebrate)=>{
+    reels.forEach((slot,idx)=>{
+      const f=fruits[idx];
+      slot.classList.remove('is-spinning');
+      slot.textContent=f;
+      if(f===WIN_FRUIT)slot.classList.add('is-strawberry');
+    });
+    gameStage.classList.toggle('is-win',isWinner);
+    dialog.classList.toggle('is-game-win',isWinner);
+
+    if(!alreadyOpened){
+      map[itemKey]=fruits;
+      saveRevealedMap(album.date,map);
+      updateGameStatusUI();
+      render();
+    }
+
+    if(isWinner){
+      gameCaption.innerHTML='<strong><span class="emoji" aria-hidden="true">🍓</span> Ура! Вы нашли победную клубничку!</strong><small>Эта сигна оказалась счастливой в этом альбоме!</small>';
+      if(celebrate){
+        window.ClubnikaAnim?.burst?.(gameStage,{icons:['🍓','♫','✨','🍓','✦'],count:8});
+        const supportMascot=document.getElementById('support-mascot-btn');
+        if(supportMascot&&!isAnimOff()){
+          supportMascot.classList.remove('is-excited');
+          void supportMascot.offsetWidth;
+          supportMascot.classList.add('is-excited');
+        }
+      }
+    }else{
+      const label=fruits.length>1
+        ?'Выпали фрукты: '+fruits.join(' ')
+        :'Выпал фрукт: '+fruits[0];
+      gameCaption.innerHTML='<strong>'+label+'</strong><small>Клубничка прячется в другой сигне — открывайте дальше!</small>';
+    }
+  };
+
+  if(alreadyOpened||isAnimOff()){
+    finalize(false);
+    return;
+  }
+
+  /* Анимация розыгрыша (~2.3 сек с каскадной остановкой слотов) */
+  const myToken=++rollToken;
+  gameCaption.innerHTML='<strong><span class="emoji" aria-hidden="true">🎲</span> Крутим фрукты...</strong><small>'+(fruits.length>1?'У видео-сигны сразу 3 шанса!':'Смотрим, что спрятано в этой сигне...')+'</small>';
+
+  reels.forEach((slot,idx)=>{
+    slot.classList.add('is-spinning');
+    let tick=idx*3;
+    const spinId=setInterval(()=>{
+      if(myToken!==rollToken)return;
+      slot.textContent=ALL_FRUITS[tick%ALL_FRUITS.length];
+      tick++;
+    },85);
+    activeRollTimers.push(spinId);
+
+    const stopDelay=1450+idx*420;
+    const stopId=setTimeout(()=>{
+      clearInterval(spinId);
+      if(myToken!==rollToken)return;
+      const finalFruit=fruits[idx];
+      slot.classList.remove('is-spinning');
+      slot.textContent=finalFruit;
+      slot.classList.remove('is-landed');
+      void slot.offsetWidth;
+      slot.classList.add('is-landed');
+      if(finalFruit===WIN_FRUIT)slot.classList.add('is-strawberry');
+
+      if(idx===reels.length-1){
+        finalize(true);
+      }
+    },stopDelay);
+    activeRollTimers.push(stopId);
+  });
 }
 
 function prefetchNeighbors(){
@@ -898,11 +1366,26 @@ function applySwipeClass(swipeDir){
   media.classList.add(swipeDir);
 }
 
-function openAt(i,swipeDir=''){
+function syncDialogHistory(item,wasOpen){
+  if(!album||!item)return;
+  try{
+    const hash='#album-'+encodeURIComponent(album.date)+'&item='+encodeURIComponent(item.id);
+    const stateObj={signAlbum:album.date,signItem:item.id};
+    if(!wasOpen){
+      history.pushState(stateObj,'',hash);
+    }else{
+      history.replaceState(stateObj,'',hash);
+    }
+  }catch{}
+}
+
+function openAt(i,swipeDir='',opts={}){
   if(!list.length)return;
+  const {pushHistory=true}=opts;
   const reqId=++openRequestId;
   selected=(i+list.length)%list.length;
   const x=list[selected];
+  const albumIdx=album?album.items.indexOf(x):selected;
 
   if(x.type==='video'){
     clearCardLoading();
@@ -919,8 +1402,11 @@ function openAt(i,swipeDir=''){
     media.append(el);
     document.getElementById('sign-dialog-title').textContent='Сигна · '+(selected+1)+' из '+list.length;
     download(document.getElementById('sign-original'),x);
-    if(!dialog.open){previews(false);dialog.showModal()}
+    const wasOpen=dialog.open;
+    if(!wasOpen){previews(false);dialog.showModal()}
+    if(pushHistory)syncDialogHistory(x,wasOpen);
     applySwipeClass(swipeDir);
+    runGameForItem(x,albumIdx);
     el.play().catch(()=>{});
     return;
   }
@@ -946,11 +1432,14 @@ function openAt(i,swipeDir=''){
     media.append(el);
     document.getElementById('sign-dialog-title').textContent='Сигна · '+(selected+1)+' из '+list.length;
     download(document.getElementById('sign-original'),x);
-    if(!dialog.open){
+    const wasOpen=dialog.open;
+    if(!wasOpen){
       previews(false);
       dialog.showModal();
     }
+    if(pushHistory)syncDialogHistory(x,wasOpen);
     applySwipeClass(swipeDir);
+    runGameForItem(x,albumIdx);
     prefetchNeighbors();
   };
 
@@ -999,8 +1488,26 @@ function render(){
     copy.append(strong,p);empty.append(slot,copy);grid.append(empty);
     return;
   }
+
+  const revealedMap=gameEnabled?loadRevealedMap(album.date):{};
+
   list.forEach((x,i)=>{
-    const card=document.createElement('article');card.className='sign-card';
+    const albumIdx=album.items.indexOf(x);
+    const itemKey=getItemKey(x,albumIdx);
+    const revealedFruits=gameEnabled&&Array.isArray(revealedMap[itemKey])?revealedMap[itemKey]:null;
+    const isWinCard=Boolean(revealedFruits&&revealedFruits.includes(WIN_FRUIT));
+
+    const card=document.createElement('article');
+    card.className='sign-card'+(isWinCard?' is-winner-card':'');
+
+    if(revealedFruits){
+      const badge=document.createElement('span');
+      badge.className='sign-card-fruit'+(isWinCard?' is-win':'');
+      badge.setAttribute('aria-hidden','true');
+      badge.textContent=revealedFruits.join(' ');
+      card.append(badge);
+    }
+
     const b=document.createElement('button');b.className='sign-open';b.type='button';b.setAttribute('aria-label','Открыть '+title(x));
     const image=document.createElement(x.type==='video'?'video':'img');
     if(x.type==='video'){
@@ -1014,7 +1521,7 @@ function render(){
   if(!dialog.open)previews(true);
 }
 
-/* Живые обложки альбомов (плавная смена до 3 превью, отключается при data-anim="off") */
+/* Живые обложки альбомов: плавный кроссфейд с мягким зумом (только фото-сигны) */
 const coverTimers=[];
 function stopCoverLoops(){
   while(coverTimers.length)clearInterval(coverTimers.pop());
@@ -1025,32 +1532,38 @@ function startCoverLoops(){
   for(const card of albumGrid.querySelectorAll('.sign-album[data-posters]')){
     const posters=JSON.parse(card.dataset.posters||'[]');
     if(posters.length<2)continue;
-    const delay=Number(card.dataset.idx||0)*1100;
+    const delay=Number(card.dataset.idx||0)*1250;
     let step=0;
     const run=()=>{
       if(isAnimOff()||albumGrid.hidden||document.hidden)return;
       step=(step+1)%posters.length;
       const wrap=card.querySelector('.sign-album-media');
-      const current=wrap?.querySelector('img:not(.is-next)');
+      const current=wrap?.querySelector('img.is-current');
       if(!wrap||!current)return;
       const next=document.createElement('img');
       next.src=posters[step];
       next.alt='';
-      next.className='is-next';
       next.decoding='async';
       next.onload=()=>{
-        if(isAnimOff())return;
+        if(isAnimOff()||!wrap.isConnected)return;
         wrap.append(next);
+        /* Двойной requestAnimationFrame гарантирует старт CSS-перехода opacity 0 -> 1 */
         requestAnimationFrame(()=>{
-          next.classList.remove('is-next');
-          setTimeout(()=>current.remove(),900);
+          requestAnimationFrame(()=>{
+            current.classList.remove('is-current');
+            current.classList.add('is-fading-out');
+            next.classList.add('is-current');
+            setTimeout(()=>{
+              if(current.isConnected)current.remove();
+            },1450);
+          });
         });
       };
     };
     const startTimeout=setTimeout(()=>{
       run();
-      coverTimers.push(setInterval(run,4200));
-    },2400+delay);
+      coverTimers.push(setInterval(run,4600));
+    },2600+delay);
     coverTimers.push(startTimeout);
   }
 }
@@ -1065,12 +1578,13 @@ function openAlbum(a,button,opts={}){
   albumTitle.textContent=dateLabel(a.date);
   albumGrid.hidden=true;
   gallery.hidden=false;
+  updateGameStatusUI();
   filter('all');
   document.getElementById('sign-back').focus({preventScroll:true});
   if(pushHistory){
     try{
       const hash='#album-'+encodeURIComponent(a.date);
-      if(history.state?.signAlbum!==a.date){
+      if(history.state?.signAlbum!==a.date||history.state?.signItem){
         history.pushState({signAlbum:a.date},'',hash);
       }
     }catch{}
@@ -1080,8 +1594,12 @@ function openAlbum(a,button,opts={}){
 function showAlbums(opts={}){
   const {syncHistory=false}=opts;
   openRequestId++;
+  stopRollTimers();
   clearCardLoading();
-  if(dialog.open)dialog.close();
+  if(dialog.open){
+    closingFromPopstate=true;
+    dialog.close();
+  }
   previews(false);
   grid.replaceChildren();
   endNote.hidden=true;
@@ -1117,7 +1635,7 @@ albums.forEach((a,idx)=>{
   }
 
   const mediaWrap=document.createElement('span');mediaWrap.className='sign-album-media';
-  const image=document.createElement('img');image.src=posters[0]||'';image.alt='';image.loading='lazy';image.decoding='async';
+  const image=document.createElement('img');image.src=posters[0]||'';image.alt='';image.className='is-current';image.loading='lazy';image.decoding='async';
   mediaWrap.append(image);
 
   const info=document.createElement('span');info.className='sign-album-info';
@@ -1135,27 +1653,66 @@ albums.forEach((a,idx)=>{
 
 if(!albums.length){const p=document.createElement('p');p.textContent='Пока нет альбомов.';albumGrid.append(p)}
 
-/* Поддержка кнопки «Назад» в браузере/смартфоне и прямых ссылок #album-YYYY-MM-DD */
+/* Разбор хеша #album-YYYY-MM-DD[&item=ID] */
+function parseRouteHash(hashStr){
+  if(!hashStr||!hashStr.startsWith('#album-'))return null;
+  const raw=hashStr.slice(7);
+  const [datePart,rest]=raw.split('&item=');
+  return {
+    date:decodeURIComponent(datePart||''),
+    itemId:rest?decodeURIComponent(rest):null
+  };
+}
+
+/* Поддержка кнопки «Назад»:
+   1) из полноэкранной сигны -> обратно в галерею альбома
+   2) из галереи альбома -> к списку всех альбомов */
 window.addEventListener('popstate',e=>{
-  const stateDate=e.state?.signAlbum;
-  const hashDate=location.hash.startsWith('#album-')?decodeURIComponent(location.hash.slice(7)):null;
-  const targetAlbum=findAlbumByDate(stateDate||hashDate);
+  const parsed=parseRouteHash(location.hash);
+  const stateDate=e.state?.signAlbum||parsed?.date||null;
+  const stateItemId=e.state?.signItem||parsed?.itemId||null;
+  const targetAlbum=findAlbumByDate(stateDate);
+
   if(targetAlbum){
     if(album?.date!==targetAlbum.date){
       openAlbum(targetAlbum,null,{pushHistory:false});
+    }
+    if(stateItemId){
+      const itemIdx=list.findIndex(it=>it.id===stateItemId);
+      if(itemIdx>=0&&(!dialog.open||selected!==itemIdx)){
+        openAt(itemIdx,'',{pushHistory:false});
+      }
+    }else if(dialog.open){
+      closingFromPopstate=true;
+      dialog.close();
     }
   }else if(album){
     showAlbums({syncHistory:false});
   }
 });
 
-if(location.hash.startsWith('#album-')){
-  const initialAlbum=findAlbumByDate(decodeURIComponent(location.hash.slice(7)));
+const initialRoute=parseRouteHash(location.hash);
+if(initialRoute?.date){
+  const initialAlbum=findAlbumByDate(initialRoute.date);
   if(initialAlbum){
-    try{history.replaceState({signAlbum:initialAlbum.date},'',location.hash)}catch{}
+    try{history.replaceState({signAlbum:initialAlbum.date},'','#album-'+encodeURIComponent(initialAlbum.date))}catch{}
     openAlbum(initialAlbum,null,{pushHistory:false});
+    if(initialRoute.itemId){
+      const itemIdx=list.findIndex(it=>it.id===initialRoute.itemId);
+      if(itemIdx>=0)openAt(itemIdx,'',{pushHistory:true});
+    }
   }
 }
+
+/* Переключатель мини-игры «Найди клубничку» */
+gameToggle?.addEventListener('click',()=>{
+  gameEnabled=!gameEnabled;
+  updateGameStatusUI();
+  render();
+  if(gameEnabled){
+    window.ClubnikaAnim?.burst?.(gameToggle,{icons:['🍓','✨','🍒','🍑'],count:5});
+  }
+});
 
 window.ClubnikaAnim?.refresh?.();
 
@@ -1173,7 +1730,7 @@ document.addEventListener('clubnika:animchange',()=>{
 const supportBtn=document.getElementById('support-mascot-btn');
 for(const b of filters)b.addEventListener('click',()=>filter(b.dataset.signFilter));
 document.getElementById('sign-back').onclick=()=>{
-  if(history.state?.signAlbum){
+  if(history.state?.signAlbum&&!history.state?.signItem){
     history.back();
   }else{
     showAlbums({syncHistory:true});
@@ -1229,11 +1786,20 @@ document.getElementById('sign-original')?.addEventListener('click',e=>{
 
 dialog.addEventListener('close',()=>{
   openRequestId++;
+  stopRollTimers();
   clearCardLoading();
   media.classList.remove('is-loading');
   media.replaceChildren();
+  gameStage.hidden=true;
+  dialog.classList.remove('is-game-win');
   previews(true);
   trigger?.focus({preventScroll:true});
+
+  const fromPop=closingFromPopstate;
+  closingFromPopstate=false;
+  if(!fromPop&&history.state?.signItem){
+    try{history.back();}catch{}
+  }
 });
 dialog.addEventListener('click',e=>{if(e.target===dialog&&e.offsetX<0)dialog.close()});
 })();

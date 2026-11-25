@@ -1,0 +1,545 @@
+/* ==========================================================================
+   Стили главной страницы (css/index.css)
+   ========================================================================== */
+
+/* 1. Баннер анонса премьеры */
+.home-premiere-section { margin: 12px 0 0; }
+
+.premiere-banner.home-premiere {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin: 0;
+  padding: 18px 24px;
+  min-height: 125px;
+  background: linear-gradient(115deg, color-mix(in srgb, var(--panel) 64%, var(--pink)), var(--panel) 70%);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  overflow: hidden;
+  scroll-margin-top: 20px;
+}
+.premiere-banner.home-premiere::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(var(--gold), var(--pink));
+  z-index: -1;
+}
+.premiere-banner.home-premiere::after {
+  content: "♫";
+  position: absolute;
+  z-index: -1;
+  font-family: var(--font-serif);
+  font-size: 148px;
+  line-height: 1;
+  right: 19%;
+  top: -20px;
+  color: var(--gold);
+  opacity: .11;
+  transform: rotate(-12deg);
+}
+.premiere-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.3px;
+  color: var(--gold);
+}
+.premiere-flag::before {
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 22%, transparent);
+}
+.premiere-banner.home-premiere h2 {
+  font: 600 clamp(27px, 3.3vw, 35px)/1.15 var(--font-serif);
+  margin: 5px 0;
+  color: var(--text);
+}
+.premiere-banner.home-premiere p { font-size: 15px; }
+.premiere-banner .premiere-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 12px 17px;
+  color: #321c0b;
+  background: linear-gradient(135deg, #fff0b7, #e3ad4c);
+  border: 1px solid #f8d583;
+  font-weight: 750;
+  box-shadow: 0 3px 16px #a77b282a;
+}
+.premiere-action:hover { filter: brightness(1.08); }
+
+:root[data-theme="scarlet"] .premiere-banner.home-premiere {
+  background: linear-gradient(110deg, #6c0d20, #290e14 75%);
+  border-color: #c38e42;
+}
+:root[data-theme="scarlet"] .premiere-action {
+  background: linear-gradient(155deg, #fff4c3 0%, #f0c66c 38%, #bb7d27 70%, #ffe5a0 100%);
+  border-color: #ffdea0;
+  color: #351006;
+}
+
+/* 2. Первый экран (Hero) */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.22fr);
+  grid-template-areas:
+    "heading heading"
+    "portrait copy";
+  align-items: center;
+  row-gap: 16px;
+  column-gap: 30px;
+  overflow: hidden;
+  margin-top: 14px;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 95% 30%, var(--hero-glow) 0, transparent 55%),
+    linear-gradient(120deg, var(--hero-start), var(--hero-end) 70%);
+  border: 1px solid var(--gold);
+}
+.hero h1.hero-heading {
+  grid-area: heading;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: var(--gold);
+}
+.hero .photo-gallery {
+  grid-area: portrait;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-top: 10px;
+}
+.hero .photo-visual {
+  width: min(100%, 390px);
+  flex: none;
+}
+.photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--panel);
+}
+.photo-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 36%;
+  transition: opacity .35s;
+}
+.photo-frame img.changing { opacity: 0; }
+.photo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.photo-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  padding: 5px 8px;
+  background: #141015bb;
+  border-radius: 20px;
+  z-index: 2;
+}
+.photo-controls[hidden] { display: none; }
+.photo-controls button {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #fff;
+  background: transparent;
+  border-radius: 50%;
+  padding: 0;
+}
+.photo-controls button[aria-current="true"] { background: #fff; }
+
+.hero .hero-copy { grid-area: copy; min-width: 0; }
+.hero .hero-intro {
+  margin: 0 0 18px;
+  padding-left: 14px;
+  border-left: 2px solid var(--gold);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 54ch;
+}
+.hero .hero-actions.hero-about {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 14px;
+}
+.hero .hero-about .about-cta {
+  flex: 0 1 auto;
+  margin: 0;
+  background: var(--gold);
+  color: #301b12;
+  border-color: var(--gold);
+  font-weight: 800;
+  gap: 7px;
+  padding: 9px 15px;
+  min-height: 44px;
+}
+.hero .hero-about .about-cta:hover { filter: brightness(1.08); }
+
+/* Статистика в Hero (сетка 3 колонки задана в site-common.css) */
+.hero-stats {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0 18px;
+}
+.hero-stats > a {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+}
+.hero-stats > a:hover {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+}
+.hero-stats strong {
+  color: var(--gold);
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.hero-stats span {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+/* 3. Пара блоков «ТВ-эфир + Мои песни» */
+.home-feature-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1.16fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin: 14px 0;
+}
+.home-feature-pair #my-music {
+  margin: 0;
+  min-width: 0;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.home-feature-pair #my-music .original-new-release { grid-column: 1 / -1; }
+
+/* 4. Карусель Shorts (#translations) */
+.shorts-section {
+  margin: 14px 0;
+  padding: clamp(16px, 3.3vw, 30px);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  background: var(--panel);
+}
+.shorts-section .sectionhead { align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+.shorts-section .sectionhead p { margin-top: 8px; max-width: 700px; }
+
+.shorts-carousel { position: relative; }
+.shorts-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.shorts-carousel-viewport::-webkit-scrollbar { display: none; }
+.shorts-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(50% - 7px);
+  gap: 14px;
+}
+.short-slide-card {
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  transition: border-color .18s;
+}
+.short-slide-card:hover { border-color: var(--gold); }
+.short-slide-thumb {
+  position: relative;
+  display: block;
+  width: 112px;
+  aspect-ratio: 9 / 16;
+  max-height: 185px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #150c14;
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, var(--line));
+}
+.short-slide-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.short-slide-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #e30026;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.short-slide-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #000b;
+  color: #fff;
+  border: 1px solid #fff8;
+  font-size: 14px;
+  padding-left: 2px;
+}
+.short-slide-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+.short-slide-title {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.3;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.short-slide-views { font-size: 14px; font-weight: 750; color: var(--gold); }
+.short-slide-extra { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12.5px; color: var(--muted); }
+.short-slide-extra:empty { display: none; }
+
+.shorts-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.shorts-footer small { color: var(--muted); font-size: 12px; }
+
+/* 5. Блок случайных сигн (#home-signs) */
+.home-signs-section {
+  margin: 14px 0;
+  padding: clamp(16px, 3.3vw, 30px);
+  background: var(--panel);
+}
+.home-signs-section .sectionhead { align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+.home-signs-section .sectionhead p { margin-top: 8px; max-width: 64ch; }
+
+.home-signs-shuffle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  min-height: 40px;
+  font-size: 13.5px;
+  border-color: color-mix(in srgb, var(--gold) 60%, var(--line));
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.home-signs-shuffle:hover {
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  border-color: var(--gold);
+}
+.home-signs-shuffle-icon {
+  display: inline-block;
+  transition: transform 360ms var(--ease-out, ease);
+}
+html.anim-ready:not([data-anim="off"]) .home-signs-shuffle.is-spinning .home-signs-shuffle-icon {
+  transform: rotate(360deg);
+}
+
+.home-signs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.home-sign-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--gold) 36%, var(--line));
+  border-radius: 14px;
+  background: var(--bg);
+  color: var(--text);
+  transition: transform 180ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+@media (hover: hover) {
+  html.anim-ready:not([data-anim="off"]) .home-sign-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  }
+  html.anim-ready:not([data-anim="off"]) .home-sign-card:hover .home-sign-thumb img {
+    transform: scale(1.04);
+  }
+}
+html.anim-ready:not([data-anim="off"]) .home-sign-card:active {
+  transform: scale(0.972);
+  transition-duration: 100ms;
+}
+.home-sign-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg) 70%, var(--panel));
+}
+.home-sign-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 420ms var(--ease-out, ease);
+}
+.home-sign-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 13px;
+}
+.home-sign-date { font-size: 13.5px; font-weight: 650; color: var(--gold); }
+.home-sign-arrow { font-size: 13px; color: var(--muted); flex: none; }
+
+.home-signs-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.home-signs-footer small { color: var(--muted); font-size: 12.5px; }
+
+/* ==========================================================================
+   Адаптация главной страницы
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .home-feature-pair { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 899px) {
+  .shorts-carousel-track { grid-auto-columns: 100%; }
+  .home-signs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
+
+@media (max-width: 840px) {
+  .hero { gap: 22px; }
+}
+
+@media (max-width: 740px) {
+  .premiere-banner.home-premiere {
+    align-items: flex-start;
+    flex-direction: column;
+    min-height: 0;
+    padding: 12px 15px;
+    gap: 10px;
+  }
+  .premiere-banner.home-premiere::after { right: 0; }
+  .premiere-banner.home-premiere h2 { font-size: 27px; }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "heading"
+      "portrait"
+      "copy";
+    align-items: start;
+    margin-top: 12px;
+  }
+  .hero .photo-gallery { margin-top: 8px; }
+  .hero .photo-visual { width: min(100%, 300px); }
+
+  .home-feature-pair { gap: 12px; }
+  .shorts-section { margin-block: 12px; }
+  .shorts-footer .outline { width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .short-slide-card { grid-template-columns: 92px minmax(0, 1fr); gap: 10px; padding: 10px; }
+  .short-slide-thumb { width: 92px; max-height: 155px; }
+  .short-slide-title { font-size: 14px; }
+
+  .home-signs-section { margin: 12px 0; }
+  .home-signs-grid { gap: 10px; }
+  .home-sign-info { padding: 9px 10px; }
+  .home-sign-date { font-size: 12.5px; }
+  .home-signs-footer .outline,
+  .home-signs-shuffle { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .hero-stats { gap: 8px; }
+  .hero-stats > a { padding: 10px; }
+  .hero-stats span { font-size: 12px; }
+}
+
+@media (max-width: 390px) {
+  .home-feature-pair #my-music .original-home-actions { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-frame img,
+  .shorts-carousel-viewport,
+  .short-slide-card { transition: none; scroll-behavior: auto; }
+}

@@ -1,10 +1,14 @@
 ﻿param(
     [string]$Source = 'D:\Downloads\Telegram Desktop\Сигны',
-    [string]$Site = (Split-Path -Parent $PSScriptRoot)
+    [string]$Site = ''
 )
 $ErrorActionPreference = 'Stop'
+if (!$Site) {
+    $Site = if (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'signs.html')) { $PSScriptRoot } else { Split-Path -Parent $PSScriptRoot }
+}
 $Source = (Resolve-Path -LiteralPath $Source).Path
 $Site = [IO.Path]::GetFullPath($Site)
+if (!(Test-Path -LiteralPath (Join-Path $Site 'signs.html'))) { throw "Site directory does not contain signs.html: $Site" }
 $Media = Join-Path $Site 'signs'
 foreach ($folder in @('originals','previews','posters')) {
     New-Item -ItemType Directory -Force -Path (Join-Path $Media $folder) | Out-Null
@@ -13,21 +17,35 @@ $scale = "scale=w='min(iw,640)':h='min(ih,640)':force_original_aspect_ratio=decr
 $albumFile = Join-Path $Media 'albums.js'
 $legacyFile = Join-Path $Media 'data.js'
 $albums = @{}
+function Get-NormalizedAlbum($date, $records, $cover) {
+    if ($records -and $records.PSObject.Properties['value']) { $records = $records.value }
+    $clean = New-Object 'System.Collections.Generic.List[object]'
+    foreach ($record in $records) {
+        if (!$record.id -or !$record.preview -or !$record.poster) { throw "Invalid media record in album $date" }
+        $clean.Add([ordered]@{id=$record.id;type=$record.type;name=$record.name;original=$record.original;preview=$record.preview;poster=$record.poster;bytes=$record.bytes})
+    }
+    if ($clean.Count -eq 0) { throw "Empty album: $date" }
+    if ($cover -isnot [string] -or !$cover) {
+        $firstPhoto = $clean | Where-Object { $_.type -eq 'photo' } | Select-Object -First 1
+        if (!$firstPhoto) { $firstPhoto = $clean[0] }
+        $cover = $firstPhoto.poster
+    }
+    return [ordered]@{date=$date;items=$clean.ToArray();cover=$cover}
+}
 if (Test-Path -LiteralPath $albumFile) {
     $existing = Get-Content -LiteralPath $albumFile -Raw -Encoding UTF8
-    if ($existing -match '(?s)window\.SIGN_ALBUMS\s*=\s*(\[.*\])\s*;\s*$') {
+    if ($existing -match '(?s)window\.SIGN_ALBUMS\s*=\s*(\[.*\]|\{.*\})\s*;\s*$') {
         try {
             $oldAlbums = ConvertFrom-Json -InputObject $Matches[1] -ErrorAction Stop
-            foreach ($old in $oldAlbums) { $albums[$old.date] = $old }
+            if ($oldAlbums.PSObject.Properties['value']) { $oldAlbums = $oldAlbums.value }
+            foreach ($old in $oldAlbums) { $albums[$old.date] = Get-NormalizedAlbum $old.date $old.items $old.cover }
         } catch {
             # Migrate the original single-album catalog without changing its date.
             if ($existing -notmatch "date:\s*'2026-11-20'" -or $existing -notmatch 'items:\s*window\.SIGN_ITEMS' -or !(Test-Path -LiteralPath $legacyFile)) { throw 'Unknown albums.js format. Existing albums were not changed.' }
             $legacy = Get-Content -LiteralPath $legacyFile -Raw -Encoding UTF8
             if ($legacy -notmatch '(?s)window\.SIGN_ITEMS\s*=\s*(\[.*\])\s*;\s*$') { throw 'Invalid legacy data.js.' }
-            $oldItems = @(ConvertFrom-Json -InputObject $Matches[1] -ErrorAction Stop)
-            $cover = $oldItems | Where-Object { $_.type -eq 'photo' } | Select-Object -First 1
-            if (!$cover) { $cover = $oldItems | Select-Object -First 1 }
-            $albums['2026-11-20'] = [ordered]@{date='2026-11-20';items=$oldItems;cover=$cover.poster}
+            $oldItems = ConvertFrom-Json -InputObject $Matches[1] -ErrorAction Stop
+            $albums['2026-11-20'] = Get-NormalizedAlbum '2026-11-20' $oldItems $null
         }
     } else { throw 'Unknown albums.js format. Existing albums were not changed.' }
 } elseif (Test-Path -LiteralPath $legacyFile) { throw 'Existing data.js found without albums.js. Restore albums.js before updating.' }
@@ -64,11 +82,17 @@ foreach ($folder in $folders) {
     }
     $cover = $items | Where-Object { $_.type -eq 'photo' } | Select-Object -First 1
     if (!$cover) { $cover = $items | Select-Object -First 1 }
-    $albums[$date] = [ordered]@{date=$date;items=@($items);cover=$cover.poster}
+    $albums[$date] = Get-NormalizedAlbum $date $items $cover.poster
     Write-Host "Album $date : $($items.Count) files"
 }
 if (!$albums.Count) { throw 'No albums to publish.' }
-$json = ConvertTo-Json -InputObject @($albums.Values | Sort-Object { $_.date } -Descending) -Depth 8
+$jsonParts = foreach ($entry in ($albums.Values | Sort-Object { $_.date } -Descending)) {
+    $recordParts = foreach ($record in $entry.items) { ConvertTo-Json -InputObject $record -Depth 5 -Compress }
+    $dateJson = ConvertTo-Json -InputObject ([string]$entry.date) -Compress
+    $coverJson = ConvertTo-Json -InputObject ([string]$entry.cover) -Compress
+    '{"date":' + $dateJson + ',"items":[' + ($recordParts -join ',') + '],"cover":' + $coverJson + '}'
+}
+$json = '[' + ($jsonParts -join ",`n") + ']'
 $temporaryCatalog = Join-Path $Media 'albums.js.tmp'
 [IO.File]::WriteAllText($temporaryCatalog,"window.SIGN_ALBUMS = $json;`n",[Text.UTF8Encoding]::new($false))
 Move-Item -LiteralPath $temporaryCatalog -Destination $albumFile -Force

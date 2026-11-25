@@ -778,6 +778,7 @@ body > * {
 .comment-float {
   z-index: 25;
 }
+}
 
 /* 3. Тонкие золотые разделители и аккуратное свечение */
 .section-gold-divider {
@@ -811,4 +812,4 @@ body > * {
     display: none;
   }
 }
-}
+

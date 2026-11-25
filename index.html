@@ -275,6 +275,691 @@ html.reload-top body{overflow-anchor:none}
   .hero{grid-template-columns:minmax(0,1fr);align-items:start}
   .hero .photo-visual{width:min(100%,300px)}
 }
+/* Carousel for YouTube Shorts (#translations) */
+.shorts-carousel {
+  position: relative;
+}
+.shorts-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  border-radius: 16px;
+}
+.shorts-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+.shorts-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 14px;
+}
+.shorts-slide {
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg);
+}
+.shorts-slide-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 9 / 16;
+  max-height: 340px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #150c14;
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, var(--line));
+}
+.shorts-slide-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shorts-slide-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #e30026;
+  color: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.shorts-slide-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #000b;
+  color: #fff;
+  border: 1px solid #fff9;
+  font-size: 19px;
+  padding-left: 3px;
+}
+.shorts-slide-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+.shorts-slide-rank {
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+.shorts-slide-title {
+  margin: 0;
+  font-size: clamp(19px, 2.4vw, 26px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+}
+.shorts-slide-views {
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 750;
+}
+/* Слот под дополнительную информацию в будущем */
+.shorts-slide-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  font-size: 13px;
+  color: var(--muted);
+}
+.shorts-slide-extra:empty {
+  display: none;
+}
+.shorts-slide-action {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 650;
+  transition: background .18s, color .18s;
+}
+.shorts-slide-action:hover {
+  background: color-mix(in srgb, var(--gold) 15%, transparent);
+  color: var(--text);
+}
+.shorts-carousel-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+.shorts-carousel-controls {
+  display: flex;
+  gap: 8px;
+}
+.shorts-carousel-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 18px;
+  display: grid;
+  place-items: center;
+  transition: border-color .18s, color .18s;
+}
+.shorts-carousel-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.shorts-carousel-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.shorts-carousel-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--muted) 40%, transparent);
+}
+.shorts-carousel-dot[aria-current="true"] {
+  background: var(--gold);
+  transform: scale(1.2);
+}
+
+@media (max-width: 740px) {
+  .shorts-slide {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 14px;
+  }
+  .shorts-slide-media {
+    max-width: 190px;
+    max-height: 260px;
+    margin: 0 auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shorts-carousel-viewport {
+    scroll-behavior: auto;
+  }
+  .shorts-slide-action,
+  .shorts-carousel-btn {
+    transition: none;
+  }
+}
+.shorts-slide {
+  grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.shorts-slide-body {
+  align-self: stretch;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+.shorts-slide-extra {
+  gap: 8px 14px;
+  margin-top: 2px;
+}
+.shorts-slide-extra span {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+@media (max-width: 740px) {
+  .shorts-slide {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+  .shorts-slide-body {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+/* Компактная карусель Shorts без лишних рамок и пустоты */
+.shorts-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  border-radius: 14px;
+}
+.shorts-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+.shorts-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 12px;
+}
+.shorts-slide {
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg) 70%, var(--panel));
+}
+.shorts-slide-media {
+  position: relative;
+  display: block;
+  width: 168px;
+  aspect-ratio: 9 / 16;
+  max-height: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #150c14;
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, var(--line));
+}
+.shorts-slide-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shorts-slide-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #e30026;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.shorts-slide-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #000b;
+  color: #fff;
+  border: 1px solid #fff8;
+  font-size: 16px;
+  padding-left: 2px;
+}
+.shorts-slide-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  min-width: 0;
+  max-width: 680px;
+}
+.shorts-slide-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.shorts-slide-title {
+  margin: 0;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+}
+.shorts-slide-views {
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--gold);
+}
+/* Слот под дополнительную информацию без тяжёлых рамок */
+.shorts-slide-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.shorts-slide-extra:empty {
+  display: none;
+}
+.shorts-slide-action {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 9px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 13.5px;
+  font-weight: 650;
+}
+.shorts-slide-action:hover {
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  color: var(--text);
+}
+.shorts-carousel-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.shorts-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.shorts-carousel-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 17px;
+  display: grid;
+  place-items: center;
+}
+.shorts-carousel-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.shorts-carousel-counter {
+  font-size: 13px;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+@media (max-width: 740px) {
+  .shorts-slide {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+    align-items: start;
+  }
+  .shorts-slide-media {
+    width: 112px;
+    max-height: 195px;
+  }
+  .shorts-slide-title {
+    font-size: 15px;
+    line-height: 1.28;
+  }
+  .shorts-slide-views {
+    font-size: 13.5px;
+  }
+  .shorts-slide-extra {
+    gap: 6px 10px;
+    font-size: 12px;
+  }
+}
+/* Карусель Shorts: по 2 ролика на ПК, автопрокрутка, без лишних счётчиков */
+.shorts-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.shorts-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+.shorts-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 12px;
+}
+.shorts-carousel-page {
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.short-slide-card {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  transition: border-color .18s;
+}
+.short-slide-card:hover {
+  border-color: var(--gold);
+}
+.short-slide-thumb {
+  position: relative;
+  display: block;
+  width: 112px;
+  aspect-ratio: 9 / 16;
+  max-height: 185px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #150c14;
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, var(--line));
+}
+.short-slide-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.short-slide-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #e30026;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.short-slide-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #000b;
+  color: #fff;
+  border: 1px solid #fff8;
+  font-size: 14px;
+  padding-left: 2px;
+}
+.short-slide-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+.short-slide-title {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.3;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.short-slide-views {
+  font-size: 14px;
+  font-weight: 750;
+  color: var(--gold);
+}
+/* Слот под дополнительную информацию в будущем */
+.short-slide-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.short-slide-extra:empty {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .shorts-carousel-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .short-slide-card {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+  .short-slide-thumb {
+    width: 92px;
+    max-height: 155px;
+  }
+  .short-slide-title {
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shorts-carousel-viewport {
+    scroll-behavior: auto;
+  }
+  .short-slide-card {
+    transition: none;
+  }
+}
+.shorts-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.shorts-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+.shorts-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(50% - 7px);
+  gap: 14px;
+}
+.short-slide-card {
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  transition: border-color .18s;
+}
+.short-slide-card:hover {
+  border-color: var(--gold);
+}
+.short-slide-thumb {
+  position: relative;
+  display: block;
+  width: 112px;
+  aspect-ratio: 9 / 16;
+  max-height: 185px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #150c14;
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, var(--line));
+}
+.short-slide-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.short-slide-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #e30026;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.short-slide-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #000b;
+  color: #fff;
+  border: 1px solid #fff8;
+  font-size: 14px;
+  padding-left: 2px;
+}
+.short-slide-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+.short-slide-title {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.3;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.short-slide-views {
+  font-size: 14px;
+  font-weight: 750;
+  color: var(--gold);
+}
+.short-slide-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.short-slide-extra:empty {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .shorts-carousel-track {
+    grid-auto-columns: 100%;
+  }
+}
+@media (max-width: 520px) {
+  .short-slide-card {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+  .short-slide-thumb {
+    width: 92px;
+    max-height: 155px;
+  }
+  .short-slide-title {
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shorts-carousel-viewport {
+    scroll-behavior: auto;
+  }
+  .short-slide-card {
+    transition: none;
+  }
+}
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-themes.css"><link rel="stylesheet" href="site-common.css">
@@ -287,7 +972,7 @@ html.reload-top body{overflow-anchor:none}
 <main class="wrap">
 <script src="site-live-panel.js" data-show-order></script>
 <section id="news" class="home-premiere-section" aria-label="Анонс новой песни"><article class="premiere-banner home-premiere" aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>Скоро поделюсь с вами новой песней! 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article></section>
-<section class="hero"><h1 class="eyebrow hero-heading">ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных эфирах звучат любимые песни, душевные мелодии и мои авторские композиции. Мне нравится открывать знакомую музыку заново и делиться с вами новыми песнями. Здесь можно выбрать композицию для ближайшего эфира, спеть вместе со мной и просто провести вечер в тёплой компании. Буду рада видеть вас в нашей клубничной семье! 🍓</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong>10</strong><span>Авторских песен</span></a><a href="shorts.html"><strong id="hero-views">69,3 млн</strong><span>Просмотров всех видео</span></a></div><script src="viewer-comments.js"></script><script src="site-viewer-quotes.js" data-show-support></script></div></section>
+<section class="hero"><h1 class="eyebrow hero-heading">ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных эфирах звучат любимые песни, душевные мелодии и мои авторские композиции. Мне нравится открывать знакомую музыку заново и делиться с вами новыми песнями. Здесь можно выбрать композицию для ближайшего эфира, спеть вместе со мной и просто провести вечер в тёплой компании. Буду рада видеть вас в нашей клубничной семье! 🍓</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong>10</strong><span>Авторских песен </span></a><a href="shorts.html"><strong id="hero-views">69,3 млн</strong><span>Просмотров <svg class="youtube-button-icon" viewBox="-7 -7 31 31" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg></span></a></div><script src="viewer-comments.js"></script><script src="site-viewer-quotes.js" data-show-support></script></div></section>
 <div class="home-feature-pair">
 <script src="site-tv-card.js"></script>
 <script src="site-original-songs.js"></script>
@@ -295,14 +980,145 @@ html.reload-top body{overflow-anchor:none}
 <section class="shorts-section" id="translations">
   <div class="sectionhead">
     <div><div class="eyebrow">ПЕРЕВОДЫ И КАВЕРЫ</div><h2>Песни без границ</h2><p>Мировые хиты на русском и любимые песни в новом исполнении.</p></div>
-    <div class="shorts-total"><strong id="shorts-total-number">17,6 млн</strong><span>просмотров четырёх роликов</span></div>
+    
   </div>
-  <div class="shorts-grid" id="shorts-grid" aria-label="Популярные музыкальные Shorts">
-    <a class="short-card" href="https://www.youtube.com/shorts/tdOAXWflQ1k" target="_blank" rel="noopener noreferrer"><span class="short-preview"><img src="https://i.ytimg.com/vi/tdOAXWflQ1k/hqdefault.jpg" alt="" loading="lazy"><span class="short-badge">Shorts</span><span class="short-play" aria-hidden="true">▶</span></span><span class="short-copy"><span class="short-category">Перевод песни</span><strong>C.C. Catch — Cause You Are Young</strong><span class="short-views">5,7 млн просмотров</span></span></a>
-    <a class="short-card" href="https://www.youtube.com/shorts/1oMGiYhcXlY" target="_blank" rel="noopener noreferrer"><span class="short-preview"><img src="https://i.ytimg.com/vi/1oMGiYhcXlY/hqdefault.jpg" alt="" loading="lazy"><span class="short-badge">Shorts</span><span class="short-play" aria-hidden="true">▶</span></span><span class="short-copy"><span class="short-category">Перевод песни</span><strong>Интересный факт. А вы знали?</strong><span class="short-views">4,6 млн просмотров</span></span></a>
-    <a class="short-card" href="https://www.youtube.com/shorts/MzzOcrxwDg8" target="_blank" rel="noopener noreferrer"><span class="short-preview"><img src="https://i.ytimg.com/vi/MzzOcrxwDg8/hqdefault.jpg" alt="" loading="lazy"><span class="short-badge">Shorts</span><span class="short-play" aria-hidden="true">▶</span></span><span class="short-copy"><span class="short-category">Перевод песни</span><strong>Shakira — Dai Dai</strong><span class="short-views">4,1 млн просмотров</span></span></a>
-    <a class="short-card" href="https://www.youtube.com/shorts/nq0BUfDe_kw" target="_blank" rel="noopener noreferrer"><span class="short-preview"><img src="https://i.ytimg.com/vi/nq0BUfDe_kw/hqdefault.jpg" alt="" loading="lazy"><span class="short-badge">Shorts</span><span class="short-play" aria-hidden="true">▶</span></span><span class="short-copy"><span class="short-category">Кавер</span><strong>Jazzdauren — Дарите женщинам цветы</strong><span class="short-views">3,2 млн просмотров</span></span></a>
+ <div class="shorts-carousel" id="shorts-carousel" aria-label="Карусель популярных музыкальных Shorts" hidden>
+  <div class="shorts-carousel-viewport" id="shorts-viewport" tabindex="0" role="region" aria-roledescription="carousel">
+    <div class="shorts-carousel-track" id="shorts-track"></div>
   </div>
+</div>
+
+<script>
+(() => {
+  const SUMMARY_URL = "./Shorts/summary.json";
+  const SHORTS_DIR = "Shorts";
+  const AUTOPLAY_MS = 5000;
+  const STEP = 1; // прокрутка строго по 1 ролику
+
+  const root = document.getElementById("shorts-carousel");
+  const track = document.getElementById("shorts-track");
+  const viewport = document.getElementById("shorts-viewport");
+  if (!root || !track || !viewport) return;
+
+  let items = [];
+  let activeIndex = 0;
+  let timer = null;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function formatViews(num) {
+    const n = Number(num);
+    if (!Number.isFinite(n) || n <= 0) return "";
+    if (n >= 1000000) return `${(n / 1000000).toFixed(1).replace(".", ",").replace(/,0$/, "")} млн просмотров`;
+    if (n >= 1000) return `${Math.round(n / 1000)} тыс. просмотров`;
+    return `${n.toLocaleString("ru-RU")} просмотров`;
+  }
+
+  function resolveCover(item) {
+    if (typeof item.cover === "string" && item.cover.trim()) {
+      const clean = item.cover.trim().replace(/^\/+/, "");
+      return clean.startsWith(`${SHORTS_DIR}/`) ? clean : `${SHORTS_DIR}/${clean}`;
+    }
+    return item.id ? `https://i.ytimg.com/vi/${encodeURIComponent(item.id)}/hqdefault.jpg` : "";
+  }
+
+  function renderExtra(item) {
+    const parts = [];
+    if (Number.isFinite(Number(item.likes))) parts.push(`<span>♥ ${Number(item.likes).toLocaleString("ru-RU")}</span>`);
+    return parts.join("");
+  }
+
+  function esc(v) {
+    return String(v ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  function renderCards(data) {
+    items = Array.isArray(data) ? data.filter((x) => x && (x.title || x.id)) : [];
+    if (!items.length) {
+      root.hidden = true;
+      return;
+    }
+
+    track.innerHTML = items.map((item) => {
+      const href = item.url || (item.id ? `https://www.youtube.com/shorts/${encodeURIComponent(item.id)}` : "#");
+      const cover = resolveCover(item);
+      const fallback = item.id ? `https://i.ytimg.com/vi/${encodeURIComponent(item.id)}/hqdefault.jpg` : "";
+      const viewsText = formatViews(item.views ?? item.catalog_views);
+      const extraHtml = renderExtra(item);
+
+      return `
+        <a class="short-slide-card" href="${esc(href)}" target="_blank" rel="noopener noreferrer">
+          <span class="short-slide-thumb">
+            ${cover ? `<img src="${esc(cover)}" ${fallback ? `data-fallback="${esc(fallback)}"` : ""} alt="${esc(item.title)}" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.removeAttribute('data-fallback');}">` : ""}
+            <span class="short-slide-badge">Shorts</span>
+            <span class="short-slide-play" aria-hidden="true">▶</span>
+          </span>
+          <span class="short-slide-info">
+            <strong class="short-slide-title">${esc(item.title)}</strong>
+            ${viewsText ? `<span class="short-slide-views">${esc(viewsText)}</span>` : ""}
+            <span class="short-slide-extra">${extraHtml}</span>
+          </span>
+        </a>
+      `;
+    }).join("");
+
+    activeIndex = 0;
+    viewport.scrollLeft = 0;
+    root.hidden = false;
+  }
+
+  function stepTo(targetIdx, smooth = true) {
+    if (items.length <= 1) return;
+    activeIndex = ((targetIdx % items.length) + items.length) % items.length;
+    const cardEl = track.children[activeIndex];
+    if (cardEl) {
+      viewport.scrollTo({
+        left: cardEl.offsetLeft - track.offsetLeft,
+        behavior: smooth && !reducedMotion ? "smooth" : "auto"
+      });
+    }
+  }
+
+  function stopAutoplay() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (reducedMotion || document.hidden || items.length <= 1) return;
+    timer = setInterval(() => stepTo(activeIndex + STEP, true), AUTOPLAY_MS);
+  }
+
+  viewport.addEventListener("mouseenter", stopAutoplay);
+  viewport.addEventListener("mouseleave", startAutoplay);
+  viewport.addEventListener("focusin", stopAutoplay);
+  viewport.addEventListener("focusout", startAutoplay);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stopAutoplay() : startAutoplay()));
+
+  viewport.addEventListener("scroll", () => {
+    const first = track.children[0];
+    if (!first || !items.length) return;
+    const gap = parseFloat(getComputedStyle(track).gap) || 14;
+    const stepSize = first.getBoundingClientRect().width + gap;
+    if (stepSize > 0) {
+      const idx = Math.min(items.length - 1, Math.max(0, Math.round(viewport.scrollLeft / stepSize)));
+      activeIndex = idx;
+    }
+  }, { passive: true });
+
+  fetch(SUMMARY_URL, { cache: "no-store" })
+    .then((res) => (res.ok ? res.json() : null))
+    .then((json) => {
+      renderCards(json);
+      startAutoplay();
+    })
+    .catch(() => {
+      root.hidden = true;
+    });
+})();
+</script>
   <div class="shorts-footer"><small id="shorts-updated">Просмотры по данным YouTube на 23 ноября 2026 г.</small><a class="outline youtube-button" href="shorts.html"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Все переводы и каверы</span></a></div>
 </section>
 

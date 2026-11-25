@@ -368,6 +368,47 @@ html.reload-top body{overflow-anchor:none}
   .shorts-page .short-views {
     font-size: 12.5px;
   }
+  .shorts-sentinel {
+  height: 1px;
+  pointer-events: none;
+}
+.shorts-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+@keyframes shortFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.shorts-page .short-card.is-new {
+  animation: shortFadeIn .28s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shorts-page .short-card.is-new { animation: none; }
+}
+}
+.shorts-sentinel {
+  height: 1px;
+  pointer-events: none;
+}
+.shorts-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.shorts-load-more[hidden] {
+  display: none;
+}
+@keyframes shortFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.shorts-page .short-card.is-new {
+  animation: shortFadeIn .25s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shorts-page .short-card.is-new { animation: none; }
 }
 </style>
 <link rel="stylesheet" href="site-nav.css">
@@ -401,5 +442,5 @@ html.reload-top body{overflow-anchor:none}
 </main>
 <script src="site-footer.js"></script>
 <script src="shorts-data.js?v=5"></script>
-<script src="shorts.js?v=8"></script>
+<script src="shorts.js?v=10"></script>
 </body></html>

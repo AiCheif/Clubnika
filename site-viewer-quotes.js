@@ -13,6 +13,7 @@
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
           </button>
           <button type="button" id="quote-toggle" aria-label="Приостановить смену комментариев" title="Приостановить смену комментариев">
+            <svg class="quote-ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5"/></svg>
             <svg id="quote-icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
             <svg id="quote-icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden><path d="M7 4.5v15l12-7.5z"/></svg>
           </button>
@@ -49,7 +50,7 @@
   }
 
   function triggerHeart(){
-    if(!floatHeart||paused)return;
+    if(!floatHeart||paused||document.documentElement.dataset.anim==='off')return;
     floatHeart.classList.remove('is-active');
     void floatHeart.offsetWidth;
     floatHeart.classList.add('is-active');
@@ -105,9 +106,19 @@ function formatQuoteText(raw){
     void card.offsetWidth;
     card.classList.add('quote-enter');
   }
+  function restartRing(){
+    const ring=toggle?.querySelector('.quote-ring circle');
+    if(!ring)return;
+    ring.style.animation='none';
+    void ring.getBoundingClientRect();
+    ring.style.animation='';
+  }
+
   function schedule(){
     clearTimers();
+    toggle?.classList.toggle('is-paused',paused||document.hidden);
     if(paused||document.hidden)return;
+    restartRing();
     heartTimer=setTimeout(triggerHeart,Math.max(1000,SLIDE_MS-HEART_LEAD_MS));
     slideTimer=setTimeout(()=>{
       index=(index+1)%list.length;

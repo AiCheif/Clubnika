@@ -104,21 +104,6 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   box-shadow: 0 12px 32px #0003;
 }
 
-.signs-section::after {
-  content: "♫";
-  position: absolute;
-  right: 6%;
-  top: 235px;
-  font-family: Georgia, serif;
-  font-size: 165px;
-  line-height: 1;
-  color: var(--gold);
-  opacity: 0.055;
-  transform: rotate(-12deg);
-  pointer-events: none;
-  z-index: 0;
-}
-
 .signs-section > * {
   position: relative;
   z-index: 1;
@@ -154,36 +139,23 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   flex-shrink: 0;
 }
 
+/* Лёгкая афишная ремарка без комиксного облачка и хвостика */
 .signs-speech-bubble {
   position: relative;
+  background: none;
+  border: 0;
+  border-right: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 4px 16px 4px 0;
   max-width: 225px;
-  padding: 11px 15px;
-  border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line));
-  background: color-mix(in srgb, var(--bg) 84%, var(--panel));
-  color: var(--text);
-  font-size: 13.5px;
+  text-align: right;
+  font-family: var(--font-serif, Georgia, serif);
+  font-style: italic;
+  font-size: 16.5px;
   line-height: 1.35;
-  box-shadow: 0 8px 22px #0004;
+  color: color-mix(in srgb, var(--gold) 88%, var(--text));
   transition: transform .25s ease, opacity .25s ease, visibility .25s ease;
-}
-
-.signs-speech-bubble::after {
-  content: "";
-  position: absolute;
-  right: -7px;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  background: color-mix(in srgb, var(--bg) 84%, var(--panel));
-  border-top: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line));
-  border-right: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line));
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.signs-speech-bubble.is-switching {
-  opacity: .35;
-  transform: translateY(3px) scale(.97);
 }
 
 .signs-mascot-btn {
@@ -195,21 +167,21 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   place-items: center;
   flex: none;
   overflow: visible;
-  transform-origin: 50% 90%;
-  opacity: 0;
-  transform: translateY(28%) scale(.92);
-  transition: transform .65s cubic-bezier(.34, 1.56, .64, 1), opacity .45s ease;
-}
-
-.signs-mascot-btn.is-in {
-  opacity: 1;
-  transform: none;
-  animation: mascotIdle 4.5s ease-in-out .7s infinite;
 }
 
 .signs-hero-mascot {
   width: 164px;
   height: 164px;
+}
+
+.signs-hero-mascot::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--gold) 24%, transparent) 0%, transparent 72%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .sign-callout-mascot {
@@ -227,26 +199,17 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   transition: filter .25s ease;
 }
 
-/* Разворачиваем клубничку влево, чтобы она указывала на заголовок и альбомы */
-.signs-hero-mascot img {
-  transform: scaleX(-1);
-}
-
 .signs-mascot-btn:hover img {
   filter: drop-shadow(0 12px 24px #0007) drop-shadow(0 0 24px color-mix(in srgb, var(--gold) 34%, transparent));
 }
 
-.signs-mascot-btn:active {
+html.anim-ready:not([data-anim="off"]) .signs-mascot-btn:active {
   transform: scale(.94) !important;
   transition-duration: .1s;
 }
 
-.signs-mascot-btn.is-excited {
-  animation: mascotBounce .55s cubic-bezier(.28, 1.45, .42, 1) !important;
-}
-
 /* Казачок тянется к кнопке при наведении на «Оставить доброе слово» */
-.sign-support-callout:has(.sign-callout-btn:hover) .sign-callout-mascot {
+html.anim-ready:not([data-anim="off"]) .sign-support-callout:has(.sign-callout-btn:hover) .sign-callout-mascot {
   animation: mascotPoint .45s ease-in-out infinite alternate;
 }
 
@@ -274,19 +237,6 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   margin-top: 4px;
 }
 
-.mascot-spark,
-.tap-spark {
-  position: fixed;
-  z-index: 60;
-  color: var(--gold);
-  font-size: 17px;
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  text-shadow: 0 0 9px color-mix(in srgb, var(--gold) 70%, transparent);
-  animation: sparkFly .8s cubic-bezier(.16, 1, .3, 1) forwards;
-}
-
 /* Сетка альбомов и живые обложки */
 .sign-albums {
   display: grid;
@@ -310,35 +260,22 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   box-shadow: 0 10px 26px #0004;
   -webkit-user-select: none;
   user-select: none;
-  transition: transform .28s cubic-bezier(.22, 1.2, .36, 1), border-color .28s ease, box-shadow .28s ease;
 }
 
 @media (hover: hover) {
-  .sign-album:hover {
+  html.anim-ready:not([data-anim="off"]) .sign-album:hover {
     transform: translateY(-3px);
     border-color: var(--gold);
     box-shadow: 0 14px 32px #0006, 0 0 20px color-mix(in srgb, var(--gold) 18%, transparent);
   }
 }
 
-.sign-album:active,
-.sign-open:active {
-  transform: scale(0.965);
-  transition-duration: .1s;
-}
-
-/* Подсветка альбома в центре экрана на смартфонах */
 @media (hover: none) {
-  .sign-album.is-spotlight {
-    border-color: var(--gold);
-    box-shadow: 0 12px 28px #0006, 0 0 20px color-mix(in srgb, var(--gold) 22%, transparent);
-  }
-
-  .sign-album.is-spotlight .sign-album-media img:not(.is-next) {
+  html.anim-ready:not([data-anim="off"]) .sign-album.is-spotlight .sign-album-media img:not(.is-next) {
     transform: scale(1.045);
   }
 
-  .sign-album.is-spotlight::after {
+  html.anim-ready[data-anim="full"] .sign-album.is-spotlight::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -405,10 +342,13 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   font-weight: 800;
   letter-spacing: .3px;
   box-shadow: 0 4px 14px #0006;
+}
+
+html.anim-ready[data-anim="full"] .sign-new-badge {
   animation: badgeFloat 3.2s ease-in-out infinite;
 }
 
-.sign-album:first-child::before {
+html.anim-ready[data-anim="full"] .sign-album:first-child::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -492,7 +432,6 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   cursor: pointer;
   aspect-ratio: 4/3;
   overflow: hidden;
-  transition: transform .2s ease;
 }
 
 .sign-open:focus-visible {
@@ -526,8 +465,6 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
 .sign-empty-mascot {
   width: 96px;
   height: 96px;
-  opacity: 1;
-  transform: none;
 }
 
 .sign-empty-copy {
@@ -656,12 +593,41 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   width: 100%;
 }
 
-.sign-dialog-media.slide-left {
-  animation: swipeSlideLeft .26s ease-out;
+html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-left {
+  animation: swipeSlideLeft .26s var(--ease-out);
 }
 
-.sign-dialog-media.slide-right {
-  animation: swipeSlideRight .26s ease-out;
+html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-right {
+  animation: swipeSlideRight .26s var(--ease-out);
+}
+
+/* Индикатор предзагрузки оригинала в кэш до показа окна */
+.sign-open.is-loading {
+  opacity: .68;
+  cursor: progress;
+}
+
+.sign-open.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2.5px solid color-mix(in srgb, var(--gold) 28%, transparent);
+  border-top-color: var(--gold);
+  animation: signSpin .7s linear infinite;
+}
+
+.sign-dialog-media.is-loading img,
+.sign-dialog-media.is-loading video {
+  opacity: .55;
+  transition: opacity 160ms ease;
+}
+
+@keyframes signSpin {
+  to { transform: rotate(360deg); }
 }
 
 /* Всплывающее благодарственное сообщение после скачивания */
@@ -685,7 +651,7 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   opacity: 0;
   transform: translate(-50%, 18px) scale(.95);
   pointer-events: none;
-  transition: opacity .3s ease, transform .4s cubic-bezier(.34, 1.56, .64, 1);
+  transition: opacity .3s ease, transform .4s var(--ease-spring);
 }
 
 .sign-thanks-toast.is-shown {
@@ -697,27 +663,9 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
   display: none !important;
 }
 
-@keyframes mascotIdle {
-  0%, 100% { transform: rotate(0deg) translateY(0); }
-  50% { transform: rotate(-1.6deg) translateY(-3px); }
-}
-
 @keyframes mascotPoint {
   from { transform: translateX(0) rotate(0deg); }
   to { transform: translateX(9px) rotate(4deg); }
-}
-
-@keyframes mascotBounce {
-  0% { transform: scale(1) translateY(0); }
-  35% { transform: scale(1.08, .94) translateY(3px); }
-  65% { transform: scale(.96, 1.06) translateY(-10px) rotate(-3deg); }
-  100% { transform: scale(1) translateY(0) rotate(0deg); }
-}
-
-@keyframes sparkFly {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(.5); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15) rotate(18deg); }
 }
 
 @keyframes albumShimmer {
@@ -746,10 +694,6 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
 }
 
 @media (max-width: 900px) {
-  .signs-section::after {
-    display: none;
-  }
-
   .signs-speech-bubble {
     position: absolute;
     right: 0;
@@ -757,16 +701,16 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
     z-index: 12;
     width: max-content;
     max-width: min(240px, 72vw);
+    padding: 9px 13px;
+    border: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line));
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--bg) 92%, var(--panel));
+    text-align: left;
+    box-shadow: 0 8px 22px #0006;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-6px) scale(.96);
     pointer-events: none;
-  }
-
-  .signs-speech-bubble::after {
-    right: 36px;
-    top: -7px;
-    transform: rotate(-45deg);
   }
 
   .signs-speech-bubble.is-mobile-open {
@@ -846,77 +790,19 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
     gap: 8px;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .signs-mascot-btn,
-  .sign-album,
-  .sign-album-media img,
-  .sign-open,
-  .sign-dialog-media,
-  .sign-album:first-child::before,
-  .sign-album.is-spotlight::after,
-  .sign-new-badge,
-  .mascot-spark,
-  .tap-spark {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .signs-mascot-btn {
-    opacity: 1;
-    transform: none;
-  }
-
-  .sign-support-callout:has(.sign-callout-btn:hover) .sign-callout-mascot {
-    animation: none !important;
-  }
-}
-/* Заменяем комиксное облачко на лёгкую афишную подпись без рамки и хвостика */
-.signs-section::after {
-  display: none;
-}
-
-.signs-speech-bubble {
-  background: none;
-  border: 0;
-  border-right: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
-  border-radius: 0;
-  box-shadow: none;
-  padding: 4px 16px 4px 0;
-  max-width: 225px;
-  text-align: right;
-  font-family: var(--font-serif, Georgia, serif);
-  font-style: italic;
-  font-size: 16.5px;
-  line-height: 1.35;
-  color: color-mix(in srgb, var(--gold) 88%, var(--text));
-}
-
-.signs-speech-bubble::after {
-  display: none;
-}
-
-/* Мягкое сценическое свечение позади клубнички */
-.signs-hero-mascot::before {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--gold) 24%, transparent) 0%, transparent 72%);
-  z-index: -1;
-  pointer-events: none;
-}
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-themes.css"><link rel="stylesheet" href="site-common.css">
+<link rel="stylesheet" href="css/site-anim.css?v=1">
 <script src="site-config.js"></script>
 <script src="site-analytics.js" defer></script>
 <script src="site-settings.js"></script>
+<script src="js/site-anim.js?v=1" defer></script>
 </head>
 <body>
 <script src="site-header.js" data-page="signs.html"></script>
 <main class="wrap">
-  <section class="signs-section">
+  <section class="signs-section" data-no-reveal>
     <div class="signs-hero-row">
       <div class="signs-hero-copy">
         <div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div>
@@ -924,8 +810,8 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
         <p>Маленькие музыкальные приветы для вас! Здесь можно посмотреть фотографии и видео, а также скачать оригинал в полном качестве.</p>
       </div>
       <div class="signs-hero-mascot-wrap">
-        <div class="signs-speech-bubble" id="hero-mascot-bubble">Найдите своё клубничное послание!</div>
-        <button type="button" class="signs-mascot-btn signs-hero-mascot" id="hero-mascot-btn" data-mascot-hint="mascot-hero.webp" aria-label="Подсказка от клубнички">
+        <div class="signs-speech-bubble" id="hero-mascot-bubble" data-mascot-bubble>Найдите своё клубничное послание!</div>
+        <button type="button" class="signs-mascot-btn signs-hero-mascot" id="hero-mascot-btn" data-mascot data-mascot-flip data-mascot-bubble="#hero-mascot-bubble" data-lines="Найдите своё клубничное послание!|Откройте любой альбом и заберите фото или видео в оригинале.|Новые сигны появляются после прямых эфиров!|Нажмите на карточку внутри альбома, чтобы скачать файл на память." data-mascot-hint="mascot-hero.webp" aria-label="Подсказка от клубнички">
           <img src="signs/mascot-hero.webp" alt="" width="164" height="164" decoding="async" onerror="this.parentElement.classList.add('is-placeholder');this.remove()">
         </button>
       </div>
@@ -948,8 +834,8 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
       <p class="sign-end-note" id="sign-end-note" hidden></p>
     </div>
 
-    <aside class="sign-support-callout" aria-label="Оставить доброе слово">
-      <button type="button" class="signs-mascot-btn sign-callout-mascot" id="support-mascot-btn" data-mascot-hint="mascot-support.webp" aria-label="Подсказка от казачка">
+    <aside class="sign-support-callout" data-reveal aria-label="Оставить доброе слово">
+      <button type="button" class="signs-mascot-btn sign-callout-mascot" id="support-mascot-btn" data-mascot data-mascot-hint="mascot-support.webp" aria-label="Подсказка от казачка">
         <img src="signs/mascot-support.webp" alt="" width="124" height="124" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('is-placeholder');this.remove()">
       </button>
       <div class="sign-callout-copy">
@@ -957,7 +843,7 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
         <h2>Нашли своё имя? Напишите доброе слово под записью эфира</h2>
         <p>Тёплый отзыв лучше оставить именно в комментариях под записью на YouTube или в VK Видео — сообщения из чата трансляции после эфира не сохраняются.</p>
       </div>
-      <a class="primary sign-callout-btn" href="support.html#comment-section">Оставить доброе слово</a>
+      <a class="primary sign-callout-btn cta-sheen" href="support.html#comment-section">Оставить доброе слово</a>
     </aside>
 
     <noscript>Для просмотра галереи включите JavaScript.</noscript>
@@ -971,49 +857,123 @@ html.reload-top{scroll-behavior:auto!important;overflow-anchor:none}html.reload-
 const albums=(Array.isArray(window.SIGN_ALBUMS)?window.SIGN_ALBUMS:[]).filter(a=>a.items?.length).slice().sort((a,b)=>b.date.localeCompare(a.date));
 const albumGrid=document.getElementById('sign-albums'),gallery=document.getElementById('sign-gallery'),albumTitle=document.getElementById('sign-album-title'),grid=document.getElementById('sign-grid'),endNote=document.getElementById('sign-end-note'),dialog=document.getElementById('sign-dialog'),media=document.getElementById('sign-media'),count=document.getElementById('sign-count');
 const filters=[...document.querySelectorAll('[data-sign-filter]')];
-const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let album=null,list=[],selected=0,trigger=null,albumTrigger=null;
+const reducedQuery=matchMedia('(prefers-reduced-motion: reduce)');
+const isAnimOff=()=>document.documentElement.dataset.anim==='off'||(!document.documentElement.dataset.anim&&reducedQuery.matches);
+let album=null,list=[],selected=0,trigger=null,albumTrigger=null,openRequestId=0;
+const prefetchedUrls=new Set();
 
 const dateLabel=date=>new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(date+'T00:00:00Z')).replace(/\s*г\.$/,'');
 const noun=(n,forms)=>forms[n%100>=11&&n%100<=14?2:n%10===1?0:n%10>=2&&n%10<=4?1:2];
 const title=x=>x.type==='video'?'Видео-сигна':'Фото-сигна';
+const findAlbumByDate=dateStr=>albums.find(a=>a.date===dateStr)||null;
 function download(a,x){a.href=x.original;a.download=x.name;a.textContent='Скачать'}
 function previews(play){for(const v of grid.querySelectorAll('video')){if(play)v.play().catch(()=>{});else v.pause()}}
 
-function spawnSparks(x,y,countSparks=4){
-  if(reducedMotion)return;
-  const icons=['✦','♫','🍓','✨'];
-  for(let i=0;i<countSparks;i++){
-    const s=document.createElement('span');
-    s.className='tap-spark';
-    s.textContent=icons[i%icons.length];
-    s.style.left=x+'px';
-    s.style.top=y+'px';
-    s.style.setProperty('--dx',(Math.random()*96-48).toFixed(0)+'px');
-    s.style.setProperty('--dy',(-36-Math.random()*48).toFixed(0)+'px');
-    document.body.append(s);
-    s.addEventListener('animationend',()=>s.remove(),{once:true});
+function clearCardLoading(){
+  for(const btn of grid.querySelectorAll('.sign-open.is-loading')){
+    btn.classList.remove('is-loading');
+    btn.removeAttribute('aria-busy');
   }
 }
 
-function openAt(i){
+function prefetchNeighbors(){
+  if(list.length<2)return;
+  const neighbors=[
+    list[(selected+1)%list.length],
+    list[(selected-1+list.length)%list.length]
+  ];
+  for(const item of neighbors){
+    if(!item||item.type==='video'||!item.original||prefetchedUrls.has(item.original))continue;
+    prefetchedUrls.add(item.original);
+    const img=new Image();
+    img.decoding='async';
+    img.src=item.original;
+  }
+}
+
+function applySwipeClass(swipeDir){
+  if(!swipeDir||isAnimOff())return;
+  media.classList.remove('slide-left','slide-right');
+  void media.offsetWidth;
+  media.classList.add(swipeDir);
+}
+
+function openAt(i,swipeDir=''){
   if(!list.length)return;
-  selected=(i+list.length)%list.length;const x=list[selected];
-  media.replaceChildren();
-  const el=document.createElement(x.type==='video'?'video':'img');
+  const reqId=++openRequestId;
+  selected=(i+list.length)%list.length;
+  const x=list[selected];
+
   if(x.type==='video'){
+    clearCardLoading();
+    media.classList.remove('is-loading');
+    media.replaceChildren();
+    const el=document.createElement('video');
     el.controls=true;el.playsInline=true;el.autoplay=true;el.preload='auto';el.poster=x.poster;
     el.addEventListener('error',()=>{
       if(!el.isConnected||x.original===x.preview)return;
       const note=document.createElement('p');note.textContent='Исходное видео не удалось воспроизвести. Показываем облегчённую версию; оригинал доступен для скачивания.';
       media.append(note);el.src=x.preview;el.play().catch(()=>{});
     },{once:true});
-  }else el.alt=title(x);
-  el.src=x.original;media.append(el);
-  document.getElementById('sign-dialog-title').textContent='Сигна · '+(selected+1)+' из '+list.length;
-  download(document.getElementById('sign-original'),x);
-  if(!dialog.open){previews(false);dialog.showModal()}
-  if(x.type==='video')el.play().catch(()=>{});
+    el.src=x.original;
+    media.append(el);
+    document.getElementById('sign-dialog-title').textContent='Сигна · '+(selected+1)+' из '+list.length;
+    download(document.getElementById('sign-original'),x);
+    if(!dialog.open){previews(false);dialog.showModal()}
+    applySwipeClass(swipeDir);
+    el.play().catch(()=>{});
+    return;
+  }
+
+  /* Для фото сначала полностью загружаем и декодируем картинку в кэш, и только потом открываем/обновляем окно */
+  clearCardLoading();
+  if(dialog.open){
+    media.classList.add('is-loading');
+  }else if(trigger){
+    trigger.classList.add('is-loading');
+    trigger.setAttribute('aria-busy','true');
+  }
+
+  const showLoadedImage=srcToUse=>{
+    if(reqId!==openRequestId)return;
+    prefetchedUrls.add(srcToUse);
+    clearCardLoading();
+    media.classList.remove('is-loading');
+    media.replaceChildren();
+    const el=document.createElement('img');
+    el.alt=title(x);
+    el.src=srcToUse;
+    media.append(el);
+    document.getElementById('sign-dialog-title').textContent='Сигна · '+(selected+1)+' из '+list.length;
+    download(document.getElementById('sign-original'),x);
+    if(!dialog.open){
+      previews(false);
+      dialog.showModal();
+    }
+    applySwipeClass(swipeDir);
+    prefetchNeighbors();
+  };
+
+  const loader=new Image();
+  loader.decoding='async';
+  loader.onload=()=>{
+    if(reqId!==openRequestId)return;
+    if(typeof loader.decode==='function'){
+      loader.decode().catch(()=>{}).then(()=>showLoadedImage(x.original));
+    }else{
+      showLoadedImage(x.original);
+    }
+  };
+  loader.onerror=()=>{
+    if(reqId!==openRequestId)return;
+    if(x.poster&&x.poster!==x.original){
+      showLoadedImage(x.poster);
+    }else{
+      clearCardLoading();
+      media.classList.remove('is-loading');
+    }
+  };
+  loader.src=x.original;
 }
 
 function render(){
@@ -1021,7 +981,7 @@ function render(){
   if(!list.length){
     endNote.hidden=true;
     const empty=document.createElement('div');empty.className='sign-empty-state';
-    const slot=document.createElement('div');slot.className='signs-mascot-btn sign-empty-mascot is-in';slot.dataset.mascotHint='mascot-empty.webp';
+    const slot=document.createElement('div');slot.className='signs-mascot-btn sign-empty-mascot';slot.dataset.mascotHint='mascot-empty.webp';
     const mascot=document.createElement('img');mascot.src='signs/mascot-empty.webp';mascot.alt='';mascot.width=96;mascot.height=96;mascot.loading='lazy';mascot.decoding='async';
     mascot.addEventListener('error',()=>{
       if(!mascot.dataset.fallbackTried){
@@ -1054,21 +1014,21 @@ function render(){
   if(!dialog.open)previews(true);
 }
 
-/* Живые обложки альбомов (плавная смена до 3 превью) */
+/* Живые обложки альбомов (плавная смена до 3 превью, отключается при data-anim="off") */
 const coverTimers=[];
 function stopCoverLoops(){
   while(coverTimers.length)clearInterval(coverTimers.pop());
 }
 function startCoverLoops(){
   stopCoverLoops();
-  if(reducedMotion||document.hidden||albumGrid.hidden)return;
+  if(isAnimOff()||document.hidden||albumGrid.hidden)return;
   for(const card of albumGrid.querySelectorAll('.sign-album[data-posters]')){
     const posters=JSON.parse(card.dataset.posters||'[]');
     if(posters.length<2)continue;
     const delay=Number(card.dataset.idx||0)*1100;
     let step=0;
     const run=()=>{
-      if(albumGrid.hidden||document.hidden)return;
+      if(isAnimOff()||albumGrid.hidden||document.hidden)return;
       step=(step+1)%posters.length;
       const wrap=card.querySelector('.sign-album-media');
       const current=wrap?.querySelector('img:not(.is-next)');
@@ -1079,6 +1039,7 @@ function startCoverLoops(){
       next.className='is-next';
       next.decoding='async';
       next.onload=()=>{
+        if(isAnimOff())return;
         wrap.append(next);
         requestAnimationFrame(()=>{
           next.classList.remove('is-next');
@@ -1095,12 +1056,58 @@ function startCoverLoops(){
 }
 
 function filter(f){list=f==='all'?album.items:album.items.filter(x=>x.type===f);for(const b of filters)b.setAttribute('aria-pressed',String(b.dataset.signFilter===f));render()}
-function openAlbum(a,button){stopCoverLoops();album=a;albumTrigger=button;albumTitle.textContent=dateLabel(a.date);albumGrid.hidden=true;gallery.hidden=false;filter('all');document.getElementById('sign-back').focus({preventScroll:true})}
-function showAlbums(){previews(false);grid.replaceChildren();endNote.hidden=true;gallery.hidden=true;albumGrid.hidden=false;album=null;list=[];startCoverLoops();albumTrigger?.focus({preventScroll:true})}
+
+function openAlbum(a,button,opts={}){
+  const {pushHistory=true}=opts;
+  stopCoverLoops();
+  album=a;
+  if(button)albumTrigger=button;
+  albumTitle.textContent=dateLabel(a.date);
+  albumGrid.hidden=true;
+  gallery.hidden=false;
+  filter('all');
+  document.getElementById('sign-back').focus({preventScroll:true});
+  if(pushHistory){
+    try{
+      const hash='#album-'+encodeURIComponent(a.date);
+      if(history.state?.signAlbum!==a.date){
+        history.pushState({signAlbum:a.date},'',hash);
+      }
+    }catch{}
+  }
+}
+
+function showAlbums(opts={}){
+  const {syncHistory=false}=opts;
+  openRequestId++;
+  clearCardLoading();
+  if(dialog.open)dialog.close();
+  previews(false);
+  grid.replaceChildren();
+  endNote.hidden=true;
+  gallery.hidden=true;
+  albumGrid.hidden=false;
+  album=null;
+  list=[];
+  startCoverLoops();
+  albumTrigger?.focus({preventScroll:true});
+  if(syncHistory){
+    try{
+      if(location.hash.startsWith('#album-')){
+        history.replaceState(null,'',location.pathname+location.search);
+      }
+    }catch{}
+  }
+}
 
 albums.forEach((a,idx)=>{
   const button=document.createElement('button');button.type='button';button.className='sign-album';button.dataset.idx=String(idx);
-  const posters=[...new Set([a.cover,...a.items.map(x=>x.poster)].filter(Boolean))].slice(0,3);
+  button.setAttribute('data-spotlight','');
+  const videoPosters=new Set(a.items.filter(x=>x.type==='video').map(x=>x.poster).filter(Boolean));
+  const safeCover=a.cover&&!videoPosters.has(a.cover)?a.cover:null;
+  const photoPosters=a.items.filter(x=>x.type!=='video').map(x=>x.poster).filter(Boolean);
+  const animPosters=[...new Set([safeCover,...photoPosters].filter(Boolean))].slice(0,3);
+  const posters=animPosters.length>=2?animPosters:[a.cover||photoPosters[0]||a.items[0]?.poster].filter(Boolean);
   button.dataset.posters=JSON.stringify(posters);
 
   if(idx===0){
@@ -1119,92 +1126,62 @@ albums.forEach((a,idx)=>{
   info.append(heading,summary);
 
   button.append(mediaWrap,info);
-  button.addEventListener('click',e=>{
-    if(e.clientX&&e.clientY)spawnSparks(e.clientX,e.clientY,4);
-    openAlbum(a,button);
+  button.addEventListener('click',()=>{
+    window.ClubnikaAnim?.burst?.(button,{icons:['🍓','♫','✦','✨'],count:4});
+    openAlbum(a,button,{pushHistory:true});
   });
   albumGrid.append(button);
 });
 
 if(!albums.length){const p=document.createElement('p');p.textContent='Пока нет альбомов.';albumGrid.append(p)}
 
-/* Подсветка альбома при скролле на смартфонах и появление маскотов */
-if('IntersectionObserver' in window){
-  const spotObserver=new IntersectionObserver(entries=>{
-    for(const entry of entries){
-      entry.target.classList.toggle('is-spotlight',entry.isIntersecting);
+/* Поддержка кнопки «Назад» в браузере/смартфоне и прямых ссылок #album-YYYY-MM-DD */
+window.addEventListener('popstate',e=>{
+  const stateDate=e.state?.signAlbum;
+  const hashDate=location.hash.startsWith('#album-')?decodeURIComponent(location.hash.slice(7)):null;
+  const targetAlbum=findAlbumByDate(stateDate||hashDate);
+  if(targetAlbum){
+    if(album?.date!==targetAlbum.date){
+      openAlbum(targetAlbum,null,{pushHistory:false});
     }
-  },{rootMargin:'-22% 0px -22% 0px',threshold:.35});
-  for(const card of albumGrid.querySelectorAll('.sign-album'))spotObserver.observe(card);
+  }else if(album){
+    showAlbums({syncHistory:false});
+  }
+});
 
-  const mascotObserver=new IntersectionObserver(entries=>{
-    for(const entry of entries){
-      if(entry.isIntersecting){
-        entry.target.classList.add('is-in');
-        mascotObserver.unobserve(entry.target);
-      }
-    }
-  },{threshold:.2});
-  for(const b of document.querySelectorAll('.signs-mascot-btn'))mascotObserver.observe(b);
-}else{
-  for(const b of document.querySelectorAll('.signs-mascot-btn'))b.classList.add('is-in');
+if(location.hash.startsWith('#album-')){
+  const initialAlbum=findAlbumByDate(decodeURIComponent(location.hash.slice(7)));
+  if(initialAlbum){
+    try{history.replaceState({signAlbum:initialAlbum.date},'',location.hash)}catch{}
+    openAlbum(initialAlbum,null,{pushHistory:false});
+  }
 }
+
+window.ClubnikaAnim?.refresh?.();
 
 startCoverLoops();
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden)stopCoverLoops();
   else startCoverLoops();
 });
+document.addEventListener('clubnika:animchange',()=>{
+  if(isAnimOff())stopCoverLoops();
+  else startCoverLoops();
+});
 
-/* Интерактив маскотов и реплики */
-const phrases=[
-  'Найдите своё клубничное послание!',
-  'Откройте любой альбом и заберите фото или видео в оригинале.',
-  'Новые сигны появляются после прямых эфиров!',
-  'Нажмите на карточку внутри альбома, чтобы скачать файл на память.'
-];
-let phraseIdx=0;
-const bubble=document.getElementById('hero-mascot-bubble');
-
-function exciteMascot(btn,changeText){
-  if(!btn)return;
-  const now=Date.now();
-  if(now-(Number(btn.dataset.lastExcite)||0)<350)return;
-  btn.dataset.lastExcite=String(now);
-
-  btn.classList.remove('is-excited');
-  void btn.offsetWidth;
-  btn.classList.add('is-excited');
-
-  const rect=btn.getBoundingClientRect();
-  spawnSparks(rect.left+rect.width/2,rect.top+rect.height*.38,4);
-
-  if(changeText&&bubble){
-    phraseIdx=(phraseIdx+1)%phrases.length;
-    bubble.classList.add('is-switching');
-    setTimeout(()=>{
-      bubble.textContent=phrases[phraseIdx];
-      bubble.classList.remove('is-switching');
-    },180);
-    bubble.classList.add('is-mobile-open');
-    clearTimeout(bubble._hideTimer);
-    bubble._hideTimer=setTimeout(()=>bubble.classList.remove('is-mobile-open'),3800);
-  }
-}
-
-const heroBtn=document.getElementById('hero-mascot-btn');
+/* Навигация, свайпы на смартфоне и благодарность при скачивании */
 const supportBtn=document.getElementById('support-mascot-btn');
-heroBtn?.addEventListener('click',()=>exciteMascot(heroBtn,true));
-heroBtn?.addEventListener('mouseenter',()=>exciteMascot(heroBtn,false));
-supportBtn?.addEventListener('click',()=>exciteMascot(supportBtn,false));
-supportBtn?.addEventListener('mouseenter',()=>exciteMascot(supportBtn,false));
-
-/* Навигация, свайпы на смартфоне и тост благодарности при скачивании */
 for(const b of filters)b.addEventListener('click',()=>filter(b.dataset.signFilter));
-document.getElementById('sign-back').onclick=showAlbums;
+document.getElementById('sign-back').onclick=()=>{
+  if(history.state?.signAlbum){
+    history.back();
+  }else{
+    showAlbums({syncHistory:true});
+  }
+};
 document.getElementById('sign-close').onclick=()=>dialog.close();
-document.getElementById('sign-prev').onclick=()=>openAt(selected-1);
-document.getElementById('sign-next').onclick=()=>openAt(selected+1);
+document.getElementById('sign-prev').onclick=()=>openAt(selected-1,'slide-right');
+document.getElementById('sign-next').onclick=()=>openAt(selected+1,'slide-left');
 
 let touchStartX=0,touchStartY=0;
 media.addEventListener('touchstart',e=>{
@@ -1218,20 +1195,16 @@ media.addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-touchStartX;
   const dy=e.changedTouches[0].clientY-touchStartY;
   if(Math.abs(dx)<48||Math.abs(dx)<Math.abs(dy))return;
-  media.classList.remove('slide-left','slide-right');
-  void media.offsetWidth;
   if(dx<0){
-    openAt(selected+1);
-    media.classList.add('slide-left');
+    openAt(selected+1,'slide-left');
   }else{
-    openAt(selected-1);
-    media.classList.add('slide-right');
+    openAt(selected-1,'slide-right');
   }
 },{passive:true});
 
 dialog.addEventListener('keydown',e=>{
-  if(e.key==='ArrowLeft')openAt(selected-1);
-  else if(e.key==='ArrowRight')openAt(selected+1);
+  if(e.key==='ArrowLeft')openAt(selected-1,'slide-right');
+  else if(e.key==='ArrowRight')openAt(selected+1,'slide-left');
 });
 
 const toast=document.createElement('div');
@@ -1242,14 +1215,26 @@ document.body.append(toast);
 
 let toastTimer=null;
 document.getElementById('sign-original')?.addEventListener('click',e=>{
-  if(e.clientX&&e.clientY)spawnSparks(e.clientX,e.clientY,5);
+  const btn=e.currentTarget;
+  window.ClubnikaAnim?.burst?.(btn,{icons:['🍓','♫','✨','✦'],count:5});
   toast.classList.add('is-shown');
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>toast.classList.remove('is-shown'),3600);
-  if(supportBtn)exciteMascot(supportBtn,false);
+  if(supportBtn&&!isAnimOff()){
+    supportBtn.classList.remove('is-excited');
+    void supportBtn.offsetWidth;
+    supportBtn.classList.add('is-excited');
+  }
 });
 
-dialog.addEventListener('close',()=>{media.replaceChildren();previews(true);trigger?.focus({preventScroll:true})});
+dialog.addEventListener('close',()=>{
+  openRequestId++;
+  clearCardLoading();
+  media.classList.remove('is-loading');
+  media.replaceChildren();
+  previews(true);
+  trigger?.focus({preventScroll:true});
+});
 dialog.addEventListener('click',e=>{if(e.target===dialog&&e.offsetX<0)dialog.close()});
 })();
 </script>

@@ -10,7 +10,7 @@
     <ellipse cx="152" cy="40" rx="6.5" ry="4.5" transform="rotate(-18 152 40)" fill="currentColor" stroke="none"/>
     <path d="M158 39V12c5 4 11 6 15 11" stroke-width="1.6"/>
   </svg>
-  <div class="eyebrow">МОЁ ТВОРЧЕСТВО</div><h2>Авторские песни</h2>
+  <div class="eyebrow">МОЁ ТВОРЧЕСТВО <span class="eq-bars is-playing" aria-hidden="true"><span></span><span></span><span></span></span></div><h2>Авторские песни</h2>
   <p>В каждой мелодии — частичка моей души. Выберите любимую композицию и послушайте её на удобной площадке.</p>
   <div id="original-chips" class="original-chips" aria-label="Авторские песни">
     <a class="outline" href="originals.html" data-song="Василёк">Василёк</a>

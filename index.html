@@ -960,19 +960,185 @@ html.reload-top body{overflow-anchor:none}
     transition: none;
   }
 }
+
+/* Блок случайных сигн на главной (#home-signs) */
+.home-signs-section {
+  margin: 14px 0;
+  padding: clamp(16px, 3.3vw, 30px);
+  background: var(--panel);
+}
+
+.home-signs-section .sectionhead {
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.home-signs-section .sectionhead p {
+  margin-top: 8px;
+  max-width: 64ch;
+}
+
+.home-signs-shuffle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  min-height: 40px;
+  font-size: 13.5px;
+  border-color: color-mix(in srgb, var(--gold) 60%, var(--line));
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.home-signs-shuffle:hover {
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  border-color: var(--gold);
+}
+
+.home-signs-shuffle-icon {
+  display: inline-block;
+  transition: transform 360ms var(--ease-out, ease);
+}
+
+html.anim-ready:not([data-anim="off"]) .home-signs-shuffle.is-spinning .home-signs-shuffle-icon {
+  transform: rotate(360deg);
+}
+
+.home-signs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.home-sign-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--gold) 36%, var(--line));
+  border-radius: 14px;
+  background: var(--bg);
+  color: var(--text);
+  transition: transform 180ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+@media (hover: hover) {
+  html.anim-ready:not([data-anim="off"]) .home-sign-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  }
+}
+
+html.anim-ready:not([data-anim="off"]) .home-sign-card:active {
+  transform: scale(0.972);
+  transition-duration: 100ms;
+}
+
+.home-sign-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg) 70%, var(--panel));
+}
+
+.home-sign-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 420ms var(--ease-out, ease);
+}
+
+@media (hover: hover) {
+  html.anim-ready:not([data-anim="off"]) .home-sign-card:hover .home-sign-thumb img {
+    transform: scale(1.04);
+  }
+}
+
+.home-sign-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 13px;
+}
+
+.home-sign-date {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--gold);
+}
+
+.home-sign-arrow {
+  font-size: 13px;
+  color: var(--muted);
+  flex: none;
+}
+
+.home-signs-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.home-signs-footer small {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+@media (max-width: 900px) {
+  .home-signs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .home-signs-section {
+    margin: 12px 0;
+  }
+
+  .home-signs-grid {
+    gap: 10px;
+  }
+
+  .home-sign-info {
+    padding: 9px 10px;
+  }
+
+  .home-sign-date {
+    font-size: 12.5px;
+  }
+
+  .home-signs-footer .outline,
+  .home-signs-shuffle {
+    width: 100%;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-themes.css"><link rel="stylesheet" href="site-common.css">
+<link rel="stylesheet" href="css/site-anim.css?v=1">
 <script src="site-config.js"></script>
 <script src="site-analytics.js" defer></script>
 <script src="site-settings.js"></script>
+<script src="js/site-anim.js?v=1" defer></script>
 </head>
 <body class="site-unified-panels">
 <script src="site-header.js" data-page="index.html"></script>
 <main class="wrap">
 <script src="site-live-panel.js" data-show-order></script>
 <section id="news" class="home-premiere-section" aria-label="Анонс новой песни"><article class="premiere-banner home-premiere" aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>Скоро поделюсь с вами новой песней! 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article></section>
-<section class="hero"><h1 class="eyebrow hero-heading">ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных эфирах звучат любимые песни, душевные мелодии и мои авторские композиции. Мне нравится открывать знакомую музыку заново и делиться с вами новыми песнями. Здесь можно выбрать композицию для ближайшего эфира, спеть вместе со мной и просто провести вечер в тёплой компании. Буду рада видеть вас в нашей клубничной семье! 🍓</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong>10</strong><span>Авторских песен </span></a><a href="shorts.html"><strong id="hero-views">69,3 млн</strong><span>Просмотров <svg class="youtube-button-icon" viewBox="-7 -7 31 31" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg></span></a></div><script src="viewer-comments.js"></script><script src="site-viewer-quotes.js" data-show-support></script></div></section>
+<section class="hero"><h1 class="eyebrow hero-heading">ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных эфирах звучат любимые песни, душевные мелодии и мои авторские композиции. Мне нравится открывать знакомую музыку заново и делиться с вами новыми песнями. Здесь можно выбрать композицию для ближайшего эфира, спеть вместе со мной и просто провести вечер в тёплой компании. Буду рада видеть вас в нашей клубничной семье! 🍓</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total" data-count="734">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong data-count="10">10</strong><span>Авторских песен </span></a><a href="shorts.html"><strong id="hero-views" data-count="auto">69,3 млн</strong><span>Просмотров <svg class="youtube-button-icon" viewBox="-7 -7 31 31" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg></span></a></div><script src="viewer-comments.js"></script><script src="site-viewer-quotes.js" data-show-support></script></div></section>
 <div class="home-feature-pair">
 <script src="site-tv-card.js"></script>
 <script src="site-original-songs.js"></script>
@@ -1003,7 +1169,10 @@ html.reload-top body{overflow-anchor:none}
   let items = [];
   let activeIndex = 0;
   let timer = null;
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reducedQuery = matchMedia("(prefers-reduced-motion: reduce)");
+  const isAnimDisabled = () =>
+    document.documentElement.dataset.anim === "off" ||
+    (!document.documentElement.dataset.anim && reducedQuery.matches);
 
   function formatViews(num) {
     const n = Number(num);
@@ -1048,7 +1217,7 @@ html.reload-top body{overflow-anchor:none}
       const extraHtml = renderExtra(item);
 
       return `
-        <a class="short-slide-card" href="${esc(href)}" target="_blank" rel="noopener noreferrer">
+        <a class="short-slide-card" data-spotlight href="${esc(href)}" target="_blank" rel="noopener noreferrer">
           <span class="short-slide-thumb">
             ${cover ? `<img src="${esc(cover)}" ${fallback ? `data-fallback="${esc(fallback)}"` : ""} alt="${esc(item.title)}" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.removeAttribute('data-fallback');}">` : ""}
             <span class="short-slide-badge">Shorts</span>
@@ -1066,6 +1235,7 @@ html.reload-top body{overflow-anchor:none}
     activeIndex = 0;
     viewport.scrollLeft = 0;
     root.hidden = false;
+    window.ClubnikaAnim?.refresh?.();
   }
 
   function stepTo(targetIdx, smooth = true) {
@@ -1075,7 +1245,7 @@ html.reload-top body{overflow-anchor:none}
     if (cardEl) {
       viewport.scrollTo({
         left: cardEl.offsetLeft - track.offsetLeft,
-        behavior: smooth && !reducedMotion ? "smooth" : "auto"
+        behavior: smooth && !isAnimDisabled() ? "smooth" : "auto"
       });
     }
   }
@@ -1087,7 +1257,7 @@ html.reload-top body{overflow-anchor:none}
 
   function startAutoplay() {
     stopAutoplay();
-    if (reducedMotion || document.hidden || items.length <= 1) return;
+    if (isAnimDisabled() || document.hidden || items.length <= 1) return;
     timer = setInterval(() => stepTo(activeIndex + STEP, true), AUTOPLAY_MS);
   }
 
@@ -1096,6 +1266,7 @@ html.reload-top body{overflow-anchor:none}
   viewport.addEventListener("focusin", stopAutoplay);
   viewport.addEventListener("focusout", startAutoplay);
   document.addEventListener("visibilitychange", () => (document.hidden ? stopAutoplay() : startAutoplay()));
+  document.addEventListener("clubnika:animchange", () => (isAnimDisabled() ? stopAutoplay() : startAutoplay()));
 
   viewport.addEventListener("scroll", () => {
     const first = track.children[0];
@@ -1122,9 +1293,140 @@ html.reload-top body{overflow-anchor:none}
   <div class="shorts-footer"><small id="shorts-updated">Просмотры по данным YouTube на 23 ноября 2026 г.</small><a class="outline youtube-button" href="shorts.html"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Все переводы и каверы</span></a></div>
 </section>
 
+<section class="feature-section home-signs-section" id="home-signs" hidden aria-label="Случайные сигны для зрителей">
+  <div class="sectionhead">
+    <div>
+      <div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div>
+      <h2>Сигны с эфиров</h2>
+      <p>Тёплые фото-приветы для зрителей. Нажмите на карточку, чтобы открыть альбом и скачать оригинал.</p>
+    </div>
+    <button type="button" class="outline home-signs-shuffle" id="home-signs-shuffle">
+      <span class="home-signs-shuffle-icon" aria-hidden="true">↻</span>
+      <span>Другие сигны</span>
+    </button>
+  </div>
+  <div class="home-signs-grid" id="home-signs-grid" data-stagger></div>
+  <div class="home-signs-footer">
+    <small id="home-signs-meta"></small>
+    <a class="outline" href="signs.html">Все альбомы сигн ↗</a>
+  </div>
+</section>
+<script src="signs/data.js"></script>
+<script src="signs/albums.js"></script>
+<script>
+(() => {
+  const section = document.getElementById('home-signs');
+  const grid = document.getElementById('home-signs-grid');
+  const meta = document.getElementById('home-signs-meta');
+  const shuffleBtn = document.getElementById('home-signs-shuffle');
+  if (!section || !grid) return;
+
+  const albums = (Array.isArray(window.SIGN_ALBUMS) ? window.SIGN_ALBUMS : [])
+    .filter(a => a && a.date && Array.isArray(a.items) && a.items.length);
+
+  const pool = [];
+  for (const album of albums) {
+    for (const item of album.items) {
+      if (item && item.type === 'photo' && (item.poster || item.preview || item.original)) {
+        pool.push({
+          date: album.date,
+          src: item.poster || item.preview || item.original
+        });
+      }
+    }
+  }
+
+  if (!pool.length) return;
+
+  const noun = (n, forms) =>
+    forms[n % 100 >= 11 && n % 100 <= 14 ? 2 : n % 10 === 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 ? 1 : 2];
+
+  const formatDate = dateStr =>
+    new Intl.DateTimeFormat('ru-RU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'UTC'
+    })
+      .format(new Date(dateStr + 'T00:00:00Z'))
+      .replace(/\s*г\.$/, '');
+
+  const esc = v =>
+    String(v ?? '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[c]));
+
+  let lastPickedSrc = new Set();
+
+  function pickRandom(count = 4) {
+    let source = pool.filter(x => !lastPickedSrc.has(x.src));
+    if (source.length < count) source = pool.slice();
+    const copy = source.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    const chosen = copy.slice(0, Math.min(count, copy.length));
+    lastPickedSrc = new Set(chosen.map(x => x.src));
+    return chosen;
+  }
+
+  function renderSigns(reanimate = false) {
+    const chosen = pickRandom(4);
+    grid.innerHTML = chosen
+      .map(item => {
+        const href = `signs.html#album-${encodeURIComponent(item.date)}`;
+        const dateText = formatDate(item.date);
+        return `
+          <a class="home-sign-card" data-spotlight href="${esc(href)}">
+            <span class="home-sign-thumb">
+              <img src="${esc(item.src)}" alt="Сигна от ${esc(dateText)}" loading="lazy" decoding="async">
+            </span>
+            <span class="home-sign-info">
+              <span class="home-sign-date">${esc(dateText)}</span>
+              <span class="home-sign-arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+        `;
+      })
+      .join('');
+
+    if (reanimate) {
+      grid.classList.remove('is-revealed', 'is-settled');
+      void grid.offsetWidth;
+      window.ClubnikaAnim?.refresh?.();
+    }
+  }
+
+  if (meta) {
+    const albumsWithPhotos = albums.filter(a => a.items.some(x => x && x.type === 'photo')).length;
+    meta.textContent = `${pool.length} ${noun(pool.length, ['фото-сигна', 'фото-сигны', 'фото-сигн'])} в ${albumsWithPhotos} ${noun(albumsWithPhotos, ['альбоме', 'альбомах', 'альбомах'])}`;
+  }
+
+  if (pool.length <= 4 && shuffleBtn) {
+    shuffleBtn.hidden = true;
+  }
+
+  shuffleBtn?.addEventListener('click', () => {
+    shuffleBtn.classList.remove('is-spinning');
+    void shuffleBtn.offsetWidth;
+    shuffleBtn.classList.add('is-spinning');
+    renderSigns(true);
+  });
+
+  renderSigns(false);
+  section.hidden = false;
+  window.ClubnikaAnim?.refresh?.();
+})();
+</script>
+
 
 <script>
-(()=>{const photos=[{src:'photo_2026-11-22_14-20-12.jpg',alt:'Ника Моисеева в студии звукозаписи'},{src:'photo_2026-11-22_14-26-13.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'},{src:'photo_2026-11-22_14-26-16.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'}];const image=document.getElementById('hero-photo'),controls=document.getElementById('photo-controls');if(photos.length<2)return;let index=0,timer=null,transition=null,request=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const buttons=photos.map((photo,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Фото '+(i+1));b.setAttribute('aria-current',String(i===0));b.addEventListener('click',()=>{show(i);restart()});controls.append(b);return b});controls.hidden=false;function show(i){const token=++request;clearTimeout(transition);image.classList.remove('changing');const next=new Image();next.onload=()=>{if(token!==request)return;function apply(){if(token!==request)return;index=i;image.src=photos[i].src;image.alt=photos[i].alt;image.classList.remove('changing');buttons.forEach((b,j)=>b.setAttribute('aria-current',String(j===i)))}if(reduced){apply();return}image.classList.add('changing');transition=setTimeout(apply,350)};next.onerror=()=>{if(token===request){image.classList.remove('changing');index=i}};next.src=photos[i].src}function restart(){clearInterval(timer);if(!reduced&&!document.hidden)timer=setInterval(()=>show((index+1)%photos.length),6500)}document.addEventListener('visibilitychange',restart);restart()})();
+(()=>{const photos=[{src:'photo_2026-11-22_14-20-12.jpg',alt:'Ника Моисеева в студии звукозаписи'},{src:'photo_2026-11-22_14-26-13.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'},{src:'photo_2026-11-22_14-26-16.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'}];const image=document.getElementById('hero-photo'),controls=document.getElementById('photo-controls');if(photos.length<2)return;let index=0,timer=null,transition=null,request=0;const reducedQuery=matchMedia('(prefers-reduced-motion: reduce)');const isAnimOff=()=>document.documentElement.dataset.anim==='off'||(!document.documentElement.dataset.anim&&reducedQuery.matches);const buttons=photos.map((photo,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Фото '+(i+1));b.setAttribute('aria-current',String(i===0));b.addEventListener('click',()=>{show(i);restart()});controls.append(b);return b});controls.hidden=false;function show(i){const token=++request;clearTimeout(transition);image.classList.remove('changing');const next=new Image();next.onload=()=>{if(token!==request)return;function apply(){if(token!==request)return;index=i;image.src=photos[i].src;image.alt=photos[i].alt;image.classList.remove('changing');buttons.forEach((b,j)=>b.setAttribute('aria-current',String(j===i)))}if(isAnimOff()){apply();return}image.classList.add('changing');transition=setTimeout(apply,350)};next.onerror=()=>{if(token===request){image.classList.remove('changing');index=i}};next.src=photos[i].src}function restart(){clearInterval(timer);if(!isAnimOff()&&!document.hidden)timer=setInterval(()=>show((index+1)%photos.length),6500)}document.addEventListener('visibilitychange',restart);document.addEventListener('clubnika:animchange',restart);restart()})();
 </script>
 
 

@@ -244,6 +244,131 @@ html.reload-top body{overflow-anchor:none}
 @media(max-width:900px){.shorts-page .shorts-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:740px){.shorts-page .shorts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shorts-page .shorts-controls{align-items:stretch;flex-direction:column}.shorts-page .shorts-sort{justify-content:space-between}.shorts-page .short-copy{padding:10px}.shorts-page .short-copy strong{font-size:15px}.shorts-page .short-views{font-size:14px}}
 .shorts-page .shorts-song-filter{margin-bottom:14px}.shorts-page .shorts-song-filter[hidden]{display:none!important}.short-copy .short-category:not(:first-child){border:0;padding:0;font-size:13px;overflow-wrap:anywhere}
+/* Compact layout for shorts.html (#translations) */
+.shorts-page .shorts-section {
+  margin: 14px 0;
+  padding: clamp(14px, 2.2vw, 22px);
+  border-radius: 16px;
+}
+.shorts-page .sectionhead {
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.shorts-page h1 {
+  font-size: clamp(32px, 4.2vw, 48px);
+  margin: 4px 0 6px;
+}
+.shorts-page .sectionhead p {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.shorts-page .shorts-total {
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+.shorts-page .shorts-total strong {
+  font-size: clamp(24px, 3vw, 34px);
+}
+.shorts-page .shorts-controls {
+  gap: 10px;
+  margin: 12px 0 8px;
+}
+.shorts-page .search input {
+  padding: 10px 0;
+}
+.shorts-page .shorts-sort select {
+  min-height: 38px;
+  padding: 6px 12px;
+}
+.shorts-page .filters {
+  gap: 6px;
+  margin: 10px 0;
+}
+.shorts-page .filters button {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+.shorts-page .shorts-count {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.shorts-page .shorts-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.shorts-page .short-card {
+  border-radius: 12px;
+}
+.shorts-page .short-preview {
+  aspect-ratio: 4 / 5;
+  max-height: 250px;
+}
+.shorts-page .short-preview .short-play {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  padding-left: 3px;
+}
+.shorts-page .short-preview .short-badge {
+  top: 8px;
+  left: 8px;
+  padding: 3px 7px;
+  font-size: 11px;
+}
+.shorts-page .short-copy {
+  padding: 9px 11px;
+  gap: 4px;
+}
+.shorts-page .short-copy strong {
+  font-size: 14px;
+  line-height: 1.25;
+}
+.shorts-page .short-category {
+  font-size: 11px;
+  padding: 1px 6px;
+}
+.shorts-page .short-views {
+  font-size: 13px;
+}
+.shorts-page .shorts-footer {
+  margin-top: 12px;
+}
+.shorts-page .shorts-footer .outline {
+  min-height: 38px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+}
+
+@media (max-width: 1024px) {
+  .shorts-page .shorts-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .shorts-page .shorts-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 740px) {
+  .shorts-page .shorts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .shorts-page .short-preview {
+    aspect-ratio: 4 / 5;
+    max-height: 215px;
+  }
+  .shorts-page .short-copy {
+    padding: 8px 9px;
+  }
+  .shorts-page .short-copy strong {
+    font-size: 13.5px;
+  }
+  .shorts-page .short-views {
+    font-size: 12.5px;
+  }
+}
 </style>
 <link rel="stylesheet" href="site-nav.css">
 <link rel="stylesheet" href="site-themes.css"><link rel="stylesheet" href="site-common.css">

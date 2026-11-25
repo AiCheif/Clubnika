@@ -1,0 +1,393 @@
+/* ==========================================================================
+   Clubnika — Единая система анимаций и переходов (css/site-anim.css)
+   Принцип безопасного прогрессивного улучшения:
+   - Без JS или при data-anim="off" все блоки, кнопки и маскоты на 100% видны.
+   - Используются только transform, opacity и clip-path (60 fps на мобильных).
+   - Цвета свечений и акцентов берутся из CSS-переменных текущей темы.
+   ========================================================================== */
+
+:root {
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --anim-fast: 180ms;
+  --anim-med: 440ms;
+  --anim-slow: 620ms;
+}
+
+/* --------------------------------------------------------------------------
+   1. Плавные переходы между страницами (MPA View Transitions)
+   -------------------------------------------------------------------------- */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: var(--ease-out);
+}
+
+/* Круговая «волна» при переключении цветовой темы */
+:root.is-theme-switching::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+
+:root.is-theme-switching::view-transition-new(root) {
+  z-index: 2;
+  animation: clubnikaThemeWave 440ms var(--ease-out) both;
+}
+
+@keyframes clubnikaThemeWave {
+  from {
+    clip-path: circle(0px at var(--wave-x, 50%) var(--wave-y, 92%));
+  }
+  to {
+    clip-path: circle(var(--wave-r, 150vmax) at var(--wave-x, 50%) var(--wave-y, 92%));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Появление блоков при скролле ([data-reveal]) и каскад ([data-stagger])
+   По умолчанию элементы видимы; скрытие включается только при html.anim-ready
+   -------------------------------------------------------------------------- */
+html.anim-ready:not([data-anim="off"]) [data-reveal]:not(.is-revealed):not(.is-settled) {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+html.anim-ready:not([data-anim="off"]) [data-reveal].is-revealed:not(.is-settled) {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--anim-med) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--anim-med) var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+/* После завершения анимации возвращаем transform: none, чтобы не ломать слои */
+[data-reveal].is-settled {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Каскадное появление дочерних элементов (чипы песен, карточки) */
+html.anim-ready:not([data-anim="off"]) [data-stagger]:not(.is-revealed) > * {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+html.anim-ready:not([data-anim="off"]) [data-stagger].is-revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 360ms var(--ease-out) var(--stagger-delay, 0ms),
+    transform 360ms var(--ease-out) var(--stagger-delay, 0ms);
+}
+
+html.anim-ready:not([data-anim="off"]) [data-stagger].is-settled > * {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Тактильный отклик (:active) и мобильный скролл-фокус ([data-spotlight])
+   -------------------------------------------------------------------------- */
+html.anim-ready:not([data-anim="off"]) :is(
+  .primary,
+  .btn,
+  .site-live-order,
+  .premiere-action,
+  .comment-action,
+  .sign-album,
+  .sign-open,
+  .short-card,
+  .shorts-carousel-btn,
+  .chip
+) {
+  transition:
+    transform var(--anim-fast) var(--ease-out),
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    background-color 240ms ease;
+}
+
+html.anim-ready:not([data-anim="off"]) :is(
+  .primary,
+  .btn,
+  .site-live-order,
+  .premiere-action,
+  .comment-action,
+  .sign-album,
+  .sign-open,
+  .short-card,
+  .shorts-carousel-btn,
+  .chip
+):active {
+  transform: scale(0.972);
+  transition-duration: 100ms;
+}
+
+/* Подсветка карточки, оказавшейся в центре экрана на сенсорных устройствах */
+@media (hover: none) {
+  html.anim-ready:not([data-anim="off"]) [data-spotlight].is-spotlight {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--gold) 78%, var(--line));
+    box-shadow:
+      0 12px 26px rgba(0, 0, 0, 0.34),
+      0 0 18px color-mix(in srgb, var(--gold) 20%, transparent);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Фирменный световой блик на главных CTA и свежем альбоме (режим full)
+   -------------------------------------------------------------------------- */
+html.anim-ready[data-anim="full"] :is(.cta-sheen, .site-live-order, .premiere-action) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+html.anim-ready[data-anim="full"] :is(.cta-sheen, .site-live-order, .premiere-action)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 26%,
+    rgba(255, 255, 255, 0.30) 50%,
+    transparent 74%
+  );
+  transform: translateX(-135%);
+  animation: clubnikaCtaSheen 7.5s var(--ease-out) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes clubnikaCtaSheen {
+  0%, 76% {
+    transform: translateX(-135%);
+  }
+  100% {
+    transform: translateX(135%);
+  }
+}
+
+/* Расходящееся кольцо маячка в активном прямом эфире */
+html.anim-ready:not([data-anim="off"]) .site-live-panel.is-live .live-beacon {
+  position: relative;
+}
+
+html.anim-ready:not([data-anim="off"]) .site-live-panel.is-live .live-beacon::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+  animation: clubnikaBeaconPing 2.2s var(--ease-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes clubnikaBeaconPing {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.15);
+  }
+}
+
+/* Пружинное появление плавающей кнопки «Оставить комментарий» */
+html.anim-ready:not([data-anim="off"]) .comment-float {
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 420ms var(--ease-spring),
+    box-shadow 240ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   5. Деликатный Ken Burns в фотогалерее героя (поверх кроссфейда)
+   -------------------------------------------------------------------------- */
+html.anim-ready[data-anim="full"] .hero .photo-frame img {
+  will-change: transform;
+  animation: clubnikaKenBurns 13s ease-in-out infinite alternate;
+}
+
+@keyframes clubnikaKenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.045);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Мини-эквалайзер (3 полоски в такт музыке для «Песни дня» / активного видео)
+   -------------------------------------------------------------------------- */
+.eq-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  width: 12px;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+.eq-bars span {
+  display: block;
+  width: 2px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--gold);
+  transform-origin: 50% 100%;
+  transform: scaleY(0.35);
+}
+
+.eq-bars span:nth-child(2) {
+  transform: scaleY(0.75);
+}
+
+.eq-bars span:nth-child(3) {
+  transform: scaleY(0.5);
+}
+
+html.anim-ready:not([data-anim="off"]) .eq-bars.is-playing span:nth-child(1) {
+  animation: clubnikaEq 0.72s ease-in-out infinite alternate;
+}
+
+html.anim-ready:not([data-anim="off"]) .eq-bars.is-playing span:nth-child(2) {
+  animation: clubnikaEq 0.54s ease-in-out 0.18s infinite alternate;
+}
+
+html.anim-ready:not([data-anim="off"]) .eq-bars.is-playing span:nth-child(3) {
+  animation: clubnikaEq 0.66s ease-in-out 0.32s infinite alternate;
+}
+
+@keyframes clubnikaEq {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Универсальный контроллер маскотов ([data-mascot])
+   Анимации вешаются только на контейнер, чтобы не ломать scaleX(-1) у <img>
+   -------------------------------------------------------------------------- */
+[data-mascot] {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 90%;
+}
+
+[data-mascot] img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+[data-mascot][data-mascot-flip] img {
+  transform: scaleX(-1);
+}
+
+html.anim-ready:not([data-anim="off"]) [data-mascot]:not(.is-in) {
+  opacity: 0;
+  transform: translateY(20px) scale(0.93);
+}
+
+html.anim-ready:not([data-anim="off"]) [data-mascot].is-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 600ms var(--ease-spring);
+}
+
+html.anim-ready[data-anim="full"] [data-mascot].is-in.is-breathing:not(.is-excited) {
+  animation: clubnikaMascotIdle 4.6s ease-in-out 0.6s infinite;
+}
+
+html.anim-ready:not([data-anim="off"]) [data-mascot].is-excited {
+  animation: clubnikaMascotBounce 520ms var(--ease-spring) !important;
+}
+
+@keyframes clubnikaMascotIdle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-1.6deg);
+  }
+}
+
+@keyframes clubnikaMascotBounce {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  32% {
+    transform: scale(1.07, 0.94) translateY(3px);
+  }
+  66% {
+    transform: scale(0.96, 1.05) translateY(-9px) rotate(-2.5deg);
+  }
+  100% {
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Селектор режима анимаций в подвале (.footer-settings)
+   -------------------------------------------------------------------------- */
+.footer-anim-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Полное отключение анимаций (настройка сайта или системный режим)
+   -------------------------------------------------------------------------- */
+:root[data-anim="off"] *,
+:root[data-anim="off"] *::before,
+:root[data-anim="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+:root[data-anim="off"] [data-reveal],
+:root[data-anim="off"] [data-stagger] > *,
+:root[data-anim="off"] [data-mascot] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-anim="full"]):not([data-anim="soft"]) *,
+  :root:not([data-anim="full"]):not([data-anim="soft"]) *::before,
+  :root:not([data-anim="full"]):not([data-anim="soft"]) *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  :root:not([data-anim="full"]):not([data-anim="soft"]) [data-reveal],
+  :root:not([data-anim="full"]):not([data-anim="soft"]) [data-stagger] > *,
+  :root:not([data-anim="full"]):not([data-anim="soft"]) [data-mascot] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

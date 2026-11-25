@@ -714,7 +714,9 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
   .support-page .support-portrait-wrap .support-portrait {
     transition: none;
   }
-  /* === Мягкие градиенты, текстура и акценты с учётом тем === */
+}
+
+/* === Мягкие градиенты, текстура и акценты с учётом тем === */
 
 /* 1. Глубокий градиент фона и объём карточек через переменные темы */
 body {
@@ -766,18 +768,12 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
-body > * {
-  position: relative;
-  z-index: 1;
-}
-
 .top {
   z-index: 30;
 }
 
 .comment-float {
   z-index: 25;
-}
 }
 
 /* 3. Тонкие золотые разделители и аккуратное свечение */
@@ -812,4 +808,3 @@ body > * {
     display: none;
   }
 }
-

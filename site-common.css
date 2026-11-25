@@ -714,4 +714,101 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
   .support-page .support-portrait-wrap .support-portrait {
     transition: none;
   }
+  /* === Мягкие градиенты, текстура и акценты с учётом тем === */
+
+/* 1. Глубокий градиент фона и объём карточек через переменные темы */
+body {
+  background-image:
+    radial-gradient(ellipse 85% 45% at 50% 0%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 88%, var(--panel)) 100%);
+  background-attachment: scroll;
+}
+
+:root[data-theme="scarlet"] body {
+  background-image:
+    radial-gradient(ellipse 85% 45% at 50% 0%, rgba(255, 200, 110, 0.12), transparent 70%),
+    linear-gradient(180deg, #160609 0%, #260910 55%, #140508 100%);
+}
+
+:root[data-theme="chocolate"] body {
+  background-image:
+    radial-gradient(ellipse 85% 45% at 50% 0%, rgba(245, 206, 120, 0.10), transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 82%, #3a1910) 100%);
+}
+
+/* Лёгкий внутренний градиент на карточках/панелях без жёстких чужих цветов */
+main > :is(.site-platforms, .site-live-panel, #my-music, .shorts-section, .feature-section),
+main .site-platform-pair > .site-platforms,
+.site-tv-card,
+.profile-card {
+  background-image: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--gold) 5%, var(--panel)) 0%,
+    var(--panel) 48%,
+    color-mix(in srgb, var(--bg) 35%, var(--panel)) 100%
+  );
+}
+
+/* Мягкое усиление золотого градиента на ключевых кнопках */
+:root[data-theme="scarlet"] :is(.primary, .site-live-order, .premiere-action, .comment-action, .comment-float) {
+  background-image: linear-gradient(155deg, #fff6cb 0%, #f2c76b 42%, #be7e26 78%, #ffe7a8 100%);
+  box-shadow: 0 4px 18px rgba(224, 168, 73, 0.22);
+}
+
+/* 2. Очень деликатная фоновая текстура (без мелкой плитки из клубничек) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+.top {
+  z-index: 30;
+}
+
+.comment-float {
+  z-index: 25;
+}
+
+/* 3. Тонкие золотые разделители и аккуратное свечение */
+.section-gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+  color: var(--gold);
+  opacity: 0.65;
+}
+
+.section-gold-divider::before,
+.section-gold-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 70%, transparent), transparent);
+}
+
+.section-gold-divider span {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.brand .berry.logo-image-mode {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--gold) 18%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    display: none;
+  }
+}
 }

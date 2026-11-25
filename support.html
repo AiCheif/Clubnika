@@ -97,10 +97,10 @@ body{
   position:relative;
   display:grid;
   grid-template-columns:minmax(0, clamp(280px, 32vw, 350px)) minmax(0, 1fr);
-  gap:18px 30px;
+  gap:14px 32px;
   align-items:center;
   margin:18px 0 16px;
-  padding:clamp(18px, 3.2vw, 32px);
+  padding:clamp(20px, 3.2vw, 34px);
   border:1px solid var(--gold);
   border-radius:18px;
   background:
@@ -109,7 +109,8 @@ body{
     var(--panel);
   box-shadow:0 14px 36px #0004;
 }
-.support-heading{grid-column:1/-1}
+.support-heading{grid-column:2}
+.support-message{grid-column:2;min-width:0}
 
 /* More prominent eyebrow badge */
 .support-heading .eyebrow{
@@ -154,13 +155,17 @@ body{
 @keyframes heart-pulse{0%,88%,100%{transform:scale(1)}94%{transform:scale(1.15)}}
 
 /* Portrait with square aspect ratio & rotated gold frame */
+/* Portrait spans full height on desktop for balanced alignment */
 .support-portrait-wrap{
+  grid-column:1;
+  grid-row:1 / span 2;
   position:relative;
   isolation:isolate;
   width:100%;
   max-width:350px;
   aspect-ratio:1/1;
   justify-self:center;
+  align-self:center;
 }
 .support-portrait-wrap::before{
   content:"";
@@ -191,10 +196,12 @@ body{
   aspect-ratio:1/1;
   display:block;
   object-fit:cover;
+  object-position:50% 24%;
   border-radius:14px;
   border:1px solid var(--gold);
   box-shadow:0 12px 32px #0005, 0 0 0 5px color-mix(in srgb, var(--gold) 10%, transparent);
 }
+.support-intro:has(.support-portrait-wrap[hidden]) .support-heading,
 .support-intro:has(.support-portrait-wrap[hidden]) .support-message{grid-column:1/-1}
 
 /* Higher contrast, slightly larger body copy */
@@ -573,11 +580,18 @@ em{font-synthesis-style:none}
     margin-top:12px;
     padding:18px 16px;
   }
-  .support-heading{text-align:center}
+
+  .support-heading{grid-column:1;text-align:center}
   .support-heading .eyebrow{justify-content:center}
   .support-page .support-heading h1{font-size:clamp(30px, 7.5vw, 40px)}
-  .support-portrait-wrap{width:min(100%, 210px);max-width:210px}
+  .support-portrait-wrap{
+    grid-column:1;
+    grid-row:auto;
+    width:min(100%, 220px);
+    max-width:220px;
+  }
   .support-portrait-wrap::before{inset:-6px -7px;border-radius:17px}
+  .support-message{grid-column:1}
   .support-message p{font-size:15.5px}
   .support-message .support-signature{font-size:21px}
   .viewer-quote{padding:12px 13px 13px}
@@ -630,8 +644,8 @@ em{font-synthesis-style:none}
 
 <section class="comment-section" id="comment-section">
   <h2>Подарите мне минутку своего времени</h2>
-  <p>Выберите любимую площадку и оставьте несколько искренних слов под записью эфира.</p>
-  <p class="algo-benefit">Даже пара строчек помогает YouTube и VK чаще рекомендовать записи эфиров новым слушателям.</p>
+  <p>Выберите площадку и оставьте отзыв <strong>в комментариях под записью</strong> (не в чате трансляции — сообщения из чата после эфира не попадают в отзывы).</p>
+  <p class="algo-benefit">Даже пара строчек под записью помогает YouTube и ВК чаще рекомендовать мои эфиры новым слушателям.</p>
   <div class="links">
     <a class="platform" id="youtube-link" href="https://www.youtube.com/@nikamoiseeva/streams" target="_blank" rel="noopener noreferrer">
       <div class="platform-cover" id="youtube-cover" hidden>
@@ -648,16 +662,16 @@ em{font-synthesis-style:none}
         <span class="platform-text">
           <span class="platform-stream-title" id="youtube-stream-title" hidden></span>
           <strong>Написать на YouTube</strong>
-          <small id="youtube-label">Перейти к записям эфиров →</small>
+          <small id="youtube-label">Откройте запись и напишите под видео (не в чате) →</small>
         </span>
       </div>
     </a>
     <a class="platform" id="vk-link" href="https://vk.ru/nikamoiseevaa" target="_blank" rel="noopener noreferrer">
       <div class="platform-cover vk-cover" id="vk-cover" hidden>
-        <span class="platform-badge">VK Видео</span>
+        <span class="platform-badge">ВКонтакте</span>
         <span class="platform-cover-fallback" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M7 5.5a2 2 0 0 1 3-.2l9 5.2a1.8 1.8 0 0 1 0 3l-9 5.2a2 2 0 0 1-3-1.7z" fill="#0077ff"/><path d="m8 5 5 3-5 9z" fill="#fff"/></svg>
-          <span>Запись эфира</span>
+          <span>Запись в ВК</span>
         </span>
         <img id="vk-img" alt="">
         <span class="platform-cover-play" aria-hidden="true">▶</span>
@@ -666,8 +680,8 @@ em{font-synthesis-style:none}
         <span class="icon vk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5.5a2 2 0 0 1 3-.2l9 5.2a1.8 1.8 0 0 1 0 3l-9 5.2a2 2 0 0 1-3-1.7z" fill="#fff"/><path d="m8 5 5 3-5 9z" fill="#ff355e"/></svg></span>
         <span class="platform-text">
           <span class="platform-stream-title" id="vk-stream-title" hidden></span>
-          <strong>Написать в VK Видео</strong>
-          <small id="vk-label">Перейти в сообщество →</small>
+          <strong>Написать в ВК</strong>
+          <small id="vk-label">Если смотрели в VK Видео Live — отзыв оставляют в записи на ВК →</small>
         </span>
       </div>
     </a>
@@ -930,7 +944,9 @@ async function applyStreams(data){
     const card=document.getElementById(key+'-link');
     card.href=url;
     card.classList.add('has-preview');
-    document.getElementById(key+'-label').textContent='Перейти к записи эфира →';
+    document.getElementById(key+'-label').textContent = key === 'youtube'
+      ? 'Откройте запись и напишите под видео (не в чате) →'
+      : 'Если смотрели в VK Видео Live — перейдите к записи на ВК →';
 
     const customTitle=typeof data[key+'Title']==='string'?data[key+'Title'].trim():'';
     const initialTitle=customTitle||commonTitle;

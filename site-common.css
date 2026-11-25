@@ -838,7 +838,7 @@ body::before {
     display: none;
   }
 }
-/* Акцент ожидания эфира по центру плашки таймера; на узких экранах скрыт */
+/* Акцент ожидания эфира по центру плашки таймера; на узких экранах скрыт 
 main > .site-live-panel {
   position: relative;
   isolation: isolate;
@@ -877,3 +877,4 @@ main > .site-live-panel > * {
     display: none;
   }
 }
+*/

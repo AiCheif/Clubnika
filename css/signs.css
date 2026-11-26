@@ -1,0 +1,765 @@
+/* === Галерея сигн, альбомы и мини-игра «Найди клубничку» === */
+.signs-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 28px 0;
+  padding: clamp(16px, 3vw, 28px);
+  border: 1px solid color-mix(in srgb, var(--gold) 60%, var(--line));
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 88% 15%, color-mix(in srgb, var(--gold) 15%, transparent), transparent 44%),
+    radial-gradient(ellipse at 14% 0%, color-mix(in srgb, var(--pink) 10%, transparent), transparent 55%),
+    var(--panel);
+  box-shadow: 0 12px 32px #0003;
+}
+
+.signs-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.signs-section h1 {
+  font-size: clamp(38px, 6vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -1px;
+  margin: 12px 0;
+}
+
+.signs-section h2 {
+  line-height: 1.15;
+}
+
+.signs-section p {
+  max-width: 64ch;
+}
+
+/* Сетка альбомов и плавные живые обложки */
+.sign-albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.sign-album {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--gold) 36%, var(--line));
+  border-radius: 15px;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  text-align: left;
+  box-shadow: 0 10px 26px #0004;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (hover: hover) {
+  html.anim-ready:not([data-anim="off"]) .sign-album:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    box-shadow: 0 14px 32px #0006, 0 0 20px color-mix(in srgb, var(--gold) 18%, transparent);
+  }
+}
+
+@media (hover: none) {
+  html.anim-ready:not([data-anim="off"]) .sign-album.is-spotlight .sign-album-media img.is-current {
+    transform: scale(1.045);
+  }
+
+  html.anim-ready[data-anim="full"] .sign-album.is-spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 28%, rgba(255, 232, 168, .2) 50%, transparent 72%);
+    animation: touchSheen 1.25s ease-out forwards;
+    pointer-events: none;
+  }
+}
+
+.sign-album-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.sign-album-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out, transform .75s ease;
+}
+
+.sign-album-media img.is-current {
+  opacity: 1;
+  z-index: 2;
+}
+
+.sign-album-media img.is-fading-out {
+  opacity: 0;
+  z-index: 1;
+}
+
+.sign-album-info {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+}
+
+.sign-album-info strong {
+  font-size: 16px;
+  color: var(--gold);
+}
+
+.sign-album-info span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Наклейка свежего альбома */
+.sign-new-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fff0b7, #e3ad4c);
+  color: #321c0b;
+  border: 1px solid #f8d583;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  box-shadow: 0 4px 14px #0006;
+}
+
+html.anim-ready[data-anim="full"] .sign-new-badge {
+  animation: badgeFloat 3.2s ease-in-out infinite;
+}
+
+html.anim-ready[data-anim="full"] .sign-album:first-child::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 232, 168, .16) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: albumShimmer 5.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Внутренняя галерея альбома */
+.sign-album-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.sign-album-heading h2 {
+  font-size: clamp(23px, 4vw, 32px);
+  margin: 0;
+}
+
+.sign-album-heading .outline {
+  font-size: 14px;
+}
+
+.sign-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 22px;
+}
+
+.sign-toolbar button {
+  font-size: 14px;
+  min-height: 44px;
+}
+
+.sign-toolbar button[aria-pressed="true"] {
+  background: var(--gold);
+  color: #301b12;
+  border-color: var(--gold);
+}
+
+#sign-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Переключатель и плашка мини-игры «Найди клубничку» */
+.sign-game-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, var(--line));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg) 78%, var(--panel));
+}
+
+.sign-game-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  min-height: 42px;
+  border: 1px solid color-mix(in srgb, var(--gold) 65%, var(--line));
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.sign-game-toggle:hover {
+  border-color: var(--gold);
+}
+
+.sign-game-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 35%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, var(--line));
+  transition: background .22s ease, border-color .22s ease;
+  flex: none;
+}
+
+.sign-game-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text);
+  transition: transform .22s var(--ease-out, ease), background .22s ease;
+}
+
+.sign-game-toggle[aria-pressed="true"] {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 15%, var(--panel));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gold) 16%, transparent);
+}
+
+.sign-game-toggle[aria-pressed="true"] .sign-game-switch {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.sign-game-toggle[aria-pressed="true"] .sign-game-switch::after {
+  transform: translateX(16px);
+  background: #2c140c;
+}
+
+.sign-game-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.sign-game-status strong {
+  color: var(--gold);
+  font-weight: 750;
+}
+
+.sign-game-reset {
+  padding: 5px 10px;
+  min-height: 32px;
+  font-size: 12.5px;
+  border-radius: 8px;
+}
+
+/* Карточки в сетке и отметки открытых фруктов */
+.sign-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 14px;
+}
+
+.sign-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  min-width: 0;
+  transition: border-color .22s ease, box-shadow .22s ease;
+}
+
+.sign-card.is-winner-card {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 65%, transparent), 0 8px 24px color-mix(in srgb, var(--gold) 22%, transparent);
+}
+
+.sign-card:focus-within {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
+
+.sign-open {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--bg);
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.sign-open:focus-visible {
+  outline-offset: -4px;
+}
+
+.sign-open img,
+.sign-open video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sign-open video {
+  pointer-events: none;
+}
+
+/* Значок открытого фрукта на карточке в сетке */
+.sign-card-fruit {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--line));
+  background: color-mix(in srgb, var(--panel) 88%, #000);
+  font-size: 14px;
+  line-height: 1.2;
+  box-shadow: 0 4px 12px #0007;
+  pointer-events: none;
+}
+
+.sign-card-fruit.is-win {
+  background: linear-gradient(135deg, #fff0b7, #e3ad4c);
+  border-color: #f8d583;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--gold) 50%, transparent);
+}
+
+.sign-empty-state {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 28px 20px;
+  border: 1px dashed color-mix(in srgb, var(--gold) 50%, var(--line));
+  border-radius: 16px;
+  background: var(--bg);
+}
+
+.sign-empty-copy {
+  max-width: 44ch;
+}
+
+.sign-empty-copy strong {
+  display: block;
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.sign-empty-copy p {
+  font-size: 14px;
+}
+
+.sign-end-note {
+  margin: 16px 0 0;
+  max-width: none;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Блок перехода на «Доброе слово» */
+.sign-support-callout {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 26px;
+  padding: 18px 22px;
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--line));
+  border-radius: 18px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--panel) 72%, var(--pink)), var(--bg));
+  box-shadow: 0 10px 28px #0004;
+}
+
+.sign-callout-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.sign-callout-copy h2 {
+  font-size: clamp(22px, 3vw, 29px);
+  letter-spacing: -.5px;
+  margin: 4px 0 6px;
+  color: var(--text);
+}
+
+.sign-callout-copy p {
+  font-size: 14px;
+  line-height: 1.45;
+  max-width: 62ch;
+}
+
+.sign-callout-btn {
+  margin-top: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Модальное окно просмотра, свайп и игровая рулетка */
+.sign-dialog {
+  max-width: min(900px, calc(100vw - 24px));
+  width: 100%;
+  max-height: 92dvh;
+  overflow: auto;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 20px 80px #0009;
+  transition: box-shadow .35s ease, border-color .35s ease;
+}
+
+.sign-dialog.is-game-win {
+  border-color: #ffe28a;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 65%, transparent), 0 18px 60px rgba(235, 178, 70, 0.35);
+}
+
+.sign-dialog::backdrop {
+  background: #000c;
+  backdrop-filter: blur(4px);
+}
+
+.sign-dialog-top,
+.sign-dialog-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sign-dialog-top {
+  margin-bottom: 10px;
+}
+
+.sign-dialog-bottom {
+  margin-top: 12px;
+}
+
+.sign-dialog .outline {
+  min-height: 44px;
+  padding: 8px 14px;
+}
+
+.sign-download {
+  font-size: 13px;
+  padding: 8px 10px;
+  min-height: 40px;
+}
+
+.sign-dialog-media {
+  display: grid;
+  place-items: center;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.sign-dialog-media img,
+.sign-dialog-media video {
+  display: block;
+  max-width: 100%;
+  max-height: 58dvh;
+  object-fit: contain;
+}
+
+.sign-dialog-media video {
+  width: 100%;
+}
+
+/* Панель розыгрыша фруктов внутри окна просмотра */
+.sign-game-stage {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--bg) 82%, var(--panel)), var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.sign-game-stage.is-win {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 22%, var(--panel)), color-mix(in srgb, var(--pink) 16%, var(--bg)));
+}
+
+.sign-game-reels {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sign-reel {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--line));
+  background: var(--panel);
+  font-size: 25px;
+  line-height: 1;
+  box-shadow: inset 0 2px 8px #0006;
+  transition: transform .25s var(--ease-spring, ease), border-color .25s ease, box-shadow .25s ease;
+}
+
+html.anim-ready:not([data-anim="off"]) .sign-reel.is-spinning {
+  animation: reelPulse .22s ease-in-out infinite alternate;
+}
+
+html.anim-ready:not([data-anim="off"]) .sign-reel.is-landed {
+  animation: reelPop .38s var(--ease-spring, ease);
+}
+
+.sign-reel.is-strawberry {
+  border-color: #ffe28a;
+  background: linear-gradient(145deg, #fff0b7, #e3ad4c);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gold) 65%, transparent);
+}
+
+.sign-game-caption {
+  flex: 1;
+  min-width: 180px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.sign-game-caption small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.sign-game-stage.is-win .sign-game-caption strong {
+  color: var(--gold);
+}
+
+@keyframes reelPulse {
+  from { transform: translateY(-2px) scale(0.95); }
+  to { transform: translateY(2px) scale(1.04); }
+}
+
+@keyframes reelPop {
+  0% { transform: scale(0.75); }
+  65% { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+
+html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-left {
+  animation: swipeSlideLeft .26s var(--ease-out);
+}
+
+html.anim-ready:not([data-anim="off"]) .sign-dialog-media.slide-right {
+  animation: swipeSlideRight .26s var(--ease-out);
+}
+
+/* Индикатор предзагрузки оригинала в кэш до показа окна */
+.sign-open.is-loading {
+  opacity: .68;
+  cursor: progress;
+}
+
+.sign-open.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2.5px solid color-mix(in srgb, var(--gold) 28%, transparent);
+  border-top-color: var(--gold);
+  animation: signSpin .7s linear infinite;
+}
+
+.sign-dialog-media.is-loading img,
+.sign-dialog-media.is-loading video {
+  opacity: .55;
+  transition: opacity 160ms ease;
+}
+
+@keyframes signSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Всплывающее благодарственное сообщение после скачивания */
+.sign-thanks-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 24px);
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  background: color-mix(in srgb, var(--panel) 94%, #000);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+  box-shadow: 0 12px 32px #0008;
+  opacity: 0;
+  transform: translate(-50%, 18px) scale(.95);
+  pointer-events: none;
+  transition: opacity .3s ease, transform .4s var(--ease-spring);
+}
+
+.sign-thanks-toast.is-shown {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.signs-section [hidden],
+.sign-dialog [hidden] {
+  display: none !important;
+}
+
+@keyframes albumShimmer {
+  0%, 68% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes touchSheen {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(110%); }
+}
+
+@keyframes badgeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes swipeSlideLeft {
+  from { opacity: .35; transform: translateX(26px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes swipeSlideRight {
+  from { opacity: .35; transform: translateX(-26px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 740px) {
+  .sign-support-callout {
+    flex-wrap: wrap;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .sign-callout-btn {
+    width: 100%;
+  }
+
+  .sign-empty-state {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #sign-count {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sign-dialog-bottom .outline {
+    flex: 1 1 auto;
+  }
+
+  .sign-albums {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .sign-album-info {
+    padding: 10px;
+  }
+
+  .sign-album-info strong {
+    font-size: 14px;
+  }
+
+  .sign-album-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sign-game-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+```[cite: 1, 2, 3]
+
+Если нужно, в `signs.html` также можно перенести `<link rel="stylesheet" href="css/signs.css">` после `site-common.css`, чтобы порядок подключения стилей был единообразным на всех страницах сайта[cite: 1].

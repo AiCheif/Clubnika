@@ -30,8 +30,9 @@
 
   function resolveInitialMode() {
     const saved = safeGetStorage(STORAGE_KEY);
-    if (saved && VALID_MODES.has(saved)) return saved;
-    return reducedQuery && reducedQuery.matches ? 'off' : 'full';
+    if (saved === 'off') return 'off';
+    if (saved === 'soft' || saved === 'full') return 'soft';
+    return reducedQuery && reducedQuery.matches ? 'off' : 'soft';
   }
 
   let currentMode = resolveInitialMode();
@@ -56,12 +57,14 @@
 
     const select = document.getElementById('clubnika-anim-select');
     if (select && select.value !== nextMode) select.value = nextMode;
+
+    document.dispatchEvent(new CustomEvent('clubnika:animchange', { detail: { mode: nextMode } }));
   }
 
   if (reducedQuery && reducedQuery.addEventListener) {
     reducedQuery.addEventListener('change', e => {
       if (!safeGetStorage(STORAGE_KEY)) {
-        setMode(e.matches ? 'off' : 'full', false);
+        setMode(e.matches ? 'off' : 'soft', false);
       }
     });
   }
@@ -82,9 +85,9 @@
     select.id = 'clubnika-anim-select';
     select.setAttribute('aria-label', 'Режим анимаций сайта');
 
+    // Для возврата расширенного режима добавьте ['full', 'Полные']
     const options = [
-      ['full', 'Полные'],
-      ['soft', 'Мягкие'],
+      ['soft', 'Вкл'],
       ['off', 'Выкл']
     ];
 

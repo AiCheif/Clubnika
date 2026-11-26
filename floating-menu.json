@@ -1,0 +1,34 @@
+{
+  "enabled": true,
+  "label": "Меню Клубнички",
+  "mascot": {
+    "image": "img/logo-ruby.png",
+    "video": "",
+    "alt": "Клубничка"
+  },
+  "items": [
+    {
+      "enabled": true,
+      "title": "Заказать песню",
+      "subtitle": "Выбрать из репертуара",
+      "href": "songs.html",
+      "icon": "🎵"
+    },
+    {
+      "enabled": true,
+      "title": "Оставить комментарий",
+      "subtitle": "Написать доброе слово",
+      "href": "support.html",
+      "anchorOnPage": "#comment-section",
+      "icon": "💌"
+    },
+    {
+      "enabled": true,
+      "title": "Новый релиз",
+      "subtitle": "Узнать о премьере",
+      "href": "release.html",
+      "badge": "Скоро",
+      "icon": "🍓"
+    }
+  ]
+}

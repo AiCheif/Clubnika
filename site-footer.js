@@ -20,6 +20,7 @@
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
 
   const MASCOT_STORAGE_KEY='clubnika_mascot_id';
+  const POS_STORAGE_KEY='clubnika_mascot_pos';
   const hasFloatingMenu=!script.hasAttribute('data-hide-comment');
   const settingsInner=`<label class="mascot-picker" for="mascot-picker"><span>Маскот</span>
     <select id="mascot-picker" aria-label="Выбор маскота"></select></label>
@@ -279,10 +280,109 @@
       `;
       if(settingsScreen)popover.append(settingsScreen);
       update();
+      if(dock.style.left&&dock.style.top){
+        applyDockPosition(parseFloat(dock.style.left),parseFloat(dock.style.top),false);
+      }
     };
 
-    trigger.addEventListener('click',()=>setOpen(!isOpen));
-    trigger.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&!isOpen&&!playing&&greeted)playAnimation('wink');});
+    // Перетаскивание маскота (ПК + телефон)
+    const DRAG_THRESHOLD=6;
+    const EDGE_MARGIN=12;
+    let isDragging=false;
+    let wasDragged=false;
+    let startX=0,startY=0;
+    let startLeft=0,startTop=0;
+
+    const clampDockPosition=(left,top)=>{
+      const rect=dock.getBoundingClientRect();
+      const maxLeft=Math.max(EDGE_MARGIN,window.innerWidth-rect.width-EDGE_MARGIN);
+      const maxTop=Math.max(EDGE_MARGIN,window.innerHeight-rect.height-EDGE_MARGIN);
+      return{
+        left:Math.min(Math.max(EDGE_MARGIN,left),maxLeft),
+        top:Math.min(Math.max(EDGE_MARGIN,top),maxTop)
+      };
+    };
+
+    const updatePopoverDirection=()=>{
+      const rect=dock.getBoundingClientRect();
+      dock.classList.toggle('is-top',rect.top<window.innerHeight/2);
+      dock.classList.toggle('is-left',rect.left<window.innerWidth/2);
+    };
+
+    const applyDockPosition=(left,top,save=false)=>{
+      const pos=clampDockPosition(left,top);
+      dock.style.left=`${pos.left}px`;
+      dock.style.top=`${pos.top}px`;
+      dock.style.right='auto';
+      dock.style.bottom='auto';
+      updatePopoverDirection();
+      if(save){
+        try{localStorage.setItem(POS_STORAGE_KEY,JSON.stringify(pos));}catch{}
+      }
+    };
+
+    try{
+      const savedPos=JSON.parse(localStorage.getItem(POS_STORAGE_KEY)||'null');
+      if(savedPos&&Number.isFinite(savedPos.left)&&Number.isFinite(savedPos.top)){
+        requestAnimationFrame(()=>applyDockPosition(savedPos.left,savedPos.top,false));
+      }
+    }catch{}
+
+    trigger.addEventListener('pointerdown',e=>{
+      if(e.button!==0&&e.pointerType==='mouse')return;
+      const rect=dock.getBoundingClientRect();
+      isDragging=true;
+      wasDragged=false;
+      startX=e.clientX;
+      startY=e.clientY;
+      startLeft=rect.left;
+      startTop=rect.top;
+      trigger.setPointerCapture(e.pointerId);
+    });
+
+    trigger.addEventListener('pointermove',e=>{
+      if(!isDragging)return;
+      const dx=e.clientX-startX;
+      const dy=e.clientY-startY;
+
+      if(!wasDragged&&Math.hypot(dx,dy)>DRAG_THRESHOLD){
+        wasDragged=true;
+        dock.classList.add('is-dragging');
+        if(isOpen)setOpen(false);
+      }
+
+      if(wasDragged){
+        applyDockPosition(startLeft+dx,startTop+dy,false);
+      }
+    });
+
+    const endDrag=e=>{
+      if(!isDragging)return;
+      isDragging=false;
+      dock.classList.remove('is-dragging');
+      if(trigger.hasPointerCapture?.(e.pointerId)){
+        trigger.releasePointerCapture(e.pointerId);
+      }
+      if(wasDragged){
+        const rect=dock.getBoundingClientRect();
+        applyDockPosition(rect.left,rect.top,true);
+      }
+    };
+
+    trigger.addEventListener('pointerup',endDrag);
+    trigger.addEventListener('pointercancel',endDrag);
+
+    trigger.addEventListener('click',e=>{
+      if(wasDragged){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        wasDragged=false;
+        return;
+      }
+      setOpen(!isOpen);
+    });
+
+    trigger.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&!isOpen&&!playing&&greeted&&!isDragging)playAnimation('wink');});
 
     const closeOutside=e=>{
       if(!isOpen)return;
@@ -324,7 +424,12 @@
         setOpen(false);
       }else update();
     },{passive:true});
-    addEventListener('resize',update);
+    addEventListener('resize',()=>{
+      update();
+      if(dock.style.left&&dock.style.top){
+        applyDockPosition(parseFloat(dock.style.left),parseFloat(dock.style.top),false);
+      }
+    });
     addEventListener('pageshow',update);
     requestAnimationFrame(update);
 

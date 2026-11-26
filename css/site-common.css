@@ -1710,3 +1710,43 @@ main > .site-live-panel > * {
   }
 }
 */
+/* Боковой декор: виден только там, где есть поля вокруг контента */
+@media (min-width: 1300px) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;            /* под контентом, над фоном страницы */
+    pointer-events: none;
+    background:
+      radial-gradient(460px 75vh at 0% 30%,
+        color-mix(in srgb, var(--pink) 24%, transparent), transparent 70%),
+      radial-gradient(460px 75vh at 100% 70%,
+        color-mix(in srgb, var(--gold) 18%, transparent), transparent 70%);
+  }
+}
+.mascot-trigger {
+  touch-action: none; /* критично для телефонов: отключает скролл страницы при захвате маскота */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.mascot-dock.is-dragging .mascot-trigger {
+  cursor: grabbing;
+}
+
+.mascot-dock.is-dragging {
+  transition: none !important; /* убирает задержку анимации при движении за пальцем/мышью */
+}
+
+/* Если маскота перетащили в верхнюю или левую часть экрана, разворачиваем меню в нужную сторону */
+.mascot-dock.is-top .mascot-popover {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+
+.mascot-dock.is-left .mascot-popover {
+  right: auto;
+  left: 0;
+}

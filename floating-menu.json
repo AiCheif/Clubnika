@@ -21,14 +21,14 @@
   {
     "id": "second",
     "name": "Красавица",
-    "image": "mascots/cossack/idle.png",
+    "image": "mascots/beauty/idle.png",
     "animations": {
-      "idle": "mascots/cossack/idle.webm",
-      "greeting": "mascots/cossack/greeting.webm",
-      "invite": "mascots/cossack/invite.webm",
-      "salute": "mascots/cossack/salute.webm",
-      "wink": "mascots/cossack/wink.webm",
-      "thumbs-up": "mascots/cossack/thumbs-up.webm"
+      "idle": "mascots/beauty/idle.webm",
+      "greeting": "mascots/beauty/greeting.webm",
+      "invite": "mascots/beauty/invite.webm",
+      "salute": "mascots/beauty/salute.webm",
+      "wink": "mascots/beauty/wink.webm",
+      "thumbs-up": "mascots/beauty/thumbs-up.webm"
     },
     "alt": "Красавица"
   }

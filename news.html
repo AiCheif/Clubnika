@@ -14,7 +14,7 @@
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Ника Моисеева">
 <meta property="og:title" content="Новости и анонсы — Ника Моисеева">
-<meta property="og:description" content="Свежие новости, анонсы прямых эфиров, релизы и записи из сообщества Ники Моисеевой ВКонтакте.">
+<meta property="og:description" content="Свежие новости, анонсы прямых эфиров, релизы и записи с YouTube-канала Ники Моисеевой.">
 <meta property="og:url" content="https://nikamoiseeva.ru/news.html">
 <meta property="og:image" content="https://nikamoiseeva.ru/img/og-preview.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -51,14 +51,14 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
   window.addEventListener('pageshow',event=>{if(event.persisted){cancel();return}top();requestAnimationFrame(()=>{top();requestAnimationFrame(()=>{top();cancel();try{if('scrollRestoration' in history)history.scrollRestoration='auto'}catch{}})})},{once:true});
 })();
 </script>
-<meta name="description" content="Новости, анонсы эфиров и записи из сообщества Ники Моисеевой ВКонтакте.">
+<meta name="description" content="Новости, анонсы эфиров и записи с YouTube-канала Ники Моисеевой.">
 <title>Новости — Ника Моисеева</title>
 
 <link rel="stylesheet" href="css/site-nav.css">
 <link rel="stylesheet" href="css/site-themes.css">
 <link rel="stylesheet" href="css/site-common.css">
 <link rel="stylesheet" href="css/site-anim.css?v=1">
-<link rel="stylesheet" href="css/news.css?v=1">
+<link rel="stylesheet" href="css/news.css?v=2">
 <script src="site-config.js"></script>
 <script src="site-analytics.js" defer></script>
 <script src="site-settings.js"></script>
@@ -72,13 +72,10 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
   <section class="feature-section news-section" id="vk-news" aria-labelledby="news-heading">
     <div class="sectionhead">
       <div>
-        <div class="eyebrow">ЛЕТА И АНОНСЫ</div>
-        <h1 id="news-heading">Новости сообщества</h1>
-        <p>Свежие анонсы стримов, закулисье и записи из моего сообщества ВКонтакте.</p>
+        <div class="eyebrow">ЛЕНТА И АНОНСЫ</div>
+        <h1 id="news-heading">Новости канала</h1>
+        <p>Свежие анонсы стримов, закулисье и записи с YouTube-канала.</p>
       </div>
-      <a class="outline news-vk-cta" id="news-vk-link" href="https://vk.ru/nikamoiseevaa" target="_blank" rel="noopener noreferrer">
-        <span>Сообщество ВК ↗</span>
-      </a>
     </div>
 
     <div class="news-status" id="news-status" role="status">Загружаем записи…</div>
@@ -90,6 +87,6 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
   </section>
 </main>
 <script src="site-footer.js"></script>
-<script src="js/news.js?v=1" defer></script>
+<script src="js/news.js?v=2" defer></script>
 </body>
 </html>

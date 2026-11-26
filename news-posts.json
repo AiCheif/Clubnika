@@ -1,7 +1,7 @@
 {
   "communityUrl": "https://vk.ru/nikamoiseevaa",
   "posts": [
-    {
+     {
       "type": "vk",
       "ownerId": -223456789,
       "postId": 101,
@@ -10,86 +10,180 @@
     },
     {
       "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxAJCe9J5HWOFYU_1kSuBTmE3GH_mmTFHq",
+      "image": "img/yt-post-2026-10-12.webp",
+      "date": "2026-10-12"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxDhIZiwnAcOYM1cX_4CC0hHTkS_u2Xl2m",
+      "image": "img/yt-post-2026-10-09.webp",
+      "date": "2026-10-09"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxMx5tdxZFeA3LsjKWp_wlpgmfboNHYXcI",
+      "image": "img/yt-post-2026-10-05.webp",
+      "date": "2026-10-05"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxGLbpZwwVpEwJaFL3sRqaUCjivevRgjWU",
+      "image": "img/yt-post-2026-10-03.webp",
+      "date": "2026-10-03"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxBj-OyjNucZt1LC_oEG2c6hKiJT8LTxHl",
+      "image": "img/yt-post-2026-10-02.webp",
+      "date": "2026-10-02"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/Ugkx_te4WwEgvquS8FH_A6LnegAvwVjTsmyD",
+      "image": "img/yt-post-2026-09-30.webp",
+      "date": "2026-09-30"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxKuEPLK6B2kWcmJzA9GSD_wMuKz6uuUam",
+      "image": "img/yt-post-2026-09-25.webp",
+      "date": "2026-09-25"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxZrEhQGBu7fc1EyqZDGZqNrTlgbXyuWlO",
+      "image": "img/yt-post-2026-09-21.webp",
+      "date": "2026-09-21"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxxiprxiCSEElIuDsyWGHSw08223vMPzrA",
+      "image": "img/yt-post-2026-09-18.webp",
+      "date": "2026-09-18"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxIhL3-B79PSqau8eVJDQiKhCnzSGU868U",
+      "image": "img/yt-post-2026-09-14.webp",
+      "date": "2026-09-14"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxqjFmZ7nnY_EOUtwo7Pwzjd0PwfdU0y0V",
+      "image": "img/yt-post-2026-09-11.webp",
+      "date": "2026-09-11"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxkiV_yDGxBiYp7crbqomEEcPz6yt8TPva",
+      "image": "img/yt-post-2026-09-08.webp",
+      "date": "2026-09-08"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxnM3U8xVSVoTVw9_isVki2FNyWCobaQmk",
+      "image": "img/yt-post-2026-09-05.webp",
+      "date": "2026-09-05"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/Ugkxaelybc8I4_VgTon5dIEeXi9O4PNRfImK",
+      "image": "img/yt-post-2026-09-03.webp",
+      "date": "2026-09-03"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxGnri4FH_nOwL1eiRzO92yqwKHg0F8Fmy",
+      "image": "img/yt-post-2026-08-31.webp",
+      "date": "2026-08-31"
+    },
+   
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/Ugkx9uq3AZhUgxMcLfRgqBNnljRhfa4A45uy",
+      "image": "img/yt-post-2026-10-17.webp",
+      "date": "2026-11-25"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxywiTeugeoF46tNi0ygzlTw-qEBcxTqIM",
+      "image": "img/yt-post-2026-10-20.webp",
+      "date": "2026-11-25"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxFS3wB7wTp8Uh1YOAXmW6LlJ5VW8uSosB",
+      "image": "img/yt-post-2026-10-23.webp",
+      "date": "2026-11-23"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxPTHyoDqFuUN5oC1UI6LGFbam--Hiw8Q2",
+      "image": "img/yt-post-2026-10-26.webp",
+      "date": "2026-10-26"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxmjkxlQwEVUTqJdQH9OlbOH9-p453-wVa",
+      "image": "img/yt-post-2026-11-5.webp",
+      "date": "2026-11-25"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxkJRbA4uTwVPg2nAf7z9yOI6uLiuqYJVD",
+      "image": "img/yt-post-2026-11-8.webp",
+      "date": "2026-11-8"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxFCy-Fbjhs4L8i2XNsGahznCkSwEbmh0-",
+      "image": "img/yt-post-2026-11-11.webp",
+      "date": "2026-11-11"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxRLzDC8lNr7gBr9R3olgIUrIqIk3xBl2C",
+      "image": "img/yt-post-2026-11-12.webp",
+      "date": "2026-11-12"
+    },
+    
+{
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxgmDFAGk_ziS2EQKU476GAGuchJKCPByr",
+      "image": "img/yt-post-2026-11-13.webp",
+      "date": "2026-11-13"
+    },
+ 
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
+      "image": "img/yt-post-2026-11-16.webp",
+      "date": "2026-11-16"
+    },
+    {
+
+      "type": "youtube",
       "url": "https://www.youtube.com/post/Ugkxy06J7UMIqcKp7-YsSs2XApDUOl-FZ5US",
-      "image": "img/yt-post-2026-11-17.webp",
-      "date": "2026-11-17"
+      "image": "img/yt-post-2026-11-19.webp",
+      "date": "2026-11-19"
     },
     {
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    {
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxC3PM3JK_96gD4KkwjbY9SsKXn2uzyt6D",
-      "image": "https://yt3.ggpht.com/YZBJ7qVpXPpy9s9_rgWOPAE_zdal-uYnv03MAwj4EdkSKoHEYwZXaK7IUWs6R_Qawyn_WrZz3sVE=s640-c-fcrop64=1,0000309dfffff09d-rw-nd-v1",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
-      "type": "youtube",
-      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
-      "image": "img/yt-post-2026-11-25.webp",
-      "date": "2026-11-25"
-    },
-    
-{
       "type": "youtube",
       "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
       "image": "img/yt-post-2026-11-25.webp",
       "date": "2026-11-25"
     }
     
+    
+   
     
     
 

@@ -1,13 +1,13 @@
-/* Загрузка и рендеринг записей ВКонтакте и YouTube из news-posts.json */
+/* Загрузка и рендеринг записей YouTube (ВКонтакте временно отключён) из news-posts.json */
 (() => {
   'use strict';
 
   const DATA_URL = './news-posts.json';
   const PAGE_SIZE = 6;
+  const ENABLE_VK = false; // Временно отключить ВК
 
   const grid = document.getElementById('news-grid');
   const statusEl = document.getElementById('news-status');
-  const vkLink = document.getElementById('news-vk-link');
   const moreWrap = document.getElementById('news-more-wrap');
   const moreBtn = document.getElementById('news-more-btn');
 
@@ -26,18 +26,18 @@
       "'": '&#39;'
     }[c]));
 
-  function formatDate(dateStr) {
-    if (!dateStr || typeof dateStr !== 'string') return '';
-    const parsed = Date.parse(dateStr.includes('T') ? dateStr : `${dateStr}T00:00:00Z`);
-    if (!Number.isFinite(parsed)) return dateStr;
-    return new Intl.DateTimeFormat('ru-RU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-      timeZone: 'UTC'
-    })
-      .format(new Date(parsed))
-      .replace(/\s*г\.$/, '');
+  function parseTimestamp(dateStr) {
+    if (!dateStr || typeof dateStr !== 'string') return 0;
+    const raw = dateStr.trim();
+    const parsed = Date.parse(raw.includes('T') ? raw : `${raw}T00:00:00Z`);
+    if (Number.isFinite(parsed)) return parsed;
+
+    // Поддержка формата ДД.ММ.ГГГГ на случай ручного ввода
+    const ruMatch = raw.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+    if (ruMatch) {
+      return Date.UTC(Number(ruMatch[3]), Number(ruMatch[2]) - 1, Number(ruMatch[1]));
+    }
+    return 0;
   }
 
   function safeUrl(raw) {
@@ -52,8 +52,9 @@
 
     const kind = String(raw.type || '').toLowerCase();
     const url = safeUrl(raw.url);
+    const timestamp = parseTimestamp(raw.date);
 
-    // 1. Запись сообщества YouTube (дата + уменьшенное фото)
+    // 1. Запись сообщества YouTube
     if (kind === 'youtube' || (!raw.ownerId && !raw.owner_id && !raw.embed && /youtube\.com|youtu\.be/i.test(url))) {
       const image = safeUrl(raw.image || raw.photo || raw.thumb);
       const postUrl = url || 'https://www.youtube.com/@nikamoiseeva/posts';
@@ -62,13 +63,16 @@
       return {
         type: 'youtube',
         key: `yt_${idx}`,
+        order: idx,
+        timestamp,
         image,
-        date: formatDate(raw.date),
         url: postUrl
       };
     }
 
-    // 2. Виджет поста ВКонтакте
+    // 2. Виджет поста ВКонтакте (временно отключён)
+    if (!ENABLE_VK) return null;
+
     let ownerId = Number(raw.ownerId ?? raw.owner_id);
     let postId = Number(raw.postId ?? raw.post_id);
     let hash = typeof raw.hash === 'string' ? raw.hash.trim() : '';
@@ -89,11 +93,12 @@
     return {
       type: 'vk',
       key: `${ownerId}_${postId}_${idx}`,
+      order: idx,
+      timestamp,
       ownerId,
       postId,
       hash,
       title: typeof raw.title === 'string' ? raw.title.trim() : '',
-      date: formatDate(raw.date),
       url: `https://vk.com/wall${ownerId}_${postId}`
     };
   }
@@ -140,7 +145,7 @@
       });
   }
 
-  const lazyObserver = 'IntersectionObserver' in window
+  const lazyObserver = ENABLE_VK && 'IntersectionObserver' in window
     ? new IntersectionObserver(entries => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
@@ -155,7 +160,7 @@
   function renderYoutubeCard(post) {
     const article = document.createElement('article');
     article.className = 'news-card news-card--youtube';
-    const altText = post.date ? `Запись в сообществе YouTube от ${post.date}` : 'Запись в сообществе YouTube';
+    const altText = 'Запись в сообществе YouTube';
 
     article.innerHTML = `
       <header class="news-card-head">
@@ -163,15 +168,11 @@
           <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg>
           <span>YouTube</span>
         </span>
-        ${post.date ? `<time class="news-card-date">${esc(post.date)}</time>` : ''}
       </header>
       <a class="news-yt-stage" href="${esc(post.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(altText)}">
         <img class="news-yt-thumb" src="${esc(post.image)}" alt="${esc(altText)}" loading="lazy" decoding="async">
         <span class="news-yt-caption">Нажмите, чтобы открыть запись на YouTube</span>
       </a>
-      <footer class="news-card-footer">
-        <a class="news-card-link" href="${esc(post.url)}" target="_blank" rel="noopener noreferrer">Открыть на YouTube ↗</a>
-      </footer>
     `;
 
     return article;
@@ -185,14 +186,10 @@
     article.innerHTML = `
       <header class="news-card-head">
         ${post.title ? `<h2 class="news-card-title">${esc(post.title)}</h2>` : `<span class="news-card-source">ВКонтакте</span>`}
-        ${post.date ? `<time class="news-card-date">${esc(post.date)}</time>` : ''}
       </header>
       <div class="news-widget-frame" data-widget-id="${esc(widgetId)}">
         <div class="news-widget-placeholder">Загрузка записи ВКонтакте…</div>
       </div>
-      <footer class="news-card-footer">
-        <a class="news-card-link" href="${esc(post.url)}" target="_blank" rel="noopener noreferrer">Открыть во ВКонтакте ↗</a>
-      </footer>
     `;
 
     const frameEl = article.querySelector('.news-widget-frame');
@@ -231,15 +228,15 @@
   fetch(DATA_URL, { cache: 'no-store' })
     .then(res => (res.ok ? res.json() : null))
     .then(data => {
-      if (data?.communityUrl && vkLink) {
-        vkLink.href = data.communityUrl;
-      }
-
       const rawList = Array.isArray(data) ? data : Array.isArray(data?.posts) ? data.posts : [];
-      allPosts = rawList.map(normalizePost).filter(Boolean);
+
+      allPosts = rawList
+        .map(normalizePost)
+        .filter(Boolean)
+        .sort((a, b) => (b.timestamp - a.timestamp) || (b.order - a.order));
 
       if (!allPosts.length) {
-        statusEl.innerHTML = `Пока здесь нет опубликованных записей. Все свежие новости доступны в <a href="${esc(vkLink?.href || 'https://vk.ru/nikamoiseevaa')}" target="_blank" rel="noopener noreferrer" style="color:var(--gold);text-decoration:underline;">сообществе ВКонтакте ↗</a>.`;
+        statusEl.innerHTML = 'Пока здесь нет опубликованных записей. Все свежие новости доступны на <a href="https://www.youtube.com/@nikamoiseeva/posts" target="_blank" rel="noopener noreferrer" style="color:var(--gold);text-decoration:underline;">канале YouTube ↗</a>.';
         statusEl.hidden = false;
         grid.hidden = true;
         return;

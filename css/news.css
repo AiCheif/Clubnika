@@ -21,16 +21,6 @@
   color: var(--text);
 }
 
-.news-vk-cta {
-  flex-shrink: 0;
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-.news-vk-cta:hover {
-  background: color-mix(in srgb, var(--gold) 14%, transparent);
-}
-
 .news-status {
   padding: 28px 18px;
   text-align: center;
@@ -100,13 +90,10 @@
 }
 
 .news-card-date {
-  font-size: 12.5px;
-  color: var(--gold);
-  white-space: nowrap;
-  margin-left: auto;
+  display: none;
 }
 
-/* Контейнер под виджет ВК */
+/* Контейнер под виджет ВК (временно не используется) */
 .news-widget-frame {
   position: relative;
   width: 100%;
@@ -141,21 +128,19 @@
   font-size: 14px;
 }
 
-/* Сцена для записи YouTube с намеренно уменьшенным фото */
+/* Сцена для записи YouTube: маленький размер фото без рамки */
 .news-yt-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
-  min-height: 380px;
-  padding: 24px 18px;
-  border: 1px solid color-mix(in srgb, var(--gold) 42%, transparent);
-  border-radius: 10px;
-  background:
-    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 72%),
-    color-mix(in srgb, var(--bg) 72%, var(--panel));
+  min-height: 0;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
   text-decoration: none;
 }
 
@@ -165,14 +150,14 @@
   max-height: 220px;
   object-fit: cover;
   border-radius: 12px;
-  border: 1px solid var(--gold);
+  border: 0;
   box-shadow: 0 10px 26px rgba(0, 0, 0, .42);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .news-yt-stage:hover .news-yt-thumb {
   transform: scale(1.03);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, .5), 0 0 18px color-mix(in srgb, var(--gold) 24%, transparent);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .5);
 }
 
 .news-yt-caption {
@@ -181,22 +166,9 @@
   text-align: center;
 }
 
-.news-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-top: 2px;
-}
-
+.news-card-footer,
 .news-card-link {
-  font-size: 13px;
-  font-weight: 650;
-  color: var(--gold);
-}
-
-.news-card-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  display: none;
 }
 
 .news-more-wrap {
@@ -214,7 +186,6 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .news-yt-stage,
   .news-widget-frame,
   .news-widget-placeholder {
     min-height: 280px;

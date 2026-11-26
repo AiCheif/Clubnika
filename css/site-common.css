@@ -530,6 +530,21 @@ main #my-music{position:relative;overflow:hidden;margin:14px 0;padding:clamp(16p
 #my-music .original-chips .outline{display:inline-flex;align-items:center;min-height:34px;padding:5px 11px;font-size:13.5px;border:1px solid var(--line);border-radius:9px}
 #my-music .original-chips .outline:hover{color:var(--gold);border-color:var(--gold)}
 
+/* Full-width studio photograph with a theme-aware fade into the song list. */
+main #my-music.original-studio-card{padding:0;display:flex;flex-direction:column;justify-content:flex-start}
+#my-music .original-studio-header{display:flex;align-items:center;flex:1 0 auto;min-height:clamp(220px,24vw,280px);padding:20px 12px 30px 22px;background-color:#211b18;background-image:linear-gradient(0deg,var(--panel),transparent 24%),linear-gradient(90deg,rgba(18,14,12,.76),rgba(18,14,12,.25) 52%,transparent 78%),url('../img/original-songs-studio.webp');background-size:cover;background-position:center,right center,right center;background-repeat:no-repeat}
+#my-music .original-studio-copy{width:55%;min-width:0;color:#fff9f0}
+#my-music .original-studio-copy .eyebrow{color:#efc783}
+#my-music .original-studio-copy h2{color:inherit;margin-bottom:10px}
+#my-music .original-studio-copy p{color:#f5e8dc;margin:0;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+#my-music .original-studio-content{padding:0 clamp(16px,2.2vw,24px) clamp(16px,2.2vw,24px)}
+@media(max-width:480px){
+ #my-music .original-studio-header{min-height:238px;padding:16px 10px 30px 16px}
+ #my-music .original-studio-copy{width:56%}
+ #my-music .original-studio-copy h2{font-size:28px}
+ #my-music .original-studio-copy p{font-size:13px;line-height:1.45}
+}
+
 /* Concert program divider with centered star */
 .program-divider{display:flex;align-items:center;gap:12px;margin:4px 0 16px;color:var(--gold);opacity:.75}
 .program-divider span{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}

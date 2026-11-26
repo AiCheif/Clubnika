@@ -1023,7 +1023,7 @@ body:has(dialog[open]) .mascot-dock {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 9px 16px 9px 68px;
+  padding: 9px 16px 9px 80px;
   border-radius: 999px;
   border: 1px solid var(--line, rgba(255, 255, 255, .18));
   background: var(--panel, #220d11);
@@ -1046,8 +1046,8 @@ body:has(dialog[open]) .mascot-dock {
   position: absolute;
   left: 4px;
   bottom: 2px;
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 72px;
   display: grid;
   place-items: center;
   pointer-events: none;
@@ -1063,8 +1063,8 @@ body:has(dialog[open]) .mascot-dock {
 
 .mascot-media video[hidden] { display: none; }
 .has-animated-mascot .mascot-trigger {
-  width: 100px;
-  height: 100px;
+  width: 116px;
+  height: 116px;
   min-height: 0;
   padding: 0;
   border: none;
@@ -1076,18 +1076,20 @@ body:has(dialog[open]) .mascot-dock {
 .has-animated-mascot { gap: 10px; }
 .mascot-media:has(video:not([hidden])) img { visibility: hidden; }
 @media (max-width: 480px) {
-  .has-animated-mascot .mascot-trigger { width: 80px; height: 80px; }
+  .has-animated-mascot .mascot-trigger { width: 92px; height: 92px; }
 }
 
 .mascot-popover {
-  width: min(280px, calc(100vw - 32px));
-  padding: 6px;
+  width: min(296px, calc(100vw - 32px));
+  padding: 8px;
   border-radius: 18px;
-  border: 1px solid var(--line, rgba(255, 255, 255, .18));
-  background: var(--panel, #220d11);
+  border: 1px solid var(--gold, #ffdb89);
+  background: color-mix(in srgb, var(--panel, #220d11) 54%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 16px 38px rgba(0, 0, 0, .42);
   display: grid;
-  gap: 4px;
+  gap: 6px;
   transform-origin: bottom right;
   animation: mascotPop .18s ease-out;
 }
@@ -1102,14 +1104,17 @@ body:has(dialog[open]) .mascot-dock {
   gap: 10px;
   padding: 10px 12px;
   border-radius: 12px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--panel, #220d11) 58%, transparent);
   color: var(--text, #fff);
   text-decoration: none;
-  transition: background-color .16s ease;
+  transition: background-color .16s ease, border-color .16s ease;
 }
 
 .mascot-item:hover,
 .mascot-item:focus-visible {
-  background: rgba(255, 255, 255, .08);
+  border-color: var(--gold, #ffdb89);
+  background: color-mix(in srgb, var(--gold) 14%, var(--panel, #220d11));
   outline: none;
 }
 
@@ -1136,7 +1141,7 @@ body:has(dialog[open]) .mascot-dock {
 
 .mascot-item-sub {
   font-size: .78rem;
-  opacity: .75;
+  opacity: .82;
 }
 
 .mascot-item-badge {
@@ -1146,6 +1151,40 @@ body:has(dialog[open]) .mascot-dock {
   font-weight: 700;
   background: var(--accent, #e5243f);
   color: #fff;
+}
+
+.mascot-menu-settings {
+  display: grid;
+  gap: 6px;
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line, #73412d);
+}
+
+.mascot-menu-settings .theme-picker,
+.mascot-menu-settings .footer-anim-control {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--panel, #220d11) 58%, transparent);
+  color: var(--text, #fff);
+  font-size: .84rem;
+  font-weight: 600;
+}
+
+.mascot-menu-settings select {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line, #73412d);
+  background: var(--panel, #220d11);
+  color: var(--text, #fff);
+  font-size: .82rem;
 }
 
 @keyframes mascotPop {
@@ -1351,7 +1390,7 @@ main > .site-platforms-hub {
     margin-block: -3px;
   }
 }
-/* Увеличение логотипа без роста шапки и мягкое свечение по контуру */
+/* Увеличение логотипа без роста высоты шапки и мягкое свечение по контуру */
 .top .nav {
   padding-block: 2px;
   min-height: 62px;
@@ -1386,6 +1425,130 @@ main > .site-platforms-hub {
     height: 48px;
     margin-block: -3px;
   }
+}
+.mascot-settings-drawer {
+  margin-top: 2px;
+  border-radius: 12px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--panel, #220d11) 62%, transparent);
+  overflow: hidden;
+}
+
+.mascot-settings-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 9px 12px;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--text, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.mascot-settings-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+.mascot-settings-drawer > summary::after {
+  content: "▾";
+  font-size: .85rem;
+  color: var(--gold, #ffdb89);
+  transition: transform .18s ease;
+}
+
+.mascot-settings-drawer[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.mascot-menu-settings {
+  display: grid;
+  gap: 6px;
+  padding: 6px 8px 8px;
+  border-top: 1px solid var(--line, #73412d);
+}
+
+.mascot-menu-settings .mascot-picker,
+.mascot-menu-settings .theme-picker,
+.mascot-menu-settings .footer-anim-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--panel, #220d11) 70%, transparent);
+  color: var(--text, #fff);
+  font-size: .83rem;
+  font-weight: 600;
+}
+
+.mascot-menu-settings .mascot-picker[hidden] {
+  display: none;
+}
+
+.mascot-menu-settings select {
+  width: 146px;
+  min-width: 0;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line, #73412d);
+  background: var(--panel, #220d11);
+  color: var(--text, #fff);
+  font-size: .8rem;
+}
+
+/* Тумблер включения/выключения анимаций */
+.footer-anim-control {
+  cursor: pointer;
+}
+
+.anim-switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.anim-switch-slider {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--bg, #15080a) 75%, var(--panel, #220d11));
+  transition: background-color .2s ease, border-color .2s ease;
+  flex-shrink: 0;
+}
+
+.anim-switch-slider::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--muted, #e0bcae);
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+.anim-switch-input:checked + .anim-switch-slider {
+  background: color-mix(in srgb, var(--gold, #ffdb89) 26%, var(--panel, #220d11));
+  border-color: var(--gold, #ffdb89);
+}
+
+.anim-switch-input:checked + .anim-switch-slider::after {
+  transform: translateX(18px);
+  background: var(--gold, #ffdb89);
+}
+
+.anim-switch-input:focus-visible + .anim-switch-slider {
+  outline: 2px solid var(--pink, #f6c86b);
+  outline-offset: 2px;
 }
 /* Акцент ожидания эфира по центру плашки таймера; на узких экранах скрыт 
 main > .site-live-panel {

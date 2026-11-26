@@ -18,11 +18,22 @@
   const markup=`<section class="feature-section site-platforms-hub" aria-label="Площадки и соцсети">${config.platforms.map(renderRow).join('')}</section>`;
   const showPlatforms=!script.hasAttribute('data-hide-platforms');
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
-  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: 
-    <select id="theme-picker" aria-label="Тема сайта">
-    <option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="winter">Зимняя сказка</option><option value="lavender">Лавандовая</option><option value="honey">Медовая</option><option value="lime">Лаймовая</option><option value="coral">Коралловая</option></select></label></div></footer>`);
 
-  if(!script.hasAttribute('data-hide-comment')){
+  const MASCOT_STORAGE_KEY='clubnika_mascot_id';
+  const hasFloatingMenu=!script.hasAttribute('data-hide-comment');
+  const settingsInner=`<label class="mascot-picker" for="mascot-picker" hidden><span>Маскот</span>
+    <select id="mascot-picker" aria-label="Выбор маскота"></select></label>
+    <label class="theme-picker" for="theme-picker"><span>Тема</span>
+    <select id="theme-picker" aria-label="Тема сайта">
+    <option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="winter">Зимняя сказка</option><option value="lavender">Лавандовая</option><option value="honey">Медовая</option><option value="lime">Лаймовая</option><option value="coral">Коралловая</option></select></label>`;
+
+  const settingsMarkup=hasFloatingMenu
+    ?`<details class="mascot-settings-drawer"><summary>⚙️ Настройки</summary><div class="footer-settings mascot-menu-settings">${settingsInner}</div></details>`
+    :`<div class="footer-settings">${settingsInner}</div>`;
+
+  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span>${hasFloatingMenu?'':settingsMarkup}</footer>`);
+
+  if(hasFloatingMenu){
     const FALLBACK_MENU={
       enabled:true,
       showAfterScroll:0,
@@ -49,7 +60,7 @@
 
     script.insertAdjacentHTML('beforebegin',`
       <div class="mascot-dock is-hidden" id="mascot-dock">
-        <div class="mascot-popover" id="mascot-popover" role="menu" hidden></div>
+        <div class="mascot-popover" id="mascot-popover" role="menu" hidden>${settingsMarkup}</div>
         <button type="button" class="mascot-trigger" id="mascot-trigger" aria-expanded="false" aria-controls="mascot-popover" aria-label="Открыть меню">
           <span class="mascot-media" id="mascot-media"></span>
           <span class="mascot-label" id="mascot-label">Меню</span>
@@ -62,6 +73,9 @@
     const popover=document.getElementById('mascot-popover');
     const mediaBox=document.getElementById('mascot-media');
     const labelBox=document.getElementById('mascot-label');
+    const settingsDrawer=popover.querySelector('.mascot-settings-drawer');
+    const mascotSelect=popover.querySelector('#mascot-picker');
+    const mascotRow=popover.querySelector('.mascot-picker');
 
     let isOpen=false;
     let videoEl=null;
@@ -69,6 +83,7 @@
     let animations={};
     let idleTimer=0,playToken=0,playing=false,greeted=false;
     let closeTimer=0,autoCloseMs=FALLBACK_MENU.autoCloseMs;
+    const isSelectFocused=()=>dock.contains(document.activeElement)&&document.activeElement?.tagName==='SELECT';
     const canAnimate=()=>videoEl&&!isAnimOff()&&!document.hidden&&!dock.classList.contains('is-hidden')&&!document.querySelector('dialog[open]');
     const stopAnimation=()=>{
       clearTimeout(idleTimer);
@@ -112,7 +127,12 @@
 
     const resetCloseTimer=()=>{
       clearTimeout(closeTimer);
-      if(isOpen&&autoCloseMs>0)closeTimer=setTimeout(()=>setOpen(false),autoCloseMs);
+      if(isOpen&&autoCloseMs>0){
+        closeTimer=setTimeout(()=>{
+          if(isSelectFocused()){resetCloseTimer();return;}
+          setOpen(false);
+        },autoCloseMs);
+      }
     };
     const setOpen=next=>{
       isOpen=Boolean(next);
@@ -121,7 +141,11 @@
       popover.hidden=!isOpen;
       dock.classList.toggle('is-open',isOpen);
       if(isOpen)playAnimation('invite');
-      else {playAnimation('salute');update();}
+      else {
+        if(settingsDrawer)settingsDrawer.open=false;
+        playAnimation('salute');
+        update();
+      }
     };
 
     const syncPlayback=()=>{
@@ -138,9 +162,38 @@
       }
     };
 
+    const applyMascot=m=>{
+      stopAnimation();
+      greeted=false;
+      videoEl=null;
+      dock.classList.remove('has-animated-mascot');
+      mediaBox.innerHTML='';
+
+      const imgSrc=safeHref(m?.image);
+      const vidSrc=safeHref(m?.video);
+      animations=Object.fromEntries(Object.entries(m?.animations||{}).map(([name,src])=>[name,safeHref(src)]).filter(([,src])=>src));
+
+      if(imgSrc&&Object.keys(animations).length){
+        dock.classList.add('has-animated-mascot');
+        mediaBox.innerHTML=`<img src="${esc(imgSrc)}" alt="" width="384" height="384">${isSafari?'':'<video muted playsinline preload="none" hidden aria-hidden="true"></video>'}`;
+        videoEl=mediaBox.querySelector('video');
+      }else if(vidSrc&&!isSafari){
+        mediaBox.innerHTML=`<video autoplay loop muted playsinline ${imgSrc?`poster="${esc(imgSrc)}"`:''} aria-hidden="true"><source src="${esc(vidSrc)}" type="video/webm"></video>`;
+        videoEl=mediaBox.querySelector('video');
+        syncPlayback();
+      }else if(imgSrc){
+        mediaBox.innerHTML=`<img src="${esc(imgSrc)}" alt="${esc(m?.alt||'')}" width="64" height="64">`;
+      }
+    };
+
     const renderMenu=cfg=>{
       const items=(Array.isArray(cfg?.items)?cfg.items:[]).filter(it=>it&&it.enabled!==false&&it.title);
       if(!cfg||cfg.enabled===false||!items.length){
+        if(settingsDrawer){
+          const body=settingsDrawer.querySelector('.footer-settings');
+          body?.classList.remove('mascot-menu-settings');
+          if(body)document.querySelector('footer.wrap')?.append(body);
+        }
         dock.remove();
         return;
       }
@@ -155,22 +208,28 @@
         trigger.setAttribute('aria-label',cfg.label);
       }
 
-      const m=cfg.mascot||{};
-      const imgSrc=safeHref(m.image);
-      const vidSrc=safeHref(m.video);
-      animations=Object.fromEntries(Object.entries(m.animations||{}).map(([name,src])=>[name,safeHref(src)]).filter(([,src])=>src));
+      const list=Array.isArray(cfg.mascots)&&cfg.mascots.length
+        ?cfg.mascots
+        :[{id:'default',name:cfg.mascot?.alt||'Клубничка',...(cfg.mascot||{})}];
 
-      if(imgSrc&&Object.keys(animations).length){
-        dock.classList.add('has-animated-mascot');
-        mediaBox.innerHTML=`<img src="${esc(imgSrc)}" alt="" width="384" height="384">${isSafari?'':'<video muted playsinline preload="none" hidden aria-hidden="true"></video>'}`;
-        videoEl=mediaBox.querySelector('video');
-      }else if(vidSrc&&!isSafari){
-        mediaBox.innerHTML=`<video autoplay loop muted playsinline ${imgSrc?`poster="${esc(imgSrc)}"`:''} aria-hidden="true"><source src="${esc(vidSrc)}" type="video/webm"></video>`;
-        videoEl=mediaBox.querySelector('video');
-        syncPlayback();
-      }else if(imgSrc){
-        mediaBox.innerHTML=`<img src="${esc(imgSrc)}" alt="${esc(m.alt||'')}" width="64" height="64">`;
+      let savedId='';
+      try{savedId=localStorage.getItem(MASCOT_STORAGE_KEY)||'';}catch{}
+      const currentMascot=list.find(x=>x.id===savedId)||list[0];
+
+      if(mascotSelect&&mascotRow){
+        mascotSelect.innerHTML=list.map(x=>`<option value="${esc(x.id)}">${esc(x.name||x.id)}</option>`).join('');
+        mascotSelect.value=currentMascot.id;
+        mascotRow.hidden=list.length<2;
+        mascotSelect.onchange=()=>{
+          const next=list.find(x=>x.id===mascotSelect.value)||list[0];
+          try{localStorage.setItem(MASCOT_STORAGE_KEY,next.id);}catch{}
+          applyMascot(next);
+          if(isOpen)playAnimation('invite');
+          else update();
+        };
       }
+
+      applyMascot(currentMascot);
 
       popover.innerHTML=items.map(item=>{
         let href=safeHref(item.href)||'#';
@@ -190,18 +249,25 @@
         `;
       }).join('');
 
+      if(settingsDrawer)popover.append(settingsDrawer);
       update();
     };
 
     trigger.addEventListener('click',()=>setOpen(!isOpen));
     trigger.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&!isOpen&&!playing&&greeted)playAnimation('wink');});
 
-    document.addEventListener('pointerdown',e=>{
-      if(isOpen&&!dock.contains(e.target))setOpen(false);
-    });
+    const closeOutside=e=>{
+      if(!isOpen)return;
+      const target=e.target instanceof Node?e.target:e.target?.parentNode;
+      if(target&&!dock.contains(target))setOpen(false);
+    };
+    document.addEventListener('pointerdown',closeOutside,true);
+    document.addEventListener('touchstart',closeOutside,{capture:true,passive:true});
+
     dock.addEventListener('pointerdown',resetCloseTimer);
     popover.addEventListener('focusin',resetCloseTimer);
     popover.addEventListener('pointermove',resetCloseTimer);
+    popover.addEventListener('change',resetCloseTimer);
 
     document.addEventListener('keydown',e=>{
       if(e.key==='Escape'&&isOpen){
@@ -218,7 +284,12 @@
     document.addEventListener('clubnika:animchange',syncPlayback);
     reducedQuery.addEventListener?.('change',syncPlayback);
 
-    addEventListener('scroll',()=>{if(isOpen)setOpen(false);else update();},{passive:true});
+    addEventListener('scroll',()=>{
+      if(isOpen){
+        if(isSelectFocused())return;
+        setOpen(false);
+      }else update();
+    },{passive:true});
     addEventListener('resize',update);
     addEventListener('pageshow',update);
     requestAnimationFrame(update);

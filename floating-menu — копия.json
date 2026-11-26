@@ -1,0 +1,43 @@
+{
+  "enabled": true,
+  "showAfterScroll": 0,
+  "autoCloseMs": 10000,
+  "label": "Меню Клубнички",
+  "mascot": {
+    "image": "mascots/cossack/idle.png",
+    "animations": {
+      "idle": "mascots/cossack/idle.webm",
+      "greeting": "mascots/cossack/greeting.webm",
+      "invite": "mascots/cossack/invite.webm",
+      "salute": "mascots/cossack/salute.webm",
+      "wink": "mascots/cossack/wink.webm",
+      "thumbs-up": "mascots/cossack/thumbs-up.webm"
+    },
+    "alt": "Клубничка"
+  },
+  "items": [
+    {
+      "enabled": true,
+      "title": "Заказать песню",
+      "subtitle": "Выбрать из репертуара",
+      "href": "songs.html",
+      "icon": "🎵"
+    },
+    {
+      "enabled": true,
+      "title": "Оставить комментарий",
+      "subtitle": "Написать доброе слово",
+      "href": "support.html",
+      "anchorOnPage": "#comment-section",
+      "icon": "💌"
+    },
+    {
+      "enabled": true,
+      "title": "Новый релиз",
+      "subtitle": "Узнать о премьере",
+      "href": "release.html",
+      "badge": "Скоро",
+      "icon": "🍓"
+    }
+  ]
+}

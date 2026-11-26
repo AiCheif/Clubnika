@@ -3,7 +3,10 @@
   "showAfterScroll": 0,
   "autoCloseMs": 10000,
   "label": "Меню Клубнички",
-  "mascot": {
+  "mascots": [
+  {
+    "id": "default",
+    "name": "Казачёк",
     "image": "mascots/cossack/idle.png",
     "animations": {
       "idle": "mascots/cossack/idle.webm",
@@ -13,8 +16,9 @@
       "wink": "mascots/cossack/wink.webm",
       "thumbs-up": "mascots/cossack/thumbs-up.webm"
     },
-    "alt": "Клубничка"
-  },
+    "alt": "Казачёк"
+  }],
+    
   "items": [
     {
       "enabled": true,

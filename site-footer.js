@@ -20,7 +20,7 @@
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
 
   const MASCOT_STORAGE_KEY='clubnika_mascot_id';
-  const POS_STORAGE_KEY='clubnika_mascot_pos';
+  const POS_STORAGE_KEY_V2='clubnika_mascot_pos_v2';
   const hasFloatingMenu=!script.hasAttribute('data-hide-comment');
   const settingsInner=`<label class="mascot-picker" for="mascot-picker"><span>Маскот</span>
     <select id="mascot-picker" aria-label="Выбор маскота"></select></label>
@@ -86,6 +86,51 @@
     let animations={};
     let idleTimer=0,playToken=0,playing=false,greeted=false;
     let closeTimer=0,autoCloseMs=FALLBACK_MENU.autoCloseMs;
+
+    // Состояние перетаскивания маскота
+    const DRAG_THRESHOLD=6;
+    const EDGE_MARGIN=12;
+    let isDragging=false;
+    let wasDragged=false;
+    let hasCustomPos=false;
+    let currentLeft=0,currentTop=0;
+    let startX=0,startY=0;
+    let startLeft=0,startTop=0;
+
+    const applyDockPosition=(left,top,save=false)=>{
+      const w=trigger.offsetWidth;
+      const h=trigger.offsetHeight;
+      if(!w||!h)return;
+
+      const maxLeft=Math.max(EDGE_MARGIN,window.innerWidth-w-EDGE_MARGIN);
+      const maxTop=Math.max(EDGE_MARGIN,window.innerHeight-h-EDGE_MARGIN);
+      currentLeft=Math.min(Math.max(EDGE_MARGIN,left),maxLeft);
+      currentTop=Math.min(Math.max(EDGE_MARGIN,top),maxTop);
+      hasCustomPos=true;
+
+      dock.classList.toggle('is-top',currentTop+h/2<window.innerHeight/2);
+      dock.classList.toggle('is-left',currentLeft+w/2<window.innerWidth/2);
+
+      // Компенсируем смещение кнопки внутри dock, чтобы при открытии меню двигалось только само меню, а не маскот
+      dock.style.left=`${currentLeft-trigger.offsetLeft}px`;
+      dock.style.top=`${currentTop-trigger.offsetTop}px`;
+      dock.style.right='auto';
+      dock.style.bottom='auto';
+
+      if(save){
+        try{localStorage.setItem(POS_STORAGE_KEY_V2,JSON.stringify({left:currentLeft,top:currentTop}));}catch{}
+      }
+    };
+
+    const restoreSavedPosition=()=>{
+      try{
+        const saved=JSON.parse(localStorage.getItem(POS_STORAGE_KEY_V2)||'null');
+        if(saved&&Number.isFinite(saved.left)&&Number.isFinite(saved.top)){
+          applyDockPosition(saved.left,saved.top,false);
+        }
+      }catch{}
+    };
+
     const isSelectFocused=()=>dock.contains(document.activeElement)&&document.activeElement?.tagName==='SELECT';
     const canAnimate=()=>videoEl&&!isAnimOff()&&!document.hidden&&!dock.classList.contains('is-hidden')&&!document.querySelector('dialog[open]');
     const stopAnimation=()=>{
@@ -142,6 +187,7 @@
       popover.querySelectorAll('.mascot-screen').forEach(s=>{
         s.hidden=s.dataset.screen!==name;
       });
+      if(hasCustomPos)applyDockPosition(currentLeft,currentTop,false);
       resetCloseTimer();
     };
 
@@ -151,6 +197,7 @@
       trigger.setAttribute('aria-expanded',String(isOpen));
       popover.hidden=!isOpen;
       dock.classList.toggle('is-open',isOpen);
+      if(hasCustomPos)applyDockPosition(currentLeft,currentTop,false);
       if(isOpen)playAnimation('invite');
       else {
         showScreen('main');
@@ -280,57 +327,18 @@
       `;
       if(settingsScreen)popover.append(settingsScreen);
       update();
-      if(dock.style.left&&dock.style.top){
-        applyDockPosition(parseFloat(dock.style.left),parseFloat(dock.style.top),false);
-      }
+      restoreSavedPosition();
     };
 
-    // Перетаскивание маскота (ПК + телефон)
-    const DRAG_THRESHOLD=6;
-    const EDGE_MARGIN=12;
-    let isDragging=false;
-    let wasDragged=false;
-    let startX=0,startY=0;
-    let startLeft=0,startTop=0;
-
-    const clampDockPosition=(left,top)=>{
-      const rect=dock.getBoundingClientRect();
-      const maxLeft=Math.max(EDGE_MARGIN,window.innerWidth-rect.width-EDGE_MARGIN);
-      const maxTop=Math.max(EDGE_MARGIN,window.innerHeight-rect.height-EDGE_MARGIN);
-      return{
-        left:Math.min(Math.max(EDGE_MARGIN,left),maxLeft),
-        top:Math.min(Math.max(EDGE_MARGIN,top),maxTop)
-      };
-    };
-
-    const updatePopoverDirection=()=>{
-      const rect=dock.getBoundingClientRect();
-      dock.classList.toggle('is-top',rect.top<window.innerHeight/2);
-      dock.classList.toggle('is-left',rect.left<window.innerWidth/2);
-    };
-
-    const applyDockPosition=(left,top,save=false)=>{
-      const pos=clampDockPosition(left,top);
-      dock.style.left=`${pos.left}px`;
-      dock.style.top=`${pos.top}px`;
-      dock.style.right='auto';
-      dock.style.bottom='auto';
-      updatePopoverDirection();
-      if(save){
-        try{localStorage.setItem(POS_STORAGE_KEY,JSON.stringify(pos));}catch{}
-      }
-    };
-
-    try{
-      const savedPos=JSON.parse(localStorage.getItem(POS_STORAGE_KEY)||'null');
-      if(savedPos&&Number.isFinite(savedPos.left)&&Number.isFinite(savedPos.top)){
-        requestAnimationFrame(()=>applyDockPosition(savedPos.left,savedPos.top,false));
-      }
-    }catch{}
+    if(typeof ResizeObserver!=='undefined'){
+      new ResizeObserver(()=>{
+        if(hasCustomPos&&!isDragging)applyDockPosition(currentLeft,currentTop,false);
+      }).observe(trigger);
+    }
 
     trigger.addEventListener('pointerdown',e=>{
       if(e.button!==0&&e.pointerType==='mouse')return;
-      const rect=dock.getBoundingClientRect();
+      const rect=trigger.getBoundingClientRect();
       isDragging=true;
       wasDragged=false;
       startX=e.clientX;
@@ -364,8 +372,7 @@
         trigger.releasePointerCapture(e.pointerId);
       }
       if(wasDragged){
-        const rect=dock.getBoundingClientRect();
-        applyDockPosition(rect.left,rect.top,true);
+        applyDockPosition(currentLeft,currentTop,true);
       }
     };
 
@@ -422,16 +429,23 @@
       if(isOpen){
         if(isSelectFocused())return;
         setOpen(false);
-      }else update();
+      }else{
+        update();
+        if(!hasCustomPos)restoreSavedPosition();
+      }
     },{passive:true});
     addEventListener('resize',()=>{
       update();
-      if(dock.style.left&&dock.style.top){
-        applyDockPosition(parseFloat(dock.style.left),parseFloat(dock.style.top),false);
-      }
+      if(hasCustomPos)applyDockPosition(currentLeft,currentTop,false);
     });
-    addEventListener('pageshow',update);
-    requestAnimationFrame(update);
+    addEventListener('pageshow',()=>{
+      update();
+      restoreSavedPosition();
+    });
+    requestAnimationFrame(()=>{
+      update();
+      restoreSavedPosition();
+    });
 
     fetch('./floating-menu.json')
       .then(r=>(r.ok?r.json():FALLBACK_MENU))

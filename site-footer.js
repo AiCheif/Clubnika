@@ -21,14 +21,17 @@
 
   const MASCOT_STORAGE_KEY='clubnika_mascot_id';
   const hasFloatingMenu=!script.hasAttribute('data-hide-comment');
-  const settingsInner=`<label class="mascot-picker" for="mascot-picker" hidden><span>Маскот</span>
+  const settingsInner=`<label class="mascot-picker" for="mascot-picker"><span>Маскот</span>
     <select id="mascot-picker" aria-label="Выбор маскота"></select></label>
     <label class="theme-picker" for="theme-picker"><span>Тема</span>
     <select id="theme-picker" aria-label="Тема сайта">
     <option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="winter">Зимняя сказка</option><option value="lavender">Лавандовая</option><option value="honey">Медовая</option><option value="lime">Лаймовая</option><option value="coral">Коралловая</option></select></label>`;
 
   const settingsMarkup=hasFloatingMenu
-    ?`<details class="mascot-settings-drawer"><summary>⚙️ Настройки</summary><div class="footer-settings mascot-menu-settings">${settingsInner}</div></details>`
+    ?`<div class="mascot-screen" data-screen="settings" hidden>
+        <button type="button" class="mascot-back-btn" data-go="main">‹ Назад</button>
+        <div class="footer-settings mascot-menu-settings">${settingsInner}</div>
+      </div>`
     :`<div class="footer-settings">${settingsInner}</div>`;
 
   script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span>${hasFloatingMenu?'':settingsMarkup}</footer>`);
@@ -73,9 +76,8 @@
     const popover=document.getElementById('mascot-popover');
     const mediaBox=document.getElementById('mascot-media');
     const labelBox=document.getElementById('mascot-label');
-    const settingsDrawer=popover.querySelector('.mascot-settings-drawer');
+    const settingsScreen=popover.querySelector('[data-screen="settings"]');
     const mascotSelect=popover.querySelector('#mascot-picker');
-    const mascotRow=popover.querySelector('.mascot-picker');
 
     let isOpen=false;
     let videoEl=null;
@@ -134,6 +136,14 @@
         },autoCloseMs);
       }
     };
+
+    const showScreen=name=>{
+      popover.querySelectorAll('.mascot-screen').forEach(s=>{
+        s.hidden=s.dataset.screen!==name;
+      });
+      resetCloseTimer();
+    };
+
     const setOpen=next=>{
       isOpen=Boolean(next);
       resetCloseTimer();
@@ -142,7 +152,7 @@
       dock.classList.toggle('is-open',isOpen);
       if(isOpen)playAnimation('invite');
       else {
-        if(settingsDrawer)settingsDrawer.open=false;
+        showScreen('main');
         playAnimation('salute');
         update();
       }
@@ -184,13 +194,21 @@
       }else if(imgSrc){
         mediaBox.innerHTML=`<img src="${esc(imgSrc)}" alt="${esc(m?.alt||'')}" width="64" height="64">`;
       }
+
+      const imgEl=mediaBox.querySelector('img');
+      if(imgEl){
+        imgEl.onerror=()=>{
+          dock.classList.remove('has-animated-mascot');
+          mediaBox.innerHTML='';
+        };
+      }
     };
 
     const renderMenu=cfg=>{
       const items=(Array.isArray(cfg?.items)?cfg.items:[]).filter(it=>it&&it.enabled!==false&&it.title);
       if(!cfg||cfg.enabled===false||!items.length){
-        if(settingsDrawer){
-          const body=settingsDrawer.querySelector('.footer-settings');
+        if(settingsScreen){
+          const body=settingsScreen.querySelector('.footer-settings');
           body?.classList.remove('mascot-menu-settings');
           if(body)document.querySelector('footer.wrap')?.append(body);
         }
@@ -216,10 +234,10 @@
       try{savedId=localStorage.getItem(MASCOT_STORAGE_KEY)||'';}catch{}
       const currentMascot=list.find(x=>x.id===savedId)||list[0];
 
-      if(mascotSelect&&mascotRow){
+      if(mascotSelect){
         mascotSelect.innerHTML=list.map(x=>`<option value="${esc(x.id)}">${esc(x.name||x.id)}</option>`).join('');
         mascotSelect.value=currentMascot.id;
-        mascotRow.hidden=list.length<2;
+        mascotSelect.disabled=list.length<2;
         mascotSelect.onchange=()=>{
           const next=list.find(x=>x.id===mascotSelect.value)||list[0];
           try{localStorage.setItem(MASCOT_STORAGE_KEY,next.id);}catch{}
@@ -231,7 +249,7 @@
 
       applyMascot(currentMascot);
 
-      popover.innerHTML=items.map(item=>{
+      const linksMarkup=items.map(item=>{
         let href=safeHref(item.href)||'#';
         const pageAnchor=safeHref(item.anchorOnPage);
         if(pageAnchor&&pageAnchor.startsWith('#')&&document.querySelector(pageAnchor)){
@@ -249,7 +267,17 @@
         `;
       }).join('');
 
-      if(settingsDrawer)popover.append(settingsDrawer);
+      popover.innerHTML=`
+        <div class="mascot-screen" data-screen="main">
+          ${linksMarkup}
+          <button type="button" class="mascot-item mascot-nav-btn" data-go="settings">
+            <span class="mascot-item-icon" aria-hidden="true">⚙️</span>
+            <span class="mascot-item-body"><span class="mascot-item-title">Настройки</span></span>
+            <span class="mascot-item-arrow" aria-hidden="true">›</span>
+          </button>
+        </div>
+      `;
+      if(settingsScreen)popover.append(settingsScreen);
       update();
     };
 
@@ -277,6 +305,12 @@
     });
 
     popover.addEventListener('click',e=>{
+      const navBtn=e.target.closest('[data-go]');
+      if(navBtn){
+        e.stopPropagation();
+        showScreen(navBtn.dataset.go);
+        return;
+      }
       if(e.target.closest('a'))setOpen(false);
     });
 

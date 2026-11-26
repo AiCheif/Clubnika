@@ -17,7 +17,22 @@
       "thumbs-up": "mascots/cossack/thumbs-up.webm"
     },
     "alt": "Казачёк"
-  }],
+  },
+  {
+    "id": "second",
+    "name": "Красавица",
+    "image": "mascots/cossack/idle.png",
+    "animations": {
+      "idle": "mascots/cossack/idle.webm",
+      "greeting": "mascots/cossack/greeting.webm",
+      "invite": "mascots/cossack/invite.webm",
+      "salute": "mascots/cossack/salute.webm",
+      "wink": "mascots/cossack/wink.webm",
+      "thumbs-up": "mascots/cossack/thumbs-up.webm"
+    },
+    "alt": "Красавица"
+  }
+],
     
   "items": [
     {

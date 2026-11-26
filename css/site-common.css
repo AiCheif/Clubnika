@@ -1550,6 +1550,126 @@ main > .site-platforms-hub {
   outline: 2px solid var(--pink, #f6c86b);
   outline-offset: 2px;
 }
+.mascot-screen {
+  display: grid;
+  gap: 6px;
+  animation: mascotPop .16s ease-out;
+}
+
+.mascot-screen[hidden] {
+  display: none;
+}
+
+.mascot-nav-btn {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+}
+
+.mascot-item-arrow {
+  margin-left: auto;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--gold, #ffdb89);
+}
+
+.mascot-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--panel, #220d11) 72%, transparent);
+  color: var(--gold, #ffdb89);
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.mascot-back-btn:hover {
+  border-color: var(--gold, #ffdb89);
+}
+
+.mascot-menu-settings {
+  display: grid;
+  gap: 6px;
+}
+
+.mascot-menu-settings .mascot-picker,
+.mascot-menu-settings .theme-picker,
+.mascot-menu-settings .footer-anim-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--panel, #220d11) 68%, transparent);
+  color: var(--text, #fff);
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.mascot-menu-settings select {
+  width: 148px;
+  min-width: 0;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line, #73412d);
+  background: var(--panel, #220d11);
+  color: var(--text, #fff);
+  font-size: .82rem;
+}
+
+/* Тумблер анимаций */
+.footer-anim-control {
+  cursor: pointer;
+}
+
+.anim-switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.anim-switch-slider {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--line, #73412d);
+  background: color-mix(in srgb, var(--bg, #15080a) 75%, var(--panel, #220d11));
+  transition: background-color .2s ease, border-color .2s ease;
+  flex-shrink: 0;
+}
+
+.anim-switch-slider::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--muted, #e0bcae);
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+.anim-switch-input:checked + .anim-switch-slider {
+  background: color-mix(in srgb, var(--gold, #ffdb89) 26%, var(--panel, #220d11));
+  border-color: var(--gold, #ffdb89);
+}
+
+.anim-switch-input:checked + .anim-switch-slider::after {
+  transform: translateX(18px);
+  background: var(--gold, #ffdb89);
+}
 /* Акцент ожидания эфира по центру плашки таймера; на узких экранах скрыт 
 main > .site-live-panel {
   position: relative;

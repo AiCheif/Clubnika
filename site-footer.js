@@ -35,7 +35,38 @@
       </div>`
     :`<div class="footer-settings">${settingsInner}</div>`;
 
-  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span>${hasFloatingMenu?'':settingsMarkup}</footer>`);
+  
+  
+  //  script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span>${hasFloatingMenu?'':settingsMarkup}</footer>`);
+script.insertAdjacentHTML('beforebegin',`
+    <footer class="wrap">
+      <div class="footer-info">
+        <span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <span>С любовью к музыке</span>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <button type="button" class="footer-share-btn" id="footer-share-btn">Поделиться</button>
+      </div>
+      ${hasFloatingMenu?'':settingsMarkup}
+    </footer>
+  `);
+
+  const shareBtn=document.getElementById('footer-share-btn');
+  if(shareBtn){
+    let resetTimer=0;
+    shareBtn.addEventListener('click',async()=>{
+      const shareData={title:document.title,url:location.href};
+      if(navigator.share&&(!navigator.canShare||navigator.canShare(shareData))){
+        try{await navigator.share(shareData);return;}catch(e){if(e.name==='AbortError')return;}
+      }
+      try{
+        await navigator.clipboard.writeText(location.href);
+        shareBtn.textContent='Ссылка скопирована ✓';
+        clearTimeout(resetTimer);
+        resetTimer=setTimeout(()=>{shareBtn.textContent='Поделиться';},2000);
+      }catch{}
+    });
+  }
 
   if(hasFloatingMenu){
     const FALLBACK_MENU={

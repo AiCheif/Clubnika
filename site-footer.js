@@ -25,7 +25,8 @@
   if(!script.hasAttribute('data-hide-comment')){
     const FALLBACK_MENU={
       enabled:true,
-      showAfterScroll:300,
+      showAfterScroll:0,
+      autoCloseMs:10000,
       label:'Меню Клубнички',
       mascot:{image:'img/logo-ruby.png',video:'',alt:'Клубничка'},
       items:[
@@ -65,22 +66,71 @@
     let isOpen=false;
     let videoEl=null;
     let scrollThreshold=FALLBACK_MENU.showAfterScroll;
+    let animations={};
+    let idleTimer=0,playToken=0,playing=false,greeted=false;
+    let closeTimer=0,autoCloseMs=FALLBACK_MENU.autoCloseMs;
+    const canAnimate=()=>videoEl&&!isAnimOff()&&!document.hidden&&!dock.classList.contains('is-hidden')&&!document.querySelector('dialog[open]');
+    const stopAnimation=()=>{
+      clearTimeout(idleTimer);
+      idleTimer=0;
+      playToken++;
+      playing=false;
+      if(videoEl){videoEl.pause();videoEl.hidden=true;}
+    };
+    const scheduleIdle=()=>{
+      clearTimeout(idleTimer);
+      idleTimer=0;
+      if(!canAnimate()||isOpen)return;
+      idleTimer=setTimeout(()=>{
+        idleTimer=0;
+        const choices=['wink','thumbs-up','salute'].filter(name=>animations[name]);
+        if(animations.idle&&(!choices.length||Math.random()<0.5))playAnimation('idle');
+        else if(choices.length)playAnimation(choices[Math.floor(Math.random()*choices.length)]);
+      },15000+Math.random()*20000);
+    };
+    const playAnimation=name=>{
+      if(!canAnimate()||!animations[name])return;
+      stopAnimation();
+      const token=playToken;
+      playing=true;
+      videoEl.src=animations[name];
+      const finish=()=>{if(token!==playToken)return;stopAnimation();scheduleIdle();};
+      videoEl.onended=finish;
+      videoEl.onerror=finish;
+      videoEl.play().then(()=>{if(token===playToken)videoEl.hidden=false;}).catch(finish);
+    };
 
     const update=()=>{
       if(isOpen)return;
       const show=window.scrollY>=scrollThreshold;
       dock.classList.toggle('is-hidden',!show);
+      if(!Object.keys(animations).length)return;
+      if(!show){stopAnimation();return;}
+      if(canAnimate()&&!greeted){greeted=true;playAnimation('greeting');}
+      else if(!playing&&!idleTimer)scheduleIdle();
     };
 
+    const resetCloseTimer=()=>{
+      clearTimeout(closeTimer);
+      if(isOpen&&autoCloseMs>0)closeTimer=setTimeout(()=>setOpen(false),autoCloseMs);
+    };
     const setOpen=next=>{
       isOpen=Boolean(next);
+      resetCloseTimer();
       trigger.setAttribute('aria-expanded',String(isOpen));
       popover.hidden=!isOpen;
       dock.classList.toggle('is-open',isOpen);
+      if(isOpen)playAnimation('invite');
+      else {playAnimation('salute');update();}
     };
 
     const syncPlayback=()=>{
       if(!videoEl)return;
+      if(Object.keys(animations).length){
+        if(!canAnimate())stopAnimation();
+        else if(!playing){if(!greeted){greeted=true;playAnimation('greeting');}else scheduleIdle();}
+        return;
+      }
       if(isAnimOff()||document.hidden){
         videoEl.pause();
       }else{
@@ -97,6 +147,8 @@
 
       const rawScroll=Number(cfg.showAfterScroll);
       scrollThreshold=Number.isFinite(rawScroll)?Math.max(0,rawScroll):FALLBACK_MENU.showAfterScroll;
+      const rawAutoClose=Number(cfg.autoCloseMs);
+      autoCloseMs=Number.isFinite(rawAutoClose)?Math.max(0,rawAutoClose):FALLBACK_MENU.autoCloseMs;
 
       if(cfg.label){
         labelBox.textContent=cfg.label;
@@ -106,8 +158,13 @@
       const m=cfg.mascot||{};
       const imgSrc=safeHref(m.image);
       const vidSrc=safeHref(m.video);
+      animations=Object.fromEntries(Object.entries(m.animations||{}).map(([name,src])=>[name,safeHref(src)]).filter(([,src])=>src));
 
-      if(vidSrc&&!isSafari){
+      if(imgSrc&&Object.keys(animations).length){
+        dock.classList.add('has-animated-mascot');
+        mediaBox.innerHTML=`<img src="${esc(imgSrc)}" alt="" width="384" height="384">${isSafari?'':'<video muted playsinline preload="none" hidden aria-hidden="true"></video>'}`;
+        videoEl=mediaBox.querySelector('video');
+      }else if(vidSrc&&!isSafari){
         mediaBox.innerHTML=`<video autoplay loop muted playsinline ${imgSrc?`poster="${esc(imgSrc)}"`:''} aria-hidden="true"><source src="${esc(vidSrc)}" type="video/webm"></video>`;
         videoEl=mediaBox.querySelector('video');
         syncPlayback();
@@ -137,10 +194,14 @@
     };
 
     trigger.addEventListener('click',()=>setOpen(!isOpen));
+    trigger.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&!isOpen&&!playing&&greeted)playAnimation('wink');});
 
-    document.addEventListener('click',e=>{
+    document.addEventListener('pointerdown',e=>{
       if(isOpen&&!dock.contains(e.target))setOpen(false);
     });
+    dock.addEventListener('pointerdown',resetCloseTimer);
+    popover.addEventListener('focusin',resetCloseTimer);
+    popover.addEventListener('pointermove',resetCloseTimer);
 
     document.addEventListener('keydown',e=>{
       if(e.key==='Escape'&&isOpen){
@@ -155,8 +216,9 @@
 
     document.addEventListener('visibilitychange',syncPlayback);
     document.addEventListener('clubnika:animchange',syncPlayback);
+    reducedQuery.addEventListener?.('change',syncPlayback);
 
-    addEventListener('scroll',update,{passive:true});
+    addEventListener('scroll',()=>{if(isOpen)setOpen(false);else update();},{passive:true});
     addEventListener('resize',update);
     addEventListener('pageshow',update);
     requestAnimationFrame(update);

@@ -1,10 +1,18 @@
 {
   "enabled": true,
-  "showAfterScroll": 300,
+  "showAfterScroll": 0,
+  "autoCloseMs": 10000,
   "label": "Меню Клубнички",
   "mascot": {
-    "image": "img/logo-ruby.png",
-    "video": "",
+    "image": "mascots/cossack/idle.png",
+    "animations": {
+      "idle": "mascots/cossack/idle.webm",
+      "greeting": "mascots/cossack/greeting.webm",
+      "invite": "mascots/cossack/invite.webm",
+      "salute": "mascots/cossack/salute.webm",
+      "wink": "mascots/cossack/wink.webm",
+      "thumbs-up": "mascots/cossack/thumbs-up.webm"
+    },
     "alt": "Клубничка"
   },
   "items": [

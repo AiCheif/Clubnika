@@ -1,0 +1,30 @@
+{
+  "communityUrl": "https://vk.ru/nikamoiseevaa",
+  "posts": [
+    {
+      "type": "vk",
+      "ownerId": -223456789,
+      "postId": 101,
+      "hash": "ВСТАВЬТЕ_ХЭШ_ИЗ_КОДА_ЭКСПОРТА_ВК",
+      "date": "2026-11-26"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/UgkxwMu7-w3qQ9-VXfMcfqFddRDpuHFs0Yxi",
+      "image": "img/yt-post-2026-11-25.webp",
+      "date": "2026-11-25"
+    },
+    {
+      "type": "youtube",
+      "url": "https://www.youtube.com/post/Ugkxy06J7UMIqcKp7-YsSs2XApDUOl-FZ5US",
+      "image": "img/yt-post-2026-11-17.webp",
+      "date": "2026-11-17"
+    },
+    {
+      "embed": "VK.Widgets.Post('vk_post_-211665841_96304', -211665841, 96304, '9iodpukWokwbHqbCEaYXnOcaZ1_b');",
+      
+      "date": "2026-11-26"
+    }
+
+  ]
+}

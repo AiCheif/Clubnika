@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-W4J8VCL9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://nikamoiseeva.ru/news.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Ника Моисеева">
+<meta property="og:title" content="Новости и анонсы — Ника Моисеева">
+<meta property="og:description" content="Свежие новости, анонсы прямых эфиров, релизы и записи из сообщества Ники Моисеевой ВКонтакте.">
+<meta property="og:url" content="https://nikamoiseeva.ru/news.html">
+<meta property="og:image" content="https://nikamoiseeva.ru/img/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ника Моисеева в студии звукозаписи — Музыка от души">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Новости и анонсы — Ника Моисеева">
+<meta name="twitter:description" content="Свежие новости, анонсы прямых эфиров и записи Ники Моисеевой">
+<meta name="twitter:image" content="https://nikamoiseeva.ru/img/og-preview.jpg">
+<meta name="theme-color" content="#15080a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ника Моисеева">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/logo-ruby.png">
+<link rel="icon" type="image/png" href="img/logo-ruby.png">
+<script>
+if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready).then(reg=>{if(reg.active)reg.active.postMessage({type:'CACHE_PAGE',url:location.href})}).catch(()=>{})})}
+</script>
+<script>if(location.hash==="#catalog")location.replace("songs.html");</script>
+<script>
+(()=>{
+  const nav=performance.getEntriesByType?performance.getEntriesByType('navigation')[0]:null;
+  const reload=nav?nav.type==='reload':!!(performance.navigation&&performance.navigation.type===1);
+  if(!reload)return;
+  try{if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.hash)history.replaceState(history.state,'',location.pathname+location.search)}catch{}
+  document.documentElement.classList.add('reload-top');
+  let cancelled=false;
+  const cancel=()=>{cancelled=true;document.documentElement.classList.remove('reload-top')};
+  for(const event of ['touchstart','pointerdown','wheel','keydown'])window.addEventListener(event,cancel,{once:true,passive:true});
+  const top=()=>{if(!cancelled){const active=document.activeElement;if(active&&active!==document.body&&typeof active.blur==='function')active.blur();window.scrollTo(0,0)}};
+  window.addEventListener('load',top,{once:true});
+  window.addEventListener('pageshow',event=>{if(event.persisted){cancel();return}top();requestAnimationFrame(()=>{top();requestAnimationFrame(()=>{top();cancel();try{if('scrollRestoration' in history)history.scrollRestoration='auto'}catch{}})})},{once:true});
+})();
+</script>
+<meta name="description" content="Новости, анонсы эфиров и записи из сообщества Ники Моисеевой ВКонтакте.">
+<title>Новости — Ника Моисеева</title>
+
+<link rel="stylesheet" href="css/site-nav.css">
+<link rel="stylesheet" href="css/site-themes.css">
+<link rel="stylesheet" href="css/site-common.css">
+<link rel="stylesheet" href="css/site-anim.css?v=1">
+<link rel="stylesheet" href="css/news.css?v=1">
+<script src="site-config.js"></script>
+<script src="site-analytics.js" defer></script>
+<script src="site-settings.js"></script>
+<script src="js/site-anim.js?v=1" defer></script>
+</head>
+<body class="site-unified-panels news-page">
+<script src="site-header.js" data-page="news.html"></script>
+<main class="wrap">
+  <script src="site-live-panel.js" data-show-order></script>
+
+  <section class="feature-section news-section" id="vk-news" aria-labelledby="news-heading">
+    <div class="sectionhead">
+      <div>
+        <div class="eyebrow">ЛЕТА И АНОНСЫ</div>
+        <h1 id="news-heading">Новости сообщества</h1>
+        <p>Свежие анонсы стримов, закулисье и записи из моего сообщества ВКонтакте.</p>
+      </div>
+      <a class="outline news-vk-cta" id="news-vk-link" href="https://vk.ru/nikamoiseevaa" target="_blank" rel="noopener noreferrer">
+        <span>Сообщество ВК ↗</span>
+      </a>
+    </div>
+
+    <div class="news-status" id="news-status" role="status">Загружаем записи…</div>
+    <div class="news-grid" id="news-grid" data-stagger hidden></div>
+
+    <div class="news-more-wrap" id="news-more-wrap" hidden>
+      <button type="button" class="outline" id="news-more-btn">Показать ещё записи</button>
+    </div>
+  </section>
+</main>
+<script src="site-footer.js"></script>
+<script src="js/news.js?v=1" defer></script>
+</body>
+</html>

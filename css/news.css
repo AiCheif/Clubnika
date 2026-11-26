@@ -1,0 +1,233 @@
+/* Страница новостей и виджетов ВКонтакте / YouTube */
+.news-page main > .news-section {
+  margin: 14px 0;
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  background: var(--panel);
+}
+
+.news-section .sectionhead {
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.news-section h1 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(32px, 4.2vw, 46px);
+  line-height: 1.08;
+  margin: 6px 0 10px;
+  color: var(--text);
+}
+
+.news-vk-cta {
+  flex-shrink: 0;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.news-vk-cta:hover {
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+}
+
+.news-status {
+  padding: 28px 18px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.news-status[hidden] {
+  display: none;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.news-grid[hidden] {
+  display: none;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg) 55%, var(--panel));
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.news-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--gold) 12%, transparent);
+}
+
+.news-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 2px;
+}
+
+.news-card-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 750;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.news-card-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.news-card-date {
+  font-size: 12.5px;
+  color: var(--gold);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+/* Контейнер под виджет ВК */
+.news-widget-frame {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #222222;
+}
+
+.news-widget-frame > div {
+  width: 100% !important;
+}
+
+.news-widget-frame iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  border: 0;
+}
+
+.news-widget-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 380px;
+  padding: 20px;
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+}
+
+/* Сцена для записи YouTube с намеренно уменьшенным фото */
+.news-yt-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 380px;
+  padding: 24px 18px;
+  border: 1px solid color-mix(in srgb, var(--gold) 42%, transparent);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 72%),
+    color-mix(in srgb, var(--bg) 72%, var(--panel));
+  text-decoration: none;
+}
+
+.news-yt-thumb {
+  display: block;
+  width: min(220px, 68%);
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--gold);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .42);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.news-yt-stage:hover .news-yt-thumb {
+  transform: scale(1.03);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .5), 0 0 18px color-mix(in srgb, var(--gold) 24%, transparent);
+}
+
+.news-yt-caption {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.news-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 2px;
+}
+
+.news-card-link {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--gold);
+}
+
+.news-card-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.news-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.news-more-wrap[hidden] {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .news-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .news-yt-stage,
+  .news-widget-frame,
+  .news-widget-placeholder {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 740px) {
+  .news-page main > .news-section {
+    margin: 12px 0;
+    padding: 14px;
+  }
+
+  .news-card {
+    padding: 10px;
+  }
+}

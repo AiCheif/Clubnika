@@ -55,8 +55,11 @@
       });
     }
 
-    const select = document.getElementById('clubnika-anim-select');
-    if (select && select.value !== nextMode) select.value = nextMode;
+    const toggle = document.getElementById('clubnika-anim-select');
+    if (toggle) {
+      if (toggle.type === 'checkbox') toggle.checked = nextMode !== 'off';
+      else if (toggle.value !== nextMode) toggle.value = nextMode;
+    }
 
     document.dispatchEvent(new CustomEvent('clubnika:animchange', { detail: { mode: nextMode } }));
   }
@@ -70,38 +73,31 @@
   }
 
   /* ------------------------------------------------------------------------
-     1. Встраивание селектора «Анимации» в блок настроек подвала (.footer-settings)
+     1. Встраивание переключателя «Анимации» в блок настроек (.footer-settings)
      ------------------------------------------------------------------------ */
   function mountFooterControl(container) {
     if (!container || document.getElementById('clubnika-anim-select')) return true;
 
     const label = document.createElement('label');
     label.className = 'footer-anim-control';
+    label.htmlFor = 'clubnika-anim-select';
 
     const title = document.createElement('span');
     title.textContent = 'Анимации';
 
-    const select = document.createElement('select');
-    select.id = 'clubnika-anim-select';
-    select.setAttribute('aria-label', 'Режим анимаций сайта');
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.id = 'clubnika-anim-select';
+    input.className = 'anim-switch-input';
+    input.setAttribute('aria-label', 'Включить анимации сайта');
+    input.checked = currentMode !== 'off';
+    input.addEventListener('change', () => setMode(input.checked ? 'soft' : 'off', true));
 
-    // Для возврата расширенного режима добавьте ['full', 'Полные']
-    const options = [
-      ['soft', 'Вкл'],
-      ['off', 'Выкл']
-    ];
+    const slider = document.createElement('span');
+    slider.className = 'anim-switch-slider';
+    slider.setAttribute('aria-hidden', 'true');
 
-    for (const [value, text] of options) {
-      const opt = document.createElement('option');
-      opt.value = value;
-      opt.textContent = text;
-      select.append(opt);
-    }
-
-    select.value = currentMode;
-    select.addEventListener('change', () => setMode(select.value, true));
-
-    label.append(title, select);
+    label.append(title, input, slider);
     container.append(label);
     return true;
   }

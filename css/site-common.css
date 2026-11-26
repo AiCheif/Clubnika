@@ -1750,3 +1750,6 @@ main > .site-live-panel > * {
   right: auto;
   left: 0;
 }
+body:has(#mascot-dock) footer.wrap {
+  padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px));
+}

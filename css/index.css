@@ -543,3 +543,107 @@ html.anim-ready:not([data-anim="off"]) .home-sign-card:active {
   .shorts-carousel-viewport,
   .short-slide-card { transition: none; scroll-behavior: auto; }
 }
+/* Парные ряды на главной (ПК) */
+.home-feature-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: stretch;
+  margin: 14px 0;
+}
+
+/* Убираем дублирующиеся внешние отступы и защищаем сетку от распирания каруселью */
+.home-feature-pair > :is(.site-tv-card, .shorts-section, #my-music, .home-signs-section) {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* В половинной колонке на ПК 4 сигны лучше смотрятся сеткой 2×2, а не в 4 узких столбца */
+.home-feature-pair .home-signs-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* На планшетах и смартфонах — последовательно в одну колонку */
+@media (max-width: 960px) {
+  .home-feature-pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin: 12px 0;
+  }
+}
+/* Один ролик в карусели Shorts + компактная навигация */
+#shorts-carousel .shorts-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+#shorts-carousel .shorts-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+#shorts-carousel .shorts-carousel-track {
+  display: flex;
+  gap: 0;
+}
+#shorts-carousel .short-slide-card {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
+  scroll-snap-align: start;
+}
+
+.shorts-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bg) 45%, var(--panel));
+  flex-shrink: 0;
+}
+.shorts-nav[hidden] {
+  display: none;
+}
+.shorts-nav-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--gold);
+  font-size: 16px;
+  line-height: 1;
+  transition: background-color .16s ease, color .16s ease;
+}
+.shorts-nav-btn:hover {
+  background: color-mix(in srgb, var(--gold) 15%, transparent);
+}
+.shorts-nav-count {
+  min-width: 44px;
+  text-align: center;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  user-select: none;
+}
+
+/* Одна сигна в карточке */
+.home-feature-pair .home-signs-grid,
+#home-signs .home-signs-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+#home-signs .home-sign-thumb {
+  aspect-ratio: 16 / 10;
+  max-height: 250px;
+}
+#home-signs .home-sign-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

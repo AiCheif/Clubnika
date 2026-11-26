@@ -1296,6 +1296,63 @@ main > .site-platforms-hub {
     padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 }
+/* Увеличение логотипа без роста высоты шапки */
+.top .nav {
+  padding-block: 2px;
+  min-height: 62px;
+}
+
+.top .brand .berry,
+.top .brand .berry.logo-image-mode {
+  width: 56px;
+  height: 56px;
+  margin-block: -4px; /* визуально увеличивает логотип, не растягивая строку */
+}
+
+@media (max-width: 740px) {
+  .top .brand .berry,
+  .top .brand .berry.logo-image-mode {
+    width: 48px;
+    height: 48px;
+    margin-block: -3px;
+  }
+}
+/* Увеличение логотипа без роста шапки и мягкое свечение по контуру */
+.top .nav {
+  padding-block: 2px;
+  min-height: 62px;
+}
+
+.top .brand {
+  border-radius: 10px;
+}
+
+.top .brand .berry,
+.top .brand .berry.logo-image-mode {
+  width: 56px;
+  height: 56px;
+  margin-block: -4px;
+  overflow: visible;
+}
+
+.top .brand .berry .selected-logo,
+.top .brand .berry svg {
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.top .brand:hover .berry .selected-logo,
+.top .brand:hover .berry svg {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--gold) 65%, transparent));
+}
+
+@media (max-width: 740px) {
+  .top .brand .berry,
+  .top .brand .berry.logo-image-mode {
+    width: 48px;
+    height: 48px;
+    margin-block: -3px;
+  }
+}
 /* Акцент ожидания эфира по центру плашки таймера; на узких экранах скрыт 
 main > .site-live-panel {
   position: relative;

@@ -1,5 +1,6 @@
 {
   "enabled": true,
+  "showAfterScroll": 300,
   "label": "Меню Клубнички",
   "mascot": {
     "image": "img/logo-ruby.png",

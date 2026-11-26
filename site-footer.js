@@ -15,23 +15,12 @@
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
   script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: 
     <select id="theme-picker" aria-label="Тема сайта">
-    <option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="winter">Зимняя сказка</option><option value="lavender">Лавандовая</option><option value="honey">Медовая</option><option value="lime">Лаймовая</option><option value="coral">Коралловая</option></select></label></div></footer>`);  
-/*
-    if(!script.hasAttribute('data-hide-comment')){
-    script.insertAdjacentHTML('beforebegin','<a class="comment-float is-hidden" id="comment-float" href="support.html" aria-label="Оставить комментарий" title="Оставить комментарий"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2C7.4 17.7 4.2 14.3 4.2 10.3 4.2 7.5 6.3 5.6 8.8 5.6c1.4 0 2.5.6 3.2 1.6.7-1 1.8-1.6 3.2-1.6 2.5 0 4.6 1.9 4.6 4.7 0 4-3.2 7.4-7.8 10.9Z" fill="#e5243f" fill-opacity=".25" stroke="#9c1428" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 6.2c-.9-1.6-2.4-2.5-4.1-2.5M12 6.2c.9-1.6 2.4-2.5 4.1-2.5M12 6.2V3.2" fill="none" stroke="#2f6f3e" stroke-width="1.6" stroke-linecap="round"/><circle cx="9.4" cy="10.8" r=".75" fill="#9c1428"/><circle cx="14.6" cy="10.8" r=".75" fill="#9c1428"/><circle cx="12" cy="13.6" r=".75" fill="#9c1428"/></svg><span>Оставить комментарий</span></a>');
-    const button=document.getElementById('comment-float'),commentSection=document.getElementById('comment-section'),anchor=document.getElementById('my-music')||document.getElementById('translations')||commentSection;
-    if(commentSection)button.href='#comment-section';
-    const update=()=>{
-      const show=anchor?anchor.getBoundingClientRect().top<=window.innerHeight*0.55:window.scrollY>=420;
-      button.classList.toggle('is-hidden',!show);
-    };
-    addEventListener('scroll',update,{passive:true});addEventListener('resize',update);addEventListener('pageshow',update);requestAnimationFrame(update);
-  }
+    <option value="scarlet">Алое золото</option><option value="berry">Клубничная</option><option value="winter">Зимняя сказка</option><option value="lavender">Лавандовая</option><option value="honey">Медовая</option><option value="lime">Лаймовая</option><option value="coral">Коралловая</option></select></label></div></footer>`);
 
-  */
- if(!script.hasAttribute('data-hide-comment')){
+  if(!script.hasAttribute('data-hide-comment')){
     const FALLBACK_MENU={
       enabled:true,
+      showAfterScroll:300,
       label:'Меню Клубнички',
       mascot:{image:'img/logo-ruby.png',video:'',alt:'Клубничка'},
       items:[
@@ -67,11 +56,16 @@
     const popover=document.getElementById('mascot-popover');
     const mediaBox=document.getElementById('mascot-media');
     const labelBox=document.getElementById('mascot-label');
-    const commentSection=document.getElementById('comment-section');
-    const anchor=document.getElementById('my-music')||document.getElementById('translations')||commentSection;
 
     let isOpen=false;
     let videoEl=null;
+    let scrollThreshold=FALLBACK_MENU.showAfterScroll;
+
+    const update=()=>{
+      if(isOpen)return;
+      const show=window.scrollY>=scrollThreshold;
+      dock.classList.toggle('is-hidden',!show);
+    };
 
     const setOpen=next=>{
       isOpen=Boolean(next);
@@ -95,6 +89,9 @@
         dock.remove();
         return;
       }
+
+      const rawScroll=Number(cfg.showAfterScroll);
+      scrollThreshold=Number.isFinite(rawScroll)?Math.max(0,rawScroll):FALLBACK_MENU.showAfterScroll;
 
       if(cfg.label){
         labelBox.textContent=cfg.label;
@@ -130,6 +127,8 @@
           </a>
         `;
       }).join('');
+
+      update();
     };
 
     trigger.addEventListener('click',()=>setOpen(!isOpen));
@@ -152,12 +151,6 @@
     document.addEventListener('visibilitychange',syncPlayback);
     document.addEventListener('clubnika:animchange',syncPlayback);
 
-    const update=()=>{
-      if(isOpen)return;
-      const show=anchor?anchor.getBoundingClientRect().top<=window.innerHeight*0.55:window.scrollY>=420;
-      dock.classList.toggle('is-hidden',!show);
-    };
-
     addEventListener('scroll',update,{passive:true});
     addEventListener('resize',update);
     addEventListener('pageshow',update);
@@ -168,6 +161,7 @@
       .then(renderMenu)
       .catch(()=>renderMenu(FALLBACK_MENU));
   }
+
   if(main.querySelector('[data-live-platform]')&&!document.getElementById('watch-youtube')){
     const allowed={youtube:['youtube.com','youtu.be'],twitch:['twitch.tv'],vkLive:['vkvideo.ru','vk.ru','vk.com']};
     const links=[...main.querySelectorAll('[data-live-platform]')];const defaults=new Map(links.map(link=>[link,link.href]));

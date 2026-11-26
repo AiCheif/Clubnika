@@ -3,14 +3,19 @@
 (()=>{
   const config=window.NikaSiteConfig,script=document.currentScript,main=document.querySelector('main');
   if(!config||!main)return;
-  const headingOverrides={'stream-platforms':{label:'ПРЯМЫЕ ТРАНСЛЯЦИИ',title:'Жду вас в эфире'}};
-  const renderSection=section=>{
-    const meta=headingOverrides[section.id]||section;
-    return `<section class="feature-section site-platforms" id="${section.id}"><div class="sectionhead"><div><div class="eyebrow">${meta.label}</div><h2>${meta.title}</h2></div></div><div class="platform-grid">${section.links.map(link=>`<a class="platform-link" href="${link.href}" ${link.attrs}>${link.html}</a>`).join('')}</div>${section.id==='stream-platforms'?'<p class="platform-schedule"><strong>Обычное расписание:</strong> вторник и суббота в 19:30 (МСК)</p>':''}</section>`;
+  const titleOverrides={
+    'stream-platforms':'Прямые эфиры',
+    'listen':'Музыка',
+    'social':'Соцсети'
   };
-  const paired=config.platforms.filter(section=>['stream-platforms','listen'].includes(section.id));
-  const others=config.platforms.filter(section=>!paired.includes(section));
-  const markup=`<div class="site-platform-pair">${paired.map(renderSection).join('')}</div>${others.map(renderSection).join('')}`;
+  const renderRow=section=>{
+    const title=titleOverrides[section.id]||section.title;
+    const schedule=section.id==='stream-platforms'
+      ?'<p class="platform-schedule"><strong>Расписание:</strong> вт и сб в 19:30 (МСК)</p>'
+      :'';
+    return `<div class="platform-row" id="${section.id}"><div class="platform-row-head"><h2>${title}</h2>${schedule}</div><div class="platform-grid">${section.links.map(link=>`<a class="platform-link" href="${link.href}" ${link.attrs}>${link.html}</a>`).join('')}</div></div>`;
+  };
+  const markup=`<section class="feature-section site-platforms-hub" aria-label="Площадки и соцсети">${config.platforms.map(renderRow).join('')}</section>`;
   const showPlatforms=!script.hasAttribute('data-hide-platforms');
   if(showPlatforms)main.insertAdjacentHTML('beforeend',markup);
   script.insertAdjacentHTML('beforebegin',`<footer class="wrap"><span class="footer-brand"><span class="emoji">🍓</span> Ника Моисеева</span><span>С любовью к музыке · <a href="${config.sourceCatalog}" target="_blank" rel="noopener">Полный список песен</a></span><div class="footer-settings"><label class="theme-picker" for="theme-picker">Тема: 

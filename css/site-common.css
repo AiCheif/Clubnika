@@ -1138,6 +1138,164 @@ html[data-anim="off"] .mascot-popover {
     animation: none;
   }
 }
+/* Единый компактный блок площадок и соцсетей */
+main > .site-platforms-hub {
+  margin: 12px 0;
+  padding: clamp(14px, 2vw, 20px) clamp(16px, 2.4vw, 24px);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  background-color: var(--panel);
+  background-image: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--gold) 10%, var(--panel)) 0%,
+    var(--panel) 50%,
+    color-mix(in srgb, var(--bg) 52%, var(--panel)) 100%
+  );
+  box-shadow: none;
+}
+
+.site-platforms-hub .platform-row {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px 18px;
+  padding: 11px 0;
+}
+
+.site-platforms-hub .platform-row:first-child {
+  padding-top: 0;
+}
+
+.site-platforms-hub .platform-row:last-child {
+  padding-bottom: 0;
+}
+
+.site-platforms-hub .platform-row + .platform-row {
+  border-top: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+}
+
+.site-platforms-hub .platform-row-head h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(21px, 2.2vw, 25px);
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.site-platforms-hub .platform-schedule {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.site-platforms-hub .platform-schedule strong {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.site-platforms-hub .platform-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+
+.site-platforms-hub .platform-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--bg) 38%, var(--panel));
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: border-color .18s ease, background-color .18s ease;
+}
+
+.site-platforms-hub .platform-link:hover {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 10%, var(--panel));
+}
+
+.site-platforms-hub .platform-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.site-platforms-hub .platform-mark img,
+.site-platforms-hub .platform-mark svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.site-platforms-hub .platform-mark [hidden] {
+  display: none;
+}
+
+.site-platforms-hub .platform-mark.platform-placeholder {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+  border-radius: 4px;
+  border: 1px solid var(--gold);
+  box-sizing: border-box;
+}
+
+@media (max-width: 740px) {
+  main > .site-platforms-hub {
+    margin: 10px 0;
+    padding: 13px;
+  }
+
+  .site-platforms-hub .platform-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px 0;
+  }
+
+  .site-platforms-hub .platform-row-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 10px;
+  }
+
+  .site-platforms-hub .platform-schedule {
+    margin-top: 0;
+    font-size: 12px;
+  }
+
+  .site-platforms-hub .platform-grid {
+    gap: 6px;
+  }
+
+  .site-platforms-hub .platform-link {
+    min-height: 34px;
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+
+  footer.wrap {
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+}
 /* Акцент ожидания эфира по центру плашки таймера; на узких экранах скрыт 
 main > .site-live-panel {
   position: relative;

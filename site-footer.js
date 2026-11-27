@@ -117,7 +117,7 @@ script.insertAdjacentHTML('beforebegin',`
     let animations={};
     let idleTimer=0,playToken=0,playing=false,greeted=false;
     let contextTimer=0;
-    const seenContexts=new Set();
+    const playedContexts=new Set();
     const contexts=script.hasAttribute('data-home-mascot')?[
       ['#live-panel','check-time'],
       ['.hero .photo-gallery','admire'],
@@ -175,17 +175,24 @@ script.insertAdjacentHTML('beforebegin',`
     const canAnimate=()=>videoEl&&!isAnimOff()&&!document.hidden&&!dock.classList.contains('is-hidden')&&!document.querySelector('dialog[open]');
     const scheduleContext=()=>{
       clearTimeout(contextTimer);
+      const height=window.innerHeight;
+      // Rearm a reaction only after its section has mostly left the viewport.
+      for(const {element,name} of contexts){
+        const rect=element.getBoundingClientRect();
+        const overlap=Math.min(rect.bottom,height)-Math.max(rect.top,0);
+        if(overlap<=Math.min(rect.height,height)*0.15)playedContexts.delete(name);
+      }
       if(!contexts.length||!canAnimate()||isOpen||playing||isDragging)return;
       contextTimer=setTimeout(()=>{
         if(!canAnimate()||isOpen||playing||isDragging)return;
         const height=window.innerHeight;
-        const visible=contexts.filter(({name})=>animations[name]&&!seenContexts.has(name)).map(context=>{
+        const visible=contexts.filter(({name})=>animations[name]&&!playedContexts.has(name)).map(context=>{
           const rect=context.element.getBoundingClientRect();
           const overlap=Math.min(rect.bottom,height)-Math.max(rect.top,0);
           return {...context,overlap,required:Math.min(rect.height,height)*0.45};
         }).filter(x=>x.overlap>0&&x.overlap>=x.required).sort((a,b)=>b.overlap-a.overlap);
         if(visible.length){
-          seenContexts.add(visible[0].name);
+          playedContexts.add(visible[0].name);
           playAnimation(visible[0].name);
         }
       },650);

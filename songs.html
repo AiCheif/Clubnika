@@ -59,11 +59,6 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
 <link rel="stylesheet" href="css/site-common.css">
 <link rel="stylesheet" href="css/site-anim.css?v=1">
 <link rel="stylesheet" href="css/songs.css?v=2">
-
-
-
-
-
 <style>
   html.anim-ready:not([data-anim="off"]) #songs .song {
     transition: background-color 180ms ease, transform 180ms cubic-bezier(.22, 1, .36, 1);
@@ -88,39 +83,6 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
     }
   }
 </style>
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const catalog=document.getElementById('catalog');
-  if(!catalog)return;
-  const results=catalog.querySelector('.catalog-list-tools .results');
-  if(results)for(const node of results.querySelectorAll('span'))if(node.textContent.trim()==='Выберите композицию для заказа')node.remove();
-  const random=document.getElementById('random');
-  const search=catalog.querySelector('label.search');
-  if(random&&search){
-    const row=document.createElement('div');row.className='catalog-search-row';search.before(row);row.append(search,random);
-    const icon=[...search.children].find(node=>node.textContent.trim()==='⌕');
-    if(icon){icon.classList.add('catalog-search-icon');icon.setAttribute('aria-hidden','true');icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>';}
-    random.setAttribute('aria-label','Случайная песня');random.title='Случайная песня';
-    const dice='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><g transform="rotate(-15 10 12)"><rect x="2" y="4" width="16" height="16" rx="3"/><g fill="currentColor" stroke="none"><circle cx="6" cy="8" r="1.35"/><circle cx="14" cy="8" r="1.35"/><circle cx="10" cy="12" r="1.35"/><circle cx="6" cy="16" r="1.35"/><circle cx="14" cy="16" r="1.35"/></g></g><g transform="rotate(16 22 21)"><rect x="14" y="13" width="16" height="16" rx="3" fill="var(--panel)"/><g fill="currentColor" stroke="none"><circle cx="18" cy="17" r="1.35"/><circle cx="22" cy="21" r="1.35"/><circle cx="26" cy="25" r="1.35"/></g></g></svg>';
-    random.innerHTML=dice;
-    const order=document.getElementById('order');
-    if(order){
-      const headline=document.createElement('div');headline.className='random-choice-heading';headline.innerHTML=dice+'<span>Случайный выбор</span>';
-      order.querySelector('#orderTitle')?.before(headline);
-      random.addEventListener('click',()=>order.classList.add('random-choice'),true);
-      catalog.querySelector('#songs')?.addEventListener('click',()=>order.classList.remove('random-choice'),true);
-      order.addEventListener('close',()=>order.classList.remove('random-choice'));
-    }
-    const category=document.getElementById('category'),artist=document.getElementById('artist-picker'),sort=catalog.querySelector('.sort-control'),controls=catalog.querySelector('.controls');
-    if(category&&artist&&sort&&controls){
-      const settings=document.createElement('details');settings.className='catalog-settings';settings.id='catalog-settings';
-      const summary=document.createElement('summary');summary.innerHTML='<svg class="catalog-settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="2" fill="var(--panel)"/><circle cx="16" cy="12" r="2" fill="var(--panel)"/><circle cx="10" cy="18" r="2" fill="var(--panel)"/></svg><span>Настройки</span>';
-      const body=document.createElement('div');body.className='catalog-settings-body';settings.append(summary,body);controls.after(settings);body.append(artist,category,sort);
-    }
-  }
-});
-</script>
-
 <script src="site-config.js"></script>
 <script src="site-analytics.js" defer></script>
 <script src="site-settings.js"></script>
@@ -129,19 +91,148 @@ document.addEventListener('DOMContentLoaded',()=>{
 <script src="site-header.js" data-page="songs.html"></script>
 <main class="wrap">
 <script src="site-live-panel.js"></script>
+
 <section id="catalog" class="catalog">
-<div class="sectionhead"><div><h2>Найдите свою песню</h2><p class="catalog-intro">Выберите любимую композицию из репертуара и закажите её на эфире.</p></div><button id="random" class="outline">✦ Случайная песня</button></div>
-<div id="category"><div class="category-heading">Категория песен</div><div class="category-buttons" role="group" aria-label="Категория песен"><button type="button" class="outline" data-category="all" aria-pressed="true">Все песни</button><button type="button" class="outline" data-category="original" aria-pressed="false">Авторские</button><button type="button" class="outline" data-category="folk" aria-pressed="false">Народные и казачьи</button><button type="button" class="outline" data-category="film" aria-pressed="false">Из кино и мультфильмов</button></div></div>
-<div class="controls"><div><div class="search-label-row"><label class="control-label" for="search">Поиск песни</label><strong id="category-selected" aria-live="polite">Все</strong><span id="count" aria-live="polite">Загрузка репертуара…</span></div><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Название песни или исполнитель" autocomplete="off" aria-label="Поиск песни или исполнителя"><button id="clear" aria-label="Очистить поиск" hidden>×</button></label></div></div>
-<div class="catalog-list-tools"><div class="sort-control"><span class="control-label" id="sort-label">Сортировка списка (А–Я)</span><div class="sort-buttons" role="group" aria-labelledby="sort-label"><button type="button" class="outline" data-sort="artist" aria-pressed="true">По исполнителю</button><button type="button" class="outline" data-sort="title" aria-pressed="false">По названию песни</button></div></div></div>
-<div id="songs" class="songlist" data-stagger></div>
-<div class="pages" id="pages"></div>
-<details class="artist-picker" id="artist-picker"><summary><span>Исполнитель:</span><span class="artist-selected" id="artist-selected">Все исполнители</span><span class="artist-total" id="artist-total"></span></summary><div class="artist-body"><label class="search artist-search"><span aria-hidden="true">⌕</span><input id="artist-search" type="search" placeholder="Найти исполнителя" autocomplete="off" aria-label="Поиск исполнителя"></label><button type="button" class="outline artist-reset" id="artist-reset" hidden>Сбросить выбор</button><div class="artist-list" id="artist-list" aria-label="Список исполнителей"></div></div></details>
+  <div class="sectionhead">
+    <div>
+      <h2>Найдите свою песню</h2>
+      <p class="catalog-intro">Выберите любимую композицию из репертуара и закажите её на эфире.</p>
+    </div>
+    <button type="button" id="random-mobile" class="outline random-mobile-btn">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+        <g transform="rotate(-15 10 12)"><rect x="2" y="4" width="16" height="16" rx="3"/><g fill="currentColor" stroke="none"><circle cx="6" cy="8" r="1.35"/><circle cx="14" cy="8" r="1.35"/><circle cx="10" cy="12" r="1.35"/><circle cx="6" cy="16" r="1.35"/><circle cx="14" cy="16" r="1.35"/></g></g>
+        <g transform="rotate(16 22 21)"><rect x="14" y="13" width="16" height="16" rx="3" fill="var(--panel)"/><g fill="currentColor" stroke="none"><circle cx="18" cy="17" r="1.35"/><circle cx="22" cy="21" r="1.35"/><circle cx="26" cy="25" r="1.35"/></g></g>
+      </svg>
+      <span>Случайная песня</span>
+    </button>
+  </div>
+
+  <div class="controls">
+    <div class="search-label-row">
+      <label class="control-label" for="search">Поиск песни</label>
+      <span id="count" aria-live="polite">Загрузка репертуара…</span>
+    </div>
+
+    <div class="catalog-search-row">
+      <label class="search">
+        <span class="catalog-search-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>
+          </svg>
+        </span>
+        <input id="search" type="search" placeholder="Название песни или исполнитель" autocomplete="off" aria-label="Поиск песни или исполнителя">
+        <button type="button" id="clear" aria-label="Очистить поиск" hidden>×</button>
+      </label>
+
+      <button type="button" id="random" class="outline" aria-label="Случайная песня" title="Случайная песня">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <g transform="rotate(-15 10 12)"><rect x="2" y="4" width="16" height="16" rx="3"/><g fill="currentColor" stroke="none"><circle cx="6" cy="8" r="1.35"/><circle cx="14" cy="8" r="1.35"/><circle cx="10" cy="12" r="1.35"/><circle cx="6" cy="16" r="1.35"/><circle cx="14" cy="16" r="1.35"/></g></g>
+          <g transform="rotate(16 22 21)"><rect x="14" y="13" width="16" height="16" rx="3" fill="var(--panel)"/><g fill="currentColor" stroke="none"><circle cx="18" cy="17" r="1.35"/><circle cx="22" cy="21" r="1.35"/><circle cx="26" cy="25" r="1.35"/></g></g>
+        </svg>
+      </button>
+
+      <button type="button" id="filters-toggle" class="outline" aria-expanded="false" aria-controls="catalog-filters" aria-label="Фильтры и сортировка" title="Фильтры и сортировка">
+        <svg class="catalog-settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+          <circle cx="8" cy="6" r="2" fill="var(--panel)"/>
+          <circle cx="16" cy="12" r="2" fill="var(--panel)"/>
+          <circle cx="10" cy="18" r="2" fill="var(--panel)"/>
+        </svg>
+        <span class="filters-toggle-label">Фильтры</span>
+        <span class="filters-badge" id="filters-badge" hidden></span>
+      </button>
+    </div>
+
+    <div class="active-filters" id="active-filters" aria-label="Активные фильтры" hidden></div>
+
+    <div class="catalog-filters" id="catalog-filters" hidden>
+      <div class="filters-head">
+        <span class="filters-title">Фильтры и сортировка</span>
+        <button type="button" class="outline filters-reset-all" id="filters-reset-all" hidden>Сбросить фильтры</button>
+      </div>
+
+      <div class="filter-group" id="category">
+        <div class="filter-group-label">Категория</div>
+        <div class="category-buttons" role="group" aria-label="Категория песен">
+          <button type="button" class="outline" data-category="all" aria-pressed="true">Все песни</button>
+          <button type="button" class="outline" data-category="original" aria-pressed="false">Авторские</button>
+          <button type="button" class="outline" data-category="folk" aria-pressed="false">Народные и казачьи</button>
+          <button type="button" class="outline" data-category="film" aria-pressed="false">Из кино и мультфильмов</button>
+        </div>
+      </div>
+
+      <div class="filter-group" id="artist-section">
+        <div class="filter-group-head">
+          <label class="filter-group-label" for="artist-search">Исполнитель</label>
+          <div class="artist-meta">
+            <span class="artist-total" id="artist-total"></span>
+            <button type="button" class="artist-clear-inline" id="artist-reset" hidden>Сбросить</button>
+          </div>
+        </div>
+        <label class="search artist-search">
+          <span class="catalog-search-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>
+            </svg>
+          </span>
+          <input id="artist-search" type="search" placeholder="Найти исполнителя" autocomplete="off" aria-label="Поиск исполнителя">
+          <button type="button" id="artist-search-clear" aria-label="Очистить поиск исполнителя" hidden>×</button>
+        </label>
+        <div class="artist-list" id="artist-list" role="group" aria-label="Список исполнителей"></div>
+      </div>
+
+      <div class="filter-group sort-control">
+        <span class="filter-group-label" id="sort-label">Сортировка (А–Я)</span>
+        <div class="sort-buttons" role="group" aria-labelledby="sort-label">
+          <button type="button" class="outline" data-sort="artist" aria-pressed="true">По исполнителю</button>
+          <button type="button" class="outline" data-sort="title" aria-pressed="false">По названию</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="songs" class="songlist" data-stagger></div>
+  <div class="pages" id="pages"></div>
 </section>
+
 <details class="order-prices" data-reveal><summary class="order-prices-summary">Условия заказа песен</summary><div class="order-prices-body"><div class="price-grid"><article class="price-card" data-spotlight><strong>от 250 ₽</strong><b>🎵 Заказ песни</b><small>В порядке очереди</small></article><article class="price-card" data-spotlight><strong>от 700 ₽</strong><b>💌 Песня с сигной</b><small>В порядке очереди + персональная сигна</small></article><article class="price-card priority" data-spotlight><strong>от 1 000 ₽</strong><b>⭐ Песня вне очереди</b><small>Приоритет + персональная сигна</small></article></div><div class="sign-explainer"><p><strong>Что такое сигна?</strong> Это персональная фотография или короткое видео-приветствие от Ники специально для вас.</p><a class="outline" href="signs.html">🍓 Посмотреть примеры</a></div><p class="order-note">Если не успею исполнить вашу песню в текущем эфире, заказ может быть перенесён на следующую трансляцию. Особенно это касается песен в порядке очереди. Спасибо за понимание! 🍓</p></div></details>
 </main>
 <script src="site-footer.js" data-hide-platforms></script>
-<dialog id="order"><button id="close" class="close" aria-label="Закрыть">×</button><div class="modalicon">♫</div><div class="eyebrow">ВАШ МУЗЫКАЛЬНЫЙ ЗАКАЗ</div><h2 id="orderTitle"></h2><p id="orderArtist"></p><div class="message"><label for="message">Сообщение к донату</label><div><input id="message" readonly><button id="copy" class="outline">Копировать</button></div></div><p class="help">Скопируйте сообщение и вставьте его в форму доната. Сумму выберите на странице сервиса.</p><a class="pay da" href="https://www.donationalerts.com/r/nikaclub" target="_blank" rel="noopener">DonationAlerts <span>Оплатить</span></a><a class="pay dp" href="https://new.donatepay.ru/@nikamoiseeva" target="_blank" rel="noopener">DonatePay <span>Оплатить</span></a><a class="pay ds" href="https://destream.net/live/nikaclub/donate" target="_blank" rel="noopener">Destream <span>Оплатить</span></a><section class="modal-prices" aria-labelledby="modal-prices-title"><h3 id="modal-prices-title">Условия заказа</h3><dl><dt>от 250 ₽</dt><dd>Песня в порядке очереди</dd><dt>от 700 ₽</dt><dd>Песня в очереди + персональная сигна</dd><dt>от 1 000 ₽</dt><dd>Песня вне очереди + персональная сигна</dd></dl><p class="order-note">Если песня не прозвучит в текущем эфире, заказ может быть перенесён на следующую трансляцию (особенно при обычной очереди).</p></section><div id="notice" aria-live="polite"></div></dialog>
+
+<dialog id="order">
+  <button type="button" id="close" class="close" aria-label="Закрыть">×</button>
+  <div class="modalicon">♫</div>
+  <div class="eyebrow">ВАШ МУЗЫКАЛЬНЫЙ ЗАКАЗ</div>
+  <div class="random-choice-heading">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <g transform="rotate(-15 10 12)"><rect x="2" y="4" width="16" height="16" rx="3"/><g fill="currentColor" stroke="none"><circle cx="6" cy="8" r="1.35"/><circle cx="14" cy="8" r="1.35"/><circle cx="10" cy="12" r="1.35"/><circle cx="6" cy="16" r="1.35"/><circle cx="14" cy="16" r="1.35"/></g></g>
+      <g transform="rotate(16 22 21)"><rect x="14" y="13" width="16" height="16" rx="3" fill="var(--panel)"/><g fill="currentColor" stroke="none"><circle cx="18" cy="17" r="1.35"/><circle cx="22" cy="21" r="1.35"/><circle cx="26" cy="25" r="1.35"/></g></g>
+    </svg>
+    <span>Случайный выбор</span>
+  </div>
+  <h2 id="orderTitle"></h2>
+  <p id="orderArtist"></p>
+  <button type="button" id="orderArtistAll" class="order-artist-link" hidden></button>
+  <div class="message">
+    <label for="message">Сообщение к донату</label>
+    <div><input id="message" readonly><button type="button" id="copy" class="outline">Копировать</button></div>
+  </div>
+  <p class="help">Скопируйте сообщение и вставьте его в форму доната. Сумму выберите на странице сервиса.</p>
+  <a class="pay da" href="https://www.donationalerts.com/r/nikaclub" target="_blank" rel="noopener">DonationAlerts <span>Оплатить</span></a>
+  <a class="pay dp" href="https://new.donatepay.ru/@nikamoiseeva" target="_blank" rel="noopener">DonatePay <span>Оплатить</span></a>
+  <a class="pay ds" href="https://destream.net/live/nikaclub/donate" target="_blank" rel="noopener">Destream <span>Оплатить</span></a>
+  <section class="modal-prices" aria-labelledby="modal-prices-title">
+    <h3 id="modal-prices-title">Условия заказа</h3>
+    <dl>
+      <dt>от 250 ₽</dt><dd>Песня в порядке очереди</dd>
+      <dt>от 700 ₽</dt><dd>Песня в очереди + персональная сигна</dd>
+      <dt>от 1 000 ₽</dt><dd>Песня вне очереди + персональная сигна</dd>
+    </dl>
+    <p class="order-note">Если песня не прозвучит в текущем эфире, заказ может быть перенесён на следующую трансляцию (особенно при обычной очереди).</p>
+  </section>
+  <div id="notice" aria-live="polite"></div>
+</dialog>
+
 <script type="text/plain" id="catalog-data">
 2 Маши|Босая
 Activate|Let The Rhythm Take Control
@@ -520,70 +611,467 @@ Zivert|Credo|ЯТЛ
 Ян Френкель|Вальс расставания
 Ярослав Евдокимов|Майский вальс|Фантазер
 Я. Шведов, А. Новиков|Смуглянка
-
 </script>
+
 <script>
-const $=id=>document.getElementById(id);
-let all=[],filter='all',page=1,filtered=[],selectedArtist='';
-let currentSort="artist";
-const perPage=20;
-const norm=s=>s.normalize('NFC').toLowerCase().replace(/ё/g,'е').replace(/[\u200b-\u200d\uFEFF]/g,'').trim();
-const original=s=>norm(s.artist)==='ника моисеева';
-const folk=s=>/народн|казач|рнп|рнх|балкарск/i.test(s.artist);
-const film=s=>/к\/ф|м\/ф|т\/ф|т\/с|сериал/i.test(s.artist);
-const categories={all:()=>true,original,folk,film};
-function button(text,fn,cls){const b=document.createElement('button');b.textContent=text;b.className=cls||'';b.addEventListener('click',fn);return b}
-function artistCounts(){const counts=new Map();for(const s of all.filter(categories[filter]))counts.set(s.artist,(counts.get(s.artist)||0)+1);return counts}
-function renderArtists(){const counts=artistCounts();const q=norm($('artist-search').value);const list=$('artist-list');list.replaceChildren();$('artist-total').textContent=counts.size+' исполнителей';$('artist-selected').textContent=selectedArtist||'Все исполнители';$('artist-reset').hidden=!selectedArtist;const rows=[...counts].filter(([name])=>norm(name).includes(q)).sort((a,b)=>a[0].localeCompare(b[0],'ru'));for(const [name,count] of rows){const b=button('',()=>selectArtist(name));b.type='button';b.setAttribute('aria-pressed',String(selectedArtist===name));const title=document.createElement('span');title.textContent=name;const num=document.createElement('span');num.textContent=count;num.setAttribute('aria-label','Песен: '+count);b.append(title,num);list.append(b)}if(!rows.length){const el=document.createElement('span');el.className='artist-empty';el.textContent='Исполнители не найдены';list.append(el)}}
-function selectArtist(name){selectedArtist=name;page=1;$('artist-search').value='';renderArtists();render();$('artist-picker').open=false;($('catalog-settings')||$('category'))?.querySelector('summary')?.focus({preventScroll:true});$('count').scrollIntoView({block:'start',behavior:'auto'})}
-$('artist-search').addEventListener('input',renderArtists);$('artist-reset').addEventListener('click',()=>selectArtist(''));
-let settleSongsTimer=null;
-function animateSongList(songsEl){
-  clearTimeout(settleSongsTimer);
-  const mode=window.ClubnikaAnim?.getMode?.()||document.documentElement.dataset.anim||'soft';
-  if(mode==='off'){songsEl.classList.add('is-revealed','is-settled');return}
-  songsEl.classList.remove('is-revealed','is-settled');
-  const rows=[...songsEl.children];
-  rows.forEach((row,idx)=>{row.style.setProperty('--stagger-delay',`${Math.min(idx*26,320)}ms`)});
-  void songsEl.offsetWidth;
-  requestAnimationFrame(()=>songsEl.classList.add('is-revealed'));
-  settleSongsTimer=setTimeout(()=>songsEl.classList.add('is-settled'),700);
+const $ = id => document.getElementById(id);
+let all = [], filter = 'all', page = 1, filtered = [], selectedArtist = '', currentOrderArtist = '';
+let currentSort = 'artist';
+const perPage = 20;
+const isMobile = () => window.matchMedia('(max-width: 740px)').matches;
+
+const norm = s => s.normalize('NFC').toLowerCase().replace(/ё/g, 'е').replace(/[\u200b-\u200d\uFEFF]/g, '').trim();
+const original = s => norm(s.artist) === 'ника моисеева';
+const folk = s => /народн|казач|рнп|рнх|балкарск/i.test(s.artist);
+const film = s => /к\/ф|м\/ф|т\/ф|т\/с|сериал/i.test(s.artist);
+const categories = { all: () => true, original, folk, film };
+const categoryLabels = {
+  all: 'Все песни',
+  original: 'Авторские',
+  folk: 'Народные и казачьи',
+  film: 'Из кино и мультфильмов'
+};
+
+function button(text, fn, cls) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.textContent = text;
+  if (cls) b.className = cls;
+  b.addEventListener('click', fn);
+  return b;
 }
-function render(scroll=false){const q=norm($('search').value).split(/\s+/).filter(Boolean);let sort=currentSort;
-filtered=all.filter(s=>categories[filter](s)&&(!selectedArtist||s.artist===selectedArtist)&&q.every(w=>norm(s.artist+' '+s.title).includes(w))).sort((a,b)=>a[sort].localeCompare(b[sort],'ru')||a.title.localeCompare(b.title,'ru')||a.artist.localeCompare(b.artist,'ru'));
-const max=Math.max(1,Math.ceil(filtered.length/perPage));page=Math.min(page,max);$('count').textContent='Найдено: '+filtered.length+' из '+all.length;const songsEl=$('songs');songsEl.replaceChildren();$('clear').hidden=!$('search').value;
-if(!filtered.length){const n=document.createElement('div');n.className='empty';n.textContent='Песни не найдены. Попробуйте изменить запрос.';songsEl.append(n)}
-for(const s of filtered.slice((page-1)*perPage,page*perPage)){const row=document.createElement('div');row.className='song';const icon=document.createElement('span');icon.className='icon';icon.textContent='♪';icon.setAttribute('aria-hidden','true');const title=document.createElement('span');title.className='title';title.textContent=s.title;if(original(s)){const badge=document.createElement('span');badge.className='badge';badge.textContent='Авторская';title.append(badge)}const artist=document.createElement('span');artist.className='artist';artist.textContent=s.artist;row.append(icon,title,artist,button('Заказать',()=>order(s),'orderbtn'));songsEl.append(row)}
-animateSongList(songsEl);
-const pages=$('pages');pages.replaceChildren();if(max>1){const go=n=>{page=n;render(true)};let prev=button('Назад',()=>go(page-1));prev.disabled=page===1;pages.append(prev);let nums=[...new Set([1,page-1,page,page+1,max])].filter(n=>n>0&&n<=max).sort((a,b)=>a-b);let last=0;for(let n of nums){if(last&&n-last>1){let dots=document.createElement('span');dots.textContent='…';pages.append(dots)}let b=button(n,()=>go(n),n===page?'current':'');if(n===page)b.setAttribute('aria-current','page');pages.append(b);last=n}let next=button('Далее',()=>go(page+1));next.disabled=page===max;pages.append(next)}if(scroll)$('catalog').scrollIntoView({behavior:'smooth',block:'start'})}
-function order(s){$('orderTitle').textContent=s.title;$('orderArtist').textContent=s.artist;$('message').value=s.artist+' — '+s.title;$('notice').textContent='';$('order').showModal();window.NikaAnalytics?.track('song_order',{song_title:s.title,song_artist:s.artist})}
-async function copy(){try{await navigator.clipboard.writeText($('message').value)}catch{$('message').select();if(!document.execCommand('copy')){$('notice').textContent='Выделите сообщение и скопируйте его вручную.';return}}$('notice').textContent='✓ Сообщение скопировано'}
-$('copy').addEventListener('click',copy);$('close').addEventListener('click',()=>$('order').close());$('order').addEventListener('click',e=>{if(e.target===$('order'))$('order').close()});
-$('search').addEventListener('input',()=>{page=1;render();const row=document.querySelector('#catalog .search-label-row');row?.scrollIntoView({block:'start',behavior:'instant'}); });$('clear').addEventListener('click',()=>{$('search').value='';$('search').focus();page=1;render()});for(const b of document.querySelectorAll('[data-sort]'))b.addEventListener('click',()=>{currentSort=b.dataset.sort;for(const a of document.querySelectorAll('[data-sort]'))a.setAttribute('aria-pressed',String(a===b));page=1;render()});function syncCategory(){for(const b of document.querySelectorAll('[data-category]')){const active=b.dataset.category===filter;b.setAttribute('aria-pressed',String(active));if(active)$('category-selected').textContent=b.dataset.category==='all'?'Все':b.textContent}}for(const b of document.querySelectorAll('[data-category]'))b.addEventListener('click',()=>{filter=b.dataset.category;syncCategory();page=1;if(selectedArtist&&!artistCounts().has(selectedArtist))selectedArtist='';renderArtists();render()});
-$('random').addEventListener('click',()=>{
-  if(!filtered.length)return;
-  const btn=$('random');
-  const mode=window.ClubnikaAnim?.getMode?.()||document.documentElement.dataset.anim||'soft';
-  if(mode!=='off'&&typeof btn.animate==='function'){
+
+function setFiltersOpen(open) {
+  const panel = $('catalog-filters');
+  const toggle = $('filters-toggle');
+  panel.hidden = !open;
+  toggle.setAttribute('aria-expanded', String(open));
+}
+
+function artistCounts() {
+  const counts = new Map();
+  for (const s of all.filter(categories[filter])) {
+    counts.set(s.artist, (counts.get(s.artist) || 0) + 1);
+  }
+  return counts;
+}
+
+function renderArtists() {
+  const counts = artistCounts();
+  const q = norm($('artist-search').value);
+  $('artist-search-clear').hidden = !$('artist-search').value;
+  $('artist-total').textContent = counts.size + ' исполнителей';
+
+  const list = $('artist-list');
+  const frag = document.createDocumentFragment();
+  const rows = [...counts]
+    .filter(([name]) => norm(name).includes(q))
+    .sort((a, b) => a[0].localeCompare(b[0], 'ru'));
+
+  for (const [name, count] of rows) {
+    const b = button('', () => selectArtist(selectedArtist === name ? '' : name));
+    b.setAttribute('aria-pressed', String(selectedArtist === name));
+    const title = document.createElement('span');
+    title.textContent = name;
+    const num = document.createElement('span');
+    num.textContent = count;
+    num.setAttribute('aria-label', 'Песен: ' + count);
+    b.append(title, num);
+    frag.append(b);
+  }
+
+  if (!rows.length) {
+    const el = document.createElement('span');
+    el.className = 'artist-empty';
+    el.textContent = 'Исполнители не найдены';
+    frag.append(el);
+  }
+  list.replaceChildren(frag);
+}
+
+function syncFilterControls() {
+  for (const b of document.querySelectorAll('[data-category]')) {
+    b.setAttribute('aria-pressed', String(b.dataset.category === filter));
+  }
+  for (const b of document.querySelectorAll('[data-sort]')) {
+    b.setAttribute('aria-pressed', String(b.dataset.sort === currentSort));
+  }
+
+  const chips = [];
+  if (filter !== 'all') {
+    chips.push({ label: categoryLabels[filter], reset: () => setCategory('all') });
+  }
+  if (selectedArtist) {
+    chips.push({ label: selectedArtist, reset: () => selectArtist('') });
+  }
+  if (currentSort !== 'artist') {
+    chips.push({ label: 'Сортировка: по названию', reset: () => setSort('artist') });
+  }
+
+  const count = chips.length;
+  const badge = $('filters-badge');
+  badge.hidden = count === 0;
+  badge.textContent = count > 0 ? String(count) : '';
+
+  $('filters-reset-all').hidden = count === 0;
+  $('artist-reset').hidden = !selectedArtist;
+
+  const activeBox = $('active-filters');
+  if (!count) {
+    activeBox.hidden = true;
+    activeBox.replaceChildren();
+    return;
+  }
+
+  activeBox.hidden = false;
+  const frag = document.createDocumentFragment();
+  for (const item of chips) {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'filter-chip';
+    chip.setAttribute('aria-label', 'Снять фильтр: ' + item.label);
+    const txt = document.createElement('span');
+    txt.textContent = item.label;
+    const x = document.createElement('span');
+    x.className = 'filter-chip-x';
+    x.setAttribute('aria-hidden', 'true');
+    x.textContent = '×';
+    chip.append(txt, x);
+    chip.addEventListener('click', item.reset);
+    frag.append(chip);
+  }
+  if (count > 1) {
+    const clearAll = button('Сбросить всё', resetAllFilters, 'filter-chip-clear');
+    frag.append(clearAll);
+  }
+  activeBox.replaceChildren(frag);
+}
+
+function setCategory(nextCategory) {
+  filter = nextCategory;
+  page = 1;
+  if (selectedArtist && !artistCounts().has(selectedArtist)) {
+    selectedArtist = '';
+  }
+  syncFilterControls();
+  renderArtists();
+  render();
+}
+
+function selectArtist(name) {
+  selectedArtist = name;
+  page = 1;
+  $('artist-search').value = '';
+  syncFilterControls();
+  renderArtists();
+  render();
+  if (name && isMobile()) {
+    setFiltersOpen(false);
+    document.querySelector('#catalog .controls')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+}
+
+function setSort(nextSort) {
+  currentSort = nextSort;
+  page = 1;
+  syncFilterControls();
+  render();
+}
+
+function resetAllFilters() {
+  filter = 'all';
+  selectedArtist = '';
+  currentSort = 'artist';
+  page = 1;
+  $('artist-search').value = '';
+  syncFilterControls();
+  renderArtists();
+  render();
+}
+
+let settleSongsTimer = null;
+function animateSongList(songsEl) {
+  clearTimeout(settleSongsTimer);
+  const mode = window.ClubnikaAnim?.getMode?.() || document.documentElement.dataset.anim || 'soft';
+  if (mode === 'off') {
+    songsEl.classList.add('is-revealed', 'is-settled');
+    return;
+  }
+  songsEl.classList.remove('is-revealed', 'is-settled');
+  const rows = [...songsEl.children];
+  rows.forEach((row, idx) => {
+    row.style.setProperty('--stagger-delay', `${Math.min(idx * 26, 320)}ms`);
+  });
+  void songsEl.offsetWidth;
+  requestAnimationFrame(() => songsEl.classList.add('is-revealed'));
+  settleSongsTimer = setTimeout(() => songsEl.classList.add('is-settled'), 700);
+}
+
+function render(scroll = false) {
+  const q = norm($('search').value).split(/\s+/).filter(Boolean);
+  const sort = currentSort;
+  filtered = all
+    .filter(s => categories[filter](s) && (!selectedArtist || s.artist === selectedArtist) && q.every(w => norm(s.artist + ' ' + s.title).includes(w)))
+    .sort((a, b) => a[sort].localeCompare(b[sort], 'ru') || a.title.localeCompare(b.title, 'ru') || a.artist.localeCompare(b.artist, 'ru'));
+
+  const max = Math.max(1, Math.ceil(filtered.length / perPage));
+  page = Math.min(page, max);
+  $('count').textContent = 'Найдено: ' + filtered.length + ' из ' + all.length;
+
+  const songsEl = $('songs');
+  songsEl.replaceChildren();
+  $('clear').hidden = !$('search').value;
+
+  if (!filtered.length) {
+    const n = document.createElement('div');
+    n.className = 'empty';
+    const msg = document.createElement('p');
+    msg.textContent = 'Песни не найдены. Попробуйте изменить запрос или сбросить фильтры.';
+    const actions = document.createElement('div');
+    actions.className = 'empty-actions';
+    if (filter !== 'all' || selectedArtist || $('search').value) {
+      actions.append(button('Сбросить всё', () => {
+        $('search').value = '';
+        resetAllFilters();
+      }, 'outline'));
+    }
+    const rndBtn = button('🎲 Случайная песня из репертуара', function () {
+      pickRandomSong(this);
+    }, 'outline');
+    actions.append(rndBtn);
+    n.append(msg, actions);
+    songsEl.append(n);
+  }
+
+  for (const s of filtered.slice((page - 1) * perPage, page * perPage)) {
+    const row = document.createElement('div');
+    row.className = 'song';
+    row.addEventListener('click', () => order(s));
+
+    const icon = document.createElement('span');
+    icon.className = 'icon';
+    icon.textContent = '♪';
+    icon.setAttribute('aria-hidden', 'true');
+
+    const title = document.createElement('span');
+    title.className = 'title';
+    title.textContent = s.title;
+    if (original(s)) {
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = 'Авторская';
+      title.append(badge);
+    }
+
+    const artist = document.createElement('span');
+    artist.className = 'artist';
+    artist.textContent = s.artist;
+
+    const btn = button('Заказать', e => {
+      e.stopPropagation();
+      order(s);
+    }, 'orderbtn');
+    btn.setAttribute('aria-label', 'Заказать: ' + s.title);
+
+    row.append(icon, title, artist, btn);
+    songsEl.append(row);
+  }
+  animateSongList(songsEl);
+
+  const pages = $('pages');
+  pages.replaceChildren();
+  if (max > 1) {
+    const go = n => { page = n; render(true); };
+    const prev = button('Назад', () => go(page - 1));
+    prev.disabled = page === 1;
+    pages.append(prev);
+
+    const nums = [...new Set([1, page - 1, page, page + 1, max])]
+      .filter(n => n > 0 && n <= max)
+      .sort((a, b) => a - b);
+    let last = 0;
+    for (const n of nums) {
+      if (last && n - last > 1) {
+        const dots = document.createElement('span');
+        dots.textContent = '…';
+        pages.append(dots);
+      }
+      const b = button(n, () => go(n), n === page ? 'current' : '');
+      if (n === page) b.setAttribute('aria-current', 'page');
+      pages.append(b);
+      last = n;
+    }
+
+    const next = button('Далее', () => go(page + 1));
+    next.disabled = page === max;
+    pages.append(next);
+  }
+
+  if (scroll) {
+    $('catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function order(s, isRandom = false) {
+  currentOrderArtist = s.artist;
+  const dlg = $('order');
+  dlg.classList.toggle('random-choice', isRandom);
+  $('orderTitle').textContent = s.title;
+  $('orderArtist').textContent = s.artist;
+
+  const artistSongsCount = all.filter(item => item.artist === s.artist).length;
+  const artistLink = $('orderArtistAll');
+  if (artistSongsCount > 1 && selectedArtist !== s.artist) {
+    artistLink.hidden = false;
+    artistLink.textContent = `Все песни исполнителя (${artistSongsCount}) →`;
+  } else {
+    artistLink.hidden = true;
+  }
+
+  $('message').value = s.artist + ' — ' + s.title;
+  $('notice').textContent = '';
+  dlg.showModal();
+  window.NikaAnalytics?.track('song_order', { song_title: s.title, song_artist: s.artist });
+}
+
+function pickRandomSong(btn) {
+  const pool = filtered.length ? filtered : all;
+  if (!pool.length) return;
+  const mode = window.ClubnikaAnim?.getMode?.() || document.documentElement.dataset.anim || 'soft';
+  if (mode !== 'off' && typeof btn?.animate === 'function') {
     btn.animate(
       [
-        {transform:'rotate(0deg) scale(1)'},
-        {transform:'rotate(-14deg) scale(1.08)',offset:0.4},
-        {transform:'rotate(10deg) scale(1.04)',offset:0.75},
-        {transform:'rotate(0deg) scale(1)'}
+        { transform: 'rotate(0deg) scale(1)' },
+        { transform: 'rotate(-14deg) scale(1.08)', offset: 0.4 },
+        { transform: 'rotate(10deg) scale(1.04)', offset: 0.75 },
+        { transform: 'rotate(0deg) scale(1)' }
       ],
-      {duration:360,easing:'cubic-bezier(.22, 1, .36, 1)'}
+      { duration: 360, easing: 'cubic-bezier(.22, 1, .36, 1)' }
     );
   }
-  window.ClubnikaAnim?.burst(btn,{icons:['🎲','♫','🍓','✦'],count:5});
-  order(filtered[Math.floor(Math.random()*filtered.length)]);
-});
-const moreMenus=[...document.querySelectorAll('.more-links')];
-document.addEventListener('click',e=>{for(const menu of moreMenus)if(menu.open&&(!menu.contains(e.target)||e.target.closest('.more-panel a')))menu.open=false});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){const opened=moreMenus.find(m=>m.open);moreMenus.forEach(m=>m.open=false);if(opened)opened.querySelector('summary').focus()}});
-for(const menu of moreMenus)menu.addEventListener('toggle',()=>{if(menu.open)for(const other of moreMenus)if(other!==menu)other.open=false});
-Promise.resolve(document.getElementById('catalog-data').textContent).then(t=>{all=t.trim().split(/\r?\n/).flatMap(line=>{const [artist,...titles]=line.split('|');return titles.map(title=>({artist,title}))});if($('total'))$('total').textContent=all.length;const params=new URLSearchParams(location.search);if(params.get('filter')==='original'){filter='original';syncCategory()}if(params.has('q'))$('search').value=params.get('q');renderArtists();render()}).catch(()=>{$('count').textContent='Не удалось загрузить репертуар';$('songs').textContent='Обновите страницу или откройте исходный сонглист.'});
+  window.ClubnikaAnim?.burst(btn, { icons: ['🎲', '♫', '🍓', '✦'], count: 5 });
+  order(pool[Math.floor(Math.random() * pool.length)], true);
+}
 
+async function copy() {
+  try {
+    await navigator.clipboard.writeText($('message').value);
+  } catch {
+    $('message').select();
+    if (!document.execCommand('copy')) {
+      $('notice').textContent = 'Выделите сообщение и скопируйте его вручную.';
+      return;
+    }
+  }
+  $('notice').textContent = '✓ Сообщение скопировано';
+}
+
+$('copy').addEventListener('click', copy);
+$('close').addEventListener('click', () => $('order').close());
+$('order').addEventListener('click', e => { if (e.target === $('order')) $('order').close(); });
+$('order').addEventListener('close', () => $('order').classList.remove('random-choice'));
+
+$('orderArtistAll').addEventListener('click', () => {
+  if (!currentOrderArtist) return;
+  $('order').close();
+  $('search').value = '';
+  filter = 'all';
+  selectedArtist = currentOrderArtist;
+  page = 1;
+  syncFilterControls();
+  renderArtists();
+  render(true);
+});
+
+$('filters-toggle').addEventListener('click', () => {
+  setFiltersOpen($('catalog-filters').hidden);
+});
+$('filters-reset-all').addEventListener('click', resetAllFilters);
+
+$('catalog-filters').addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    e.stopPropagation();
+    setFiltersOpen(false);
+    $('filters-toggle').focus();
+  }
+});
+
+$('search').addEventListener('focus', () => {
+  if (isMobile() && !$('catalog-filters').hidden) {
+    setFiltersOpen(false);
+  }
+  document.querySelector('#catalog .controls')?.scrollIntoView({ block: 'start', behavior: 'instant' });
+});
+
+$('search').addEventListener('input', () => {
+  page = 1;
+  render();
+  document.querySelector('#catalog .controls')?.scrollIntoView({ block: 'start', behavior: 'instant' });
+});
+
+$('clear').addEventListener('click', () => {
+  $('search').value = '';
+  $('search').focus();
+  page = 1;
+  render();
+});
+
+$('artist-search').addEventListener('input', renderArtists);
+$('artist-search-clear').addEventListener('click', () => {
+  $('artist-search').value = '';
+  $('artist-search').focus();
+  renderArtists();
+});
+$('artist-reset').addEventListener('click', () => selectArtist(''));
+
+for (const b of document.querySelectorAll('[data-sort]')) {
+  b.addEventListener('click', () => setSort(b.dataset.sort));
+}
+for (const b of document.querySelectorAll('[data-category]')) {
+  b.addEventListener('click', () => setCategory(b.dataset.category));
+}
+
+$('random').addEventListener('click', function () { pickRandomSong(this); });
+$('random-mobile').addEventListener('click', function () { pickRandomSong(this); });
+
+const moreMenus = [...document.querySelectorAll('.more-links')];
+document.addEventListener('click', e => {
+  for (const menu of moreMenus) {
+    if (menu.open && (!menu.contains(e.target) || e.target.closest('.more-panel a'))) menu.open = false;
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const opened = moreMenus.find(m => m.open);
+    moreMenus.forEach(m => m.open = false);
+    if (opened) opened.querySelector('summary').focus();
+  }
+});
+for (const menu of moreMenus) {
+  menu.addEventListener('toggle', () => {
+    if (menu.open) for (const other of moreMenus) if (other !== menu) other.open = false;
+  });
+}
+
+Promise.resolve(document.getElementById('catalog-data').textContent)
+  .then(t => {
+    all = t.trim().split(/\r?\n/).flatMap(line => {
+      const [artist, ...titles] = line.split('|');
+      return titles.map(title => ({ artist, title }));
+    });
+    const params = new URLSearchParams(location.search);
+    const paramFilter = params.get('filter');
+    if (paramFilter && paramFilter in categories) filter = paramFilter;
+    if (params.get('artist')) selectedArtist = params.get('artist');
+    if (params.has('q')) $('search').value = params.get('q');
+    syncFilterControls();
+    renderArtists();
+    render();
+  })
+  .catch(() => {
+    $('count').textContent = 'Не удалось загрузить репертуар';
+    $('songs').textContent = 'Обновите страницу или откройте исходный сонглист.';
+  });
 </script>
 <script src="js/site-anim.js" defer></script>
 </body></html>

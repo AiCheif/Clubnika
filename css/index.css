@@ -647,3 +647,359 @@ html.anim-ready:not([data-anim="off"]) .home-sign-card:active {
   height: 100%;
   object-fit: cover;
 }
+/* ==========================================================================
+   Парные ряды на главной (по 2 блока в ряд)
+   ========================================================================== */
+.home-feature-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: row;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+.home-feature-pair > section,
+.home-feature-pair > article,
+.home-feature-pair > div,
+.home-feature-pair #translations,
+.home-feature-pair #home-signs {
+  grid-column: auto;
+  grid-row: auto;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .home-feature-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Правый блок верхнего ряда: «Песни без границ»
+   Слева — весь текст, справа — карусель по 1 ролику во всю высоту блока
+   ========================================================================== */
+.home-feature-pair #translations {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(156px, 41%, 216px);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.home-feature-pair #translations .shorts-text-col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.home-feature-pair #translations .sectionhead {
+  margin: 0;
+}
+
+.home-feature-pair #translations .sectionhead h2 {
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  margin: 2px 0 4px;
+}
+
+.home-feature-pair #translations .sectionhead p {
+  font-size: 0.88rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Карточка с названием и статистикой текущего ролика слева */
+.home-feature-pair #translations .shorts-active-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.12));
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.home-feature-pair #translations .shorts-active-info[hidden] {
+  display: none;
+}
+
+.home-feature-pair #translations .shorts-active-info:hover {
+  border-color: var(--accent, #e5b869);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.home-feature-pair #translations .shorts-active-title {
+  font-size: 0.9rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.home-feature-pair #translations .shorts-active-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  opacity: 0.78;
+}
+
+/* Нижняя часть левой колонки без лишнего разрыва */
+.home-feature-pair #translations .shorts-footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.home-feature-pair #translations .shorts-footer small {
+  display: block;
+  flex: none;
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+/* Правая колонка: карусель во всю высоту, строго 1 ролик на слайд */
+#translations #shorts-carousel {
+  position: relative;
+  height: 100%;
+  min-height: 290px;
+  min-width: 0;
+  margin: 0;
+  display: flex;
+}
+
+#translations #shorts-carousel[hidden] {
+  display: none;
+}
+
+#translations #shorts-viewport {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 14px;
+}
+
+#translations #shorts-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+#translations #shorts-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#translations #shorts-track .short-slide-card {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: block;
+  padding: 0;
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+#translations #shorts-track .short-slide-thumb {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+#translations #shorts-track .short-slide-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 18%;
+  display: block;
+}
+
+#translations #shorts-track .short-slide-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+}
+
+#translations #shorts-track .short-slide-play {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  left: auto;
+  transform: none;
+  width: 28px;
+  height: 28px;
+  font-size: 0.72rem;
+  z-index: 2;
+}
+
+@media (max-width: 480px) {
+  .home-feature-pair #translations {
+    grid-template-columns: minmax(0, 1fr) 136px;
+    gap: 12px;
+  }
+
+  #translations #shorts-carousel {
+    min-height: 245px;
+  }
+}
+
+/* ==========================================================================
+   Правый блок нижнего ряда: «Сигны с эфиров» (по 1 сигне в карусели)
+   ========================================================================== */
+.home-feature-pair #home-signs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.home-feature-pair #home-signs .sectionhead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+}
+
+.home-feature-pair #home-signs .sectionhead h2 {
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  margin: 2px 0 4px;
+}
+
+.home-feature-pair #home-signs .sectionhead p {
+  font-size: 0.88rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.home-feature-pair #home-signs .home-signs-shuffle {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+#home-signs #home-signs-carousel {
+  flex: 1 1 auto;
+  min-height: 230px;
+  display: flex;
+}
+
+#home-signs #home-signs-viewport {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 14px;
+}
+
+#home-signs #home-signs-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+#home-signs #home-signs-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#home-signs #home-signs-grid .home-sign-card {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+#home-signs #home-signs-grid .home-sign-thumb {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+#home-signs #home-signs-grid .home-sign-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center 22%;
+  display: block;
+}
+
+#home-signs #home-signs-grid .home-sign-info {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 12px 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 5, 7, 0) 0%,
+    rgba(10, 5, 7, 0.72) 50%,
+    rgba(10, 5, 7, 0.94) 100%
+  );
+  color: #fff;
+}
+
+.home-feature-pair #home-signs .home-signs-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0;
+}

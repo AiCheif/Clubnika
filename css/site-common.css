@@ -1783,3 +1783,83 @@ footer.wrap {
 .footer-share-btn:hover {
   opacity: 0.8;
 }
+/* Таймер обратного отсчёта: акцентные плашки */
+.site-live-clock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 8px;
+  margin: 10px 0 8px;
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-part {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--gold) 65%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--gold) 16%, var(--panel)) 0%,
+    color-mix(in srgb, var(--bg) 55%, var(--panel)) 100%
+  );
+  box-shadow: 
+    0 3px 10px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 color-mix(in srgb, var(--gold) 25%, transparent);
+}
+
+.clock-num {
+  font-size: clamp(26px, 3.6vw, 34px);
+  font-weight: 850;
+  line-height: 1.05;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 12px color-mix(in srgb, var(--gold) 30%, transparent);
+}
+
+.clock-unit {
+  font-size: clamp(13px, 1.6vw, 15px);
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* Скрываем текстовую точку, так как карточки уже разделены отступами */
+.clock-sep {
+  display: none;
+}
+
+/* Когда эфир уже сегодня — делаем акцент ещё ярче */
+.site-live-panel.is-today .clock-part {
+  border-color: var(--pink);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--pink) 20%, var(--panel)) 0%,
+    color-mix(in srgb, var(--bg) 50%, var(--panel)) 100%
+  );
+}
+
+.site-live-panel.is-today .clock-num {
+  color: var(--pink);
+}
+
+@media (max-width: 740px) {
+  .site-live-clock {
+    gap: 6px;
+    margin: 8px 0 6px;
+  }
+  .clock-part {
+    padding: 5px 10px;
+    border-radius: 9px;
+    gap: 4px;
+  }
+  .clock-num {
+    font-size: 24px;
+  }
+  .clock-unit {
+    font-size: 13px;
+  }
+}

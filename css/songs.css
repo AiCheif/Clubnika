@@ -1141,38 +1141,3 @@ dialog#order h2 {
     flex: 1 1 auto;
   }
 }
-@media (max-width: 740px) {
-  #catalog #songs .orderbtn {
-    width: 34px;
-    height: 34px;
-    min-height: 34px;
-    padding: 0;
-    display: grid;
-    place-items: center;
-    font-size: 0;
-    line-height: 0;
-  }
-
-  #catalog #songs .orderbtn::after {
-    content: "→";
-    font-size: 17px;
-    line-height: 1;
-  }
-}
-@media (max-width: 740px) {
-  .song {
-    padding: 7px 12px;
-    min-height: 46px;
-    gap: 1px 10px;
-  }
-
-  .song .title {
-    font-size: 14.5px;
-    line-height: 1.25;
-  }
-
-  .song .artist {
-    font-size: 12.5px;
-    line-height: 1.2;
-  }
-}

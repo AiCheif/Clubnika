@@ -1141,3 +1141,8 @@ dialog#order h2 {
     flex: 1 1 auto;
   }
 }
+#catalog #random,
+#catalog .random-mobile-btn,
+#catalog .empty-actions button:last-child {
+  display: none !important;
+}

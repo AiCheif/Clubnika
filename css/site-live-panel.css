@@ -1,0 +1,351 @@
+/* Shared next-stream panel */
+main > .site-live-panel{
+  display:block;
+  margin:10px 0 0;
+  padding:13px 18px;
+  min-height:118px;
+  border:1px solid var(--gold);
+  border-radius:16px;
+  background:var(--panel);
+  box-shadow:none;
+  transition:border-color .25s ease,box-shadow .25s ease;
+}
+main > .site-live-panel.is-live{border-color:#e66b76;box-shadow:0 0 24px rgba(255,59,92,.14)}
+main > .site-live-panel.is-today{border-color:color-mix(in srgb,var(--pink) 85%,var(--gold));box-shadow:0 0 22px color-mix(in srgb,var(--pink) 16%,transparent)}
+main > .site-live-panel.is-post-stream{border-color:color-mix(in srgb,var(--gold) 85%,#fff)}
+.site-live-panel .site-live-label::before{content:none;display:none}
+.site-live-panel [hidden]{display:none!important}
+.site-live-panel.is-loading .site-live-heading h2{opacity:0}
+
+.site-live-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.site-live-heading h2{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-serif);font-weight:600;color:var(--text);font-size:clamp(22px,3vw,28px);line-height:1.12;margin:0;min-width:0}
+
+/* В обычном ожидании — аккуратный значок часов; в день эфира и в live — пульсирующий маячок */
+.live-beacon{
+  display:inline-grid;
+  place-items:center;
+  width:18px;
+  height:18px;
+  color:var(--gold);
+  font-style:normal;
+  font-size:17px;
+  line-height:1;
+  flex:none;
+}
+.live-beacon::before{content:"◷"}
+.site-live-panel.is-post-stream .live-beacon::before{content:"✦"}
+.site-live-panel:is(.is-today,.is-live) .live-beacon{
+  width:10px;
+  height:10px;
+  margin:0 4px;
+  border-radius:50%;
+  background:var(--pink);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--pink) 28%,transparent);
+  animation:beacon-pulse 2.2s ease-in-out infinite;
+}
+.site-live-panel:is(.is-today,.is-live) .live-beacon::before{content:none}
+.site-live-panel.is-live .live-beacon{
+  background:#ff3b5c;
+  box-shadow:0 0 0 4px rgba(255,59,92,.28);
+  animation-duration:1.35s;
+}
+@keyframes beacon-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.24);opacity:.7}}
+
+.site-live-links{display:flex;align-items:center;flex-shrink:0;gap:6px}
+.site-live-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;min-height:36px;padding:5px 10px;border-radius:9px;color:var(--text);font-size:13px;font-weight:700;transition:border-color .18s,background-color .18s}
+.site-live-link:hover{background:color-mix(in srgb,var(--text) 7%,transparent)}
+.site-live-panel:is(.is-late,.is-live) .site-live-link{border-color:color-mix(in srgb,var(--pink) 65%,var(--line))}
+.site-live-icon,.site-live-icon svg{display:block;width:22px;height:22px;flex:0 0 22px}
+
+.site-live-body{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:66px;
+}
+
+/* Облегчённые плашки без внешних рамок */
+.site-live-clock{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:stretch;
+  gap:8px;
+  margin:8px 0 6px;
+  font-family:var(--font-sans);
+  font-variant-numeric:tabular-nums;
+}
+.clock-part{
+  display:inline-flex;
+  align-items:baseline;
+  gap:6px;
+  padding:6px 14px;
+  border:0;
+  border-radius:12px;
+  background:color-mix(in srgb,var(--gold) 12%,transparent);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--gold) 24%,transparent);
+}
+.clock-num{
+  display:inline-block;
+  min-width:2ch;
+  text-align:center;
+  font-size:clamp(30px,4.2vw,42px);
+  font-weight:850;
+  line-height:1.05;
+  color:var(--gold);
+  letter-spacing:-0.02em;
+  overflow:hidden;
+  vertical-align:bottom;
+}
+.clock-unit{
+  font-size:clamp(13px,1.5vw,15px);
+  font-weight:600;
+  color:var(--text);
+  opacity:.74;
+}
+
+/* Вертикальный барабан при изменении значения */
+.clock-roll-track{
+  position:relative;
+  display:inline-grid;
+  overflow:hidden;
+}
+.clock-roll-old,
+.clock-roll-new{
+  grid-area:1/1;
+  display:block;
+}
+.clock-roll-old{animation:clockRollOut .85s cubic-bezier(.22,1,.36,1) forwards}
+.clock-roll-new{animation:clockRollIn .85s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes clockRollOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-105%)}}
+@keyframes clockRollIn{from{opacity:0;transform:translateY(105%)}to{opacity:1;transform:translateY(0)}}
+
+/* Состояние «Сегодня поём!» */
+.site-live-panel.is-today .clock-part{
+  background:color-mix(in srgb,var(--pink) 16%,transparent);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pink) 45%,transparent);
+}
+.site-live-panel.is-today .clock-num{color:var(--pink)}
+
+/* Режим 1: Карусель тем для комментариев (ended_pending) */
+.live-prompt-carousel{
+  margin:8px 0 6px;
+  padding:10px 14px;
+  border-radius:12px;
+  background:color-mix(in srgb,var(--gold) 10%,transparent);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--gold) 26%,transparent);
+}
+.live-prompt-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:4px;
+}
+.live-prompt-tag{
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.3px;
+  color:var(--gold);
+}
+.live-prompt-next{
+  display:inline-grid;
+  place-items:center;
+  width:26px;
+  height:26px;
+  border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);
+  border-radius:7px;
+  background:transparent;
+  color:var(--gold);
+  font-size:15px;
+  line-height:1;
+  transition:background .16s,transform .2s;
+}
+.live-prompt-next:hover{background:color-mix(in srgb,var(--gold) 16%,transparent)}
+.live-prompt-next:active{transform:rotate(90deg)}
+.live-prompt-text{
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-size:clamp(17px,2.1vw,20px);
+  line-height:1.35;
+  color:var(--text);
+  max-width:none;
+  transition:opacity .22s ease,transform .22s ease;
+}
+.live-prompt-text.is-switching{
+  opacity:0;
+  transform:translateY(4px);
+}
+
+/* Режим 2: Две большие кнопки на YouTube и ВК (replay_ready) */
+.live-replay-actions{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:10px 0 6px;
+}
+.live-replay-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 15px;
+  border-radius:13px;
+  color:#fff;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.18);
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease;
+}
+.live-replay-btn.is-yt{
+  background:linear-gradient(135deg,#b80022 0%,#e0002a 100%);
+  box-shadow:0 4px 16px rgba(224,0,42,.26);
+}
+.live-replay-btn.is-vk{
+  background:linear-gradient(135deg,#0059c9 0%,#0077ff 100%);
+  box-shadow:0 4px 16px rgba(0,119,255,.26);
+}
+.live-replay-btn:hover{
+  filter:brightness(1.08);
+  transform:translateY(-1px);
+}
+.live-replay-icon{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:34px;
+  height:34px;
+}
+.live-replay-icon svg{
+  width:32px;
+  height:32px;
+  display:block;
+}
+.live-replay-copy{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+}
+.live-replay-copy strong{
+  font-size:15.5px;
+  font-weight:800;
+  line-height:1.2;
+}
+.live-replay-copy small{
+  font-size:12.5px;
+  line-height:1.3;
+  opacity:.92;
+}
+
+/* Крупная читаемая дата + локальное время зрителя */
+.site-live-panel #live-date{
+  font-size:15px;
+  font-weight:550;
+  line-height:1.4;
+  color:var(--text);
+  opacity:.88;
+  margin:2px 0 0;
+}
+.site-live-panel .live-date-local{
+  color:var(--gold);
+  font-weight:650;
+}
+
+/* CTA */
+.site-live-order{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:44px;
+  margin-top:12px;
+  padding:9px 16px;
+  border-radius:12px;
+  background:var(--pink);
+  border:1px solid var(--pink);
+  color:var(--accent-ink,var(--bg));
+  font-weight:750;
+  text-align:center;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,filter .2s ease;
+}
+:root[data-theme="scarlet"] .site-live-order:not(.is-comment-cta){
+  background:linear-gradient(155deg,#fff4c3 0%,#f0c66c 38%,#bb7d27 70%,#ffe5a0 100%);
+  border-color:#ffdea0;
+  color:#351006;
+}
+.site-live-order.is-comment-cta{
+  background:color-mix(in srgb,var(--gold) 8%,transparent);
+  border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line));
+  color:var(--text);
+  box-shadow:none;
+}
+.site-live-order.is-comment-cta:hover{
+  border-color:var(--gold);
+  background:color-mix(in srgb,var(--gold) 15%,transparent);
+}
+.site-live-order:not(.is-comment-cta):hover{filter:brightness(1.08)}
+
+@media(min-width:741px){
+  main > .site-live-panel{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) max-content;
+    grid-template-areas:"label label" "title links" "body order";
+    column-gap:20px;
+    align-items:center;
+  }
+  main > .site-live-panel:has(.site-live-order[hidden]){
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"label" "title" "body";
+  }
+  main > .site-live-panel:has(.site-live-order[hidden]) .site-live-heading{
+    display:flex;
+  }
+  .site-live-heading{display:contents}
+  .site-live-label{grid-area:label}
+  .site-live-heading h2{grid-area:title}
+  .site-live-links{grid-area:links}
+  .site-live-body{grid-area:body}
+  .site-live-link{border:1px solid var(--line)}
+  .site-live-link:hover{border-color:var(--gold)}
+  .site-live-order{grid-area:order;margin-top:6px;min-width:210px;align-self:center}
+}
+
+@media(max-width:740px){
+  main > .site-live-panel{padding:9px 12px;margin-top:8px;min-height:112px}
+  .site-live-heading{align-items:flex-start;gap:6px}
+  .site-live-heading h2{font-size:21px;gap:7px;padding-top:3px}
+  .site-live-links{gap:4px;margin-top:-3px}
+  .site-live-link{
+    position:relative;
+    width:40px;
+    height:40px;
+    min-height:40px;
+    padding:0;
+    flex:none;
+    border:1px solid color-mix(in srgb,var(--line) 85%,transparent);
+    border-radius:10px;
+  }
+  .site-live-icon,.site-live-icon svg{width:26px;height:26px;flex-basis:26px}
+  .site-live-link>span:not(.site-live-icon){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .site-live-body{min-height:58px}
+  .site-live-clock{gap:5px;margin:6px 0}
+  .clock-part{padding:5px 9px;border-radius:10px;gap:4px}
+  .clock-num{font-size:26px;min-width:1.8ch}
+  .clock-unit{font-size:12.5px}
+  .live-replay-actions{grid-template-columns:1fr;gap:8px}
+  .live-replay-btn{padding:10px 12px}
+  .site-live-panel #live-date{font-size:14px}
+  .site-live-order{margin-top:8px;min-height:42px;padding:8px 12px;font-size:14px}
+}
+
+@media(max-width:375px){
+  .site-live-clock{gap:4px}
+  .clock-part{padding:4px 7px;gap:3px}
+  .clock-num{font-size:23px;min-width:1.6ch}
+  .clock-unit{font-size:12px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .live-beacon,.clock-roll-old,.clock-roll-new{animation:none}
+}
+html[data-anim="off"] .live-beacon,
+html[data-anim="off"] .clock-roll-old,
+html[data-anim="off"] .clock-roll-new{animation:none}

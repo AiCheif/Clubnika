@@ -63,12 +63,118 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
 <link rel="stylesheet" href="css/site-common.css">
 <link rel="stylesheet" href="css/support.css">
 
+<style>
+/* Закреплённая сверху плашка для пост-стримовых режимов */
+.support-sticky-bar{
+  position:sticky;
+  top:0;
+  z-index:28;
+  background:color-mix(in srgb,var(--panel) 92%,transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--gold);
+  box-shadow:0 6px 24px rgba(0,0,0,.32);
+  animation:stickyBarIn .25s ease-out;
+}
+.support-sticky-bar[hidden]{display:none!important}
+.support-sticky-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-block:9px;
+}
+.support-sticky-copy{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+  font-size:14px;
+  font-weight:650;
+  color:var(--text);
+}
+.support-sticky-icon{
+  flex:none;
+  font-size:16px;
+  line-height:1;
+  color:var(--gold);
+}
+.support-sticky-text{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.support-sticky-link{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:36px;
+  padding:6px 14px;
+  border-radius:10px;
+  font-size:13.5px;
+  font-weight:750;
+  white-space:nowrap;
+  border:1px solid color-mix(in srgb,var(--gold) 65%,var(--line));
+  background:color-mix(in srgb,var(--gold) 12%,transparent);
+  color:var(--text);
+  transition:background .18s,border-color .18s,filter .18s;
+}
+.support-sticky-link:hover{
+  border-color:var(--gold);
+  background:color-mix(in srgb,var(--gold) 20%,transparent);
+}
+.support-sticky-bar.is-ready .support-sticky-link{
+  background:var(--pink);
+  border-color:var(--pink);
+  color:var(--accent-ink,var(--bg));
+}
+:root[data-theme="scarlet"] .support-sticky-bar.is-ready .support-sticky-link{
+  background:linear-gradient(155deg,#fff4c3 0%,#f0c66c 38%,#bb7d27 70%,#ffe5a0 100%);
+  border-color:#ffdea0;
+  color:#351006;
+}
+.support-sticky-bar.is-ready .support-sticky-link:hover{
+  filter:brightness(1.08);
+}
+
+#tips-section,
+#comment-section{
+  scroll-margin-top:68px;
+}
+
+@keyframes stickyBarIn{
+  from{opacity:0;transform:translateY(-8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:600px){
+  .support-sticky-inner{gap:8px;padding-block:7px}
+  .support-sticky-copy{font-size:13px}
+  .support-sticky-text{white-space:normal;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .support-sticky-link{padding:6px 11px;font-size:13px;min-height:34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .support-sticky-bar{animation:none}
+}
+</style>
+
 <script src="site-config.js"></script>
 <script src="site-analytics.js" defer></script>
 <script src="site-settings.js"></script>
 </head>
 <body>
 <script src="site-header.js" data-page="support.html"></script>
+
+<div class="support-sticky-bar" id="support-sticky-bar" role="region" aria-label="Статус записи эфира" hidden>
+  <div class="wrap support-sticky-inner">
+    <div class="support-sticky-copy">
+      <span class="support-sticky-icon" id="support-sticky-icon" aria-hidden="true">⧗</span>
+      <span class="support-sticky-text" id="support-sticky-text"></span>
+    </div>
+    <a class="support-sticky-link" id="support-sticky-link" href="#comment-section"></a>
+  </div>
+</div>
+
 <main class="wrap support-page">
 <section class="support-intro">
   <div class="support-heading">
@@ -140,7 +246,7 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
   </div>
 </section>
 
-<section class="tips">
+<section class="tips" id="tips-section">
   <div class="tips-head">
     <div>
       <h2>Не знаете, с чего начать?</h2>
@@ -176,6 +282,65 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
 </main>
 <script src="site-footer.js" data-hide-platforms></script>
 <script>
+// Sticky banner for post-stream states (ended_pending & replay_ready)
+(()=>{
+  const bar=document.getElementById('support-sticky-bar');
+  const iconEl=document.getElementById('support-sticky-icon');
+  const textEl=document.getElementById('support-sticky-text');
+  const linkEl=document.getElementById('support-sticky-link');
+  if(!bar||!iconEl||!textEl||!linkEl)return;
+
+  let pollTimer=null,pollMs=60000;
+
+  function setPollRate(ms){
+    if(pollMs===ms&&pollTimer)return;
+    pollMs=ms;
+    clearInterval(pollTimer);
+    pollTimer=setInterval(checkLiveStatus,ms);
+  }
+
+  function applyStatus(status){
+    if(status==='ended_pending'){
+      bar.hidden=false;
+      bar.classList.remove('is-ready');
+      iconEl.textContent='⧗';
+      textEl.textContent='Эфир завершился — ждём ссылки на записи. А пока выберите тему для отзыва:';
+      linkEl.href='#tips-section';
+      linkEl.textContent='Идеи для отзыва ↓';
+      setPollRate(20000);
+      return;
+    }
+    if(status==='replay_ready'){
+      bar.hidden=false;
+      bar.classList.add('is-ready');
+      iconEl.textContent='✦';
+      textEl.textContent='Запись эфира уже готова — можно оставить комментарий!';
+      linkEl.href='#comment-section';
+      linkEl.textContent='К площадкам ↓';
+      setPollRate(60000);
+      return;
+    }
+    bar.hidden=true;
+    bar.classList.remove('is-ready');
+    setPollRate(60000);
+  }
+
+  async function checkLiveStatus(){
+    try{
+      const res=await fetch('./live.json',{cache:'no-store'});
+      if(!res.ok)return;
+      const data=await res.json();
+      if(data&&typeof data==='object'&&!Array.isArray(data)){
+        applyStatus(data.status||'scheduled');
+      }
+    }catch{}
+  }
+
+  checkLiveStatus();
+  setPollRate(60000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkLiveStatus();});
+})();
+
 // Enhance viewer-quote widget (avatar badge + YouTube icon only, strip existing quotes so CSS «» wrap cleanly)
 (()=>{
   const card=document.getElementById('viewer-quote');
@@ -222,23 +387,12 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
   }
 })();
 
-// Random open-ended prompt questions with smooth two-phase crossfade
-const promptQuestions=[
+// Random open-ended prompt questions loaded from comment-prompts.json
+let promptQuestions=[
   'Какая песня сегодня попала прямо в настроение — и почему?',
   'Какой момент эфира вызвал улыбку или мурашки?',
   'С каким чувством вы закрыли трансляцию?',
-  'Какую песню хочется услышать на следующем вечере?',
-  'Какое исполнение сегодня запомнилось больше всего?',
-  'Была ли песня, которая вернула вас в тёплое воспоминание?',
-  'Что особенно понравилось в сегодняшней атмосфере эфира?',
-  'Какой куплет или акапельный момент прозвучал для вас по-особенному?',
-  'Откуда вы сегодня смотрели эфир и как прошёл ваш вечер?',
-  'Какую песню из репертуара Ники вы готовы переслушивать снова и снова?',
-  'Если бы этот эфир можно было описать одним словом — каким бы оно было?',
-  'Какая мелодия осталась звучать в голове уже после окончания стрима?',
-  'Что бы вам хотелось пожелать Нике перед следующим концертом?',
-  'Какой перевод или кавер хотелось бы услышать на будущих вечерах?',
-  'Что сегодня сильнее всего тронуло в голосе и подаче?'
+  'Какую песню хочется услышать на следующем вечере?'
 ];
 
 let customStreamQuestion='';
@@ -290,7 +444,23 @@ function renderRandomQuestions(animate=false){
   },200);
 }
 
+async function loadPromptQuestions(){
+  try{
+    const res=await fetch('./comment-prompts.json',{cache:'no-store'});
+    if(!res.ok)return;
+    const list=await res.json();
+    if(Array.isArray(list)){
+      const cleaned=list.filter(q=>typeof q==='string'&&q.trim()).map(q=>q.trim());
+      if(cleaned.length){
+        promptQuestions=cleaned;
+        renderRandomQuestions(false);
+      }
+    }
+  }catch{}
+}
+
 renderRandomQuestions(false);
+loadPromptQuestions();
 document.getElementById('tips-shuffle')?.addEventListener('click',()=>renderRandomQuestions(true));
 
 // Share button

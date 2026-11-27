@@ -1,4 +1,4 @@
-/* Shared site header. */
+/* Shared site header & mascot loader. */
 (()=>{
   if(!document.querySelector('link[href="site-fonts.css"]')){
     document.head.insertAdjacentHTML('beforeend','<link rel="stylesheet" href="css/site-fonts.css">');
@@ -14,4 +14,19 @@
   sync();
   mq.addEventListener?.('change',sync);
   document.addEventListener('click',e=>{if(mq.matches&&menu.open&&!menu.contains(e.target))menu.open=false});
+
+  const mascotMode=document.body?.dataset.mascot||(page==='index.html'?'home':'');
+  if(mascotMode!=='off'){
+    const preload=document.createElement('link');
+    preload.rel='preload';
+    preload.as='fetch';
+    preload.href='./floating-menu.json';
+    preload.crossOrigin='anonymous';
+    document.head.append(preload);
+
+    const mascotScript=document.createElement('script');
+    mascotScript.src='./mascot.js';
+    if(mascotMode)mascotScript.dataset.mode=mascotMode;
+    document.head.append(mascotScript);
+  }
 })();

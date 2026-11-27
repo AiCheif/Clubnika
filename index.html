@@ -60,235 +60,195 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
 <link rel="stylesheet" href="css/site-themes.css">
 <link rel="stylesheet" href="css/site-common.css">
 <link rel="stylesheet" href="css/site-anim.css?v=1">
+
 <link rel="stylesheet" href="css/index.css?v=2">
+<link rel="stylesheet" href="css/site-live-panel.css?v=3">
 <script src="site-config.js"></script>
 <script src="site-analytics.js" defer></script>
 <script src="site-settings.js"></script>
-<script src="js/site-anim.js?v=1" defer></script>
+<script src="js/site-anim.js?v=2" defer></script>
 </head>
 <body class="site-unified-panels">
 <script src="site-header.js" data-page="index.html"></script>
 <main class="wrap">
-<script src="site-live-panel.js" data-show-order></script>
+<script src="js/site-live-panel.js?v=4" data-show-order></script>
 <section id="news" class="home-premiere-section" aria-label="Анонс новой песни"><article class="premiere-banner home-premiere" aria-label="Анонс новой песни"><div><div class="premiere-flag">СКОРО ПРЕМЬЕРА</div><h2>Моя новая песня</h2><p>Скоро поделюсь с вами новой песней! 🍓</p></div><a class="premiere-action" href="release.html">Узнать о премьере</a></article></section>
-<section class="hero"><h1 class="eyebrow hero-heading">ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="img/photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных эфирах звучат любимые песни, душевные мелодии и мои авторские композиции. Мне нравится открывать знакомую музыку заново и делиться с вами новыми песнями. Здесь можно выбрать композицию для ближайшего эфира, спеть вместе со мной и просто провести вечер в тёплой компании. Буду рада видеть вас в нашей клубничной семье! 🍓</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total" data-count="734">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong data-count="10">10</strong><span>Авторских песен </span></a><a href="shorts.html"><strong id="hero-views" data-count="auto">69,3 млн</strong><span>Просмотров <svg class="youtube-button-icon" viewBox="-7 -7 31 31" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg></span></a></div><script src="viewer-comments.js"></script><script src="site-viewer-quotes.js" data-show-support></script></div></section>
-
+<section class="hero"><h1 class="eyebrow hero-heading">ПЕСНИ, КОТОРЫЕ МЫ ЛЮБИМ</h1><div class="photo-gallery"><div class="photo-visual"><div class="photo-frame"><img id="hero-photo" src="img/photo_2026-11-22_14-20-12.jpg" alt="Ника Моисеева в студии звукозаписи" width="1536" height="2048"><div class="photo-controls" id="photo-controls" hidden aria-label="Выбор фотографии"></div></div></div></div><div class="hero-copy"><p class="hero-intro">Привет, я Ника! На моих музыкальных эфирах звучат любимые песни, душевные мелодии и мои авторские композиции. Мне нравится открывать знакомую музыку заново и делиться с вами новыми песнями. Здесь можно выбрать композицию для ближайшего эфира, спеть вместе со мной и просто провести вечер в тёплой компании. Буду рада видеть вас в нашей клубничной семье! 🍓</p><div class="hero-actions hero-about"><a class="outline about-cta" href="about.html">Узнать обо мне</a></div><div class="hero-stats" aria-label="Репертуар Ники"><a href="songs.html"><strong id="total" data-count="734">734</strong><span>Песни в репертуаре</span></a><a href="originals.html"><strong data-count="10">10</strong><span>Авторских песен </span></a><a href="shorts.html"><strong id="hero-views" data-count="auto">69,3 млн</strong><span>Просмотров <svg class="youtube-button-icon" viewBox="-7 -7 31 31" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg></span></a></div>
+  <script src="viewer-comments.js"></script>
+  <script src="site-viewer-quotes.js" data-show-support></script>
+</div></section>
 <div class="home-feature-pair">
-  <script src="site-tv-card.js"></script>
-  <section class="shorts-section" id="translations">
-    <div class="sectionhead">
-      <div><div class="eyebrow">ПЕРЕВОДЫ И КАВЕРЫ</div><h2>Песни без границ</h2><p>Мировые хиты на русском и любимые песни в новом исполнении.</p></div>
-      <div class="shorts-nav" id="shorts-nav" hidden aria-label="Переключение видео">
-        <button type="button" class="shorts-nav-btn" id="shorts-prev" aria-label="Предыдущее видео">‹</button>
-        <span class="shorts-nav-count" id="shorts-count">1 / 1</span>
-        <button type="button" class="shorts-nav-btn" id="shorts-next" aria-label="Следующее видео">›</button>
-      </div>
-    </div>
-    <div class="shorts-carousel" id="shorts-carousel" aria-label="Карусель популярных музыкальных Shorts" hidden>
-      <div class="shorts-carousel-viewport" id="shorts-viewport" tabindex="0" role="region" aria-roledescription="carousel">
-        <div class="shorts-carousel-track" id="shorts-track"></div>
-      </div>
-    </div>
-
-    <script>
-    (() => {
-      const SUMMARY_URL = "./Shorts/summary.json";
-      const SHORTS_DIR = "Shorts";
-      const AUTOPLAY_MS = 5000;
-      const STEP = 1;
-
-      const root = document.getElementById("shorts-carousel");
-      const track = document.getElementById("shorts-track");
-      const viewport = document.getElementById("shorts-viewport");
-      const nav = document.getElementById("shorts-nav");
-      const prevBtn = document.getElementById("shorts-prev");
-      const nextBtn = document.getElementById("shorts-next");
-      const countEl = document.getElementById("shorts-count");
-      if (!root || !track || !viewport) return;
-
-      let items = [];
-      let activeIndex = 0;
-      let timer = null;
-      const reducedQuery = matchMedia("(prefers-reduced-motion: reduce)");
-      const isAnimDisabled = () =>
-        document.documentElement.dataset.anim === "off" ||
-        (!document.documentElement.dataset.anim && reducedQuery.matches);
-
-      function formatViews(num) {
-        const n = Number(num);
-        if (!Number.isFinite(n) || n <= 0) return "";
-        if (n >= 1000000) return `${(n / 1000000).toFixed(1).replace(".", ",").replace(/,0$/, "")} млн просмотров`;
-        if (n >= 1000) return `${Math.round(n / 1000)} тыс. просмотров`;
-        return `${n.toLocaleString("ru-RU")} просмотров`;
-      }
-
-      function resolveCover(item) {
-        if (typeof item.cover === "string" && item.cover.trim()) {
-          const clean = item.cover.trim().replace(/^\/+/, "");
-          return clean.startsWith(`${SHORTS_DIR}/`) ? clean : `${SHORTS_DIR}/${clean}`;
-        }
-        return item.id ? `https://i.ytimg.com/vi/${encodeURIComponent(item.id)}/hqdefault.jpg` : "";
-      }
-
-      function renderExtra(item) {
-        const parts = [];
-        if (Number.isFinite(Number(item.likes))) parts.push(`<span>♥ ${Number(item.likes).toLocaleString("ru-RU")}</span>`);
-        return parts.join("");
-      }
-
-      function esc(v) {
-        return String(v ?? "").replace(/[&<>"']/g, (c) => ({
-          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-        }[c]));
-      }
-
-      function syncCounter() {
-        if (countEl && items.length) {
-          countEl.textContent = `${activeIndex + 1} / ${items.length}`;
-        }
-      }
-
-      function renderCards(data) {
-        items = Array.isArray(data) ? data.filter((x) => x && (x.title || x.id)) : [];
-        if (!items.length) {
-          root.hidden = true;
-          if (nav) nav.hidden = true;
-          return;
-        }
-
-        track.innerHTML = items.map((item) => {
-          const href = item.url || (item.id ? `https://www.youtube.com/shorts/${encodeURIComponent(item.id)}` : "#");
-          const cover = resolveCover(item);
-          const fallback = item.id ? `https://i.ytimg.com/vi/${encodeURIComponent(item.id)}/hqdefault.jpg` : "";
-          const viewsText = formatViews(item.views ?? item.catalog_views);
-          const extraHtml = renderExtra(item);
-
-          return `
-            <a class="short-slide-card" data-spotlight href="${esc(href)}" target="_blank" rel="noopener noreferrer">
-              <span class="short-slide-thumb">
-                ${cover ? `<img src="${esc(cover)}" ${fallback ? `data-fallback="${esc(fallback)}"` : ""} alt="${esc(item.title)}" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.removeAttribute('data-fallback');}">` : ""}
-                <span class="short-slide-badge">Shorts</span>
-                <span class="short-slide-play" aria-hidden="true">▶</span>
-              </span>
-              <span class="short-slide-info">
-                <strong class="short-slide-title">${esc(item.title)}</strong>
-                ${viewsText ? `<span class="short-slide-views">${esc(viewsText)}</span>` : ""}
-                <span class="short-slide-extra">${extraHtml}</span>
-              </span>
-            </a>
-          `;
-        }).join("");
-
-        activeIndex = 0;
-        viewport.scrollLeft = 0;
-        root.hidden = false;
-        if (nav) nav.hidden = items.length <= 1;
-        syncCounter();
-        window.ClubnikaAnim?.refresh?.();
-      }
-
-      function stepTo(targetIdx, smooth = true) {
-        if (items.length <= 1) return;
-        activeIndex = ((targetIdx % items.length) + items.length) % items.length;
-        syncCounter();
-        const cardEl = track.children[activeIndex];
-        if (cardEl) {
-          viewport.scrollTo({
-            left: cardEl.offsetLeft - track.offsetLeft,
-            behavior: smooth && !isAnimDisabled() ? "smooth" : "auto"
-          });
-        }
-      }
-
-      function stopAutoplay() {
-        clearInterval(timer);
-        timer = null;
-      }
-
-      function startAutoplay() {
-        stopAutoplay();
-        if (isAnimDisabled() || document.hidden || items.length <= 1) return;
-        timer = setInterval(() => stepTo(activeIndex + STEP, true), AUTOPLAY_MS);
-      }
-
-      prevBtn?.addEventListener("click", () => {
-        stepTo(activeIndex - STEP, true);
-        startAutoplay();
-      });
-
-      nextBtn?.addEventListener("click", () => {
-        stepTo(activeIndex + STEP, true);
-        startAutoplay();
-      });
-
-      viewport.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") {
-          e.preventDefault();
-          stepTo(activeIndex - STEP, true);
-          startAutoplay();
-        } else if (e.key === "ArrowRight") {
-          e.preventDefault();
-          stepTo(activeIndex + STEP, true);
-          startAutoplay();
-        }
-      });
-
-      viewport.addEventListener("mouseenter", stopAutoplay);
-      viewport.addEventListener("mouseleave", startAutoplay);
-      viewport.addEventListener("focusin", stopAutoplay);
-      viewport.addEventListener("focusout", startAutoplay);
-      document.addEventListener("visibilitychange", () => (document.hidden ? stopAutoplay() : startAutoplay()));
-      document.addEventListener("clubnika:animchange", () => (isAnimDisabled() ? stopAutoplay() : startAutoplay()));
-
-      viewport.addEventListener("scroll", () => {
-        const width = viewport.clientWidth;
-        if (width > 0 && items.length) {
-          const idx = Math.min(items.length - 1, Math.max(0, Math.round(viewport.scrollLeft / width)));
-          if (idx !== activeIndex) {
-            activeIndex = idx;
-            syncCounter();
-          }
-        }
-      }, { passive: true });
-
-      fetch(SUMMARY_URL, { cache: "no-store" })
-        .then((res) => (res.ok ? res.json() : null))
-        .then((json) => {
-          renderCards(json);
-          startAutoplay();
-        })
-        .catch(() => {
-          root.hidden = true;
-          if (nav) nav.hidden = true;
-        });
-    })();
-    </script>
-    <div class="shorts-footer"><small id="shorts-updated">Просмотры по данным YouTube на 23 ноября 2026 г.</small><a class="outline youtube-button" href="shorts.html"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Все переводы и каверы</span></a></div>
-  </section>
+<script src="site-tv-card.js"></script>
+<script src="site-original-songs.js"></script>
+</div>
+<section class="shorts-section" id="translations">
+  <div class="sectionhead">
+    <div><div class="eyebrow">ПЕРЕВОДЫ И КАВЕРЫ</div><h2>Песни без границ</h2><p>Мировые хиты на русском и любимые песни в новом исполнении.</p></div>
+    
+  </div>
+ <div class="shorts-carousel" id="shorts-carousel" aria-label="Карусель популярных музыкальных Shorts" hidden>
+  <div class="shorts-carousel-viewport" id="shorts-viewport" tabindex="0" role="region" aria-roledescription="carousel">
+    <div class="shorts-carousel-track" id="shorts-track"></div>
+  </div>
 </div>
 
-<div class="home-feature-pair">
-  <script src="site-original-songs.js"></script>
-  <section class="feature-section home-signs-section" id="home-signs" hidden aria-label="Случайная сигна для зрителей">
-    <div class="sectionhead">
-      <div>
-        <div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div>
-        <h2>Сигны с эфиров</h2>
-        <p>Тёплые фото-приветы для зрителей. Нажмите на карточку, чтобы открыть альбом и скачать оригинал.</p>
-      </div>
-      <button type="button" class="outline home-signs-shuffle" id="home-signs-shuffle">
-        <span class="home-signs-shuffle-icon" aria-hidden="true">↻</span>
-        <span>Другая сигна</span>
-      </button>
-    </div>
-    <div class="home-signs-grid" id="home-signs-grid" data-stagger></div>
-    <div class="home-signs-footer">
-      <small id="home-signs-meta"></small>
-      <a class="outline" href="signs.html">Все альбомы сигн ↗</a>
-    </div>
-  </section>
-</div>
+<script>
+(() => {
+  const SUMMARY_URL = "./Shorts/summary.json";
+  const SHORTS_DIR = "Shorts";
+  const AUTOPLAY_MS = 5000;
+  const STEP = 1; // прокрутка строго по 1 ролику
 
+  const root = document.getElementById("shorts-carousel");
+  const track = document.getElementById("shorts-track");
+  const viewport = document.getElementById("shorts-viewport");
+  if (!root || !track || !viewport) return;
+
+  let items = [];
+  let activeIndex = 0;
+  let timer = null;
+  const reducedQuery = matchMedia("(prefers-reduced-motion: reduce)");
+  const isAnimDisabled = () =>
+    document.documentElement.dataset.anim === "off" ||
+    (!document.documentElement.dataset.anim && reducedQuery.matches);
+
+  function formatViews(num) {
+    const n = Number(num);
+    if (!Number.isFinite(n) || n <= 0) return "";
+    if (n >= 1000000) return `${(n / 1000000).toFixed(1).replace(".", ",").replace(/,0$/, "")} млн просмотров`;
+    if (n >= 1000) return `${Math.round(n / 1000)} тыс. просмотров`;
+    return `${n.toLocaleString("ru-RU")} просмотров`;
+  }
+
+  function resolveCover(item) {
+    if (typeof item.cover === "string" && item.cover.trim()) {
+      const clean = item.cover.trim().replace(/^\/+/, "");
+      return clean.startsWith(`${SHORTS_DIR}/`) ? clean : `${SHORTS_DIR}/${clean}`;
+    }
+    return item.id ? `https://i.ytimg.com/vi/${encodeURIComponent(item.id)}/hqdefault.jpg` : "";
+  }
+
+  function renderExtra(item) {
+    const parts = [];
+    if (Number.isFinite(Number(item.likes))) parts.push(`<span>♥ ${Number(item.likes).toLocaleString("ru-RU")}</span>`);
+    return parts.join("");
+  }
+
+  function esc(v) {
+    return String(v ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  function renderCards(data) {
+    items = Array.isArray(data) ? data.filter((x) => x && (x.title || x.id)) : [];
+    if (!items.length) {
+      root.hidden = true;
+      return;
+    }
+
+    track.innerHTML = items.map((item) => {
+      const href = item.url || (item.id ? `https://www.youtube.com/shorts/${encodeURIComponent(item.id)}` : "#");
+      const cover = resolveCover(item);
+      const fallback = item.id ? `https://i.ytimg.com/vi/${encodeURIComponent(item.id)}/hqdefault.jpg` : "";
+      const viewsText = formatViews(item.views ?? item.catalog_views);
+      const extraHtml = renderExtra(item);
+
+      return `
+        <a class="short-slide-card" data-spotlight href="${esc(href)}" target="_blank" rel="noopener noreferrer">
+          <span class="short-slide-thumb">
+            ${cover ? `<img src="${esc(cover)}" ${fallback ? `data-fallback="${esc(fallback)}"` : ""} alt="${esc(item.title)}" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.removeAttribute('data-fallback');}">` : ""}
+            <span class="short-slide-badge">Shorts</span>
+            <span class="short-slide-play" aria-hidden="true">▶</span>
+          </span>
+          <span class="short-slide-info">
+            <strong class="short-slide-title">${esc(item.title)}</strong>
+            ${viewsText ? `<span class="short-slide-views">${esc(viewsText)}</span>` : ""}
+            <span class="short-slide-extra">${extraHtml}</span>
+          </span>
+        </a>
+      `;
+    }).join("");
+
+    activeIndex = 0;
+    viewport.scrollLeft = 0;
+    root.hidden = false;
+    window.ClubnikaAnim?.refresh?.();
+  }
+
+  function stepTo(targetIdx, smooth = true) {
+    if (items.length <= 1) return;
+    activeIndex = ((targetIdx % items.length) + items.length) % items.length;
+    const cardEl = track.children[activeIndex];
+    if (cardEl) {
+      viewport.scrollTo({
+        left: cardEl.offsetLeft - track.offsetLeft,
+        behavior: smooth && !isAnimDisabled() ? "smooth" : "auto"
+      });
+    }
+  }
+
+  function stopAutoplay() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (isAnimDisabled() || document.hidden || items.length <= 1) return;
+    timer = setInterval(() => stepTo(activeIndex + STEP, true), AUTOPLAY_MS);
+  }
+
+  viewport.addEventListener("mouseenter", stopAutoplay);
+  viewport.addEventListener("mouseleave", startAutoplay);
+  viewport.addEventListener("focusin", stopAutoplay);
+  viewport.addEventListener("focusout", startAutoplay);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stopAutoplay() : startAutoplay()));
+  document.addEventListener("clubnika:animchange", () => (isAnimDisabled() ? stopAutoplay() : startAutoplay()));
+
+  viewport.addEventListener("scroll", () => {
+    const first = track.children[0];
+    if (!first || !items.length) return;
+    const gap = parseFloat(getComputedStyle(track).gap) || 14;
+    const stepSize = first.getBoundingClientRect().width + gap;
+    if (stepSize > 0) {
+      const idx = Math.min(items.length - 1, Math.max(0, Math.round(viewport.scrollLeft / stepSize)));
+      activeIndex = idx;
+    }
+  }, { passive: true });
+
+  fetch(SUMMARY_URL, { cache: "no-store" })
+    .then((res) => (res.ok ? res.json() : null))
+    .then((json) => {
+      renderCards(json);
+      startAutoplay();
+    })
+    .catch(() => {
+      root.hidden = true;
+    });
+})();
+</script>
+  <div class="shorts-footer"><small id="shorts-updated">Просмотры по данным YouTube на 23 ноября 2026 г.</small><a class="outline youtube-button" href="shorts.html"><svg class="youtube-button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg><span>Все переводы и каверы</span></a></div>
+</section>
+
+<section class="feature-section home-signs-section" id="home-signs" hidden aria-label="Случайные сигны для зрителей">
+  <div class="sectionhead">
+    <div>
+      <div class="eyebrow">КЛУБНИЧНАЯ СЕМЬЯ</div>
+      <h2>Сигны с эфиров</h2>
+      <p>Тёплые фото-приветы для зрителей. Нажмите на карточку, чтобы открыть альбом и скачать оригинал.</p>
+    </div>
+    <button type="button" class="outline home-signs-shuffle" id="home-signs-shuffle">
+      <span class="home-signs-shuffle-icon" aria-hidden="true">↻</span>
+      <span>Другие сигны</span>
+    </button>
+  </div>
+  <div class="home-signs-grid" id="home-signs-grid" data-stagger></div>
+  <div class="home-signs-footer">
+    <small id="home-signs-meta"></small>
+    <a class="outline" href="signs.html">Все альбомы сигн ↗</a>
+  </div>
+</section>
 <script src="signs/data.js"></script>
 <script src="signs/albums.js"></script>
 <script>
@@ -298,12 +258,6 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
   const meta = document.getElementById('home-signs-meta');
   const shuffleBtn = document.getElementById('home-signs-shuffle');
   if (!section || !grid) return;
-
-  const AUTOPLAY_MS = 5500;
-  const reducedQuery = matchMedia('(prefers-reduced-motion: reduce)');
-  const isAnimDisabled = () =>
-    document.documentElement.dataset.anim === 'off' ||
-    (!document.documentElement.dataset.anim && reducedQuery.matches);
 
   const albums = (Array.isArray(window.SIGN_ALBUMS) ? window.SIGN_ALBUMS : [])
     .filter(a => a && a.date && Array.isArray(a.items) && a.items.length);
@@ -344,50 +298,46 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
       "'": '&#39;'
     }[c]));
 
-  let lastPickedSrc = '';
-  let timer = null;
+  let lastPickedSrc = new Set();
 
-  function pickRandomOne() {
-    let source = pool.filter(x => x.src !== lastPickedSrc);
-    if (!source.length) source = pool;
-    const chosen = source[Math.floor(Math.random() * source.length)];
-    lastPickedSrc = chosen.src;
+  function pickRandom(count = 4) {
+    let source = pool.filter(x => !lastPickedSrc.has(x.src));
+    if (source.length < count) source = pool.slice();
+    const copy = source.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    const chosen = copy.slice(0, Math.min(count, copy.length));
+    lastPickedSrc = new Set(chosen.map(x => x.src));
     return chosen;
   }
 
-  function renderSign(reanimate = false) {
-    const item = pickRandomOne();
-    const href = `signs.html#album-${encodeURIComponent(item.date)}`;
-    const dateText = formatDate(item.date);
+  function renderSigns(reanimate = false) {
+    const chosen = pickRandom(4);
+    grid.innerHTML = chosen
+      .map(item => {
+        const href = `signs.html#album-${encodeURIComponent(item.date)}`;
+        const dateText = formatDate(item.date);
+        return `
+          <a class="home-sign-card" data-spotlight href="${esc(href)}">
+            <span class="home-sign-thumb">
+              <img src="${esc(item.src)}" alt="Сигна от ${esc(dateText)}" loading="lazy" decoding="async">
+            </span>
+            <span class="home-sign-info">
+              <span class="home-sign-date">${esc(dateText)}</span>
+              <span class="home-sign-arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+        `;
+      })
+      .join('');
 
-    grid.innerHTML = `
-      <a class="home-sign-card" data-spotlight href="${esc(href)}">
-        <span class="home-sign-thumb">
-          <img src="${esc(item.src)}" alt="Сигна от ${esc(dateText)}" loading="lazy" decoding="async">
-        </span>
-        <span class="home-sign-info">
-          <span class="home-sign-date">${esc(dateText)}</span>
-          <span class="home-sign-arrow" aria-hidden="true">↗</span>
-        </span>
-      </a>
-    `;
-
-    if (reanimate && !isAnimDisabled()) {
+    if (reanimate) {
       grid.classList.remove('is-revealed', 'is-settled');
       void grid.offsetWidth;
       window.ClubnikaAnim?.refresh?.();
     }
-  }
-
-  function stopAutoplay() {
-    clearInterval(timer);
-    timer = null;
-  }
-
-  function startAutoplay() {
-    stopAutoplay();
-    if (isAnimDisabled() || document.hidden || pool.length <= 1) return;
-    timer = setInterval(() => renderSign(true), AUTOPLAY_MS);
   }
 
   if (meta) {
@@ -395,7 +345,7 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
     meta.textContent = `${pool.length} ${noun(pool.length, ['фото-сигна', 'фото-сигны', 'фото-сигн'])} в ${albumsWithPhotos} ${noun(albumsWithPhotos, ['альбоме', 'альбомах', 'альбомах'])}`;
   }
 
-  if (pool.length <= 1 && shuffleBtn) {
+  if (pool.length <= 4 && shuffleBtn) {
     shuffleBtn.hidden = true;
   }
 
@@ -403,35 +353,30 @@ if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener
     shuffleBtn.classList.remove('is-spinning');
     void shuffleBtn.offsetWidth;
     shuffleBtn.classList.add('is-spinning');
-    renderSign(true);
-    startAutoplay();
+    renderSigns(true);
   });
 
-  section.addEventListener('mouseenter', stopAutoplay);
-  section.addEventListener('mouseleave', startAutoplay);
-  section.addEventListener('focusin', stopAutoplay);
-  section.addEventListener('focusout', startAutoplay);
-  document.addEventListener('visibilitychange', () => (document.hidden ? stopAutoplay() : startAutoplay()));
-  document.addEventListener('clubnika:animchange', () => (isAnimDisabled() ? stopAutoplay() : startAutoplay()));
-
-  renderSign(false);
+  renderSigns(false);
   section.hidden = false;
-  startAutoplay();
   window.ClubnikaAnim?.refresh?.();
 })();
 </script>
+
 
 <script>
 (()=>{const photos=[{src:'img/photo_2026-11-22_14-20-12.jpg',alt:'Ника Моисеева в студии звукозаписи'},{src:'img/photo_2026-11-22_14-26-13.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'},{src:'img/photo_2026-11-22_14-26-16.jpg',alt:'Ника Моисеева — фото с музыкального мероприятия'}];const image=document.getElementById('hero-photo'),controls=document.getElementById('photo-controls');if(photos.length<2)return;let index=0,timer=null,transition=null,request=0;const reducedQuery=matchMedia('(prefers-reduced-motion: reduce)');const isAnimOff=()=>document.documentElement.dataset.anim==='off'||(!document.documentElement.dataset.anim&&reducedQuery.matches);const buttons=photos.map((photo,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Фото '+(i+1));b.setAttribute('aria-current',String(i===0));b.addEventListener('click',()=>{show(i);restart()});controls.append(b);return b});controls.hidden=false;function show(i){const token=++request;clearTimeout(transition);image.classList.remove('changing');const next=new Image();next.onload=()=>{if(token!==request)return;function apply(){if(token!==request)return;index=i;image.src=photos[i].src;image.alt=photos[i].alt;image.classList.remove('changing');buttons.forEach((b,j)=>b.setAttribute('aria-current',String(j===i)))}if(isAnimOff()){apply();return}image.classList.add('changing');transition=setTimeout(apply,350)};next.onerror=()=>{if(token===request){image.classList.remove('changing');index=i}};next.src=photos[i].src}function restart(){clearInterval(timer);if(!isAnimOff()&&!document.hidden)timer=setInterval(()=>show((index+1)%photos.length),6500)}document.addEventListener('visibilitychange',restart);document.addEventListener('clubnika:animchange',restart);restart()})();
 </script>
 
+
 </main>
-<script src="site-footer.js" data-home-mascot></script>
+<script src="site-footer.js"></script>
+
 
 <script>
 const moreMenus=[...document.querySelectorAll('.more-links')];
 document.addEventListener('click',e=>{for(const menu of moreMenus)if(menu.open&&(!menu.contains(e.target)||e.target.closest('.more-panel a')))menu.open=false});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const opened=moreMenus.find(m=>m.open);moreMenus.forEach(m=>m.open=false);if(opened)opened.querySelector('summary').focus()}});
 for(const menu of moreMenus)menu.addEventListener('toggle',()=>{if(menu.open)for(const other of moreMenus)if(other!==menu)other.open=false});
+
 </script>
 <script src="shorts-data.js?v=5"></script><script src="shorts.js?v=8"></script></body></html>

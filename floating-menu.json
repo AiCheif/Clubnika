@@ -14,7 +14,13 @@
       "invite": "mascots/cossack/invite.webm",
       "salute": "mascots/cossack/salute.webm",
       "wink": "mascots/cossack/wink.webm",
-      "thumbs-up": "mascots/cossack/thumbs-up.webm"
+      "thumbs-up": "mascots/cossack/thumbs-up.webm",
+      "theme-change": "mascots/cossack/theme-change.webm",
+      "check-time": "mascots/cossack/check-time.webm",
+      "admire": "mascots/cossack/admire.webm",
+      "applause": "mascots/cossack/applause.webm",
+      "watch-shorts": "mascots/cossack/watch-shorts.webm",
+      "sing": "mascots/cossack/sing.webm"
     },
     "alt": "Казачёк"
   },
@@ -28,7 +34,13 @@
       "invite": "mascots/beauty/invite.webm",
       "salute": "mascots/beauty/salute.webm",
       "wink": "mascots/beauty/wink.webm",
-      "thumbs-up": "mascots/beauty/thumbs-up.webm"
+      "thumbs-up": "mascots/beauty/thumbs-up.webm",
+      "theme-change": "mascots/beauty/theme-change.webm",
+      "check-time": "mascots/beauty/check-time.webm",
+      "admire": "mascots/beauty/admire.webm",
+      "applause": "mascots/beauty/applause.webm",
+      "watch-shorts": "mascots/beauty/watch-shorts.webm",
+      "sing": "mascots/beauty/sing.webm"
     },
     "alt": "Красавица"
   }

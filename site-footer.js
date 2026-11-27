@@ -116,6 +116,15 @@ script.insertAdjacentHTML('beforebegin',`
     let scrollThreshold=FALLBACK_MENU.showAfterScroll;
     let animations={};
     let idleTimer=0,playToken=0,playing=false,greeted=false;
+    let contextTimer=0;
+    const seenContexts=new Set();
+    const contexts=script.hasAttribute('data-home-mascot')?[
+      ['#live-panel','check-time'],
+      ['.hero .photo-gallery','admire'],
+      ['.site-tv-card','applause'],
+      ['#translations','watch-shorts'],
+      ['#my-music','sing']
+    ].map(([selector,name])=>({element:main.querySelector(selector),name})).filter(x=>x.element):[];
     let closeTimer=0,autoCloseMs=FALLBACK_MENU.autoCloseMs;
 
     // Состояние перетаскивания маскота
@@ -164,6 +173,23 @@ script.insertAdjacentHTML('beforebegin',`
 
     const isSelectFocused=()=>dock.contains(document.activeElement)&&document.activeElement?.tagName==='SELECT';
     const canAnimate=()=>videoEl&&!isAnimOff()&&!document.hidden&&!dock.classList.contains('is-hidden')&&!document.querySelector('dialog[open]');
+    const scheduleContext=()=>{
+      clearTimeout(contextTimer);
+      if(!contexts.length||!canAnimate()||isOpen||playing||isDragging)return;
+      contextTimer=setTimeout(()=>{
+        if(!canAnimate()||isOpen||playing||isDragging)return;
+        const height=window.innerHeight;
+        const visible=contexts.filter(({name})=>animations[name]&&!seenContexts.has(name)).map(context=>{
+          const rect=context.element.getBoundingClientRect();
+          const overlap=Math.min(rect.bottom,height)-Math.max(rect.top,0);
+          return {...context,overlap,required:Math.min(rect.height,height)*0.45};
+        }).filter(x=>x.overlap>0&&x.overlap>=x.required).sort((a,b)=>b.overlap-a.overlap);
+        if(visible.length){
+          seenContexts.add(visible[0].name);
+          playAnimation(visible[0].name);
+        }
+      },650);
+    };
     const stopAnimation=()=>{
       clearTimeout(idleTimer);
       idleTimer=0;
@@ -188,7 +214,7 @@ script.insertAdjacentHTML('beforebegin',`
       const token=playToken;
       playing=true;
       videoEl.src=animations[name];
-      const finish=()=>{if(token!==playToken)return;stopAnimation();scheduleIdle();};
+      const finish=()=>{if(token!==playToken)return;stopAnimation();scheduleIdle();scheduleContext();};
       videoEl.onended=finish;
       videoEl.onerror=finish;
       videoEl.play().then(()=>{if(token===playToken)videoEl.hidden=false;}).catch(finish);
@@ -202,6 +228,7 @@ script.insertAdjacentHTML('beforebegin',`
       if(!show){stopAnimation();return;}
       if(canAnimate()&&!greeted){greeted=true;playAnimation('greeting');}
       else if(!playing&&!idleTimer)scheduleIdle();
+      scheduleContext();
     };
 
     const resetCloseTimer=()=>{
@@ -434,6 +461,7 @@ script.insertAdjacentHTML('beforebegin',`
     popover.addEventListener('focusin',resetCloseTimer);
     popover.addEventListener('pointermove',resetCloseTimer);
     popover.addEventListener('change',resetCloseTimer);
+    document.getElementById('theme-picker')?.addEventListener('change',()=>playAnimation('theme-change'));
 
     document.addEventListener('keydown',e=>{
       if(e.key==='Escape'&&isOpen){
@@ -453,7 +481,9 @@ script.insertAdjacentHTML('beforebegin',`
     });
 
     document.addEventListener('visibilitychange',syncPlayback);
+    document.addEventListener('visibilitychange',scheduleContext);
     document.addEventListener('clubnika:animchange',syncPlayback);
+    document.addEventListener('clubnika:animchange',scheduleContext);
     reducedQuery.addEventListener?.('change',syncPlayback);
 
     addEventListener('scroll',()=>{

@@ -666,24 +666,38 @@ main #my-music.original-studio-card { padding: 0; display: flex; flex-direction:
   flex: 1 0 auto;
   min-height: clamp(220px, 24vw, 280px);
   padding: 20px 12px 30px 22px;
-  background-color: #211b18;
+
+  background-color: var(--panel);
   background-image:
-    linear-gradient(0deg, var(--panel), transparent 24%),
-    linear-gradient(90deg, rgba(18, 14, 12, .76), rgba(18, 14, 12, .25) 52%, transparent 78%),
-    url('../img/original-songs-studio.webp');
-  background-size: cover;
-  background-position: center, right center, right center;
-  background-repeat: no-repeat;
+    linear-gradient(
+  to top,
+  var(--panel) 0%,
+  color-mix(in srgb, var(--panel) 35%, transparent) 6%,
+  transparent 18%
+),
+    url('../img/original-songs-transparent.webp?v=2'),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E"),
+    radial-gradient(
+  ellipse at 78% 25%,
+  color-mix(in srgb, var(--panel) 72%, var(--gold)),
+  var(--panel) 65%,
+  var(--bg)
+);
+  background-size: cover, auto 100%, 180px 180px, cover;
+  background-position: center, right center, center, center;
+  background-repeat: no-repeat, no-repeat, repeat, no-repeat;
 }
-#my-music .original-studio-copy { width: 55%; min-width: 0; color: #fff9f0; }
-#my-music .original-studio-copy .eyebrow { color: #efc783; }
+
+#my-music .original-studio-copy { width: 50%; min-width: 0; color: var(--text); }
+#my-music .original-studio-copy .eyebrow { color: var(--gold); }
 #my-music .original-studio-copy h2 { color: inherit; margin-bottom: 10px; }
-#my-music .original-studio-copy p { color: #f5e8dc; margin: 0; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+#my-music .original-studio-copy p { color: var(--muted); margin: 0; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
 #my-music .original-studio-content { padding: 0 clamp(16px, 2.2vw, 24px) clamp(16px, 2.2vw, 24px); }
+
 
 @media (max-width: 480px) {
   #my-music .original-studio-header { min-height: 238px; padding: 16px 10px 30px 16px; }
-  #my-music .original-studio-copy { width: 56%; }
+  #my-music .original-studio-copy { width: 50%; }
   #my-music .original-studio-copy h2 { font-size: 28px; }
   #my-music .original-studio-copy p { font-size: 13px; line-height: 1.45; }
 }

@@ -1,17 +1,24 @@
 /* Floating mascot dock, animations, drag-and-drop and quick menu. */
 (() => {
   const currentScript = document.currentScript;
+  const baseHref = currentScript?.src || location.href;
 
   const initMascot = () => {
     const body = document.body;
     const main = document.querySelector('main');
     if (!body || !main) return;
 
-    // Отключение маскота через <body data-mascot="off"> или data-mode="off" на скрипте
     const mode = currentScript?.dataset.mode || body.dataset.mascot || '';
     if (mode === 'off' || document.getElementById('mascot-dock')) return;
 
-    const isHome = mode === 'home' || body.dataset.page === 'index.html';
+    const basePath = new URL('./', baseHref).pathname.replace(/\/+$/, '');
+    const currentPath = location.pathname.replace(/\/+$/, '');
+    const isHome = mode === 'home'
+      || /^index\.html$/i.test(body.dataset.page || '')
+      || currentPath === ''
+      || currentPath === '/index.html'
+      || currentPath === basePath
+      || currentPath === `${basePath}/index.html`;
 
     const MASCOT_STORAGE_KEY = 'clubnika_mascot_id';
     const POS_STORAGE_KEY_V2 = 'clubnika_mascot_pos_v2';
@@ -32,25 +39,56 @@
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 
-    const safeHref = raw => {
+    const safeHref = (raw, base = baseHref) => {
       if (typeof raw !== 'string') return null;
-      const val = raw.trim();
-      if (!val || /^(javascript|data|vbscript):/i.test(val)) return null;
-      return val;
+      const val = raw.replace(/[\x00-\x1f\x7f]/g, '').trim();
+      if (!val) return null;
+      if (val.startsWith('#')) return val;
+      try {
+        const parsed = new URL(val, base);
+        if (!['http:', 'https:', 'mailto:', 'tel:'].includes(parsed.protocol)) return null;
+        if (parsed.protocol === 'mailto:' || parsed.protocol === 'tel:') return val;
+        return parsed.href;
+      } catch {
+        return null;
+      }
     };
+
+    const isExternalUrl = href => {
+      if (!href || href.startsWith('#')) return false;
+      try {
+        const parsed = new URL(href, location.href);
+        return (parsed.protocol === 'http:' || parsed.protocol === 'https:')
+          && parsed.origin !== location.origin;
+      } catch {
+        return false;
+      }
+    };
+
+    const getViewportSize = () => ({
+      width: document.documentElement.clientWidth || window.innerWidth,
+      height: document.documentElement.clientHeight || window.innerHeight
+    });
+
+    const ac = new AbortController();
+    const { signal } = ac;
 
     const reducedQuery = matchMedia('(prefers-reduced-motion: reduce)');
     const isAnimOff = () => document.documentElement.dataset.anim === 'off'
       || (!document.documentElement.dataset.anim && reducedQuery.matches);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-    // Монтируем виджет в конец body
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/i.test(ua)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isSafari = isIOS || /^((?!chrome|android).)*safari/i.test(ua);
+
     body.insertAdjacentHTML('beforeend', `
       <div class="mascot-dock is-hidden" id="mascot-dock">
-        <div class="mascot-popover" id="mascot-popover" role="menu" hidden>
+        <div class="mascot-popover" id="mascot-popover" role="dialog" aria-label="Меню маскота" aria-hidden="true" hidden>
+          <div class="mascot-screen" data-screen="main"></div>
           <div class="mascot-screen" data-screen="settings" hidden>
             <button type="button" class="mascot-back-btn" data-go="main">‹ Назад</button>
-            <div class="footer-settings mascot-menu-settings" id="mascot-settings-slot">
+            <div class="footer-settings mascot-menu-settings">
               <label class="mascot-picker" for="mascot-picker"><span>Маскот</span>
                 <select id="mascot-picker" aria-label="Выбор маскота"></select>
               </label>
@@ -69,22 +107,41 @@
     const popover = document.getElementById('mascot-popover');
     const mediaBox = document.getElementById('mascot-media');
     const labelBox = document.getElementById('mascot-label');
+    const mainScreen = popover.querySelector('[data-screen="main"]');
     const settingsScreen = popover.querySelector('[data-screen="settings"]');
-    const settingsSlot = document.getElementById('mascot-settings-slot');
-    const mascotSelect = popover.querySelector('#mascot-picker');
+    const settingsSlot = settingsScreen.querySelector('.mascot-menu-settings');
+    const mascotPickerLabel = settingsScreen.querySelector('.mascot-picker');
+    const mascotSelect = settingsScreen.querySelector('#mascot-picker');
 
-    // Переносим селектор темы из футера в поповер маскота, если он есть на странице
+    // Гарантируем работу pointer-перетаскивания на сенсорных экранах
+    trigger.style.touchAction = 'none';
+
     const themeLabel = document.querySelector('footer.wrap .theme-picker');
-    if (themeLabel && settingsSlot) {
-      settingsSlot.append(themeLabel);
-    }
+    const themeHomeParent = themeLabel?.parentElement || null;
+
+    const syncThemePickerLocation = dockVisible => {
+      if (!themeLabel) return;
+      if (dockVisible && settingsSlot && dock.isConnected) {
+        if (themeLabel.parentElement !== settingsSlot) settingsSlot.append(themeLabel);
+      } else {
+        const fallbackParent = themeHomeParent?.isConnected
+          ? themeHomeParent
+          : document.querySelector('footer.wrap .footer-settings');
+        if (fallbackParent && themeLabel.parentElement !== fallbackParent) {
+          fallbackParent.append(themeLabel);
+        }
+      }
+    };
 
     let isOpen = false;
+    let isReady = false;
     let videoEl = null;
     let scrollThreshold = FALLBACK_MENU.showAfterScroll;
     let animations = {};
     let idleTimer = 0, playToken = 0, playing = false, greeted = false;
-    let contextTimer = 0;
+    let contextTimer = 0, closeTimer = 0, dragResetTimer = 0, rafId = 0;
+    let autoCloseMs = FALLBACK_MENU.autoCloseMs;
+    let resizeObserver = null;
     const playedContexts = new Set();
 
     const contexts = isHome ? [
@@ -95,13 +152,20 @@
       ['#my-music', 'sing']
     ].map(([selector, name]) => ({ element: main.querySelector(selector), name })).filter(x => x.element) : [];
 
-    let closeTimer = 0, autoCloseMs = FALLBACK_MENU.autoCloseMs;
+    let cachedSavedPos = null;
+    try {
+      const parsed = JSON.parse(localStorage.getItem(POS_STORAGE_KEY_V2) || 'null');
+      if (parsed && typeof parsed.left === 'number' && Number.isFinite(parsed.left)
+          && typeof parsed.top === 'number' && Number.isFinite(parsed.top)) {
+        cachedSavedPos = { left: parsed.left, top: parsed.top };
+      }
+    } catch {}
 
-    // Состояние перетаскивания маскота
     const DRAG_THRESHOLD = 6;
     const EDGE_MARGIN = 12;
     let isDragging = false;
     let wasDragged = false;
+    let activePointerId = null;
     let hasCustomPos = false;
     let currentLeft = 0, currentTop = 0;
     let startX = 0, startY = 0;
@@ -112,49 +176,66 @@
       const h = trigger.offsetHeight;
       if (!w || !h) return;
 
-      const maxLeft = Math.max(EDGE_MARGIN, window.innerWidth - w - EDGE_MARGIN);
-      const maxTop = Math.max(EDGE_MARGIN, window.innerHeight - h - EDGE_MARGIN);
+      const { width: vw, height: vh } = getViewportSize();
+      const maxLeft = Math.max(EDGE_MARGIN, vw - w - EDGE_MARGIN);
+      const maxTop = Math.max(EDGE_MARGIN, vh - h - EDGE_MARGIN);
       currentLeft = Math.min(Math.max(EDGE_MARGIN, left), maxLeft);
       currentTop = Math.min(Math.max(EDGE_MARGIN, top), maxTop);
       hasCustomPos = true;
 
-      dock.classList.toggle('is-top', currentTop + h / 2 < window.innerHeight / 2);
-      dock.classList.toggle('is-left', currentLeft + w / 2 < window.innerWidth / 2);
+      dock.classList.toggle('is-top', currentTop + h / 2 < vh / 2);
+      dock.classList.toggle('is-left', currentLeft + w / 2 < vw / 2);
 
-      dock.style.left = `${currentLeft - trigger.offsetLeft}px`;
-      dock.style.top = `${currentTop - trigger.offsetTop}px`;
+      // Компенсируем внутреннее смещение кнопки, только если dock является её offsetParent
+      const innerOffsetLeft = trigger.offsetParent === dock ? trigger.offsetLeft : 0;
+      const innerOffsetTop = trigger.offsetParent === dock ? trigger.offsetTop : 0;
+
+      dock.style.left = `${currentLeft - innerOffsetLeft}px`;
+      dock.style.top = `${currentTop - innerOffsetTop}px`;
       dock.style.right = 'auto';
       dock.style.bottom = 'auto';
 
       if (save) {
-        try { localStorage.setItem(POS_STORAGE_KEY_V2, JSON.stringify({ left: currentLeft, top: currentTop })); } catch {}
+        cachedSavedPos = { left: currentLeft, top: currentTop };
+        try { localStorage.setItem(POS_STORAGE_KEY_V2, JSON.stringify(cachedSavedPos)); } catch {}
       }
     };
 
     const restoreSavedPosition = () => {
-      try {
-        const saved = JSON.parse(localStorage.getItem(POS_STORAGE_KEY_V2) || 'null');
-        if (saved && Number.isFinite(saved.left) && Number.isFinite(saved.top)) {
-          applyDockPosition(saved.left, saved.top, false);
-        }
-      } catch {}
+      const target = cachedSavedPos || (hasCustomPos ? { left: currentLeft, top: currentTop } : null);
+      if (target) {
+        applyDockPosition(target.left, target.top, false);
+      }
     };
 
     const isSelectFocused = () => dock.contains(document.activeElement) && document.activeElement?.tagName === 'SELECT';
-    const canAnimate = () => videoEl && !isAnimOff() && !document.hidden && !dock.classList.contains('is-hidden') && !document.querySelector('dialog[open]');
+    const hasOpenDialog = () => Boolean(document.querySelector('dialog[open]'));
+    const canAnimateBase = () => Boolean(
+      !signal.aborted
+      && videoEl
+      && !isAnimOff()
+      && !document.hidden
+      && !dock.classList.contains('is-hidden')
+      && !isDragging
+    );
+    const canAnimate = () => canAnimateBase() && !hasOpenDialog();
 
     const scheduleContext = () => {
       clearTimeout(contextTimer);
-      const height = window.innerHeight;
+      contextTimer = 0;
+      if (signal.aborted || !isReady) return;
+
+      const { height } = getViewportSize();
       for (const { element, name } of contexts) {
         const rect = element.getBoundingClientRect();
         const overlap = Math.min(rect.bottom, height) - Math.max(rect.top, 0);
         if (overlap <= Math.min(rect.height, height) * 0.15) playedContexts.delete(name);
       }
-      if (!contexts.length || !canAnimate() || isOpen || playing || isDragging) return;
+      if (!contexts.length || !canAnimate() || isOpen || playing) return;
       contextTimer = setTimeout(() => {
-        if (!canAnimate() || isOpen || playing || isDragging) return;
-        const h = window.innerHeight;
+        contextTimer = 0;
+        if (!canAnimate() || isOpen || playing) return;
+        const { height: h } = getViewportSize();
         const visible = contexts
           .filter(({ name }) => animations[name] && !playedContexts.has(name))
           .map(context => {
@@ -179,16 +260,22 @@
       playing = false;
       if (videoEl) {
         videoEl.pause();
-        videoEl.hidden = true;
+        if (Object.keys(animations).length) videoEl.hidden = true;
       }
     };
 
     const scheduleIdle = () => {
       clearTimeout(idleTimer);
       idleTimer = 0;
-      if (!canAnimate() || isOpen) return;
+      if (!canAnimateBase() || isOpen) return;
       idleTimer = setTimeout(() => {
         idleTimer = 0;
+        if (signal.aborted || isOpen) return;
+        if (!canAnimate()) {
+          // Если мешает только открытый <dialog>, перепланируем проверку
+          if (canAnimateBase() && hasOpenDialog()) scheduleIdle();
+          return;
+        }
         const choices = ['wink', 'thumbs-up', 'salute'].filter(name => animations[name]);
         if (animations.idle && (!choices.length || Math.random() < 0.5)) playAnimation('idle');
         else if (choices.length) playAnimation(choices[Math.floor(Math.random() * choices.length)]);
@@ -204,81 +291,150 @@
       const finish = () => {
         if (token !== playToken) return;
         stopAnimation();
+        if (signal.aborted) return;
         scheduleIdle();
         scheduleContext();
       };
       videoEl.onended = finish;
       videoEl.onerror = finish;
-      videoEl.play().then(() => { if (token === playToken) videoEl.hidden = false; }).catch(finish);
+      videoEl.play().then(() => {
+        if (token === playToken && !signal.aborted) videoEl.hidden = false;
+      }).catch(finish);
+    };
+
+    const destroy = () => {
+      if (signal.aborted) return;
+      ac.abort();
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+      stopAnimation();
+      clearTimeout(contextTimer);
+      contextTimer = 0;
+      clearTimeout(closeTimer);
+      closeTimer = 0;
+      clearTimeout(dragResetTimer);
+      dragResetTimer = 0;
+      resizeObserver?.disconnect();
+      syncThemePickerLocation(false);
+      dock.remove();
+      delete window.ClubnikaMascot;
+    };
+
+    window.ClubnikaMascot = { destroy };
+
+    const syncPlayback = () => {
+      if (signal.aborted || !videoEl) return;
+      if (Object.keys(animations).length) {
+        if (!canAnimate()) stopAnimation();
+        else if (!playing) {
+          if (!greeted && animations.greeting) {
+            greeted = true;
+            playAnimation('greeting');
+          }
+          if (!playing && !idleTimer) scheduleIdle();
+        }
+        return;
+      }
+      if (isAnimOff() || document.hidden || dock.classList.contains('is-hidden')) {
+        videoEl.pause();
+      } else {
+        videoEl.play().catch(() => {});
+      }
     };
 
     const update = () => {
-      if (isOpen) return;
+      if (signal.aborted || !isReady || isOpen) return;
       const show = window.scrollY >= scrollThreshold;
       dock.classList.toggle('is-hidden', !show);
-      if (!Object.keys(animations).length) return;
-      if (!show) { stopAnimation(); return; }
-      if (canAnimate() && !greeted) { greeted = true; playAnimation('greeting'); }
-      else if (!playing && !idleTimer) scheduleIdle();
+      syncThemePickerLocation(show);
+
+      if (!Object.keys(animations).length) {
+        syncPlayback();
+        return;
+      }
+      if (!show) {
+        stopAnimation();
+        return;
+      }
+      if (canAnimate() && !playing && !greeted && animations.greeting) {
+        greeted = true;
+        playAnimation('greeting');
+      }
+      if (!playing && !idleTimer) scheduleIdle();
       scheduleContext();
     };
 
     const resetCloseTimer = () => {
       clearTimeout(closeTimer);
-      if (isOpen && autoCloseMs > 0) {
+      closeTimer = 0;
+      if (!signal.aborted && isOpen && autoCloseMs > 0) {
         closeTimer = setTimeout(() => {
+          closeTimer = 0;
+          if (signal.aborted) return;
           if (isSelectFocused()) { resetCloseTimer(); return; }
           setOpen(false);
         }, autoCloseMs);
       }
     };
 
-    const showScreen = name => {
+    const showScreen = (name, { reposition = true, resetTimer = true } = {}) => {
       popover.querySelectorAll('.mascot-screen').forEach(s => {
         s.hidden = s.dataset.screen !== name;
       });
-      if (hasCustomPos) applyDockPosition(currentLeft, currentTop, false);
-      resetCloseTimer();
+      if (reposition && hasCustomPos) restoreSavedPosition();
+      if (resetTimer) resetCloseTimer();
     };
 
     const setOpen = next => {
+      if (signal.aborted) return;
       isOpen = Boolean(next);
+      if (!isOpen && popover.contains(document.activeElement)) {
+        trigger.focus();
+      }
       resetCloseTimer();
       trigger.setAttribute('aria-expanded', String(isOpen));
       popover.hidden = !isOpen;
+      popover.setAttribute('aria-hidden', String(!isOpen));
       dock.classList.toggle('is-open', isOpen);
-      if (hasCustomPos) applyDockPosition(currentLeft, currentTop, false);
-      if (isOpen) playAnimation('invite');
-      else {
-        showScreen('main');
+      if (!isOpen) {
+        showScreen('main', { reposition: false, resetTimer: false });
+      }
+      if (hasCustomPos) restoreSavedPosition();
+      if (isOpen) {
+        playAnimation('invite');
+      } else {
         playAnimation('salute');
         update();
       }
     };
 
-    const syncPlayback = () => {
-      if (!videoEl) return;
-      if (Object.keys(animations).length) {
-        if (!canAnimate()) stopAnimation();
-        else if (!playing) {
-          if (!greeted) { greeted = true; playAnimation('greeting'); }
-          else scheduleIdle();
-        }
-        return;
+    const renderFallbackVisual = alt => {
+      stopAnimation();
+      videoEl = null;
+      animations = {};
+      dock.classList.remove('has-animated-mascot');
+      const fallbackImg = safeHref(FALLBACK_MENU.mascot.image);
+      if (fallbackImg) {
+        mediaBox.innerHTML = `<img src="${esc(fallbackImg)}" alt="${esc(alt)}" width="64" height="64">`;
+        const fbEl = mediaBox.querySelector('img');
+        if (fbEl) fbEl.onerror = () => { mediaBox.textContent = '🍓'; };
+      } else {
+        mediaBox.textContent = '🍓';
       }
-      if (isAnimOff() || document.hidden) videoEl.pause();
-      else videoEl.play().catch(() => {});
     };
 
     const applyMascot = m => {
+      if (signal.aborted) return;
       stopAnimation();
       greeted = false;
+      playedContexts.clear();
       videoEl = null;
       dock.classList.remove('has-animated-mascot');
       mediaBox.innerHTML = '';
 
       const imgSrc = safeHref(m?.image);
       const vidSrc = safeHref(m?.video);
+      const altText = m?.alt || m?.name || '';
       animations = Object.fromEntries(
         Object.entries(m?.animations || {})
           .map(([name, src]) => [name, safeHref(src)])
@@ -290,55 +446,76 @@
         mediaBox.innerHTML = `<img src="${esc(imgSrc)}" alt="" width="384" height="384">${isSafari ? '' : '<video muted playsinline preload="none" hidden aria-hidden="true"></video>'}`;
         videoEl = mediaBox.querySelector('video');
       } else if (vidSrc && !isSafari) {
-        mediaBox.innerHTML = `<video autoplay loop muted playsinline ${imgSrc ? `poster="${esc(imgSrc)}"` : ''} aria-hidden="true"><source src="${esc(vidSrc)}" type="video/webm"></video>`;
+        mediaBox.innerHTML = `<video src="${esc(vidSrc)}" autoplay loop muted playsinline ${imgSrc ? `poster="${esc(imgSrc)}"` : ''} aria-hidden="true"></video>`;
         videoEl = mediaBox.querySelector('video');
+        videoEl.onerror = () => {
+          videoEl = null;
+          if (imgSrc) {
+            mediaBox.innerHTML = `<img src="${esc(imgSrc)}" alt="${esc(altText)}" width="64" height="64">`;
+            const fbImgEl = mediaBox.querySelector('img');
+            if (fbImgEl) fbImgEl.onerror = () => renderFallbackVisual(altText);
+          } else {
+            renderFallbackVisual(altText);
+          }
+        };
         syncPlayback();
       } else if (imgSrc) {
-        mediaBox.innerHTML = `<img src="${esc(imgSrc)}" alt="${esc(m?.alt || '')}" width="64" height="64">`;
+        mediaBox.innerHTML = `<img src="${esc(imgSrc)}" alt="${esc(altText)}" width="64" height="64">`;
+      } else {
+        renderFallbackVisual(altText);
       }
 
       const imgEl = mediaBox.querySelector('img');
       if (imgEl) {
-        imgEl.onerror = () => {
-          dock.classList.remove('has-animated-mascot');
-          mediaBox.innerHTML = '';
-        };
+        imgEl.onerror = () => renderFallbackVisual(altText);
       }
     };
 
     const renderMenu = cfg => {
+      if (signal.aborted) return;
+
       const items = (Array.isArray(cfg?.items) ? cfg.items : []).filter(it => it && it.enabled !== false && it.title);
       if (!cfg || cfg.enabled === false || !items.length) {
-        // Возвращаем переключатель темы обратно в футер, если меню отключено
-        if (themeLabel) {
-          document.querySelector('footer.wrap .footer-settings')?.append(themeLabel);
-        }
-        dock.remove();
+        destroy();
         return;
       }
 
-      const rawScroll = Number(cfg.showAfterScroll);
-      scrollThreshold = Number.isFinite(rawScroll) ? Math.max(0, rawScroll) : FALLBACK_MENU.showAfterScroll;
-      const rawAutoClose = Number(cfg.autoCloseMs);
-      autoCloseMs = Number.isFinite(rawAutoClose) ? Math.max(0, rawAutoClose) : FALLBACK_MENU.autoCloseMs;
+      scrollThreshold = typeof cfg.showAfterScroll === 'number' && Number.isFinite(cfg.showAfterScroll)
+        ? Math.max(0, cfg.showAfterScroll)
+        : FALLBACK_MENU.showAfterScroll;
+
+      autoCloseMs = typeof cfg.autoCloseMs === 'number' && Number.isFinite(cfg.autoCloseMs)
+        ? Math.max(0, cfg.autoCloseMs)
+        : FALLBACK_MENU.autoCloseMs;
 
       if (cfg.label) {
         labelBox.textContent = cfg.label;
         trigger.setAttribute('aria-label', cfg.label);
+        popover.setAttribute('aria-label', cfg.label);
       }
 
-      const list = Array.isArray(cfg.mascots) && cfg.mascots.length
-        ? cfg.mascots
-        : [{ id: 'default', name: cfg.mascot?.alt || 'Клубничка', ...(cfg.mascot || {}) }];
+      const validMascots = Array.isArray(cfg.mascots)
+        ? cfg.mascots.filter(x => x && typeof x === 'object')
+        : [];
+      const list = (validMascots.length
+        ? validMascots
+        : [{ id: 'default', name: cfg.mascot?.alt || 'Клубничка', ...(cfg.mascot || {}) }]
+      ).map((x, idx) => ({
+        ...x,
+        id: x.id != null && String(x.id).trim() !== '' ? String(x.id) : `mascot-${idx}`
+      }));
 
       let savedId = '';
       try { savedId = localStorage.getItem(MASCOT_STORAGE_KEY) || ''; } catch {}
       const currentMascot = list.find(x => x.id === savedId) || list[0];
+      const hasMultiple = list.length > 1;
 
       if (mascotSelect) {
         mascotSelect.innerHTML = list.map(x => `<option value="${esc(x.id)}">${esc(x.name || x.id)}</option>`).join('');
         mascotSelect.value = currentMascot.id;
-        mascotSelect.disabled = list.length < 2;
+        mascotSelect.disabled = !hasMultiple;
+        if (mascotPickerLabel) mascotPickerLabel.hidden = !hasMultiple;
+
         mascotSelect.onchange = () => {
           const next = list.find(x => x.id === mascotSelect.value) || list[0];
           try { localStorage.setItem(MASCOT_STORAGE_KEY, next.id); } catch {}
@@ -351,14 +528,16 @@
       applyMascot(currentMascot);
 
       const linksMarkup = items.map(item => {
-        let href = safeHref(item.href) || '#';
+        const rawHref = safeHref(item.href);
         const pageAnchor = safeHref(item.anchorOnPage);
-        if (pageAnchor && pageAnchor.startsWith('#') && document.querySelector(pageAnchor)) {
+        let href = rawHref;
+        if (pageAnchor && pageAnchor.length > 1 && pageAnchor.startsWith('#') && document.getElementById(pageAnchor.slice(1))) {
           href = pageAnchor;
         }
-        const external = /^https?:\/\//i.test(href);
+        const safeUrl = href || '#';
+        const external = isExternalUrl(safeUrl);
         return `
-          <a class="mascot-item" role="menuitem" href="${esc(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>
+          <a class="mascot-item" href="${esc(safeUrl)}"${!href ? ' data-noop="1"' : ''}${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>
             ${item.icon ? `<span class="mascot-item-icon" aria-hidden="true">${esc(item.icon)}</span>` : ''}
             <span class="mascot-item-body">
               <span class="mascot-item-title">${esc(item.title)}${item.badge ? `<span class="mascot-item-badge">${esc(item.badge)}</span>` : ''}</span>
@@ -368,41 +547,57 @@
         `;
       }).join('');
 
-      popover.innerHTML = `
-        <div class="mascot-screen" data-screen="main">
-          ${linksMarkup}
-          <button type="button" class="mascot-item mascot-nav-btn" data-go="settings">
-            <span class="mascot-item-icon" aria-hidden="true">⚙️</span>
-            <span class="mascot-item-body"><span class="mascot-item-title">Настройки</span></span>
-            <span class="mascot-item-arrow" aria-hidden="true">›</span>
-          </button>
-        </div>
-      `;
-      if (settingsScreen) popover.append(settingsScreen);
+      const hasSettings = hasMultiple || Boolean(themeLabel);
+      const settingsBtnMarkup = hasSettings ? `
+        <button type="button" class="mascot-item mascot-nav-btn" data-go="settings">
+          <span class="mascot-item-icon" aria-hidden="true">⚙️</span>
+          <span class="mascot-item-body"><span class="mascot-item-title">Настройки</span></span>
+          <span class="mascot-item-arrow" aria-hidden="true">›</span>
+        </button>
+      ` : '';
+
+      mainScreen.innerHTML = `${linksMarkup}${settingsBtnMarkup}`;
+
+      isReady = true;
       update();
       restoreSavedPosition();
+
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        if (signal.aborted) return;
+        update();
+        restoreSavedPosition();
+      });
     };
 
     if (typeof ResizeObserver !== 'undefined') {
-      new ResizeObserver(() => {
-        if (hasCustomPos && !isDragging) applyDockPosition(currentLeft, currentTop, false);
-      }).observe(trigger);
+      resizeObserver = new ResizeObserver(() => {
+        if (hasCustomPos && !isDragging) restoreSavedPosition();
+      });
+      resizeObserver.observe(trigger);
     }
 
     trigger.addEventListener('pointerdown', e => {
       if (e.button !== 0 && e.pointerType === 'mouse') return;
+      if (isDragging) return;
       const rect = trigger.getBoundingClientRect();
+      clearTimeout(dragResetTimer);
+      dragResetTimer = 0;
       isDragging = true;
       wasDragged = false;
+      activePointerId = e.pointerId;
+      clearTimeout(idleTimer);
+      idleTimer = 0;
       startX = e.clientX;
       startY = e.clientY;
       startLeft = rect.left;
       startTop = rect.top;
-      trigger.setPointerCapture(e.pointerId);
+      try { trigger.setPointerCapture(e.pointerId); } catch {}
     });
 
     trigger.addEventListener('pointermove', e => {
-      if (!isDragging) return;
+      if (!isDragging || e.pointerId !== activePointerId) return;
       const dx = e.clientX - startX;
       const dy = e.clientY - startY;
 
@@ -417,28 +612,48 @@
       }
     });
 
-    const endDrag = e => {
-      if (!isDragging) return;
+    const endDrag = (e, cancelled = false) => {
+      if (!isDragging || (e && e.pointerId !== activePointerId)) return;
+      const pointerId = activePointerId;
       isDragging = false;
+      activePointerId = null;
       dock.classList.remove('is-dragging');
-      if (trigger.hasPointerCapture?.(e.pointerId)) {
-        trigger.releasePointerCapture(e.pointerId);
+      if (pointerId != null && trigger.hasPointerCapture?.(pointerId)) {
+        try { trigger.releasePointerCapture(pointerId); } catch {}
       }
-      if (wasDragged) {
+      if (wasDragged && hasCustomPos && !cancelled) {
         applyDockPosition(currentLeft, currentTop, true);
+      }
+      clearTimeout(dragResetTimer);
+      dragResetTimer = 0;
+      if (cancelled) {
+        wasDragged = false;
+      } else if (wasDragged) {
+        dragResetTimer = setTimeout(() => {
+          dragResetTimer = 0;
+          wasDragged = false;
+        }, 100);
+      }
+      if (!isOpen && !playing) {
+        scheduleIdle();
+        scheduleContext();
       }
     };
 
-    trigger.addEventListener('pointerup', endDrag);
-    trigger.addEventListener('pointercancel', endDrag);
+    trigger.addEventListener('pointerup', e => endDrag(e, false));
+    trigger.addEventListener('pointercancel', e => endDrag(e, true));
+    trigger.addEventListener('lostpointercapture', e => endDrag(e, true));
 
     trigger.addEventListener('click', e => {
-      if (wasDragged) {
+      if (wasDragged && e.detail !== 0) {
         e.preventDefault();
         e.stopImmediatePropagation();
+        clearTimeout(dragResetTimer);
+        dragResetTimer = 0;
         wasDragged = false;
         return;
       }
+      wasDragged = false;
       setOpen(!isOpen);
     });
 
@@ -453,8 +668,8 @@
       const target = e.target instanceof Node ? e.target : e.target?.parentNode;
       if (target && !dock.contains(target)) setOpen(false);
     };
-    document.addEventListener('pointerdown', closeOutside, true);
-    document.addEventListener('touchstart', closeOutside, { capture: true, passive: true });
+    document.addEventListener('pointerdown', closeOutside, { capture: true, signal });
+    document.addEventListener('touchstart', closeOutside, { capture: true, passive: true, signal });
 
     dock.addEventListener('pointerdown', resetCloseTimer);
     popover.addEventListener('focusin', resetCloseTimer);
@@ -463,14 +678,14 @@
 
     document.addEventListener('change', e => {
       if (e.target?.id === 'theme-picker') playAnimation('theme-change');
-    });
+    }, { signal });
 
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape' && isOpen && !isSelectFocused()) {
         setOpen(false);
         trigger.focus();
       }
-    });
+    }, { signal });
 
     popover.addEventListener('click', e => {
       const navBtn = e.target.closest('[data-go]');
@@ -479,14 +694,20 @@
         showScreen(navBtn.dataset.go);
         return;
       }
-      if (e.target.closest('a')) setOpen(false);
+      const link = e.target.closest('a');
+      if (link) {
+        if (link.dataset.noop) e.preventDefault();
+        setOpen(false);
+      }
     });
 
-    document.addEventListener('visibilitychange', syncPlayback);
-    document.addEventListener('visibilitychange', scheduleContext);
-    document.addEventListener('clubnika:animchange', syncPlayback);
-    document.addEventListener('clubnika:animchange', scheduleContext);
-    reducedQuery.addEventListener?.('change', syncPlayback);
+    const handleAnimStateChange = () => {
+      syncPlayback();
+      scheduleContext();
+    };
+    document.addEventListener('visibilitychange', handleAnimStateChange, { signal });
+    document.addEventListener('clubnika:animchange', handleAnimStateChange, { signal });
+    reducedQuery.addEventListener?.('change', handleAnimStateChange, { signal });
 
     addEventListener('scroll', () => {
       if (isOpen) {
@@ -496,27 +717,25 @@
         update();
         if (!hasCustomPos) restoreSavedPosition();
       }
-    }, { passive: true });
+    }, { passive: true, signal });
 
     addEventListener('resize', () => {
-      update();
-      if (hasCustomPos) applyDockPosition(currentLeft, currentTop, false);
-    });
+      if (!isOpen) update();
+      if (hasCustomPos) restoreSavedPosition();
+    }, { signal });
 
     addEventListener('pageshow', () => {
       update();
       restoreSavedPosition();
-    });
+    }, { signal });
 
-    requestAnimationFrame(() => {
-      update();
-      restoreSavedPosition();
-    });
-
-    fetch('./floating-menu.json')
+    const menuUrl = new URL('./floating-menu.json', baseHref).href;
+    fetch(menuUrl, { signal })
       .then(r => (r.ok ? r.json() : FALLBACK_MENU))
       .then(renderMenu)
-      .catch(() => renderMenu(FALLBACK_MENU));
+      .catch(err => {
+        if (!signal.aborted && err?.name !== 'AbortError') renderMenu(FALLBACK_MENU);
+      });
   };
 
   if (document.readyState === 'loading') {

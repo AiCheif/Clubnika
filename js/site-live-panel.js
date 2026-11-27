@@ -1,25 +1,33 @@
 /* Shared next-stream panel. Add data-show-order to switch CTA to song-order on stream day. */
 (()=>{
 const script=document.currentScript;
-if(script&&script.src){
-  const cssHref=new URL('../css/site-live-panel.css',script.src).href;
-  if(!document.querySelector(`link[rel="stylesheet"][href="${cssHref}"]`)){
-    const linkEl=document.createElement('link');
-    linkEl.rel='stylesheet';
-    linkEl.href=cssHref;
-    document.head.appendChild(linkEl);
-  }
+if(!script)return;
+
+const rootUrl=script.src?new URL('../',script.src):new URL('./',location.href);
+const cssHref=new URL('css/site-live-panel.css',rootUrl).href;
+if(!Array.from(document.querySelectorAll('link[rel="stylesheet"]')).some(l=>l.href===cssHref)){
+  const linkEl=document.createElement('link');
+  linkEl.rel='stylesheet';
+  linkEl.href=cssHref;
+  document.head.appendChild(linkEl);
 }
 
 const site=window.NikaSiteConfig;
+if(!site||!site.liveDefaults||!Array.isArray(site.platforms))return;
 const defaults=site.liveDefaults;
-const platforms=site.platforms.find(section=>section.id==='stream-platforms').links;
+const streamSection=site.platforms.find(section=>section&&section.id==='stream-platforms');
+const platforms=Array.isArray(streamSection?.links)?streamSection.links:[];
+
 const hosts={youtube:['youtube.com','youtu.be'],twitch:['twitch.tv'],vkLive:['vkvideo.ru','vk.ru','vk.com']};
 const replayHosts={youtube:['youtube.com','youtu.be'],vk:['vk.ru','vk.com','vkvideo.ru']};
 const canOrder=script.hasAttribute('data-show-order');
-const COMMENT_URL='support.html';
-const ORDER_URL='songs.html';
+const COMMENT_URL=new URL('support.html',rootUrl).href;
+const ORDER_URL=new URL('songs.html',rootUrl).href;
+const LIVE_JSON_URL=new URL('live.json',rootUrl).href;
+const STREAMS_JSON_URL=new URL('streams.json',rootUrl).href;
+const PROMPTS_JSON_URL=new URL('comment-prompts.json',rootUrl).href;
 const GRACE_MIN=45,SOON_MIN=5;
+const YT_ID_RE=/^[a-zA-Z0-9_-]{11}$/;
 
 const FALLBACK_PROMPTS=[
   'Какая песня сегодня попала прямо в настроение — и почему?',
@@ -29,9 +37,12 @@ const FALLBACK_PROMPTS=[
 ];
 
 const links=platforms.map(link=>{
-  const key=link.attrs.match(/data-live-platform="([^"]+)"/)[1];
+  const match=typeof link?.attrs==='string'?link.attrs.match(/data-live-platform="([^"]+)"/):null;
+  if(!match)return '';
+  const key=match[1];
   const label=link.text||key;
-  return `<a class="site-live-link" id="watch-${key}" href="${link.href}" aria-label="Смотреть на ${label}" title="${label}" ${link.attrs}>${link.html.replace('platform-mark','site-live-icon')}</a>`;
+  const html=typeof link.html==='string'?link.html.replace('platform-mark','site-live-icon'):'';
+  return `<a class="site-live-link" id="watch-${key}" href="${link.href}" aria-label="Смотреть на ${label}" title="${label}" ${link.attrs}>${html}</a>`;
 }).join('');
 
 script.insertAdjacentHTML(
@@ -88,49 +99,70 @@ script.insertAdjacentHTML(
 );
 
 const el=id=>document.getElementById(id);
-const panel=el('live-panel'),clockEl=el('live-clock'),dateEl=el('live-date'),ctaEl=el('live-cta'),labelEl=el('live-label'),titleTextEl=el('live-title').querySelector('span:last-child');
+const panel=el('live-panel'),clockEl=el('live-clock'),dateEl=el('live-date'),ctaEl=el('live-cta'),labelEl=el('live-label'),titleTextEl=el('live-title')?.querySelector('span:last-child');
 const carouselEl=el('live-prompt-carousel'),promptTextEl=el('live-prompt-text'),promptNextBtn=el('live-prompt-next');
 const replayBoxEl=el('live-replay-actions');
+if(!panel||!clockEl||!dateEl||!ctaEl||!labelEl||!titleTextEl)return;
 
 const fmtDayKey=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'});
+const fmtLocalDayKey=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'});
 const fmtMskFull=new Intl.DateTimeFormat('ru-RU',{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const fmtMskDateOnly=new Intl.DateTimeFormat('ru-RU',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/Moscow'});
 const fmtMskTimeOnly=new Intl.DateTimeFormat('ru-RU',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const fmtLocalTime=new Intl.DateTimeFormat('ru-RU',{hour:'2-digit',minute:'2-digit'});
+const fmtLocalWeekday=new Intl.DateTimeFormat('ru-RU',{weekday:'short'});
 
 let config={},streamsData={},promptsList=[...FALLBACK_PROMPTS],loaded=false,refreshTimer=null,refreshIntervalMs=60000;
-let lastLinksKey='',lastDateKey='',lastCtaMode='',lastReplayKey='';
+let refreshSeq=0,lastRefreshAt=0;
+let lastLinksKey='',lastDateKey='',lastCtaMode='',lastReplayKey='',lastCarouselPoolKey='';
 let promptIndex=0,carouselTimer=null;
 const prevVals={d:null,h:null,m:null,s:null};
 const UNIT_ORDER=['d','h','m','s'];
 
+function setTitleText(text){
+  if(titleTextEl.textContent!==text)titleTextEl.textContent=text;
+}
+
 function validURL(value,allowed){
-  if(typeof value!=='string'||!value.trim())return null;
+  if(typeof value!=='string'||!value.trim()||!Array.isArray(allowed))return null;
   try{
     const u=new URL(value.trim());
-    return u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&allowed.some(h=>u.hostname===h||u.hostname===`www.${h}`||u.hostname===`m.${h}`||u.hostname.endsWith('.'+h))?u.href:null;
+    const host=u.hostname.toLowerCase();
+    return u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&allowed.some(h=>host===h||host.endsWith('.'+h))?u.href:null;
   }catch{return null}
 }
 
 function validCoverURL(value){
-  if(typeof value!=='string'||!value.trim())return null;
+  if(typeof value!=='string')return null;
   const trimmed=value.trim();
-  if(/^[a-zA-Z0-9_./-]+\.(?:jpg|jpeg|png|webp|avif)(?:\?.*)?$/i.test(trimmed))return trimmed;
+  if(!trimmed||trimmed.startsWith('//'))return null;
+  if(/^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(trimmed)){
+    try{
+      const u=new URL(trimmed);
+      return u.protocol==='https:'&&!u.username&&!u.password?u.href:null;
+    }catch{return null}
+  }
+  if(/(?:^|\/)\.\.(?:\/|$)/.test(trimmed))return null;
   try{
-    const u=new URL(trimmed);
-    return u.protocol==='https:'&&!u.username&&!u.password?u.href:null;
+    const u=new URL(trimmed,rootUrl);
+    const sameOrigin=u.origin===rootUrl.origin||(rootUrl.protocol==='file:'&&u.protocol==='file:');
+    return sameOrigin&&/\.(?:jpg|jpeg|png|webp|avif)$/i.test(u.pathname)?u.href:null;
   }catch{return null}
 }
 
 function extractYouTubeId(urlStr){
   try{
     const u=new URL(urlStr);
-    if(u.hostname==='youtu.be'||u.hostname==='www.youtu.be'){
-      return u.pathname.slice(1).split('/')[0]||null;
+    const host=u.hostname.toLowerCase();
+    let id=u.searchParams.get('v');
+    if(!id&&(host==='youtu.be'||host.endsWith('.youtu.be'))){
+      id=u.pathname.slice(1).split('/')[0]||null;
     }
-    if(u.searchParams.get('v'))return u.searchParams.get('v');
-    const m=u.pathname.match(/^\/(?:live|shorts|embed)\/([^/?#]+)/);
-    return m?m[1]:null;
+    if(!id){
+      const m=u.pathname.match(/^\/(?:live|shorts|embed)\/([^/?#]+)/);
+      id=m?m[1]:null;
+    }
+    return id&&YT_ID_RE.test(id)?id:null;
   }catch{return null}
 }
 
@@ -145,7 +177,9 @@ async function fetchYouTubeTitle(videoId){
 }
 
 function timestamp(value){
-  return typeof value==='string'&&/T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/i.test(value)?Date.parse(value):NaN;
+  if(typeof value!=='string')return NaN;
+  const trimmed=value.trim();
+  return /T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/i.test(trimmed)?Date.parse(trimmed):NaN;
 }
 
 function regularNext(now){
@@ -178,7 +212,20 @@ function animEnabled(){
   return !(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 }
 
+function stopNumAnim(numEl){
+  if(!numEl)return;
+  if(numEl._introRaf){
+    cancelAnimationFrame(numEl._introRaf);
+    numEl._introRaf=0;
+  }
+  if(numEl._rollTimer){
+    clearTimeout(numEl._rollTimer);
+    numEl._rollTimer=0;
+  }
+}
+
 function rollIntro(numEl,from,to,duration,delay){
+  stopNumAnim(numEl);
   if(!animEnabled()||from===to){
     numEl.textContent=String(to);
     return;
@@ -186,28 +233,33 @@ function rollIntro(numEl,from,to,duration,delay){
   const start=performance.now()+delay;
   function frame(now){
     if(now<start){
-      requestAnimationFrame(frame);
+      numEl._introRaf=requestAnimationFrame(frame);
       return;
     }
     const t=Math.min((now-start)/duration,1);
     const eased=1-Math.pow(1-t,5);
     numEl.textContent=String(Math.round(from+(to-from)*eased));
-    if(t<1)requestAnimationFrame(frame);
-    else numEl.textContent=String(to);
+    if(t<1){
+      numEl._introRaf=requestAnimationFrame(frame);
+    }else{
+      numEl._introRaf=0;
+      numEl.textContent=String(to);
+    }
   }
   numEl.textContent=String(from);
-  requestAnimationFrame(frame);
+  numEl._introRaf=requestAnimationFrame(frame);
 }
 
 function rollStep(numEl,from,to){
+  stopNumAnim(numEl);
   if(!animEnabled()||from===to){
     numEl.textContent=String(to);
     return;
   }
   numEl.innerHTML=`<span class="clock-roll-track"><span class="clock-roll-old" aria-hidden="true">${from}</span><span class="clock-roll-new">${to}</span></span>`;
-  clearTimeout(numEl._rollTimer);
   numEl._rollTimer=setTimeout(()=>{
-    if(numEl)numEl.textContent=String(to);
+    numEl._rollTimer=0;
+    if(numEl.isConnected)numEl.textContent=String(to);
   },860);
 }
 
@@ -231,11 +283,17 @@ function syncPart(key,value,forms,delay){
   }
   const numEl=partEl.querySelector('.clock-num');
   const unitEl=partEl.querySelector('.clock-unit');
-  unitEl.textContent=plural(value,forms);
+  const unitText=plural(value,forms);
+  if(unitEl.textContent!==unitText)unitEl.textContent=unitText;
 
   if(prevVals[key]===null){
-    const startVal=value>0?Math.max(0,value-Math.min(value,15)):0;
-    rollIntro(numEl,startVal,value,2300,delay);
+    if(key==='s'){
+      stopNumAnim(numEl);
+      numEl.textContent=String(value);
+    }else{
+      const startVal=value>0?Math.max(0,value-Math.min(value,15)):0;
+      rollIntro(numEl,startVal,value,2300,delay);
+    }
     prevVals[key]=value;
   }else if(prevVals[key]!==value){
     rollStep(numEl,prevVals[key],value);
@@ -244,6 +302,7 @@ function syncPart(key,value,forms,delay){
 }
 
 function clearClock(){
+  clockEl.querySelectorAll('.clock-num').forEach(stopNumAnim);
   if(clockEl.children.length)clockEl.innerHTML='';
   clockEl.hidden=true;
   clockEl.removeAttribute('aria-label');
@@ -263,22 +322,32 @@ function showPrompt(step=0,animate=true){
   if(!pool.length)return;
   promptIndex=(promptIndex+step+pool.length)%pool.length;
   const text=pool[promptIndex];
+  clearTimeout(promptTextEl._swapTimer);
+  promptTextEl._swapTimer=0;
   if(!animate||!animEnabled()){
+    promptTextEl.classList.remove('is-switching');
     promptTextEl.textContent=`«${text}»`;
     return;
   }
   promptTextEl.classList.add('is-switching');
-  clearTimeout(promptTextEl._swapTimer);
   promptTextEl._swapTimer=setTimeout(()=>{
+    promptTextEl._swapTimer=0;
     promptTextEl.textContent=`«${text}»`;
     promptTextEl.classList.remove('is-switching');
   },220);
 }
 
 function startCarousel(){
-  if(carouselEl.hidden===false&&carouselTimer)return;
+  const pool=getCarouselPool();
+  const poolKey=pool.join('\0');
+  const wasHidden=carouselEl.hidden;
+  if(!wasHidden&&carouselTimer&&poolKey===lastCarouselPoolKey)return;
   carouselEl.hidden=false;
-  showPrompt(0,false);
+  if(wasHidden||poolKey!==lastCarouselPoolKey){
+    lastCarouselPoolKey=poolKey;
+    promptIndex=0;
+    showPrompt(0,false);
+  }
   clearInterval(carouselTimer);
   carouselTimer=setInterval(()=>showPrompt(1,true),6500);
 }
@@ -287,6 +356,11 @@ function stopCarousel(){
   carouselEl.hidden=true;
   clearInterval(carouselTimer);
   carouselTimer=null;
+  clearTimeout(promptTextEl._swapTimer);
+  promptTextEl._swapTimer=0;
+  promptTextEl.classList.remove('is-switching');
+  promptIndex=0;
+  lastCarouselPoolKey='';
 }
 
 promptNextBtn?.addEventListener('click',()=>{
@@ -303,11 +377,28 @@ function setReplayCardCover(key,coverUrl,altText){
   if(!coverBox||!img)return;
   if(!coverUrl){
     coverBox.hidden=true;
+    img.onload=null;
+    img.onerror=null;
     img.classList.remove('is-loaded');
     img.removeAttribute('src');
+    img.alt='';
     return;
   }
+  const resolvedUrl=new URL(coverUrl,location.href).href;
+  img.alt=altText||'';
   coverBox.hidden=false;
+  if(img.getAttribute('src')&&img.src===resolvedUrl){
+    if(img.complete){
+      if(img.naturalWidth>0){
+        img.classList.add('is-loaded');
+      }else{
+        img.classList.remove('is-loaded');
+        img.removeAttribute('src');
+        coverBox.hidden=true;
+      }
+    }
+    return;
+  }
   img.classList.remove('is-loaded');
   img.onload=()=>{img.classList.add('is-loaded')};
   img.onerror=()=>{
@@ -315,8 +406,10 @@ function setReplayCardCover(key,coverUrl,altText){
     img.removeAttribute('src');
     coverBox.hidden=true;
   };
-  img.alt=altText||'';
-  img.src=coverUrl;
+  img.src=resolvedUrl;
+  if(img.complete&&img.naturalWidth>0){
+    img.classList.add('is-loaded');
+  }
 }
 
 function setReplayCardTitle(key,titleText){
@@ -353,6 +446,7 @@ function updateReplayButtons(){
 
   for(const [shortKey,hostKey] of [['yt','youtube'],['vk','vk']]){
     const btn=el(`live-replay-${shortKey}`);
+    if(!btn)continue;
     const url=validURL(streamsData[hostKey],replayHosts[hostKey]);
     if(!url){
       btn.href=fallbacks[shortKey];
@@ -369,14 +463,19 @@ function updateReplayButtons(){
     const initialTitle=customTitle||commonTitle;
     setReplayCardTitle(shortKey,initialTitle);
 
-    let coverUrl=validCoverURL(streamsData[hostKey+'Cover']||streamsData.cover);
+    let coverUrl=validCoverURL(streamsData[hostKey+'Cover'])||validCoverURL(streamsData.cover);
     if(hostKey==='youtube'){
       const videoId=extractYouTubeId(url);
       if(videoId){
         if(!coverUrl)coverUrl=`https://i.ytimg.com/vi/${encodeURIComponent(videoId)}/mqdefault.jpg`;
-        if(!customTitle){
+        if(!initialTitle){
+          const expectedSig=sig;
           fetchYouTubeTitle(videoId).then(ytTitle=>{
-            if(ytTitle&&btn.classList.contains('has-preview'))setReplayCardTitle('yt',ytTitle);
+            if(ytTitle&&lastReplayKey===expectedSig&&btn.classList.contains('has-preview')){
+              setReplayCardTitle('yt',ytTitle);
+              const ytImg=el('live-replay-yt-img');
+              if(ytImg&&ytImg.getAttribute('src'))ytImg.alt=ytTitle;
+            }
           });
         }
       }
@@ -390,11 +489,13 @@ function updateLinks(live){
   if(sig===lastLinksKey)return;
   lastLinksKey=sig;
   for(const key of Object.keys(defaults)){
+    const href=(live?validURL(config.links?.[key],hosts[key]):null)||defaults[key];
     const link=el('watch-'+key);
-    if(!link)continue;
-    link.href=(live?validURL(config.links?.[key],hosts[key]):null)||defaults[key];
-    link.hidden=false;
-    document.querySelectorAll('[data-live-platform="'+key+'"]').forEach(other=>other.href=link.href);
+    if(link){
+      link.href=href;
+      link.hidden=false;
+    }
+    document.querySelectorAll('[data-live-platform="'+key+'"]').forEach(other=>other.href=href);
   }
 }
 
@@ -422,7 +523,12 @@ function formatStreamDateHTML(ts,isToday){
   const iso=new Date(ts).toISOString();
   const mskTime=fmtMskTimeOnly.format(ts);
   const localTime=fmtLocalTime.format(ts);
-  const localSuffix=localTime!==mskTime?` <span class="live-date-local">· у вас ${localTime}</span>`:'';
+  const sameDay=fmtLocalDayKey.format(ts)===fmtDayKey.format(ts);
+  let localSuffix='';
+  if(localTime!==mskTime||!sameDay){
+    const localLabel=sameDay?localTime:`${fmtLocalWeekday.format(ts)}, ${localTime}`;
+    localSuffix=` <span class="live-date-local">· у вас ${localLabel}</span>`;
+  }
   if(isToday){
     return `<time datetime="${iso}">${fmtMskDateOnly.format(ts)}, около ${mskTime} МСК</time>${localSuffix}`;
   }
@@ -459,7 +565,7 @@ function render(){
     clearClock();
     replayBoxEl.hidden=true;
     panel.classList.remove('is-today','is-late');
-    titleTextEl.textContent='Эфир завершился — скоро появятся ссылки на записи';
+    setTitleText('Эфир завершился — скоро появятся ссылки на записи');
     startCarousel();
     const pendingMsg='А пока можно подумать, какими впечатлениями поделиться под видео.';
     if(lastDateKey!=='ended_pending'){
@@ -477,7 +583,7 @@ function render(){
     clearClock();
     stopCarousel();
     panel.classList.remove('is-today','is-late');
-    titleTextEl.textContent='Запись эфира уже готова — поделитесь впечатлениями!';
+    setTitleText('Запись эфира уже готова — поделитесь впечатлениями!');
     updateReplayButtons();
     replayBoxEl.hidden=false;
     const replayMsg='Выберите площадку и напишите пару строк в комментариях под записью (не в чате).';
@@ -498,7 +604,7 @@ function render(){
   const lastStart=Number.isFinite(explicit)
     ?(explicit>now?null:Math.max(explicit,prev??0))
     :prev;
-  const late=!live&&!cancelled&&lastStart!==null&&(now-lastStart)<GRACE_MIN*60000;
+  const late=status!=='live'&&!cancelled&&lastStart!==null&&(now-lastStart)<GRACE_MIN*60000;
   const lateMin=late?Math.floor((now-lastStart)/60000):0;
 
   const selectedStart=!live&&!cancelled&&!late
@@ -515,8 +621,8 @@ function render(){
 
   if(live){
     clearClock();
-    titleTextEl.textContent='Сейчас в эфире!';
-    const liveMsg=config.title||'Присоединяйтесь к музыкальному вечеру!';
+    setTitleText('Сейчас в эфире!');
+    const liveMsg=(typeof config.title==='string'&&config.title.trim())||'Присоединяйтесь к музыкальному вечеру!';
     if(lastDateKey!=='live:'+liveMsg){
       lastDateKey='live:'+liveMsg;
       dateEl.textContent=liveMsg;
@@ -528,7 +634,7 @@ function render(){
   if(late){
     clearClock();
     const isSoon=lateMin<SOON_MIN;
-    titleTextEl.textContent=isSoon?'Эфир вот-вот начнётся!':'Чуть задерживаемся';
+    setTitleText(isSoon?'Эфир вот-вот начнётся!':'Чуть задерживаемся');
     const lateMsg=isSoon
       ?'Заходите на любую площадку — старт с минуты на минуту.'
       :'Небольшая техническая пауза, скоро начнём. Новости в Telegram.';
@@ -542,7 +648,7 @@ function render(){
 
   if(!selectedStart){
     clearClock();
-    titleTextEl.textContent='До нашего эфира';
+    setTitleText('До нашего эфира');
     const emptyMsg='Следите за анонсами ближайшего эфира в Telegram.';
     if(lastDateKey!=='empty'){
       lastDateKey='empty';
@@ -552,7 +658,7 @@ function render(){
     return;
   }
 
-  titleTextEl.textContent=today?'Сегодня поём!':'До нашего эфира';
+  setTitleText(today?'Сегодня поём!':'До нашего эфира');
   clockEl.hidden=false;
   dateEl.hidden=false;
 
@@ -583,13 +689,15 @@ function render(){
   const activeKeys=new Set(items.map(it=>it.key));
   clockEl.querySelectorAll('.clock-part').forEach(node=>{
     if(!activeKeys.has(node.dataset.unit)){
+      stopNumAnim(node.querySelector('.clock-num'));
       prevVals[node.dataset.unit]=null;
       node.remove();
     }
   });
 
   items.forEach((it,idx)=>syncPart(it.key,it.val,it.forms,idx*240));
-  clockEl.setAttribute('aria-label','До начала эфира: '+items.map(it=>`${it.val} ${plural(it.val,it.forms)}`).join(', '));
+  const ariaLabel='До начала эфира: '+items.map(it=>`${it.val} ${plural(it.val,it.forms)}`).join(', ');
+  if(clockEl.getAttribute('aria-label')!==ariaLabel)clockEl.setAttribute('aria-label',ariaLabel);
 
   const dateKey=`${selectedStart}:${today}`;
   if(dateKey!==lastDateKey){
@@ -598,35 +706,49 @@ function render(){
   }
 }
 
+async function readJsonObject(res){
+  if(!res||!res.ok)return null;
+  try{
+    const data=await res.json();
+    return data&&typeof data==='object'&&!Array.isArray(data)?data:null;
+  }catch{return null}
+}
+
 async function loadPrompts(){
   try{
-    const res=await fetch('./comment-prompts.json',{cache:'no-store'});
+    const res=await fetch(PROMPTS_JSON_URL,{cache:'no-store'});
     if(!res.ok)return;
     const list=await res.json();
     if(Array.isArray(list)){
       const cleaned=list.filter(q=>typeof q==='string'&&q.trim()).map(q=>q.trim());
-      if(cleaned.length)promptsList=cleaned;
+      if(cleaned.length){
+        promptsList=cleaned;
+        if(loaded&&!carouselEl.hidden)startCarousel();
+      }
     }
   }catch{}
 }
 
 async function refresh(){
+  const seq=++refreshSeq;
+  lastRefreshAt=Date.now();
   try{
     const [liveRes,streamsRes]=await Promise.all([
-      fetch('./live.json',{cache:'no-store'}).catch(()=>null),
-      fetch('./streams.json',{cache:'no-store'}).catch(()=>null)
+      fetch(LIVE_JSON_URL,{cache:'no-store'}).catch(()=>null),
+      fetch(STREAMS_JSON_URL,{cache:'no-store'}).catch(()=>null)
     ]);
-    if(liveRes&&liveRes.ok){
-      const data=await liveRes.json();
-      if(data&&typeof data==='object'&&!Array.isArray(data))config=data;
+    const [liveData,nextStreamsData]=await Promise.all([
+      readJsonObject(liveRes),
+      readJsonObject(streamsRes)
+    ]);
+    if(seq!==refreshSeq)return;
+    if(liveData)config=liveData;
+    if(nextStreamsData)streamsData=nextStreamsData;
+  }finally{
+    if(seq===refreshSeq){
+      loaded=true;
+      render();
     }
-    if(streamsRes&&streamsRes.ok){
-      const sData=await streamsRes.json();
-      if(sData&&typeof sData==='object'&&!Array.isArray(sData))streamsData=sData;
-    }
-  }catch{}finally{
-    loaded=true;
-    render();
   }
 }
 
@@ -635,5 +757,10 @@ setTimeout(()=>{if(!loaded){loaded=true;render()}},1200);
 refresh();
 setInterval(render,1000);
 setRefreshRate(60000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden){render();refresh()}});
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden){
+    render();
+    if(Date.now()-lastRefreshAt>=5000)refresh();
+  }
+});
 })();

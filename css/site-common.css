@@ -558,7 +558,7 @@ main #my-music.original-studio-card{padding:0;display:flex;flex-direction:column
 @media(max-width:420px){#my-music .original-home-actions{grid-template-columns:1fr}}
 
 /* Shared next-stream panel with vintage serif digits and live beacon */
-main > .site-live-panel{display:block;margin:10px 0 0;padding:11px 18px;border:1px solid var(--gold);border-radius:16px;background:var(--panel);box-shadow:none}
+main > .site-live-panel{display:block;margin:10px 0 0;padding:12px 18px;border:1px solid var(--gold);border-radius:16px;background:var(--panel);box-shadow:none}
 main > .site-live-panel.is-live{border-color:#e66b76}
 .site-live-panel .site-live-label::before{content:none;display:none}
 .site-live-panel [hidden]{display:none!important}
@@ -574,13 +574,91 @@ main > .site-live-panel.is-live{border-color:#e66b76}
 .site-live-link:hover{background:color-mix(in srgb,var(--text) 7%,transparent)}
 .site-live-icon,.site-live-icon svg{display:block;width:22px;height:22px;flex:0 0 22px}
 
-.site-live-clock{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:4px 0;font-family:var(--font-sans);font-variant-numeric:tabular-nums;color:var(--gold);font-size:clamp(22px,3vw,30px);line-height:1.2}
-.clock-part{display:inline-flex;align-items:baseline;gap:5px}
-.clock-num{font-weight:800;color:var(--gold)}
-.clock-unit{font-weight:600;color:var(--gold);opacity:.92}
-.clock-sep{color:var(--gold);opacity:.6;font-weight:700}
+/* Таймер обратного отсчёта: акцентные плашки с прокруткой */
+.site-live-clock{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:stretch;
+  gap:8px;
+  margin:10px 0 8px;
+  font-family:var(--font-sans);
+  font-variant-numeric:tabular-nums;
+}
+.clock-part{
+  display:inline-flex;
+  align-items:baseline;
+  gap:6px;
+  padding:6px 13px;
+  border-radius:11px;
+  border:1px solid color-mix(in srgb,var(--gold) 65%,transparent);
+  background:linear-gradient(
+    180deg,
+    color-mix(in srgb,var(--gold) 16%,var(--panel)) 0%,
+    color-mix(in srgb,var(--bg) 55%,var(--panel)) 100%
+  );
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.22),
+    inset 0 1px 0 color-mix(in srgb,var(--gold) 25%,transparent);
+}
+.clock-num{
+  display:inline-block;
+  font-size:clamp(26px,3.6vw,34px);
+  font-weight:850;
+  line-height:1.05;
+  color:var(--gold);
+  letter-spacing:-0.02em;
+  text-shadow:0 2px 12px color-mix(in srgb,var(--gold) 30%,transparent);
+  overflow:hidden;
+  vertical-align:bottom;
+}
+.clock-unit{
+  font-size:clamp(13px,1.6vw,15px);
+  font-weight:700;
+  color:var(--text);
+  opacity:.9;
+}
+.clock-sep{display:none}
 
-.site-live-panel #live-date{font-size:13px;line-height:1.35;color:var(--muted);margin:3px 0 0}
+/* Вертикальный барабан при смене минуты/часа */
+.clock-roll-track{
+  position:relative;
+  display:inline-grid;
+  overflow:hidden;
+}
+.clock-roll-old,
+.clock-roll-new{
+  grid-area:1/1;
+  display:block;
+}
+.clock-roll-old{
+  animation:clockRollOut .38s cubic-bezier(.22,1,.36,1) forwards;
+}
+.clock-roll-new{
+  animation:clockRollIn .38s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes clockRollOut{
+  from{opacity:1;transform:translateY(0)}
+  to{opacity:0;transform:translateY(-105%)}
+}
+@keyframes clockRollIn{
+  from{opacity:0;transform:translateY(105%)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Акцент в день эфира */
+.site-live-panel.is-today .clock-part{
+  border-color:var(--pink);
+  background:linear-gradient(
+    180deg,
+    color-mix(in srgb,var(--pink) 20%,var(--panel)) 0%,
+    color-mix(in srgb,var(--bg) 50%,var(--panel)) 100%
+  );
+}
+.site-live-panel.is-today .clock-num{
+  color:var(--pink);
+}
+
+.site-live-panel #live-date{font-size:13.5px;line-height:1.35;color:var(--muted);margin:3px 0 0}
 .site-live-order{display:flex;align-items:center;justify-content:center;min-height:42px;margin-top:12px;padding:9px 14px;border-radius:12px;background:var(--pink);color:var(--accent-ink,var(--bg));font-weight:750;text-align:center}
 :root[data-theme="scarlet"] .site-live-order{background:linear-gradient(155deg,#fff4c3 0%,#f0c66c 38%,#bb7d27 70%,#ffe5a0 100%);border:1px solid #ffdea0;color:#351006}
 .site-live-order:hover{filter:brightness(1.08)}
@@ -593,18 +671,25 @@ main > .site-live-panel.is-live{border-color:#e66b76}
  .site-live-order{grid-area:order;margin-top:6px;width:100%;align-self:start}
 }
 @media(max-width:740px){
-  main > .site-live-panel{padding:8px 12px;margin-top:8px}
+  main > .site-live-panel{padding:9px 12px;margin-top:8px}
   .site-live-heading{gap:4px}
   .site-live-heading h2{font-size:21px;gap:7px}
   .site-live-links{gap:0}
   .site-live-link{position:relative;width:34px;min-height:38px;padding:0;flex:none}
   .site-live-icon,.site-live-icon svg{width:22px;height:22px;flex-basis:22px}
   .site-live-link>span:not(.site-live-icon){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  .clock-num{font-size:26px}
-  .clock-unit{font-size:14px}
+  .site-live-clock{gap:6px;margin:8px 0 6px}
+  .clock-part{padding:5px 10px;border-radius:9px;gap:4px}
+  .clock-num{font-size:24px}
+  .clock-unit{font-size:13px}
   .site-live-order{margin-top:7px;min-height:40px;padding:7px 10px;font-size:14px}
 }
-@media(prefers-reduced-motion:reduce){.live-beacon{animation:none}}
+@media(prefers-reduced-motion:reduce){
+  .live-beacon{animation:none}
+  .clock-roll-old,.clock-roll-new{animation:none}
+}
+html[data-anim="off"] .clock-roll-old,
+html[data-anim="off"] .clock-roll-new{animation:none}
 
 /* Shared television feature with signature offset gold frame */
 .site-tv-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:14px;min-width:0;padding:clamp(18px,2.4vw,24px);border:1px solid var(--gold);border-radius:16px;background:var(--panel);color:var(--text);text-decoration:none;transition:border-color .2s}
@@ -666,7 +751,7 @@ body.site-unified-panels .hero> :is(.hero-heading,.about-copy,.site-tv-card,.pho
 :root[data-theme="scarlet"] body.site-unified-panels .hero{background-image:linear-gradient(132deg,#400916 0%,#800b24 36%,#9c102b 55%,#2b0d15 100%)}
 :root[data-theme="scarlet"] .home-premiere{background-image:linear-gradient(115deg,#681329,#301017 75%)}
 :root[data-theme="scarlet"] .support-page .support-intro{background-image:linear-gradient(126deg,#2f1218,#591529 58%,#321219)}
-:root[data-theme="scarlet"] :is(.hero,.home-premiere,.support-intro){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.87' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.045'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(130deg,#581324,#340e18 85%)}
+:root[data-theme="scarlet"] :is(.hero,.home-premiere,.support-intro){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/200/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.87' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.045'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(130deg,#581324,#340e18 85%)}
 :root[data-theme="scarlet"] body.site-unified-panels .hero{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.87' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.045'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(132deg,#400916 0%,#800b24 36%,#9c102b 55%,#2b0d15 100%)}
 :is(.primary,.site-live-order,.premiere-action,.about-cta,.comment-float,.cta-order,.site-tv-card,.daily-song,.hero-stats>a,.selected-logo){transition:box-shadow .22s ease,filter .22s ease,border-color .22s ease}
 @media(hover:hover){
@@ -1670,46 +1755,6 @@ main > .site-platforms-hub {
   transform: translateX(18px);
   background: var(--gold, #ffdb89);
 }
-/* Акцент ожидания эфира по центру плашки таймера; на узких экранах скрыт 
-main > .site-live-panel {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-}
-
-main > .site-live-panel::after {
-  content: "⧗";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: 116px;
-  line-height: 1;
-  color: var(--gold);
-  opacity: 0.085;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-main > .site-live-panel > * {
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 900px) {
-  main > .site-live-panel::after {
-    font-size: 92px;
-    opacity: 0.07;
-  }
-}
-
-@media (max-width: 740px) {
-  main > .site-live-panel::after {
-    display: none;
-  }
-}
-*/
 /* Боковой декор: виден только там, где есть поля вокруг контента */
 @media (min-width: 1300px) {
   body::after {
@@ -1783,83 +1828,17 @@ footer.wrap {
 .footer-share-btn:hover {
   opacity: 0.8;
 }
-/* Таймер обратного отсчёта: акцентные плашки */
-.site-live-clock {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: 8px;
-  margin: 10px 0 8px;
-  font-family: var(--font-sans);
-  font-variant-numeric: tabular-nums;
-}
-
-.clock-part {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 6px 13px;
-  border-radius: 11px;
-  border: 1px solid color-mix(in srgb, var(--gold) 65%, transparent);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--gold) 16%, var(--panel)) 0%,
-    color-mix(in srgb, var(--bg) 55%, var(--panel)) 100%
-  );
-  box-shadow: 
-    0 3px 10px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 color-mix(in srgb, var(--gold) 25%, transparent);
-}
-
-.clock-num {
-  font-size: clamp(26px, 3.6vw, 34px);
-  font-weight: 850;
-  line-height: 1.05;
-  color: var(--gold);
-  letter-spacing: -0.02em;
-  text-shadow: 0 2px 12px color-mix(in srgb, var(--gold) 30%, transparent);
-}
-
-.clock-unit {
-  font-size: clamp(13px, 1.6vw, 15px);
-  font-weight: 700;
-  color: var(--text);
-  opacity: 0.9;
-}
-
-/* Скрываем текстовую точку, так как карточки уже разделены отступами */
-.clock-sep {
-  display: none;
-}
-
-/* Когда эфир уже сегодня — делаем акцент ещё ярче */
-.site-live-panel.is-today .clock-part {
-  border-color: var(--pink);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--pink) 20%, var(--panel)) 0%,
-    color-mix(in srgb, var(--bg) 50%, var(--panel)) 100%
-  );
-}
-
-.site-live-panel.is-today .clock-num {
-  color: var(--pink);
-}
-
-@media (max-width: 740px) {
-  .site-live-clock {
-    gap: 6px;
-    margin: 8px 0 6px;
-  }
-  .clock-part {
-    padding: 5px 10px;
-    border-radius: 9px;
-    gap: 4px;
-  }
-  .clock-num {
-    font-size: 24px;
-  }
-  .clock-unit {
-    font-size: 13px;
-  }
+@media(max-width:740px){
+  main > .site-live-panel{padding:9px 12px;margin-top:8px}
+  .site-live-heading{align-items:flex-start;gap:6px}
+  .site-live-heading h2{font-size:21px;gap:7px;padding-top:3px}
+  .site-live-links{gap:4px;margin-top:-3px}
+  .site-live-link{position:relative;width:40px;height:40px;min-height:40px;padding:0;flex:none;border:1px solid color-mix(in srgb,var(--line) 85%,transparent);border-radius:10px}
+  .site-live-icon,.site-live-icon svg{width:26px;height:26px;flex-basis:26px}
+  .site-live-link>span:not(.site-live-icon){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .site-live-clock{gap:6px;margin:6px 0}
+  .clock-part{padding:5px 10px;border-radius:9px;gap:4px}
+  .clock-num{font-size:24px}
+  .clock-unit{font-size:13px}
+  .site-live-order{margin-top:7px;min-height:40px;padding:7px 10px;font-size:14px}
 }

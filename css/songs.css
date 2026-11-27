@@ -1141,3 +1141,21 @@ dialog#order h2 {
     flex: 1 1 auto;
   }
 }
+@media (max-width: 740px) {
+  #catalog #songs .orderbtn {
+    width: 34px;
+    height: 34px;
+    min-height: 34px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  #catalog #songs .orderbtn::after {
+    content: "→";
+    font-size: 17px;
+    line-height: 1;
+  }
+}

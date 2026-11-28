@@ -1,0 +1,19 @@
+{
+  "trackId": "track_01",
+  "updatedAt": "2026-11-28T08:28:02.580Z",
+  "ugcOnly": true,
+  "stats": {
+    "videoCount": 30,
+    "views": 1941
+  },
+  "platforms": {
+    "tiktok": {
+      "videoCount": 19,
+      "views": 1765
+    },
+    "instagram": {
+      "videoCount": 11,
+      "views": 176
+    }
+  }
+}

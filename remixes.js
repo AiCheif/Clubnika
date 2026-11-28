@@ -37,7 +37,7 @@
   }
   async function init(){
     try {
-      const registryResponse=await fetch('./remix-projects.json',{cache:'no-cache'});if(!registryResponse.ok)throw new Error('projects');
+      const registryResponse=await fetch('./remixes/projects.json',{cache:'no-cache'});if(!registryResponse.ok)throw new Error('projects');
       const registry=await registryResponse.json(),projects=registry.projects||[];
       const requested=new URLSearchParams(location.search).get('song');
       const project=projects.find(p=>p.id===requested)||projects.find(p=>p.id===registry.defaultProject)||projects[0];
@@ -54,7 +54,7 @@
       const response=await fetch(`./${project.ranking}`,{cache:'no-cache'});if(!response.ok)throw new Error('ranking');
       const data=await response.json();const videos=data.videos||[],byId=new Map(videos.map(v=>[v.id,v]));
       let groups=[];
-      try{const response=await fetch('./authors.json',{cache:'no-cache'});if(response.ok)groups=(await response.json()).authors||[];}catch{}
+      try{const response=await fetch('./remixes/authors.json',{cache:'no-cache'});if(response.ok)groups=(await response.json()).authors||[];}catch{}
       const authors=mergeAuthors(data.authors||[],groups,byId);
       let snapshots=[];
       try{const response=await fetch(`./${project.history}`,{cache:'no-cache'});if(response.ok)snapshots=(await response.json()).snapshots||[];}catch{}

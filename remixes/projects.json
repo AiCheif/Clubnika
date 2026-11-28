@@ -1,0 +1,26 @@
+{
+  "defaultProject": "new-song",
+  "defaultUpdateProject": "paren-udaloy",
+  "releaseProject": "new-song",
+  "projects": [
+    {
+      "id": "new-song",
+      "title": "Новая песня",
+      "sources": "remixes/new-song/sources.json",
+      "ranking": "remixes/new-song/ranking.json",
+      "history": "remixes/new-song/history.json",
+      "coverVideoId": "4_LbOZCFSVM",
+      "shortsVideoId": "4_LbOZCFSVM"
+
+    },
+    {
+      "id": "paren-udaloy",
+      "title": "Парень удалой",
+      "sources": "remixes/paren-udaloy/sources.json",
+      "ranking": "remixes/paren-udaloy/ranking.json",
+      "history": "remixes/paren-udaloy/history.json",
+      "coverVideoId": "ihHUpuzonco",
+      "shortsVideoId": "ihHUpuzonco"
+    }
+  ]
+}

@@ -29,7 +29,7 @@
 | `originals.html`, `originals.js` | Авторские песни |
 | `signs.html`, `signs/` | Альбомы сигн, оригиналы, превью и постеры |
 | `shorts.html`, `shorts.js`, `shorts-data.js` | Каталог шортсов |
-| `remixes.html`, `remixes.js`, `remix-*.json` | Ремиксы и статистика |
+| `remixes.html`, `remixes.js`, `remixes/`, `Tools/Update-Remixes.ps1` | Ремиксы и статистика |
 | `news.html`, `news-posts.json`, `js/news.js` | Новости |
 | `release.html`, `release-achievements.js` | Релиз и достижения |
 | `about.html`, `support.html` | Биография и поддержка |

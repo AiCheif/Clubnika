@@ -1,21 +1,18 @@
 {
     "schemaVersion":  1,
     "song":  "Новая песня",
-    "updatedAt":  "2026-11-28T09:47:40.3765974Z",
+    "updatedAt":  "2026-11-28T10:15:52.9965658Z",
     "sourceVideoIds":  [
                            "4_LbOZCFSVM"
                        ],
     "discoveredVideoIds":  [
                                "0EbgrCMUbrQ",
-                               "3amJcrYVOA0",
                                "47ML9c1__Ao",
                                "4LvOXG_Vsno",
                                "6zGM2qGYtik",
                                "aVLmDpPr4QQ",
                                "btXUpHXcs-E",
-                               "dckUy8h518E",
                                "dsPcjtKDvVI",
-                               "GCyR_9WDq40",
                                "gmWXw1FaTgk",
                                "gzR5qvqSmx8",
                                "IFdzgA-NKbY",
@@ -23,9 +20,7 @@
                                "l6ZaSZmeJP4",
                                "lYUp75vLm6w",
                                "M7cGQqgqmr4",
-                               "n-qQ4INcqc4",
                                "Og1AcWlHA-c",
-                               "q8xAffY5xmc",
                                "QFj_Ns-jk40",
                                "qKJvRpqXcd4",
                                "rbdr0GTEcd8",
@@ -45,13 +40,13 @@
                   "sourceUniqueVideos":  1,
                   "previouslyKnownVideos":  33,
                   "channelMatches":  0,
-                  "uniqueInputVideos":  33,
+                  "uniqueInputVideos":  28,
                   "unavailableVideos":  0,
                   "excludedArtistVideos":  0,
-                  "videoCount":  33,
-                  "authorCount":  14,
-                  "views":  13745,
-                  "viewsKnownCount":  33
+                  "videoCount":  28,
+                  "authorCount":  12,
+                  "views":  11877,
+                  "viewsKnownCount":  28
               },
     "unavailableVideoIds":  [
 
@@ -63,7 +58,7 @@
                         "url":  "https://www.youtube.com/channel/UCXImmg9vRj-knL5EgeqTPeg",
                         "avatar":  "https://yt3.ggpht.com/gCZT44aeMTTdwrL1bu39VPcRoclVJkf5WCUoOF2ZRLDNnu5ISkTFOEJpg7zt0wENiQ9eki5O=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  3,
-                        "views":  2714,
+                        "views":  2819,
                         "viewsKnownCount":  3,
                         "likes":  17,
                         "likesKnownCount":  3,
@@ -81,7 +76,7 @@
                         "url":  "https://www.youtube.com/channel/UC-LO8VPdb2ZCENweVguDDHA",
                         "avatar":  "https://yt3.ggpht.com/nrHszFBeGf-FaF_B-vNtva60AHyheYxcX2KsjxHZk09YwkHeQDWBcGYmBmsu5BdXqkQy3ReV5w=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  4,
-                        "views":  1404,
+                        "views":  1420,
                         "viewsKnownCount":  4,
                         "likes":  19,
                         "likesKnownCount":  4,
@@ -100,9 +95,9 @@
                         "url":  "https://www.youtube.com/channel/UCuaQlv1Zv9iXaKcp1VBH7Bg",
                         "avatar":  "https://yt3.ggpht.com/ytc/AIdro_nrD6xtozGaOg0PImEQ864qPbgdF-mm20fqOoQ1rpAKCCAr=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  5,
-                        "views":  1317,
+                        "views":  1339,
                         "viewsKnownCount":  5,
-                        "likes":  21,
+                        "likes":  22,
                         "likesKnownCount":  5,
                         "bestVideoId":  "0EbgrCMUbrQ",
                         "videoIds":  [
@@ -120,36 +115,18 @@
                         "url":  "https://www.youtube.com/channel/UCxqfJ_LUXUhQaKcdCCth4xw",
                         "avatar":  "https://yt3.ggpht.com/ypASSz8fbPm9aJuau6wXJgSKu7k0PFlP9pvDFGStUdkS_a92Elqoyr2BGBzQLzo8fXjPdgJSoT8=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  4,
-                        "views":  1276,
+                        "views":  1294,
                         "viewsKnownCount":  4,
-                        "likes":  7,
+                        "likes":  8,
                         "likesKnownCount":  4,
                         "bestVideoId":  "QFj_Ns-jk40",
                         "videoIds":  [
                                          "QFj_Ns-jk40",
                                          "gzR5qvqSmx8",
-                                         "4LvOXG_Vsno",
-                                         "uR3Z3HJF4XE"
+                                         "uR3Z3HJF4XE",
+                                         "4LvOXG_Vsno"
                                      ],
                         "rank":  4
-                    },
-                    {
-                        "channelId":  "UC_7H4jMMoa2tDFNhvg8sBtQ",
-                        "name":  "Igasugust kanalil smorodin130 Music",
-                        "url":  "https://www.youtube.com/channel/UC_7H4jMMoa2tDFNhvg8sBtQ",
-                        "avatar":  "https://yt3.ggpht.com/a441-s4JvFdI3-AVvh3lHkemRzi2ghcYuSstOfCEv7STvS7mr-sO7OT6G50VwM1JQCjR9A9QgA=s88-c-k-c0x00ffffff-no-rj",
-                        "videoCount":  3,
-                        "views":  1224,
-                        "viewsKnownCount":  3,
-                        "likes":  21,
-                        "likesKnownCount":  3,
-                        "bestVideoId":  "dckUy8h518E",
-                        "videoIds":  [
-                                         "dckUy8h518E",
-                                         "n-qQ4INcqc4",
-                                         "GCyR_9WDq40"
-                                     ],
-                        "rank":  5
                     },
                     {
                         "channelId":  "UCTwqpmDkCM5H90coD9_bMOQ",
@@ -165,7 +142,7 @@
                         "videoIds":  [
                                          "vofGF16KuZI"
                                      ],
-                        "rank":  6
+                        "rank":  5
                     },
                     {
                         "channelId":  "UClRIVrM8SwxakMMWQ_rEvdA",
@@ -173,7 +150,7 @@
                         "url":  "https://www.youtube.com/channel/UClRIVrM8SwxakMMWQ_rEvdA",
                         "avatar":  "https://yt3.ggpht.com/dBGf9uv98Qs-pZLz1L_q1W8uAPDZz6VNFqo7G-L5w69W_V0Jlud398RU3ro3LML9ZJiOwlDcew=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  1,
-                        "views":  983,
+                        "views":  986,
                         "viewsKnownCount":  1,
                         "likes":  18,
                         "likesKnownCount":  1,
@@ -181,7 +158,7 @@
                         "videoIds":  [
                                          "M7cGQqgqmr4"
                                      ],
-                        "rank":  7
+                        "rank":  6
                     },
                     {
                         "channelId":  "UCHSGOVGVfRvOczx11qzZ5Tw",
@@ -189,7 +166,7 @@
                         "url":  "https://www.youtube.com/channel/UCHSGOVGVfRvOczx11qzZ5Tw",
                         "avatar":  "https://yt3.ggpht.com/IuPJtEX2n9g8mWqV7mEQM9E2bICD-M4EYECnlIyFYGTDMKlS4Smw8SMD9loGbC_IqijrQhYh=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  2,
-                        "views":  903,
+                        "views":  913,
                         "viewsKnownCount":  2,
                         "likes":  22,
                         "likesKnownCount":  2,
@@ -198,24 +175,7 @@
                                          "rbdr0GTEcd8",
                                          "l6ZaSZmeJP4"
                                      ],
-                        "rank":  8
-                    },
-                    {
-                        "channelId":  "UCPPmhF2ZSa9A4V04ArJvuGQ",
-                        "name":  "Вячеслав Степанов",
-                        "url":  "https://www.youtube.com/channel/UCPPmhF2ZSa9A4V04ArJvuGQ",
-                        "avatar":  "https://yt3.ggpht.com/ytc/AIdro_lDkDepLT1XkCHIWGr9K_v76P9CQ6m1L6Kq0KVPeAktHsshjIFxdYwOcRJx42SmTOMGzeU=s88-c-k-c0x00ffffff-no-rj",
-                        "videoCount":  2,
-                        "views":  842,
-                        "viewsKnownCount":  2,
-                        "likes":  5,
-                        "likesKnownCount":  2,
-                        "bestVideoId":  "3amJcrYVOA0",
-                        "videoIds":  [
-                                         "3amJcrYVOA0",
-                                         "q8xAffY5xmc"
-                                     ],
-                        "rank":  9
+                        "rank":  7
                     },
                     {
                         "channelId":  "UCDBymABVm4XkDakCPIE3RjA",
@@ -223,7 +183,7 @@
                         "url":  "https://www.youtube.com/channel/UCDBymABVm4XkDakCPIE3RjA",
                         "avatar":  "https://yt3.ggpht.com/eO2MxcXJSb7C6TXU2I4h7eRCHEEfHqKSBqeIBGQwPAB_fR0jVQY5F3mI8CKx7vzIUDz2Ofrcndg=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  4,
-                        "views":  832,
+                        "views":  849,
                         "viewsKnownCount":  4,
                         "likes":  10,
                         "likesKnownCount":  4,
@@ -234,7 +194,7 @@
                                          "vsc2DeiW1l8",
                                          "xvY8oC6eVVI"
                                      ],
-                        "rank":  10
+                        "rank":  8
                     },
                     {
                         "channelId":  "UCqCy2cu2RYvnpVDvVZ46oTQ",
@@ -250,7 +210,7 @@
                         "videoIds":  [
                                          "btXUpHXcs-E"
                                      ],
-                        "rank":  11
+                        "rank":  9
                     },
                     {
                         "channelId":  "UCe8nCV2eQfOD0_OymrKhNtw",
@@ -258,7 +218,7 @@
                         "url":  "https://www.youtube.com/channel/UCe8nCV2eQfOD0_OymrKhNtw",
                         "avatar":  "https://yt3.ggpht.com/ykustzMo_dzwdfTOhwiMYQHHIvkSDFl0wrXlRVfeYZfhcNkYVODyYuMpdADbv-Yu2dBqSA9CKg=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  1,
-                        "views":  444,
+                        "views":  449,
                         "viewsKnownCount":  1,
                         "likes":  8,
                         "likesKnownCount":  1,
@@ -266,7 +226,7 @@
                         "videoIds":  [
                                          "vgjEZLhGJ2g"
                                      ],
-                        "rank":  12
+                        "rank":  10
                     },
                     {
                         "channelId":  "UCx6AfpyM1lccIcGBACoTZ7A",
@@ -282,7 +242,7 @@
                         "videoIds":  [
                                          "6zGM2qGYtik"
                                      ],
-                        "rank":  13
+                        "rank":  11
                     },
                     {
                         "channelId":  "UCCnHsxgNRpwx2SJfDenOnXw",
@@ -290,7 +250,7 @@
                         "url":  "https://www.youtube.com/channel/UCCnHsxgNRpwx2SJfDenOnXw",
                         "avatar":  "https://yt3.ggpht.com/jmrkAthqBlyzzqTcatfKP_2Ncelso1lqkm9gItkezxaDx1sedtJfOLN6YzSBDku6Dua42tF7=s88-c-k-c0x00ffffff-no-rj",
                         "videoCount":  1,
-                        "views":  12,
+                        "views":  14,
                         "viewsKnownCount":  1,
                         "likes":  0,
                         "likesKnownCount":  1,
@@ -298,7 +258,7 @@
                         "videoIds":  [
                                          "IFdzgA-NKbY"
                                      ],
-                        "rank":  14
+                        "rank":  12
                     }
                 ],
     "videos":  [
@@ -309,20 +269,9 @@
                        "channelId":  "UCuaQlv1Zv9iXaKcp1VBH7Bg",
                        "channelTitle":  "michael shtibelman",
                        "publishedAt":  "2026-11-27T17:37:00Z",
-                       "views":  437,
+                       "views":  442,
                        "likes":  5,
                        "thumbnail":  "https://i.ytimg.com/vi/0EbgrCMUbrQ/hqdefault.jpg"
-                   },
-                   {
-                       "id":  "3amJcrYVOA0",
-                       "url":  "https://www.youtube.com/shorts/3amJcrYVOA0",
-                       "title":  "27 ноября 2026 г.",
-                       "channelId":  "UCPPmhF2ZSa9A4V04ArJvuGQ",
-                       "channelTitle":  "Вячеслав Степанов",
-                       "publishedAt":  "2026-11-27T16:53:38Z",
-                       "views":  683,
-                       "likes":  5,
-                       "thumbnail":  "https://i.ytimg.com/vi/3amJcrYVOA0/hqdefault.jpg"
                    },
                    {
                        "id":  "47ML9c1__Ao",
@@ -331,7 +280,7 @@
                        "channelId":  "UCXImmg9vRj-knL5EgeqTPeg",
                        "channelTitle":  "Anubis",
                        "publishedAt":  "2026-11-27T17:57:25Z",
-                       "views":  1102,
+                       "views":  1104,
                        "likes":  10,
                        "thumbnail":  "https://i.ytimg.com/vi/47ML9c1__Ao/hqdefault.jpg"
                    },
@@ -364,7 +313,7 @@
                        "channelId":  "UCuaQlv1Zv9iXaKcp1VBH7Bg",
                        "channelTitle":  "michael shtibelman",
                        "publishedAt":  "2026-11-28T04:42:32Z",
-                       "views":  178,
+                       "views":  182,
                        "likes":  5,
                        "thumbnail":  "https://i.ytimg.com/vi/aVLmDpPr4QQ/hqdefault.jpg"
                    },
@@ -380,17 +329,6 @@
                        "thumbnail":  "https://i.ytimg.com/vi/btXUpHXcs-E/hqdefault.jpg"
                    },
                    {
-                       "id":  "dckUy8h518E",
-                       "url":  "https://www.youtube.com/shorts/dckUy8h518E",
-                       "title":  "Music video: \"Луна\" from the channel @smorodon130 #musicvideo #shortsvideo #луна #videoguru #px",
-                       "channelId":  "UC_7H4jMMoa2tDFNhvg8sBtQ",
-                       "channelTitle":  "Igasugust kanalil smorodin130 Music",
-                       "publishedAt":  "2026-11-28T00:54:00Z",
-                       "views":  1111,
-                       "likes":  19,
-                       "thumbnail":  "https://i.ytimg.com/vi/dckUy8h518E/hqdefault.jpg"
-                   },
-                   {
                        "id":  "dsPcjtKDvVI",
                        "url":  "https://www.youtube.com/shorts/dsPcjtKDvVI",
                        "title":  "Ника Моисеева @nikamoiseeva  #никамоисеева #ника #авторскаяпесня #песни #народное",
@@ -400,17 +338,6 @@
                        "views":  274,
                        "likes":  2,
                        "thumbnail":  "https://i.ytimg.com/vi/dsPcjtKDvVI/hqdefault.jpg"
-                   },
-                   {
-                       "id":  "GCyR_9WDq40",
-                       "url":  "https://www.youtube.com/shorts/GCyR_9WDq40",
-                       "title":  "Music video: \"Позывной Келин\" from the channel @smorodin130 #musicvideo #shortsvidei #videoguru #px",
-                       "channelId":  "UC_7H4jMMoa2tDFNhvg8sBtQ",
-                       "channelTitle":  "Igasugust kanalil smorodin130 Music",
-                       "publishedAt":  "2026-11-28T02:04:16Z",
-                       "views":  51,
-                       "likes":  1,
-                       "thumbnail":  "https://i.ytimg.com/vi/GCyR_9WDq40/hqdefault.jpg"
                    },
                    {
                        "id":  "gmWXw1FaTgk",
@@ -430,7 +357,7 @@
                        "channelId":  "UCxqfJ_LUXUhQaKcdCCth4xw",
                        "channelTitle":  "Александр О",
                        "publishedAt":  "2026-11-27T17:50:06Z",
-                       "views":  251,
+                       "views":  252,
                        "likes":  1,
                        "thumbnail":  "https://i.ytimg.com/vi/gzR5qvqSmx8/hqdefault.jpg"
                    },
@@ -441,7 +368,7 @@
                        "channelId":  "UCCnHsxgNRpwx2SJfDenOnXw",
                        "channelTitle":  "Hennadii12",
                        "publishedAt":  "2026-11-27T19:29:02Z",
-                       "views":  12,
+                       "views":  14,
                        "likes":  0,
                        "thumbnail":  "https://i.ytimg.com/vi/IFdzgA-NKbY/hqdefault.jpg"
                    },
@@ -452,8 +379,8 @@
                        "channelId":  "UCuaQlv1Zv9iXaKcp1VBH7Bg",
                        "channelTitle":  "michael shtibelman",
                        "publishedAt":  "2026-11-28T09:33:08Z",
-                       "views":  3,
-                       "likes":  1,
+                       "views":  12,
+                       "likes":  2,
                        "thumbnail":  "https://i.ytimg.com/vi/JogSaBgJkrc/hqdefault.jpg"
                    },
                    {
@@ -463,7 +390,7 @@
                        "channelId":  "UCHSGOVGVfRvOczx11qzZ5Tw",
                        "channelTitle":  "🍓Никуля Егошева🍓",
                        "publishedAt":  "2026-11-27T17:14:35Z",
-                       "views":  266,
+                       "views":  276,
                        "likes":  10,
                        "thumbnail":  "https://i.ytimg.com/vi/l6ZaSZmeJP4/hqdefault.jpg"
                    },
@@ -474,7 +401,7 @@
                        "channelId":  "UC-LO8VPdb2ZCENweVguDDHA",
                        "channelTitle":  "Александр О",
                        "publishedAt":  "2026-11-27T17:38:46Z",
-                       "views":  293,
+                       "views":  294,
                        "likes":  7,
                        "thumbnail":  "https://i.ytimg.com/vi/lYUp75vLm6w/hqdefault.jpg"
                    },
@@ -485,20 +412,9 @@
                        "channelId":  "UClRIVrM8SwxakMMWQ_rEvdA",
                        "channelTitle":  "MSK239",
                        "publishedAt":  "2026-11-27T17:08:38Z",
-                       "views":  983,
+                       "views":  986,
                        "likes":  18,
                        "thumbnail":  "https://i.ytimg.com/vi/M7cGQqgqmr4/hqdefault.jpg"
-                   },
-                   {
-                       "id":  "n-qQ4INcqc4",
-                       "url":  "https://www.youtube.com/shorts/n-qQ4INcqc4",
-                       "title":  "Music video \"Она пахнет домам\" from the channel @smorodin130 #musicvideo #shortsvideo #videoguru #px",
-                       "channelId":  "UC_7H4jMMoa2tDFNhvg8sBtQ",
-                       "channelTitle":  "Igasugust kanalil smorodin130 Music",
-                       "publishedAt":  "2026-11-28T01:23:58Z",
-                       "views":  62,
-                       "likes":  1,
-                       "thumbnail":  "https://i.ytimg.com/vi/n-qQ4INcqc4/hqdefault.jpg"
                    },
                    {
                        "id":  "Og1AcWlHA-c",
@@ -507,20 +423,9 @@
                        "channelId":  "UCuaQlv1Zv9iXaKcp1VBH7Bg",
                        "channelTitle":  "michael shtibelman",
                        "publishedAt":  "2026-11-27T17:18:54Z",
-                       "views":  341,
+                       "views":  345,
                        "likes":  8,
                        "thumbnail":  "https://i.ytimg.com/vi/Og1AcWlHA-c/hqdefault.jpg"
-                   },
-                   {
-                       "id":  "q8xAffY5xmc",
-                       "url":  "https://www.youtube.com/shorts/q8xAffY5xmc",
-                       "title":  "27 ноября 2026 г.",
-                       "channelId":  "UCPPmhF2ZSa9A4V04ArJvuGQ",
-                       "channelTitle":  "Вячеслав Степанов",
-                       "publishedAt":  "2026-11-27T17:13:13Z",
-                       "views":  159,
-                       "likes":  0,
-                       "thumbnail":  "https://i.ytimg.com/vi/q8xAffY5xmc/hqdefault.jpg"
                    },
                    {
                        "id":  "QFj_Ns-jk40",
@@ -540,7 +445,7 @@
                        "channelId":  "UCDBymABVm4XkDakCPIE3RjA",
                        "channelTitle":  "Александр О",
                        "publishedAt":  "2026-11-27T17:45:40Z",
-                       "views":  198,
+                       "views":  214,
                        "likes":  3,
                        "thumbnail":  "https://i.ytimg.com/vi/qKJvRpqXcd4/hqdefault.jpg"
                    },
@@ -573,7 +478,7 @@
                        "channelId":  "UCXImmg9vRj-knL5EgeqTPeg",
                        "channelTitle":  "Anubis",
                        "publishedAt":  "2026-11-27T16:54:51Z",
-                       "views":  1121,
+                       "views":  1122,
                        "likes":  4,
                        "thumbnail":  "https://i.ytimg.com/vi/t6MWeTC3aAY/hqdefault.jpg"
                    },
@@ -584,7 +489,7 @@
                        "channelId":  "UC-LO8VPdb2ZCENweVguDDHA",
                        "channelTitle":  "Александр О",
                        "publishedAt":  "2026-11-27T17:40:08Z",
-                       "views":  765,
+                       "views":  776,
                        "likes":  7,
                        "thumbnail":  "https://i.ytimg.com/vi/T7kZxxIQ8jc/hqdefault.jpg"
                    },
@@ -595,8 +500,8 @@
                        "channelId":  "UCxqfJ_LUXUhQaKcdCCth4xw",
                        "channelTitle":  "Александр О",
                        "publishedAt":  "2026-11-28T06:05:24Z",
-                       "views":  148,
-                       "likes":  2,
+                       "views":  165,
+                       "likes":  3,
                        "thumbnail":  "https://i.ytimg.com/vi/uR3Z3HJF4XE/hqdefault.jpg"
                    },
                    {
@@ -606,7 +511,7 @@
                        "channelId":  "UCXImmg9vRj-knL5EgeqTPeg",
                        "channelTitle":  "Anubis",
                        "publishedAt":  "2026-11-28T07:17:59Z",
-                       "views":  491,
+                       "views":  593,
                        "likes":  3,
                        "thumbnail":  "https://i.ytimg.com/vi/v6Ko-Czuhvo/hqdefault.jpg"
                    },
@@ -617,7 +522,7 @@
                        "channelId":  "UCe8nCV2eQfOD0_OymrKhNtw",
                        "channelTitle":  "Michael",
                        "publishedAt":  "2026-11-27T18:16:35Z",
-                       "views":  444,
+                       "views":  449,
                        "likes":  8,
                        "thumbnail":  "https://i.ytimg.com/vi/vgjEZLhGJ2g/hqdefault.jpg"
                    },
@@ -639,7 +544,7 @@
                        "channelId":  "UCDBymABVm4XkDakCPIE3RjA",
                        "channelTitle":  "Александр О",
                        "publishedAt":  "2026-11-28T06:01:52Z",
-                       "views":  184,
+                       "views":  185,
                        "likes":  4,
                        "thumbnail":  "https://i.ytimg.com/vi/vsc2DeiW1l8/hqdefault.jpg"
                    },
@@ -661,7 +566,7 @@
                        "channelId":  "UC-LO8VPdb2ZCENweVguDDHA",
                        "channelTitle":  "Александр О",
                        "publishedAt":  "2026-11-28T05:55:44Z",
-                       "views":  214,
+                       "views":  218,
                        "likes":  2,
                        "thumbnail":  "https://i.ytimg.com/vi/Xzpq9h3V2MQ/hqdefault.jpg"
                    }

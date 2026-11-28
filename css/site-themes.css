@@ -19,7 +19,8 @@
   --hero-glow: #b60c2c;
 }
 
-/* ==================== ТЕКУЩИЕ ТЕМЫ ==================== */
+
+/* Алое золото*/
 :root, :root[data-theme="scarlet"] {
   color-scheme: dark;
   --bg: #15080a;
@@ -34,7 +35,7 @@
   --hero-end: #24090e;
   --hero-glow: #b60c2c;
 }
-
+/* Клубничная*/
 :root[data-theme="berry"] {
   color-scheme: dark;
   --bg: #190c16;
@@ -50,36 +51,8 @@
   --hero-glow: #9d3563;
 }
 
-:root[data-theme="emerald"] {
-  color-scheme: dark;
-  --bg: #0c1917;
-  --panel: #142723;
-  --line: #31574e;
-  --text: #effff7;
-  --muted: #b2cec5;
-  --pink: #74dfab;
-  --gold: #f4d59a;
-  --accent-ink: #12352b;
-  --hero-start: #144f3e;
-  --hero-end: #18332e;
-  --hero-glow: #387c61;
-}
 
-:root[data-theme="sapphire"] {
-  color-scheme: dark;
-  --bg: #101522;
-  --panel: #19243b;
-  --line: #3c527a;
-  --text: #f1f5ff;
-  --muted: #bacbe6;
-  --pink: #8bbaff;
-  --gold: #d4c3ff;
-  --accent-ink: #142647;
-  --hero-start: #25396a;
-  --hero-end: #1d294e;
-  --hero-glow: #5861b5;
-}
-
+/* Зимняя сказка*/
 :root[data-theme="winter"] {
   color-scheme: light;
   --bg: #f3f9ff;
@@ -95,9 +68,9 @@
   --hero-glow: #b7d9f0;
 }
 
-/* ==================== МОИ НОВЫЕ ТЕМЫ ==================== */
 
-/* Лавандовая — свежая, нежная, современная */
+
+/* Лавандовая */
 :root[data-theme="lavender"] {
   color-scheme: dark;
   --bg: #0f0c15;
@@ -113,7 +86,7 @@
   --hero-glow: #8a6aff;
 }
 
-/* Медовая — тёплая, уютная, вечерний эфир */
+/* Медовая*/
 :root[data-theme="honey"] {
   color-scheme: dark;
   --bg: #160f08;
@@ -129,7 +102,7 @@
   --hero-glow: #b38b4f;
 }
 
-/* Лаймовая — свежая, энергичная, молодёжь */
+/* Лаймовая*/
 :root[data-theme="lime"] {
   color-scheme: dark;
   --bg: #0a1208;
@@ -145,7 +118,7 @@
   --hero-glow: #6ac66a;
 }
 
-/* Розово-оранжевая (Корал) — страстная, яркая */
+/* Корал*/
 :root[data-theme="coral"] {
   color-scheme: dark;
   --bg: #140f12;
@@ -161,18 +134,3 @@
   --hero-glow: #b85f7a;
 }
 
-/* Бирюзовая — свежая, «пляжная» свежесть */
-:root[data-theme="turquoise"] {
-  color-scheme: dark;
-  --bg: #08120f;
-  --panel: #142722;
-  --line: #4a7a6e;
-  --text: #e6fff7;
-  --muted: #b8e0d4;
-  --pink: #77ffdd;
-  --gold: #c4ffdb;
-  --accent-ink: #0f2a23;
-  --hero-start: #1f5e4e;
-  --hero-end: #132a26;
-  --hero-glow: #5ecca8;
-}

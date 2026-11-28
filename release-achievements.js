@@ -161,6 +161,64 @@
         card.append(updated);
       }
 
+      if (Array.isArray(item.videoList) && item.videoList.length > 0) {
+        const details = document.createElement('details');
+        details.className = 'achievement-platform-spoiler';
+
+        const summary = document.createElement('summary');
+        summary.textContent = `Смотреть ролики (${item.videoList.length})`;
+
+        const list = document.createElement('div');
+        list.className = 'achievement-platform-links';
+
+        const sortedVideos = [...item.videoList].sort((a, b) => count(b.views) - count(a.views));
+
+        for (const v of sortedVideos) {
+          if (!v.url) continue;
+
+          const link = document.createElement('a');
+          link.className = 'achievement-video-item';
+          link.href = v.url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+
+          const thumbUrl = v.thumbnail || (v.id ? `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg` : '');
+          if (thumbUrl) {
+            const img = document.createElement('img');
+            img.className = 'achievement-video-thumb';
+            img.src = thumbUrl;
+            img.alt = v.title || '';
+            img.loading = 'lazy';
+            link.append(img);
+          }
+
+          const info = document.createElement('div');
+          info.className = 'achievement-video-info';
+
+          const title = document.createElement('span');
+          title.className = 'achievement-video-title';
+          title.textContent = v.title || v.url;
+
+          const sub = document.createElement('span');
+          sub.className = 'achievement-video-meta';
+          const metaParts = [];
+          if (v.channelTitle) metaParts.push(v.channelTitle);
+          if (Number.isFinite(v.views)) {
+            metaParts.push(`${fmt(count(v.views))} ${plural(count(v.views), 'просмотр', 'просмотра', 'просмотров')}`);
+          }
+          sub.textContent = metaParts.join(' · ');
+
+          info.append(title, sub);
+          link.append(info);
+          list.append(link);
+        }
+
+        if (list.children.length > 0) {
+          details.append(summary, list);
+          card.append(details);
+        }
+      }
+
       container.append(card);
     }
 
@@ -215,12 +273,19 @@
 
       const views = count(data.stats.views);
       const videos = count(data.stats.videoCount);
+      const videoList = Array.isArray(data.videos) ? data.videos : [];
 
       return {
         views,
         videos,
         names: ['YouTube'],
-        breakdown: [{ label: '▶ YouTube Shorts', views, videos, updatedAt: data.updatedAt || null }]
+        breakdown: [{
+          label: '▶ YouTube Shorts',
+          views,
+          videos,
+          updatedAt: data.updatedAt || null,
+          videoList
+        }]
       };
     } catch {
       return null;
